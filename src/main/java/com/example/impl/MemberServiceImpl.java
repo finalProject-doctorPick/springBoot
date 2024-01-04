@@ -1,5 +1,6 @@
 package com.example.impl;
 
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -20,6 +21,11 @@ public class MemberServiceImpl implements MemberService{
     private final MemberRepository memberRepository;
     private final RoleRepository roleRepository;
 
+    private static final Map<String, String> roleMap = Map.of(
+            "A", "ROLE_ADMIN",
+            "D", "ROLE_DOCTOR",
+            "S", "ROLE_DRUGSTORE"
+    );
     
     @Transactional(readOnly = true)
     public Optional<Member> getMember(Integer memberId){
@@ -35,8 +41,13 @@ public class MemberServiceImpl implements MemberService{
 
     @Transactional
     public Member addMember(Member member) {
-        Optional<Role> userRole = roleRepository.findByMemberName("ROLE_USER");
-        member.addRole(userRole.get());
+    	// 가입 직군 별 역할 설정
+        String role = roleMap.getOrDefault(member.getMemberAuth(), "ROLE_USER");
+
+        Role userRole = roleRepository.findByRoles(role).orElseThrow(() -> new RuntimeException("Role not found"));
+        member.addRole(userRole);
+        
+        // 회원정보 저장
         Member saveMember = memberRepository.save(member);
         return saveMember;
     }

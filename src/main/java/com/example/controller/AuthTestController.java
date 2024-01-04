@@ -16,9 +16,6 @@ public class AuthTestController {
 	@GetMapping("/hello")
 	public String hello(@RequestHeader("Authorization") String token) {
 		Integer userIdToken = tokenizer.getUserIdFromToken(token);
-		System.out.println("************************************************************************");
-		System.out.println("hello 진입 후 userIdToken 값 : " + userIdToken);
-		System.out.println("************************************************************************");
 		return "Hello, " + userIdToken;
 	}
 }

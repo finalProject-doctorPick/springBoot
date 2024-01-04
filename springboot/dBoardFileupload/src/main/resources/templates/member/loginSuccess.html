@@ -1,0 +1,16 @@
+<!-- 타임리프설정 -->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>로그인성공</title>
+</head>
+<body>
+	<h1>로그인성공페이지</h1>
+	<div><span th:text="${session[member].name}"></span>님로그인성공</div>
+	<!-- <div><span th:text=""></span>님로그인성공</div> -->
+	
+	<hr/>
+	<a >로그아웃</a>
+</body>
+</html>

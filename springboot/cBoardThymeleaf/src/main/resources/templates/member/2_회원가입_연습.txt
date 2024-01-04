@@ -1,0 +1,26 @@
+
+
+0. 데이타베이스 테이블 생성
+
+		CREATE TABLE member
+		( 	id VARCHAR(10),
+			name VARCHAR(20),
+			pass VARCHAR(10)
+		);
+		
+		
+		(*********) mariadb에서 컬럼명에 대소문자를 구분한다 
+		
+		
+1. VO		: MemberVO.java
+
+2. Controller 	: MemberController.java
+
+3. Service 		: MemberService.java / MemberServiceImpl.java
+
+4. DAO		: MemberDAO.java
+
+5. mapper		: MemberMapper.xml
+
+		
+		

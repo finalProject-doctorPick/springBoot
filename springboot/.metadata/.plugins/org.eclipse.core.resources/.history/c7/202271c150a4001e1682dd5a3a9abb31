@@ -1,0 +1,17 @@
+package com.example.domain;
+
+import java.util.Date;
+
+import jakarta.persistence.Entity;
+import lombok.Data;
+
+@Data
+@Entity
+public class Employee {
+	private Integer empno;
+	private String 	ename;
+	private Integer	mgr;
+	private Date	hiredate;
+	private Integer sal;
+	private Integer comm;
+}

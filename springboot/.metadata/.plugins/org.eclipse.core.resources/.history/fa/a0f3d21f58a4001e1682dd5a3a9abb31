@@ -1,0 +1,10 @@
+package com.example.domain;
+
+import lombok.Data;
+
+@Data
+public class Department {
+	private Integer deptno;
+	private String dname;
+	private String loc;
+}

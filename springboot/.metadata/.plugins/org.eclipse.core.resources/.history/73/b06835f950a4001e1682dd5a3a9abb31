@@ -1,0 +1,19 @@
+package com.example.domain;
+
+import java.util.Date;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+@Data		// Lombok
+@Entity		// DTO
+@Table(name="emp_a")
+public class Employee {
+	private Integer empno;
+	private String 	ename;
+	private Integer	mgr;
+	private Date	hiredate;
+	private Integer sal;
+	private Integer comm;
+}

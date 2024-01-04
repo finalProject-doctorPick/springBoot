@@ -1,0 +1,24 @@
+package com.example.controller;
+
+public class rosjdg {
+
+	public static void main(String[] args) {
+		// 1. 무조건 출석
+//		private static boolean attendance = true;
+		
+		// 2. 진척없는 업무 1시간 이상 금지
+//		int 뺑이 = 0 * 60 * 60;
+		
+		// 3. 스트레스 받을 시 샤우팅하기
+		boolean stress = false;
+		if(stress) {
+			shouting();
+		}
+		
+		// 4. 
+	}
+
+	public void shouting() {
+		System.out.println("고함을 지르고 오다");
+	}
+}

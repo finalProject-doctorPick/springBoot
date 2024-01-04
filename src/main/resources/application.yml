@@ -14,8 +14,14 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+        naming:
+          physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
     database-platform: org.hibernate.dialect.MySQL8Dialect
     
+jdbc:
+  template:
+    naming-strategy: org.springframework.boot.jdbc.metadata.SmartCampaignNamingStrategy
+      
 mybatis:
   mapper-locations: classpath:mappers/**/*Mapper.xml
   

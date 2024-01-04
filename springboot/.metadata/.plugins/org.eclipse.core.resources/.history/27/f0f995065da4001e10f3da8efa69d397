@@ -1,0 +1,29 @@
+@Data
+@Entity
+@Table(name="emp")
+public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer empno;
+
+    private String ename;
+
+    @Column(nullable = true)
+    private Integer mgr;
+
+    @Column(nullable = true)
+    private Date hiredate;
+
+    @Column(nullable = true)
+    private Integer sal;
+
+    @Column(nullable = true)
+    private Integer comm;
+
+    @Column(nullable = true)
+    private String job;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "deptno")
+    private Department dept;
+}
