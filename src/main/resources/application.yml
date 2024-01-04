@@ -1,0 +1,24 @@
+jwt:
+  secretKey: f2a17febf44cfbfdaa4a8f978ed40036b9ef79b8e8c5d93c199bd19b1b476e60
+  refreshKey: 1f2580e6ec29ac83342bb8a487eeb1b7c5d6e9e683991f896a8393f6f1b5e5db
+
+spring:
+  datasource:
+    url: jdbc:mariadb://175.114.130.17:3306/FINAL
+    username: sungq
+    password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    
+mybatis:
+  mapper-locations: classpath:mappers/**/*Mapper.xml
+  
+logging:
+  level:
+    org.springframework: DEBUG
