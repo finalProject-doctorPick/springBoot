@@ -57,6 +57,12 @@ public class MemberController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         
+        // 이메일 중복 체크
+//        if (memberService.findByEmail(memberSignupDTO.getMemberEmail()).equals("")) {
+//        	// 존재 시 Exception
+//            return new ResponseEntity("Email already exists", HttpStatus.BAD_REQUEST);
+//        }
+        
         Member member = new Member();
         
         member.setMemberEmail(memberSignupDTO.getMemberEmail());
@@ -93,14 +99,14 @@ public class MemberController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
-        // email이 없을 경우 Exception
+//        // email이 없을 경우 Exception
         Member member = memberService.findByEmail(loginDTO.getMemberEmail());
-        if(!passwordEncoder.matches(loginDTO.getMemberPwd(), member.getMemberPwd())){
-            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
-        }
+//        if(!passwordEncoder.matches(loginDTO.getMemberPwd(), member.getMemberPwd())){
+//            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+//        }
         
         // List<Role> ===> List<String>
-        List<String> roles = member.getRoles().stream().map(Role::getMemberName).collect(Collectors.toList());
+        List<String> roles = member.getRoles().stream().map(Role::getRoles).collect(Collectors.toList());
 
         // JWT토큰 생성
         String accessToken = jwtTokenizer.createAccessToken(member.getMemberId(), member.getMemberEmail(), roles);
