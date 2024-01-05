@@ -58,11 +58,10 @@ public class MemberController {
         }
         
         // 이메일 중복 체크
-        
-//        if (!memberService.findByEmail(memberSignupDTO.getMemberEmail()).equals("")) {
-//        	// 존재 시 Exception
-//            return new ResponseEntity("Email already exists", HttpStatus.BAD_REQUEST);
-//        }
+        if (memberService.findByEmail(memberSignupDTO.getMemberEmail()).equals("")) {
+        	// 존재 시 Exception
+            return new ResponseEntity("Email already exists", HttpStatus.BAD_REQUEST);
+        }
         
         Member member = new Member();
         
