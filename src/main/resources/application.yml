@@ -18,6 +18,7 @@ spring:
     
 mybatis:
   mapper-locations: classpath:mappers/**/*Mapper.xml
+  type-aliases-package: com.example.domain
   
 logging:
   level:

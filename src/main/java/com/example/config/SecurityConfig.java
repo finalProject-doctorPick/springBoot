@@ -31,8 +31,6 @@ public class SecurityConfig {
 	            .and()
 	            .formLogin().disable()
 	            .csrf().disable()
-	            .cors()
-	            .and()
 	            .apply(authenticationManagerConfig)
 	            .and()
 	            .httpBasic().disable()
@@ -40,12 +38,14 @@ public class SecurityConfig {
 	            .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 	            .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 	            .antMatchers("/members/signup", "/members/login", "/members/refreshToken").permitAll()
-	            .antMatchers(HttpMethod.GET, "/**").hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
-	            .antMatchers(HttpMethod.POST, "/**").hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
-	            .anyRequest().hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
+	            .antMatchers(HttpMethod.GET, "/**").hasAnyRole("ROLE_USER", "ROLE_ADMIN", "ROLE_DOCTOR", "ROLE_DRUGSTORE")
+	            .antMatchers(HttpMethod.POST, "/**").hasAnyRole("ROLE_USER", "ROLE_ADMIN", "ROLE_DOCTOR", "ROLE_DRUGSTORE")
+	            .anyRequest().hasAnyRole("ROLE_USER", "ROLE_ADMIN", "ROLE_DOCTOR", "ROLE_DRUGSTORE")
 	            .and()
 	            .exceptionHandling()
 	            .authenticationEntryPoint(customAuthenticationEntryPoint)
+	            .and()
+	            .cors()
 	            .and()
 	            .build();
     }
@@ -56,6 +56,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOrigin("*");
         config.addAllowedMethod("*");
+        config.addAllowedHeader("*");
 
         source.registerCorsConfiguration("/**", config);
 
