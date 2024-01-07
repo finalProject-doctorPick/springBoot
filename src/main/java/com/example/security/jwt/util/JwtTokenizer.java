@@ -85,16 +85,9 @@ public class JwtTokenizer {
     public Integer getUserIdFromToken(String token) {
         String[] tokenArr = token.split(" ");
         token = tokenArr[1];
-        System.out.println("************************************************************************");
-        System.out.println("getUserIdFromToken 진입 후 tokenArr[1] 값 : " + token);
-        System.out.println("************************************************************************");
         
         Claims claims = parseToken(token, accessSecret);
         Integer result = (Integer)claims.get("userId");
-        
-        System.out.println("************************************************************************");
-        System.out.println("return 전 result 값 : " + result);
-        System.out.println("************************************************************************");
         
         return result; 
     }

@@ -21,11 +21,6 @@ public class MemberServiceImpl implements MemberService{
     private final RoleRepository roleRepository;
 
     @Transactional(readOnly = true)
-    public Optional<Member> getMember(Integer memberId){
-    	return memberRepository.findById(memberId);
-    }
-    
-    @Transactional(readOnly = true)
     public Member findByEmail(String email){
         return memberRepository.findByMemberEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("해당 이메일을 가진 사용자를 찾을 수 없습니다: " + email));
@@ -44,4 +39,13 @@ public class MemberServiceImpl implements MemberService{
         return saveMember;
     }
 
+    @Transactional(readOnly = true)
+    public Optional<Member> getMember(Integer memberId){
+    	return memberRepository.findById(memberId);
+    }
+    
+    @Transactional(readOnly = true)
+    public Optional<Member> getMember(String email){
+        return memberRepository.findByMemberEmail(email);
+    }
 }
