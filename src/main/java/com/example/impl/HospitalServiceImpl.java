@@ -10,18 +10,20 @@ import com.example.domain.Hospital;
 import com.example.service.HospitalService;
 
 @Service
-public class HospitalServiceImpl implements HospitalService{
-	
-	private final HospitalDAO hospitalDAO = null;
+public class HospitalServiceImpl implements HospitalService {
 
-	@Override
-	public List<Hospital> getHospitalList() {
-		List<Hospital> list = hospitalDAO.getHospitalList();
-		System.out.println("데이터 확인 : " + list.size());
-		
-		return list;
-	}
-	
-	
-	
+    private final HospitalDAO hospitalDAO;
+
+    @Autowired
+    public HospitalServiceImpl(HospitalDAO hospitalDAO) {
+        this.hospitalDAO = hospitalDAO;
+    }
+
+    @Override
+    public List<Hospital> getHospitalList() {
+        List<Hospital> list = hospitalDAO.getHospitalList();
+        System.out.println("데이터 확인 : " + list.size());
+
+        return list;
+    }
 }
