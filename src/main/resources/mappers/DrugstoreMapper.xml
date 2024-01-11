@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.DrugstoreDAO">
+    <resultMap id="DrugstoreResultMap" type="com.example.domain.Drugstore">
+        <id property="drugstoreId" column="drugstore_id"/>
+        <result property="drugstoreEmail" column="drugstore_email"/>
+        <result property="drugstoreName" column="drugstore_name"/>
+        <result property="drugstoreAddrMain" column="drugstore_addr_main"/>
+        <result property="drugstoreAddrDetail" column="drugstore_addr_detail"/>
+        <result property="drugstoreLati" column="drugstore_lati"/>
+        <result property="drugstoreLong" column="drugstore_long"/>
+        <result property="drugstoreJoinDate" column="drugstore_join_date"/>
+        <result property="drugstoreLeaveDate" column="drugstore_leave_date"/>
+    </resultMap>
+    
+    <select id="selectDrugstore">
+		SELECT *
+		  FROM drugstore
+		 LIMIT 10
+	</select>
+</mapper>

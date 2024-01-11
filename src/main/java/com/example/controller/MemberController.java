@@ -51,17 +51,11 @@ public class MemberController {
      * 
      * */
     @PostMapping("/signup")
-    public ResponseEntity signup(@RequestBody @Valid MemberSignupDTO memberSignupDTO, BindingResult bindingResult) {
+    public ResponseEntity<?> signup(@RequestBody @Valid MemberSignupDTO memberSignupDTO, BindingResult bindingResult) {
     	
         if (bindingResult.hasErrors()) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        
-        // 이메일 중복 체크
-//        if (memberService.findByEmail(memberSignupDTO.getMemberEmail()).equals("")) {
-//        	// 존재 시 Exception
-//            return new ResponseEntity("Email already exists", HttpStatus.BAD_REQUEST);
-//        }
         
         Member member = new Member();
         
@@ -81,7 +75,7 @@ public class MemberController {
         memberSignupResponse.setMemberName(saveMember.getMemberName());
         memberSignupResponse.setMemberEmail(saveMember.getMemberEmail());
         
-        return new ResponseEntity(memberSignupResponse, HttpStatus.CREATED);
+        return new ResponseEntity<>(memberSignupResponse, HttpStatus.CREATED);
     }
 
     /**

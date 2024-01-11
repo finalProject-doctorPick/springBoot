@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.DoctorDAO">
+	<resultMap id="DoctorResultMap" type="com.example.domain.Doctor">
+        <id property="doctorId" 			column="doctor_id"/>
+        <result property="doctorEmail" 		column="doctor_email"/>
+        <result property="hospitalId" 		column="hospital_id"/>
+        <result property="doctorPwd" 		column="doctor_pwd"/>
+        <result property="doctorName" 		column="doctor_name"/>
+        <result property="doctorBirth" 		column="doctor_birth"/>
+        <result property="doctorSex" 		column="doctor_sex"/>
+        <result property="doctorTel" 		column="doctor_tel"/>
+        <result property="doctorAddrMain" 	column="doctor_addr_main"/>
+        <result property="doctorAddrDetail" column="doctor_addr_detail"/>
+        <result property="doctorSubject" 	column="doctor_subject"/>
+        <result property="doctorMajor" 		column="doctor_major"/>
+        <result property="doctorComments" 	column="doctor_comments"/>
+        <result property="fileId" 			column="file_id"/>
+        <result property="doctorJoinDate" 	column="doctor_join_date"/>
+        <result property="doctorLeaveDate" 	column="doctor_leave_date"/>
+        <result property="doctorConfirmYn" 	column="doctor_confirm_yn"/>
+    </resultMap>
+    
+    <insert id="registerDoctor" parameterType="com.example.domain.Doctor">
+		INSERT INTO doctor(
+			  doctor_email
+			, doctor_pwd
+			, doctor_name
+			, doctor_birth
+			, doctor_sex
+			, doctor_addr_main
+			, doctor_addr_detail
+			, file_id			
+		)
+		VALUES(
+			  #{doctorEmail}
+			, #{doctorPwd}
+			, #{doctorName}
+			, #{doctorBirth}
+			, #{doctorSex}
+			, #{doctorAddrMain}
+			, #{doctorAddrDetail}
+			, #{fileId}
+		)
+
+	</insert>
+</mapper>
