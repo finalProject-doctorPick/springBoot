@@ -11,7 +11,7 @@ import com.example.security.jwt.util.IfLoginArgumentResolver;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-//zz
+
     // CORS
     @Override
     public void addCorsMappings(CorsRegistry registry) {

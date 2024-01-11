@@ -13,6 +13,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.example.domain.Files;
 import com.example.security.jwt.exception.CustomAuthenticationEntryPoint;
 
 import lombok.RequiredArgsConstructor;
@@ -37,7 +38,7 @@ public class SecurityConfig {
 	            .authorizeRequests()
 	            .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 	            .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-	            .antMatchers("/members/signup", "/members/login", "/members/refreshToken").permitAll()
+	            .antMatchers("/users/signup", "/users/login", "/users/refreshToken").permitAll()
 	            .antMatchers(HttpMethod.GET, "/**").hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
 	            .antMatchers(HttpMethod.POST, "/**").hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
 	            .anyRequest().hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
@@ -66,5 +67,10 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+    
+    @Bean
+    public Files files() {
+        return new Files();
     }
 }
