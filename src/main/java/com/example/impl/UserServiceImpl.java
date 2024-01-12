@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.dto.MemberLoginDTO;
 import com.example.dto.UserSignupDTO;
 import com.example.dto.UserSignupResponseDTO;
 import com.example.service.DoctorService;
@@ -80,5 +81,17 @@ public class UserServiceImpl implements UserService{
                 || doctorService.existsByDoctorEmail(email)
                 || drugstoreService.existsByDrugstoreEmail(email);
     }
+
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-11
+     *  @param		: UserLoginDTO
+     *  @return		: ResponseEntity
+     * 	@explain	: login > 필요 토큰 생성 및 저장
+     * */
+	public ResponseEntity<?> login(MemberLoginDTO loginDTO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
