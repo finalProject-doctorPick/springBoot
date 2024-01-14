@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.RefreshToken;
+import com.example.dto.RefreshTokenDTO;
 import com.example.repository.RefreshTokenRepository;
 import com.example.service.RefreshTokenService;
 
@@ -22,10 +23,19 @@ public class RefreshTokenServiceImpl implements RefreshTokenService{
         return refreshTokenRepository.save(refreshToken);
     }
 
+//    @Transactional
+//    public void deleteRefreshToken(String refreshToken) {
+//        refreshTokenRepository.findByValue(refreshToken).ifPresent(refreshTokenRepository::delete);
+//    }
+    
     @Transactional
     public void deleteRefreshToken(String refreshToken) {
-        refreshTokenRepository.findByValue(refreshToken).ifPresent(refreshTokenRepository::delete);
+        refreshTokenRepository.findByValue(refreshToken).ifPresent(refreshTokenEntity -> {
+            Long id = refreshTokenEntity.getId();
+            refreshTokenRepository.deleteById(id);
+        });
     }
+
 
     @Transactional(readOnly = true)
     public Optional<RefreshToken> findRefreshToken(String refreshToken) {

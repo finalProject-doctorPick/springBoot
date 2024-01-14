@@ -24,6 +24,7 @@ import com.example.dto.MemberLoginResponseDTO;
 import com.example.dto.MemberDTO;
 import com.example.dto.MemberSignupResponseDTO;
 import com.example.dto.RefreshTokenDTO;
+import com.example.dto.RoleDTO;
 import com.example.security.jwt.util.JwtTokenizer;
 import com.example.service.MemberService;
 import com.example.service.RefreshTokenService;
@@ -101,7 +102,7 @@ public class MemberController {
         System.out.println("member 값 : " + member.toString());
         
         // List<Role> ===> List<String>
-        List<String> roles = member.getRoles().stream().map(Role::getRoles).collect(Collectors.toList());
+        List<String> roles = member.getRoles().stream().map(RoleDTO::getRoles).collect(Collectors.toList());
 
         System.out.println("roles 값 : " + roles.toString());
         // JWT토큰 생성
@@ -114,7 +115,7 @@ public class MemberController {
         // RefreshToken 생성 및 저장
         RefreshToken refreshTokenEntity = new RefreshToken();
         refreshTokenEntity.setValue(refreshToken);
-        refreshTokenEntity.setMemberId(member.getMemberId());
+        refreshTokenEntity.setUserId(member.getMemberId());
         refreshTokenService.addRefreshToken(refreshTokenEntity);
 
         MemberLoginResponseDTO loginResponse = MemberLoginResponseDTO.builder()
@@ -135,8 +136,8 @@ public class MemberController {
      * 
      * */
     @DeleteMapping("/logout")
-    public ResponseEntity logout(@RequestBody RefreshTokenDTO refreshTokenDTO) {
-        refreshTokenService.deleteRefreshToken(refreshTokenDTO.getRefreshToken());
+    public ResponseEntity logout(@RequestBody RefreshToken refreshToken) {
+        refreshTokenService.deleteRefreshToken(refreshToken.getRefreshToken());
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -149,8 +150,8 @@ public class MemberController {
      * 
      * */
     @PostMapping("/refreshToken")
-    public ResponseEntity requestRefresh(@RequestBody RefreshTokenDTO refreshTokenDTO) {
-        RefreshToken refreshToken = refreshTokenService.findRefreshToken(refreshTokenDTO.getRefreshToken()).orElseThrow(() -> new IllegalArgumentException("Refresh token not found"));
+    public ResponseEntity requestRefresh(@RequestBody RefreshToken param) {
+        RefreshToken refreshToken = refreshTokenService.findRefreshToken(param.getRefreshToken()).orElseThrow(() -> new IllegalArgumentException("Refresh token not found"));
         Claims claims = jwtTokenizer.parseRefreshToken(refreshToken.getValue());
 
         Integer userId = (Integer)claims.get("userId");
@@ -165,7 +166,7 @@ public class MemberController {
 
         MemberLoginResponseDTO loginResponse = MemberLoginResponseDTO.builder()
                 .accessToken(accessToken)
-                .refreshToken(refreshTokenDTO.getRefreshToken())
+                .refreshToken(refreshToken.getRefreshToken())
                 .memberId(member.getMemberId())
                 .memberName(member.getMemberName())
                 .build();

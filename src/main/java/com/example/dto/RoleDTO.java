@@ -12,17 +12,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="refresh_token")
+@Table(name="roles")
 @NoArgsConstructor
 @Setter
 @Getter
-public class RefreshTokenDTO {
-	@Id
+public class RoleDTO {
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @Column(name = "member_id")
-    private Integer memberId;
-    
-    private String value;
+	@Column(name = "role_id")
+    private Integer roleId;
+
+    private String roles;
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "roleId=" + roleId +
+                ", name='" + roles + '\'' +
+                '}';
+    }
+
 }

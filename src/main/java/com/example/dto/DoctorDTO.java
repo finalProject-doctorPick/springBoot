@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,16 +13,21 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 import com.example.domain.Role;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Entity
+@Table(name = "doctor")
 @NoArgsConstructor
-@AllArgsConstructor
+@Setter
+@Getter
 public class DoctorDTO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -63,10 +69,9 @@ public class DoctorDTO implements Serializable{
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_email", referencedColumnName = "doctor_email"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<Role> roles = new HashSet<>();
+	private Set<RoleDTO> roles = new HashSet<>();
 	
-	
-	public void addRole(Role role) {
-		roles.add(role);
+	public void addRole(RoleDTO doctorRole) {
+		roles.add(doctorRole);
 	}
 }

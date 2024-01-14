@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.domain.Role;
+import com.example.dto.RoleDTO;
 
-public interface RoleRepository extends JpaRepository<Role, Integer> {
-	 Optional<Role> findByRoles(String name);
+public interface RoleRepository extends JpaRepository<RoleDTO, Integer> {
+	 Optional<RoleDTO> findByRoles(String name);
 }

@@ -1,15 +1,15 @@
 package com.example.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Drugstore {
+	
 	// 약국 ID
-	@Id
 	private Integer drugstoreId;
 	
 	// 약국 이메일

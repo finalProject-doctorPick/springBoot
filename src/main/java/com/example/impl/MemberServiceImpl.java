@@ -12,6 +12,7 @@ import com.example.domain.Role;
 import com.example.domain.UserRequest;
 import com.example.domain.UserResponse;
 import com.example.dto.MemberDTO;
+import com.example.dto.RoleDTO;
 import com.example.repository.MemberRepository;
 import com.example.repository.RoleRepository;
 import com.example.service.MemberService;
@@ -37,7 +38,7 @@ public class MemberServiceImpl implements MemberService{
     	// 회원 & 관리자 구분
         String role = member.getMemberAuth().equals("A")? "ROLE_ADMIN" : "ROLE_USER";
 
-        Role userRole = roleRepository.findByRoles(role).orElseThrow(() -> new RuntimeException("Role not found"));
+        RoleDTO userRole = roleRepository.findByRoles(role).orElseThrow(() -> new RuntimeException("Role not found"));
         member.addRole(userRole);
         
         // 회원정보 저장
@@ -70,7 +71,7 @@ public class MemberServiceImpl implements MemberService{
     	
     	String role = memberData.getUserAuth().equals("A")? "ROLE_ADMIN" : "ROLE_USER";
     	
-    	Role memberRole = roleRepository.findByRoles(role).orElseThrow(() -> new RuntimeException("Role not found"));
+    	RoleDTO memberRole = roleRepository.findByRoles(role).orElseThrow(() -> new RuntimeException("Role not found"));
     	
     	insertMember.addRole(memberRole);
     	insertMember.setMemberEmail(memberData.getUserEmail());

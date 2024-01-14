@@ -59,10 +59,11 @@ public class MemberDTO implements Serializable{
     private Integer memberPoint;
     
     @ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_email", referencedColumnName = "member_email"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<Role> roles = new HashSet<>();
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_email", referencedColumnName = "member_email"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<RoleDTO> roles = new HashSet<>();
 
-	public void addRole(Role role) {
+
+	public void addRole(RoleDTO role) {
 		roles.add(role);
 	}
 

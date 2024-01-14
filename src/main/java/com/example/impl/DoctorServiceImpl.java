@@ -9,10 +9,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dao.DoctorDAO;
 import com.example.domain.Doctor;
-import com.example.domain.Role;
 import com.example.domain.UserRequest;
 import com.example.domain.UserResponse;
 import com.example.dto.DoctorDTO;
+import com.example.dto.RoleDTO;
 import com.example.repository.DoctorRepository;
 import com.example.repository.RoleRepository;
 import com.example.service.DoctorService;
@@ -53,7 +53,7 @@ public class DoctorServiceImpl implements DoctorService{
         
         // 의사 역할 부여
         String role = "ROLE_DOCTOR";
-        Role doctorRole = roleRepository.findByRoles(role).orElseThrow(() -> new RuntimeException("Role not found"));
+        RoleDTO doctorRole = roleRepository.findByRoles(role).orElseThrow(() -> new RuntimeException("Role not found"));
         
 		// 의사 파일 등록
 		String fileKey = filesService.fileupload(fileList, userSignupDTO.getUserEmail());
