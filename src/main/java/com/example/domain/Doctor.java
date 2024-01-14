@@ -48,8 +48,8 @@ public class Doctor {
 	// 의사 소개
 	private String doctorComments;
 	
-	// 파일 ID
-	private String fileId;
+	// 파일 키
+	private String fileKey;
 	
 	// 의사 가입일
 	private String doctorJoinDate;

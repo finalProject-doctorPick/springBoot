@@ -1,7 +1,6 @@
 package com.example.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -16,13 +15,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.domain.Member;
-import com.example.domain.RefreshToken;
-import com.example.domain.Role;
-import com.example.dto.MemberLoginDTO;
-import com.example.dto.MemberLoginResponseDTO;
-import com.example.dto.UserSignupDTO;
-import com.example.dto.UserSignupResponseDTO;
+import com.example.domain.UserRequest;
 import com.example.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -43,11 +36,10 @@ public class UserController {
      * */
     @PostMapping("/signup")
     public ResponseEntity<?> signup(
-            @ModelAttribute UserSignupDTO userSignupDTO,
-            @RequestPart(name = "fileList", required = false) List<MultipartFile> fileList,
-            BindingResult bindingResult) {
+            @ModelAttribute UserRequest userSignupData,
+            @RequestPart(name = "fileList", required = false) List<MultipartFile> fileList) {
 
-    	ResponseEntity<?> responseEntity = userService.signup(userSignupDTO, fileList);
+    	ResponseEntity<?> responseEntity = userService.signup(userSignupData, fileList);
         return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
     }
     
@@ -59,13 +51,14 @@ public class UserController {
      * 	@explain	: login > 필요 토큰 생성 및 저장
      * */
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid MemberLoginDTO loginDTO, BindingResult bindingResult) {
+    public ResponseEntity<?> login(@RequestBody @Valid UserRequest userLoginData, BindingResult bindingResult) {
         
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         
-        ResponseEntity<?> responseEntity = userService.login(loginDTO);
+        ResponseEntity<?> responseEntity = userService.login(userLoginData);
         return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
     }
+    
 }

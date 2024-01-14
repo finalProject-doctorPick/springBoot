@@ -16,13 +16,13 @@
         <result property="doctorSubject" 	column="doctor_subject"/>
         <result property="doctorMajor" 		column="doctor_major"/>
         <result property="doctorComments" 	column="doctor_comments"/>
-        <result property="fileId" 			column="file_id"/>
+        <result property="fileKey" 			column="file_key"/>
         <result property="doctorJoinDate" 	column="doctor_join_date"/>
         <result property="doctorLeaveDate" 	column="doctor_leave_date"/>
         <result property="doctorConfirmYn" 	column="doctor_confirm_yn"/>
     </resultMap>
     
-    <insert id="registerDoctor" parameterType="com.example.domain.Doctor">
+    <insert id="registerDoctor" parameterType="com.example.dto.DoctorDTO">
 		INSERT INTO doctor(
 			  doctor_email
 			, doctor_pwd
@@ -31,7 +31,7 @@
 			, doctor_sex
 			, doctor_addr_main
 			, doctor_addr_detail
-			, file_id			
+			, file_key			
 		)
 		VALUES(
 			  #{doctorEmail}
@@ -41,8 +41,13 @@
 			, #{doctorSex}
 			, #{doctorAddrMain}
 			, #{doctorAddrDetail}
-			, #{fileId}
+			, #{fileKey}
 		)
-
 	</insert>
+	
+	<select id="findByDoctorByEmail" parameterType="String" resultMap="DoctorResultMap">
+		SELECT *
+		  FROM doctor
+		 WHERE doctor_email = #{email}
+	</select>
 </mapper>

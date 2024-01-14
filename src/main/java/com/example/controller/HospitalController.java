@@ -26,6 +26,7 @@ public class HospitalController {
 	
 	@GetMapping("/getHospitalList")
 	public List<Hospital> getHospitalList(@IfLogin LoginUserDto loginUserDto){
+		/**
 		Optional<Member> member = memberService.getMember(loginUserDto.getEmail());
 		System.out.println("************************************");
 		System.out.println("member 값 : " + member.toString());
@@ -35,7 +36,8 @@ public class HospitalController {
         }
 		
 		List<Hospital> list = hospitalService.getHospitalList();
-		
 		return list;
+		 */
+		return null;
 	}
 }

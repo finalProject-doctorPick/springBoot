@@ -21,7 +21,7 @@ import com.example.domain.RefreshToken;
 import com.example.domain.Role;
 import com.example.dto.MemberLoginDTO;
 import com.example.dto.MemberLoginResponseDTO;
-import com.example.dto.MemberSignupDTO;
+import com.example.dto.MemberDTO;
 import com.example.dto.MemberSignupResponseDTO;
 import com.example.dto.RefreshTokenDTO;
 import com.example.security.jwt.util.JwtTokenizer;
@@ -50,6 +50,7 @@ public class MemberController {
      * 	@explain	: 회원가입
      * 
      * */
+    /**
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody @Valid MemberSignupDTO memberSignupDTO, BindingResult bindingResult) {
     	
@@ -77,6 +78,7 @@ public class MemberController {
         
         return new ResponseEntity<>(memberSignupResponse, HttpStatus.CREATED);
     }
+    */
 
     /**
      * 	@author 	: 백두산	 
@@ -93,19 +95,22 @@ public class MemberController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
-//        // email이 없을 경우 Exception
-        Member member = memberService.findByEmail(loginDTO.getMemberEmail());
-//        if(!passwordEncoder.matches(loginDTO.getMemberPwd(), member.getMemberPwd())){
-//            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
-//        }
+        // email이 없을 경우 Exception
+        MemberDTO member = memberService.findByEmail(loginDTO.getMemberEmail());
+        
+        System.out.println("member 값 : " + member.toString());
         
         // List<Role> ===> List<String>
         List<String> roles = member.getRoles().stream().map(Role::getRoles).collect(Collectors.toList());
 
+        System.out.println("roles 값 : " + roles.toString());
         // JWT토큰 생성
         String accessToken = jwtTokenizer.createAccessToken(member.getMemberId(), member.getMemberEmail(), roles);
         String refreshToken = jwtTokenizer.createRefreshToken(member.getMemberId(), member.getMemberEmail(), roles);
 
+        System.out.println("accessToken 값 :" + accessToken);
+        System.out.println("refreshToken 값 :" + refreshToken);
+        
         // RefreshToken 생성 및 저장
         RefreshToken refreshTokenEntity = new RefreshToken();
         refreshTokenEntity.setValue(refreshToken);
@@ -121,7 +126,6 @@ public class MemberController {
                 .build();
         return new ResponseEntity(loginResponse, HttpStatus.OK);
     }
-
     /**
      * 	@author 	: 백두산	 
      *  @created	: 2024-01-02
@@ -151,7 +155,7 @@ public class MemberController {
 
         Integer userId = (Integer)claims.get("userId");
 
-        Member member = memberService.getMember(userId).orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+        MemberDTO member = memberService.getMember(userId).orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
 
 
         List roles = (List) claims.get("roles");
@@ -167,5 +171,4 @@ public class MemberController {
                 .build();
         return new ResponseEntity(loginResponse, HttpStatus.OK);
     }
-
 }

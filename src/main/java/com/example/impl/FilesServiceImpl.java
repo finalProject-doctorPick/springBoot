@@ -25,12 +25,12 @@ public class FilesServiceImpl implements FilesService{
 	public String fileupload(List<MultipartFile> fileList, String key) {
 		// 파일 키 생성 (LocalDateTime_등록자이메일)
     	String fileKey = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+ "_" + key;
-    	Files result = new Files();
     	
     	for (MultipartFile f : fileList) {
-    		Files registerFile = new Files();
-    		registerFile.setFile(f);
-    		filesDAO.registerFile(registerFile);
+    		Files result = new Files();
+    		result.setFileKey(fileKey);
+    		result.setFile(f);
+    		filesDAO.registerFile(result);
         }
     	
 		return fileKey;
