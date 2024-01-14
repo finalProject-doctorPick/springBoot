@@ -38,7 +38,7 @@ public class SecurityConfig {
 	            .authorizeRequests()
 	            .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 	            .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-	            .antMatchers("/users/signup", "/users/login", "/users/refreshToken").permitAll()
+	            .antMatchers("/users/signup", "/users/login", "/users/refreshToken", "/members/signup", "/members/login", "/members/refreshToken").permitAll()
 	            .antMatchers(HttpMethod.GET, "/**").hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
 	            .antMatchers(HttpMethod.POST, "/**").hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
 	            .anyRequest().hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")

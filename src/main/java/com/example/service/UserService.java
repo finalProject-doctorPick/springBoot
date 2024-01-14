@@ -2,16 +2,15 @@ package com.example.service;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.dto.UserSignupDTO;
+import com.example.domain.UserRequest;
 
 public interface UserService {
 
-	@Transactional
-	ResponseEntity<?> signup(UserSignupDTO userSignupDTO, List<MultipartFile> file);
+	ResponseEntity<?> signup(UserRequest userSignupData, List<MultipartFile> file);
+
+	ResponseEntity<?> login(UserRequest userLoginData);
 	
 }

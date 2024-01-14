@@ -2,17 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dao.FilesDAO">
+	<resultMap id="FileResultMap" type="com.example.domain.Files">
+        <id property="fileKey" 				column="file_key"/>
+        <result property="originFilename" 	column="origin_file_name"/>
+        <result property="fileName" 		column="file_name"/>
+        <result property="filePath" 		column="file_path"/>
+    </resultMap>
     <insert id="registerFile" parameterType="com.example.domain.Files">
-        INSERT INTO
+        INSERT INTO file
         (
         	  file_key
 			, origin_file_name
 			, file_name
 			, file_path
-        )VALUES
+        )
+        VALUES
         (
-        	  #{filekey}
-			, #{originfilename}
+        	  #{fileKey}
+			, #{originFileName}
 			, #{fileName}
 			, #{filePath}
         )

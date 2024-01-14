@@ -1,11 +1,11 @@
-package com.example.dto;
+package com.example.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class UserSignupResponseDTO {
+public class UserResponse {
 
 	// 회원가입 성공 여부
     private boolean success;

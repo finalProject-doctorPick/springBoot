@@ -1,5 +1,10 @@
 package com.example.dao;
 
-public class MemberDAO {
+import com.example.domain.Member;
+
+public interface MemberDAO {
+
+	// 회원 조회
+	public Member findByMember(String email);
 
 }

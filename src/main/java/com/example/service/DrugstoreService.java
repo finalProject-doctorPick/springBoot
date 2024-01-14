@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.dto.UserSignupDTO;
+import com.example.domain.Drugstore;
+import com.example.domain.UserRequest;
 
 public interface DrugstoreService {
 
@@ -12,6 +13,9 @@ public interface DrugstoreService {
 	boolean existsByDrugstoreEmail(String email);
 
 	// 약국 등록
-	Object registerDrugstore(UserSignupDTO userSignupDTO, List<MultipartFile> fileList);
+	Object registerDrugstore(UserRequest userSignupDTO, List<MultipartFile> fileList);
+
+	// 약국 조회
+	Drugstore findByDrugstoreEmail(String email, String pwd);
 
 }

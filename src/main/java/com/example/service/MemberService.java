@@ -3,29 +3,23 @@ package com.example.service;
 import java.util.Optional;
 
 import com.example.domain.Member;
-import com.example.dto.UserSignupDTO;
-import com.example.dto.UserSignupResponseDTO;
+import com.example.domain.UserRequest;
+import com.example.domain.UserResponse;
+import com.example.dto.MemberDTO;
 
 public interface MemberService {
 
-	// 회원 조회 (회원ID)
-	Optional<Member> getMember(Integer userId);
-	
-	// 회원 조회
-	Optional<Member> getMember(String email);
-	
-	// 회원 등록
-	Member addMember(Member member);
-
-	// 이메일 조회
-	Member findByEmail(String email);
-
-	
-	// **************************************************
 	// 이메일 존재 유무
 	boolean existsByMemberEmail(String email);
 	
 	// 회원 등록
-	UserSignupResponseDTO registerMember(UserSignupDTO saveData);
+	UserResponse registerMember(UserRequest saveData);
+
+	// 회원 조회
+	Member findByMemberEmail(String email, String pwd);
+
+	MemberDTO findByEmail(String memberEmail);
+
+	Optional<MemberDTO> getMember(Integer userId);
 	
 }

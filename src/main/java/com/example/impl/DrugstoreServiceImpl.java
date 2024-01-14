@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dao.DrugstoreDAO;
-import com.example.dto.UserSignupDTO;
+import com.example.domain.Drugstore;
+import com.example.domain.UserRequest;
 import com.example.repository.DrugstoreRepository;
 import com.example.service.DrugstoreService;
 
@@ -24,7 +25,13 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 	}
 
 	@Override
-	public Object registerDrugstore(UserSignupDTO userSignupDTO, List<MultipartFile> fileList) {
+	public Object registerDrugstore(UserRequest userSignupDTO, List<MultipartFile> fileList) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Drugstore findByDrugstoreEmail(String email, String pwd) {
 		// TODO Auto-generated method stub
 		return null;
 	}
