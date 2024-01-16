@@ -106,5 +106,10 @@ public class DoctorServiceImpl implements DoctorService{
     		return null;
     	}
 	}
+	
+	@Transactional(readOnly = true)
+	public DoctorEntity getDoctor(String email) {
+		return doctorRepository.findByDoctorEmail(email);
+	}
 
 }

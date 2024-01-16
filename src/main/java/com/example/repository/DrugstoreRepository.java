@@ -8,6 +8,6 @@ import com.example.entity.DrugstoreEntity;
 
 public interface DrugstoreRepository extends JpaRepository<DrugstoreEntity, Integer>{
 	boolean existsByDrugstoreEmail(String email);
-
-	Drugstore save(DrugstoreDTO insertDrugstore);
+	
+	DrugstoreEntity findByDrugstoreEmail(String email);
 }

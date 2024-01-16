@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.domain.Member;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
+import com.example.entity.MemberEntity;
 
 public interface MemberService {
 
@@ -16,5 +17,8 @@ public interface MemberService {
 	Member findByMemberEmail(String email, String pwd);
 
 	Member findByEmail(String memberEmail);
+	
+	// 회원 조회
+	MemberEntity getMember(String email);
 	
 }

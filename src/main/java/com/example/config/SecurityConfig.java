@@ -41,6 +41,7 @@ public class SecurityConfig {
 	            .antMatchers("/users/signup", "/users/login", "/users/refreshToken", "/members/signup", "/members/login", "/api/drugsSearch", "/members/refreshToken").permitAll()
 	            .antMatchers(HttpMethod.GET, "/**").hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
 	            .antMatchers(HttpMethod.POST, "/**").hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
+	            .antMatchers(HttpMethod.OPTIONS, "/**").hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
 	            .anyRequest().hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
 	            .and()
 	            .exceptionHandling()
