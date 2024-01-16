@@ -12,6 +12,7 @@ import com.example.domain.Drugstore;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
 import com.example.dto.DrugstoreDTO;
+import com.example.entity.DrugstoreEntity;
 import com.example.entity.RoleEntity;
 import com.example.repository.DrugstoreRepository;
 import com.example.repository.RoleRepository;
@@ -51,7 +52,7 @@ public class DrugstoreServiceImpl implements DrugstoreService {
      * */
 	@Transactional
 	public ServerResponse registerDrugstore(Users drugstoreData, List<MultipartFile> fileList) {
-		DrugstoreDTO insertDrugstore = new DrugstoreDTO();
+		DrugstoreEntity insertDrugstore = new DrugstoreEntity();
 		ServerResponse response = new ServerResponse();
 		
 		// 약국 역할 부여
@@ -63,7 +64,7 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 		String fileKey = filesService.fileupload(fileList, drugstoreData.getUserEmail());
 		
 		// 약국 정보 설정
-		insertDrugstore.addRoleFromEntity(drugstoreRole);
+		insertDrugstore.addRole(drugstoreRole);
 		insertDrugstore.setDrugstoreEmail(drugstoreData.getUserEmail());
 		insertDrugstore.setDrugstorePwd(passwordEncoder.encode(drugstoreData.getUserPwd()));
 		insertDrugstore.setDrugstoreName(drugstoreData.getUserName());
@@ -73,9 +74,10 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 		insertDrugstore.setDrugstoreAddrMain(drugstoreData.getUserAddrMain());
 		insertDrugstore.setDrugstoreAddrDetail(drugstoreData.getUserAddrDetail());
 		insertDrugstore.setFileKey(fileKey);
+		insertDrugstore.setDrugstoreTel(drugstoreData.getUserTel());
 		
 		// 약국 정보 저장
-		Drugstore result = drugstoreRepository.save(insertDrugstore);
+		DrugstoreEntity result = drugstoreRepository.save(insertDrugstore);
 		
 		response.setSuccess(true);
 		response.setMessage("DOCTORPICK 약국가입이 완료되었습니다. \n관리자 확인 후 이용 가능 합니다.");
@@ -87,15 +89,24 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 	}
 
 	@Transactional(readOnly = true)
-	public Drugstore findByDrugstoreEmail(String email, String pwd) {
-		Drugstore s = drugstoreDAO.findByDrugstoreEmail(email);
-		
+	public Drugstore validateDrugstoreEmail(String email, String pwd) {
+		Drugstore s = drugstoreDAO.validateDrugstoreEmail(email);
 		// 비밀번호 체크
     	if(s != null){
+    		System.out.println("********약국 findByDrugstoreEmail check ");
+    		System.out.println("약국 조회 값 " + s.toString());
+    		System.out.println("parameter pwd 값 : " + pwd);
+    		System.out.println("p s 값 : " + s.getDrugstorePwd());
+    		System.out.println("**************************************");
     		return (passwordEncoder.matches(pwd, s.getDrugstorePwd())) ? s : null;
     	}else {
     		return null;
     	}
+	}
+
+	@Transactional(readOnly = true)
+	public DrugstoreEntity getDrugstore(String email) {
+		return drugstoreRepository.findByDrugstoreEmail(email);
 	}
 
 }

@@ -9,5 +9,7 @@ import com.example.entity.DoctorEntity;
 public interface DoctorRepository extends JpaRepository<DoctorEntity, Integer>{
 	boolean existsByDoctorEmail(String email);
 
+	DoctorEntity findByDoctorEmail(String email);
+	
 	Doctor save(DoctorDTO insertDoctor);
 }

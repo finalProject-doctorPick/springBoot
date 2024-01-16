@@ -1,8 +1,9 @@
 package com.example.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,16 +11,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.domain.Doctor;
-import com.example.domain.Drugstore;
-import com.example.domain.Member;
-import com.example.domain.Role;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
-import com.example.dto.DrugstoreDTO;
-import com.example.dto.MemberDTO;
-import com.example.dto.RefreshTokenDTO;
-import com.example.dto.RoleDTO;
+import com.example.entity.DoctorEntity;
+import com.example.entity.DrugstoreEntity;
+import com.example.entity.MemberEntity;
+import com.example.entity.RefreshTokenEntity;
+import com.example.entity.RoleEntity;
 import com.example.security.jwt.util.JwtTokenizer;
 import com.example.service.DoctorService;
 import com.example.service.DrugstoreService;
@@ -96,6 +94,19 @@ public class UserServiceImpl implements UserService{
 				return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     	}
     }
+
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-11
+     *  @param		: String email
+     *  @return		: boolean
+     * 	@explain	: 일반회원, 의사, 약국 이메일 중복 확인
+     * */
+    private boolean isEmailDuplicate(String email) {
+        return memberService.existsByMemberEmail(email)
+                || doctorService.existsByDoctorEmail(email)
+                || drugstoreService.existsByDrugstoreEmail(email);
+    }
     
     /**
      * 	@author 	: 백두산	 
@@ -115,11 +126,6 @@ public class UserServiceImpl implements UserService{
 		// 데이터 체크 리스트 생성 및 체크
     	checkValues.add(new String[]{"email", email});
     	checkValues.add(new String[]{"password", pwd});
-    	
-    	System.out.println("***************************");
-        System.out.println("userService > login 진입 성공 !!!");
-        System.out.println("checkValue 값 : " + checkValues.toString());
-        System.out.println("***************************");
         
 		ResponseEntity<?> validationResponse = validationService.checkValue(checkValues);
     	
@@ -128,151 +134,108 @@ public class UserServiceImpl implements UserService{
             return validationResponse;
         }
         
-        // 일반 회원 체크
-        Member member = memberService.findByMemberEmail(email, pwd);
-        if (member != null) {
-            // 로그인 성공
-            ResponseEntity<?> loginResponse = tokensIssuance(member.getMemberEmail(),member.getMemberPwd(), "N");
-            return loginResponse;
-        }
-        
-        // 이메일로 Doctor 찾기
-        Doctor doctor = doctorService.findByDoctorEmail(email, pwd);
-        if (doctor != null && doctor.getDoctorConfirmYn().equals("Y")) {
-            // 로그인 성공
-        	ResponseEntity<?> loginResponse = tokensIssuance(doctor.getDoctorEmail(),doctor.getDoctorPwd(), "D");
-            return loginResponse;
-        }
+        // 일반 회원, 의사, 약국 순으로 확인
+        MemberEntity member = memberService.getMember(email);
+        DoctorEntity doctor = doctorService.getDoctor(email);
+        DrugstoreEntity drugstore = drugstoreService.getDrugstore(email);
 
-        // 이메일로 DrugStore 찾기
-        Drugstore drugstore = drugstoreService.findByDrugstoreEmail(email, pwd);
-        if (drugstore != null && drugstore.getDrugstoreConfirmYn().equals("Y")) {
+        if (member != null || doctor != null || drugstore != null) {
             // 로그인 성공
-        	ResponseEntity<?> loginResponse = tokensIssuance(drugstore.getDrugstoreEmail(),drugstore.getDrugstorePwd(), "S");
+            String userAuth;
+            String userName;
+            Integer userId;
+
+            if (doctor != null) {
+                if (!doctor.getDoctorConfirmYn().equals("Y")) {
+                    response.setSuccess(false);
+                    response.setMessage("의사 승인 처리가 되지 않았습니다.");
+                    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+                }
+                userAuth = "D";
+                userName = doctor.getDoctorName();
+                userId = doctor.getDoctorId();
+            } else if (drugstore != null) {
+                if (!drugstore.getDrugstoreConfirmYn().equals("Y")) {
+                    response.setSuccess(false);
+                    response.setMessage("약국 승인 처리가 되지 않았습니다.");
+                    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+                }
+                userAuth = "S";
+                userName = drugstore.getDrugstoreName();
+                userId = drugstore.getDrugstoreId();
+            } else {
+                userAuth = member.getMemberAuth();
+                userName = member.getMemberName();
+                userId = member.getMemberId();
+            }
+
+            ResponseEntity<?> loginResponse = tokensIssuance(email, pwd, userAuth, userName, userId);
             return loginResponse;
         }
 
         // 로그인 실패
         response.setSuccess(false);
-        if( (doctor != null && doctor.getDoctorConfirmYn().equals("N")) ) {
-        	response.setMessage("의사 승인 처리가 되지 않았습니다.");
-        }else if( (drugstore != null && drugstore.getDrugstoreConfirmYn().equals("N")) ){
-        	response.setMessage("약국 승인 처리가 되지 않았습니다.");
-        }else {
-        	response.setMessage("이메일 또는 비밀번호가 올바르지 않습니다.");
-        }
-        
+        response.setMessage("이메일 또는 비밀번호가 올바르지 않습니다.");
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-	}
-
-    /**
-     * 	@author 	: 백두산	 
-     *  @created	: 2024-01-11
-     *  @param		: String email
-     *  @return		: boolean
-     * 	@explain	: 일반회원, 의사, 약국 이메일 중복 확인
-     * */
-    private boolean isEmailDuplicate(String email) {
-        return memberService.existsByMemberEmail(email)
-                || doctorService.existsByDoctorEmail(email)
-                || drugstoreService.existsByDrugstoreEmail(email);
     }
     
-    private ResponseEntity<?> tokensIssuance(String email, String pwd, String userAuth) {
+    private ResponseEntity<?> tokensIssuance(String email, String pwd, String userAuth, String userName, Integer userId) {
     	ServerResponse response = new ServerResponse();
-    	System.out.println("***************************");
-        System.out.println("tokensIssuance 진입 성공 !!!");
-        System.out.println("***************************");
-    	switch (userAuth) {
-			case "D" :
-				// doctor & role 조회 
-				Doctor d = doctorService.findByDoctorEmail(email, pwd);
-				
-				// List<Role> -> List<String>
-				List<String> doctorRoles = d.getRoles().stream().map(Role::getRoles).collect(Collectors.toList());
-				
-				// JWT 토큰 생성
-				String doctorAccessToken = jwtTokenizer.createAccessToken(d.getDoctorId(), d.getDoctorEmail(), doctorRoles);
-		        String doctorRefreshToken = jwtTokenizer.createRefreshToken(d.getDoctorId(), d.getDoctorEmail(), doctorRoles);
-			
-		        // RefreshToken 생성 및 저장
-		        RefreshTokenDTO doctorRefreshTokenEntity = new RefreshTokenDTO();
-		        doctorRefreshTokenEntity.setValue(doctorRefreshToken);
-		        doctorRefreshTokenEntity.setUserEmail(email);
-		        refreshTokenService.addRefreshToken(doctorRefreshTokenEntity);
-		        
-		        response.setSuccess(true);
-		        response.setMessage("로그인이 되었습니다. (의사회원)");
-		        response.setAccessToken(doctorAccessToken);
-		        response.setRefreshToken(doctorRefreshToken);
-		        response.setUserId(d.getDoctorId());
-		        response.setUserName(d.getDoctorName());
-		        response.setUserAuth("D");
-		        
-		        System.out.println("*****************************************");
-	        	System.out.println("tokensIssuance > 의사회원 리턴 전 toString : " + response.toString());
-	        	System.out.println("*****************************************");
-		        return new ResponseEntity<>(response, HttpStatus.OK);  
-		        
-			case "S" :
-				
-				// drugStore & role 조회 
-				Drugstore s = drugstoreService.findByDrugstoreEmail(email, pwd);
-				
-				// List<Role> -> List<String>
-				List<String> storeRoles = s.getRoles().stream().map(Role::getRoles).collect(Collectors.toList());
-				
-				// JWT 토큰 생성
-				String storeAccessToken = jwtTokenizer.createAccessToken(s.getDrugstoreId(), s.getDrugstoreEmail(), storeRoles);
-		        String storeRefreshToken = jwtTokenizer.createRefreshToken(s.getDrugstoreId(), s.getDrugstoreEmail(), storeRoles);
-			
-		        // RefreshToken 생성 및 저장
-		        RefreshTokenDTO storeRefreshTokenEntity = new RefreshTokenDTO();
-		        storeRefreshTokenEntity.setValue(storeRefreshToken);
-		        storeRefreshTokenEntity.setUserEmail(email);
-		        refreshTokenService.addRefreshToken(storeRefreshTokenEntity);
-		        
-		        response.setSuccess(true);
-		        response.setMessage("로그인이 되었습니다. (약국회원)");
-		        response.setAccessToken(storeAccessToken);
-		        response.setRefreshToken(storeRefreshToken);
-		        response.setUserId(s.getDrugstoreId());
-		        response.setUserName(s.getDrugstoreName());
-		        response.setUserAuth("S");
-		        
-		        System.out.println("*****************************************");
-	        	System.out.println("tokensIssuance > 약국회원 리턴 전 toString : " + response.toString());
-	        	System.out.println("*****************************************");
-		        return new ResponseEntity<>(response, HttpStatus.OK);  
-			default:
-				// member & role 조회 
-				Member m = memberService.findByMemberEmail(email, pwd);
-				System.out.println("*****************************************");
-				System.out.println("tokensIssuance > Member m.getRoles 값 : " + m.getRoles());
-				System.out.println("*****************************************");
-				
-				// List<Role> -> List<String>
-				List<String> roles = m.getRoles().stream().map(Role::getRoles).collect(Collectors.toList());
-				
-				// JWT 토큰 생성
-				String memberAccessToken = jwtTokenizer.createAccessToken(m.getMemberId(), m.getMemberEmail(), roles);
-		        String memberRefreshToken = jwtTokenizer.createRefreshToken(m.getMemberId(), m.getMemberEmail(), roles);
-			
-		        // RefreshToken 생성 및 저장
-		        RefreshTokenDTO memberRefreshTokenEntity = new RefreshTokenDTO();
-		        memberRefreshTokenEntity.setValue(memberRefreshToken);
-		        memberRefreshTokenEntity.setUserEmail(email);
-		        refreshTokenService.addRefreshToken(memberRefreshTokenEntity);
-		        
-		        response.setSuccess(true);
-		        response.setMessage("로그인이 되었습니다." + (m.getMemberAuth().equals("N") ? " (일반회원)" : " (관리자)"));
-		        response.setAccessToken(memberAccessToken);
-		        response.setRefreshToken(memberRefreshToken);
-		        response.setUserId(m.getMemberId());
-		        response.setUserName(m.getMemberName());
-		        response.setUserAuth(m.getMemberAuth());
-		        
-		        return new ResponseEntity<>(response, HttpStatus.OK);
-			}	
+    	
+    	// 해당 유저 & role 조회
+        RoleEntity userRole = getUserRole(userAuth, email);
+        
+        // List<Role> -> List<String>
+//        List<String> roles = userRole.getRoles().stream().map(RoleEntity::getRoles).collect(Collectors.toList());
+        List<String> roles = getRoleNames(userRole);
+
+        // JWT 토큰 생성
+        String accessToken = jwtTokenizer.createAccessToken(userId, email, roles);
+        String refreshToken = jwtTokenizer.createRefreshToken(userId, email, roles);
+
+        // RefreshToken 생성 및 저장
+        RefreshTokenEntity refreshTokenEntity = new RefreshTokenEntity();
+        refreshTokenEntity.setValue(refreshToken);
+        refreshTokenEntity.setUserEmail(email);
+        refreshTokenService.addRefreshToken(refreshTokenEntity);
+
+        response.setSuccess(true);
+        response.setMessage("DOCTORPICK에 방문해 주신 " + userName + "님 환영합니다.");
+        response.setAccessToken(accessToken);
+        response.setRefreshToken(refreshToken);
+        response.setUserId(userId);
+        response.setUserName(userName);
+        response.setUserAuth(userAuth);
+
+        System.out.println("*****************************************");
+        System.out.println("tokensIssuance > 리턴 전 toString : " + response.toString());
+        System.out.println("*****************************************");
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    private RoleEntity getUserRole(String userAuth, String email) {
+        switch (userAuth) {
+            case "D":
+                return getFirstRole(doctorService.getDoctor(email).getRoles());
+            case "S":
+                return getFirstRole(drugstoreService.getDrugstore(email).getRoles());
+            default:
+                return getFirstRole(memberService.getMember(email).getRoles());
+        }
+    }
+    
+    private RoleEntity getFirstRole(Set<RoleEntity> roles) {
+        if (roles != null && !roles.isEmpty()) {
+            return roles.iterator().next();
+        }
+        return null;
+    }
+    
+    private List<String> getRoleNames(RoleEntity userRole) {
+        if (userRole != null) {
+            return Collections.singletonList(userRole.getRoles());
+        }
+        return Collections.emptyList();
     }
 }

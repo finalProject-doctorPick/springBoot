@@ -45,6 +45,18 @@ public class Drugstore {
 	// 약국 확인 여부
 	private String drugstoreConfirmYn;
 	
+	// 파일 키
+	private String fileKey;
+	
+	// 약국 생년월일
+	private String drugstoreBirth;
+	
+	// 약국 성별
+	private String drugstoreSex;
+	
+	// 약국 연락처
+	private String drugstoreTel;
+	
 	private Set<Role> roles = new HashSet<>();
 	
 	public void addRole(Role drugstoreRole) {

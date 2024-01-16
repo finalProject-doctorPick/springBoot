@@ -2,11 +2,13 @@ package com.example.impl;
 
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.RefreshToken;
 import com.example.dto.RefreshTokenDTO;
+import com.example.entity.RefreshTokenEntity;
 import com.example.repository.RefreshTokenRepository;
 import com.example.service.RefreshTokenService;
 
@@ -17,14 +19,16 @@ import lombok.RequiredArgsConstructor;
 public class RefreshTokenServiceImpl implements RefreshTokenService{
 	
     private final RefreshTokenRepository refreshTokenRepository;
+    private final ModelMapper modelMapper;
 
     @Transactional
-    public RefreshToken addRefreshToken(RefreshTokenDTO refreshTokenDTO) {
-    	RefreshToken result = refreshTokenRepository.save(refreshTokenDTO);
-    	result.setId(result.getId());
-    	result.setUserEmail(result.getUserEmail());
-    	result.setValue(result.getValue());
-        return result;
+    public RefreshToken addRefreshToken(RefreshTokenEntity refreshTokenEntity) {
+    	RefreshToken token = modelMapper.map(refreshTokenRepository.save(refreshTokenEntity), RefreshToken.class);
+//    	refreshTokenRepository.save(refreshTokenEntity);
+//    	result.setId(result.getId());
+//    	result.setUserEmail(result.getUserEmail());
+//    	result.setValue(result.getValue());
+        return token;
     }
 
 //    @Transactional
