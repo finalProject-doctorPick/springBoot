@@ -51,10 +51,7 @@ public class MemberServiceImpl implements MemberService{
 //    	return memberRepository.findById(memberId);
 //    }
 //    
-//    @Transactional(readOnly = true)
-//    public Optional<MemberDTO> getMember(String email){
-//        return memberRepository.findByMemberEmail(email);
-//    }
+
 
     /**
      * 	@author 	: 백두산	 
@@ -127,4 +124,16 @@ public class MemberServiceImpl implements MemberService{
     	}
     	
 	}
+    
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-16
+     *  @param		: String email
+     *  @return		: MemberEntity
+     * 	@explain	: 회원 정보 조회
+     * */
+    @Transactional(readOnly = true)
+    public MemberEntity getMember(String email){
+        return memberRepository.findByMemberEmail(email);
+    }
 }

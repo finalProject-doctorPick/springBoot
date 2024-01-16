@@ -1,5 +1,6 @@
 package com.example.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,7 +24,9 @@ import lombok.ToString;
 @Setter
 @ToString
 @Table(name = "drugstore")
-public class DrugstoreEntity{
+public class DrugstoreEntity implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@Column(name = "drugstore_id")
@@ -53,6 +56,12 @@ public class DrugstoreEntity{
 	
 	@Column(name = "file_key")
 	private String fileKey;
+	
+	@Column(name = "drugstore_tel")
+	private String drugstoreTel;
+	
+	@Column(name = "drugstore_confirm_yn")
+	private String drugstoreConfirmYn;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_email", referencedColumnName = "drugstore_email"), inverseJoinColumns = @JoinColumn(name = "role_id"))

@@ -3,11 +3,11 @@ package com.example.service;
 import java.util.Optional;
 
 import com.example.domain.RefreshToken;
-import com.example.dto.RefreshTokenDTO;
+import com.example.entity.RefreshTokenEntity;
 
 public interface RefreshTokenService {
 
-    public RefreshToken addRefreshToken(RefreshTokenDTO refreshToken);
+    public RefreshToken addRefreshToken(RefreshTokenEntity refreshToken);
 
     public void deleteRefreshToken(String refreshToken);
 

@@ -10,5 +10,5 @@ import com.example.domain.Drugstore;
 public interface DrugstoreDAO {
 	List<Drugstore> selectDrugstore();
 	
-	Drugstore findByDrugstoreEmail(String email);
+	Drugstore validateDrugstoreEmail(String email);
 }

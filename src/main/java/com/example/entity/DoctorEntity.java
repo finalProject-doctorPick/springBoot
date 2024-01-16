@@ -56,6 +56,9 @@ public class DoctorEntity implements Serializable{
 
 	@Column(name = "file_key")
 	private String fileKey;
+	
+	@Column(name = "doctor_confirm_yn")
+	private String doctorConfirmYn;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_email", referencedColumnName = "doctor_email"), inverseJoinColumns = @JoinColumn(name = "role_id"))

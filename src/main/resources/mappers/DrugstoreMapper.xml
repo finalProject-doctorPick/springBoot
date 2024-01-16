@@ -11,17 +11,23 @@
         <result property="drugstoreLong" column="drugstore_long"/>
         <result property="drugstoreJoinDate" column="drugstore_join_date"/>
         <result property="drugstoreLeaveDate" column="drugstore_leave_date"/>
+        <result property="drugstoreConfirmYn" column="drugstore_confirm_yn"/>
+        <result property="fileKey" column="file_key"/>
+        <result property="drugstorePwd" column="drugstore_pwd"/>
+        <result property="drugstoreBirth" column="drugstore_birth"/>
+        <result property="drugstoreSex" column="drugstore_sex"/>
+        <result property="drugstoreTel" column="drugstore_tel"/>
     </resultMap>
-    
+
     <select id="selectDrugstore">
 		SELECT *
 		  FROM drugstore
 		 LIMIT 10
 	</select>
 	
-	<select id="findByDrugstoreEmail" parameterType="String" resultMap="DrugstoreResultMap">
+	<select id="validateDrugstoreEmail" parameterType="String" resultMap="DrugstoreResultMap">
 		SELECT *
 		  FROM drugstore
-		 WHERE drugstore_email = #{email}
+		 WHERE drugstore_email = #{drugstoreEmail}
 	</select>
 </mapper>
