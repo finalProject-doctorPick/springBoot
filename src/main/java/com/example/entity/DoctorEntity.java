@@ -59,6 +59,9 @@ public class DoctorEntity implements Serializable{
 	
 	@Column(name = "doctor_confirm_yn")
 	private String doctorConfirmYn;
+	
+	@Column(name = "doctor_tel")
+	private String doctorTel;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_email", referencedColumnName = "doctor_email"), inverseJoinColumns = @JoinColumn(name = "role_id"))

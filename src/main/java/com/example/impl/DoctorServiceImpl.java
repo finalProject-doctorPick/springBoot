@@ -74,7 +74,9 @@ public class DoctorServiceImpl implements DoctorService{
 		insertDoctor.setDoctorSex(doctorData.getUserSex());
 		insertDoctor.setDoctorAddrMain(doctorData.getUserAddrMain());
 		insertDoctor.setDoctorAddrDetail(doctorData.getUserAddrDetail());
+		insertDoctor.setDoctorConfirmYn("N");
 		insertDoctor.setFileKey(fileKey);
+		insertDoctor.setDoctorTel(doctorData.getUserTel().replaceAll("-", ""));
 		
 		// 의사 정보 저장
 		DoctorEntity result = doctorRepository.save(insertDoctor);

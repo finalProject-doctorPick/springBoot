@@ -50,10 +50,6 @@ public class UserController {
      * */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Users userLoginData, BindingResult bindingResult) {
-        System.out.println("***************************");
-        System.out.println("users/login 진입 성공 !!!");
-        System.out.println("userLoginData 값 : " + userLoginData.toString());
-        System.out.println("***************************");
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

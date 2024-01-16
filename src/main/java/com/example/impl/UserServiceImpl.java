@@ -207,10 +207,6 @@ public class UserServiceImpl implements UserService{
         response.setUserName(userName);
         response.setUserAuth(userAuth);
 
-        System.out.println("*****************************************");
-        System.out.println("tokensIssuance > 리턴 전 toString : " + response.toString());
-        System.out.println("*****************************************");
-
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

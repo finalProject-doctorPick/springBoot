@@ -2,7 +2,6 @@ package com.example.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.dao.HospitalDAO;
@@ -14,7 +13,6 @@ public class HospitalServiceImpl implements HospitalService {
 
     private final HospitalDAO hospitalDAO;
 
-    @Autowired
     public HospitalServiceImpl(HospitalDAO hospitalDAO) {
         this.hospitalDAO = hospitalDAO;
     }
