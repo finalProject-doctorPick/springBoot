@@ -2,8 +2,6 @@ package com.example.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -15,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.domain.UserRequest;
+import com.example.domain.Users;
 import com.example.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -36,7 +34,7 @@ public class UserController {
      * */
     @PostMapping("/signup")
     public ResponseEntity<?> signup(
-            @ModelAttribute UserRequest userSignupData,
+            @ModelAttribute Users userSignupData,
             @RequestPart(name = "fileList", required = false) List<MultipartFile> fileList) {
 
     	ResponseEntity<?> responseEntity = userService.signup(userSignupData, fileList);
@@ -51,8 +49,11 @@ public class UserController {
      * 	@explain	: login > 필요 토큰 생성 및 저장
      * */
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid UserRequest userLoginData, BindingResult bindingResult) {
-        
+    public ResponseEntity<?> login(@RequestBody Users userLoginData, BindingResult bindingResult) {
+        System.out.println("***************************");
+        System.out.println("users/login 진입 성공 !!!");
+        System.out.println("userLoginData 값 : " + userLoginData.toString());
+        System.out.println("***************************");
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

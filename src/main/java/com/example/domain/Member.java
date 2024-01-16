@@ -1,78 +1,64 @@
 package com.example.domain;
 
 import java.time.LocalDateTime;
-
-import javax.persistence.Column;
-
-import org.hibernate.annotations.CreationTimestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Member {
 
-	// 회원ID
-	@Column(name = "member_id")
+	// 회원 ID
 	private Integer memberId;
 
-	// 회원 이메일
-	@Column(name = "member_email")
+	// 회원  이메일
 	private String memberEmail;
 
 	// 비밀번호
-	@Column(name = "member_pwd")
 	private String memberPwd;
 
-	// 회원이름
-	@Column(name = "member_name")
+	// 회원 이름
 	private String memberName;
 
-	// 회원생년월일
-	@Column(name = "member_birth")
+	// 회원 생년월일
 	private String memberBirth;
 
-	// 회원성별
-	@Column(name = "member_sex")
+	// 회원 성별
 	private String memberSex;
 
-	// 회원연락처
-	@Column(name = "member_tel")
+	// 회원 연락처
 	private String memberTel;
 
-	// 회원메인주소
-	@Column(name = "member_addr_main")
+	// 회원 메인주소
 	private String memberAddrMain;
 
-	// 회원상세주소
-	@Column(name = "member_addr_detail")
+	// 회원 상세주소
 	private String memberAddrDetail;
 
-	// 회원가입일
-	@Column(name = "member_join_date")
-	@CreationTimestamp
+	// 회원 가입일
 	private LocalDateTime memberJoinDate;
 
-	// 회원탈퇴일
-	@Column(name = "member_leave_date")
+	// 회원 탈퇴일
 	private LocalDateTime memberLeaveDate;
 
-	// 회원신용카드
-	@Column(name = "member_credit_num")
+	// 회원 신용카드
 	private String memberCreditNum;
 
-	// 회원포인트
-	@Column(name = "member_point")
+	// 회원 포인트
 	private Integer memberPoint;
 
-	// 회원권한
-	@Column(name = "member_auth")
+	// 회원 권한
 	private String memberAuth;
-
+	
+	private Set<Role> roles = new HashSet<>();
+	
+	public void addRole(Role memberRole) {
+		roles.add(memberRole);
+	}
 }

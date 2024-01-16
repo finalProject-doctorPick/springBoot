@@ -18,4 +18,10 @@
 		  FROM drugstore
 		 LIMIT 10
 	</select>
+	
+	<select id="findByDrugstoreEmail" parameterType="String" resultMap="DrugstoreResultMap">
+		SELECT *
+		  FROM drugstore
+		 WHERE drugstore_email = #{email}
+	</select>
 </mapper>

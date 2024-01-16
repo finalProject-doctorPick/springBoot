@@ -1,15 +1,18 @@
 package com.example.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import java.util.HashSet;
+import java.util.Set;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Doctor {
+	
 	// 의사 ID
-	@Id
 	private Integer doctorId;
 	
 	// 의사 이메일
@@ -59,4 +62,10 @@ public class Doctor {
 	
 	// 의사 확인 여부
 	private String doctorConfirmYn;
+	
+	private Set<Role> roles = new HashSet<>();
+	
+	public void addRole(Role doctorRole) {
+		roles.add(doctorRole);
+	}
 }

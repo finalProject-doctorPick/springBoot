@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.RoleDAO">
+	<resultMap id="FileResultMap" type="com.example.domain.Role">
+        <id property="fileKey" 				column="file_key"/>
+        <result property="originFilename" 	column="origin_file_name"/>
+        <result property="fileName" 		column="file_name"/>
+        <result property="filePath" 		column="file_path"/>
+    </resultMap>
+    <insert id="registerFile" parameterType="com.example.domain.Files">
+        INSERT INTO file
+        (
+        	  file_key
+			, origin_file_name
+			, file_name
+			, file_path
+        )
+        VALUES
+        (
+        	  #{fileKey}
+			, #{originFileName}
+			, #{fileName}
+			, #{filePath}
+        )
+    </insert>
+</mapper>

@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.domain.Doctor;
-import com.example.domain.UserRequest;
-import com.example.domain.UserResponse;
+import com.example.domain.Users;
+import com.example.domain.ServerResponse;
 
 public interface DoctorService {
 
@@ -14,7 +14,7 @@ public interface DoctorService {
 	boolean existsByDoctorEmail(String email);
 
 	// 의사 등록
-	UserResponse registerDoctor(UserRequest userSignupDTO, List<MultipartFile> fileList);
+	ServerResponse registerDoctor(Users userSignupDTO, List<MultipartFile> fileList);
 
 	// 의사 조회
 	Doctor findByDoctorEmail(String email, String pwd);
