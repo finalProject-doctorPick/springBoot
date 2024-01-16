@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.dao.DrugsDAO;
+import com.example.domain.Drugs;
 import com.example.dto.DrugsDTO;
 import com.example.service.DrugsService;
 
@@ -17,11 +18,11 @@ public class DrugsServiceImpl implements DrugsService {
 	private DrugsDAO drugsDAO;
 
 	@Override
-	public List<DrugsDTO> getDrugsList() {
-        List<DrugsDTO> drugsList = drugsDAO.getDrugsList();
+	public List<Drugs> getDrugsList(DrugsDTO dto) {
+		System.out.println("service =======> dto : " + dto);
+		
+		return drugsDAO.getDrugsList(dto);
 
-        return drugsList;
-	}
-	
+	} 
 
 }

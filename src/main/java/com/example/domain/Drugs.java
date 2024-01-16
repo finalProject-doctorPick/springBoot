@@ -1,11 +1,12 @@
 package com.example.domain;
 
-import javax.persistence.Column;
+
 
 import lombok.Data;
 
 @Data
 public class Drugs {
+	private int drugId;
 
 	private String drugName;
 	
