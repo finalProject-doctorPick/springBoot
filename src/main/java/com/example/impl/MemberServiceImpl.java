@@ -27,11 +27,11 @@ public class MemberServiceImpl implements MemberService{
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
 
-//    @Transactional(readOnly = true)
-//    public Member findByMemberEmail(String email){
-//        return memberRepository.findByMemberEmail(email)
-//                .orElseThrow(() -> new IllegalArgumentException("해당 이메일을 가진 사용자를 찾을 수 없습니다: " + email));
-//    }
+    @Transactional(readOnly = true)
+    public Member findByEmail(String email){
+        return memberRepository.findByMemberEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("해당 이메일을 가진 사용자를 찾을 수 없습니다: " + email));
+    }
     
 //    @Transactional
 //    public Member addMember(MemberDTO member) {

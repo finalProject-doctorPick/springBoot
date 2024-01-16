@@ -15,6 +15,8 @@ public interface MemberService {
 
 	// 회원 조회
 	Member findByMemberEmail(String email, String pwd);
+
+	Member findByEmail(String memberEmail);
 	
 	// 회원 조회
 	MemberEntity getMember(String email);
