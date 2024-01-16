@@ -9,7 +9,7 @@ public class RefreshToken {
 	
     private String refreshToken;
     
-    private Integer userId;
+    private String userEmail;
     
     private String value;
 }

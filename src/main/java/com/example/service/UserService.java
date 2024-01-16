@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.domain.UserRequest;
+import com.example.domain.Users;
 
 public interface UserService {
 
-	ResponseEntity<?> signup(UserRequest userSignupData, List<MultipartFile> file);
+	ResponseEntity<?> signup(Users userSignupData, List<MultipartFile> file);
 
-	ResponseEntity<?> login(UserRequest userLoginData);
+	ResponseEntity<?> login(Users userLoginData);
 	
 }

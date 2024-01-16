@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @MapperScan("com.example.dao")
-@EntityScan(basePackages = {"com.example.dto"})
+@EntityScan(basePackages = {"com.example.entity"})
 @EnableJpaRepositories(basePackages = "com.example.repository")
 public class MedicineApplication {
 

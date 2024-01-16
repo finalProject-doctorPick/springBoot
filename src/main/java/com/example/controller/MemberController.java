@@ -89,44 +89,44 @@ public class MemberController {
      * 	@explain	: login > 필요 토큰들 생성 및 저장
      * 
      * */
-    @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid MemberLoginDTO loginDTO, BindingResult bindingResult) {
-        
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-
-        // email이 없을 경우 Exception
-        MemberDTO member = memberService.findByEmail(loginDTO.getMemberEmail());
-        
-        System.out.println("member 값 : " + member.toString());
-        
-        // List<Role> ===> List<String>
-        List<String> roles = member.getRoles().stream().map(RoleDTO::getRoles).collect(Collectors.toList());
-
-        System.out.println("roles 값 : " + roles.toString());
-        // JWT토큰 생성
-        String accessToken = jwtTokenizer.createAccessToken(member.getMemberId(), member.getMemberEmail(), roles);
-        String refreshToken = jwtTokenizer.createRefreshToken(member.getMemberId(), member.getMemberEmail(), roles);
-
-        System.out.println("accessToken 값 :" + accessToken);
-        System.out.println("refreshToken 값 :" + refreshToken);
-        
-        // RefreshToken 생성 및 저장
-        RefreshToken refreshTokenEntity = new RefreshToken();
-        refreshTokenEntity.setValue(refreshToken);
-        refreshTokenEntity.setUserId(member.getMemberId());
-        refreshTokenService.addRefreshToken(refreshTokenEntity);
-
-        MemberLoginResponseDTO loginResponse = MemberLoginResponseDTO.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .memberId(member.getMemberId())
-                .memberName(member.getMemberName())
-                .memberAuth(member.getMemberAuth())
-                .build();
-        return new ResponseEntity(loginResponse, HttpStatus.OK);
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity login(@RequestBody @Valid MemberLoginDTO loginDTO, BindingResult bindingResult) {
+//        
+//        if (bindingResult.hasErrors()) {
+//            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+//        }
+//
+//        // email이 없을 경우 Exception
+//        MemberDTO member = memberService.findByMemberEmail(loginDTO.getMemberEmail());
+//        
+//        System.out.println("member 값 : " + member.toString());
+//        
+//        // List<Role> ===> List<String>
+//        List<String> roles = member.getRoles().stream().map(RoleDTO::getRoles).collect(Collectors.toList());
+//
+//        System.out.println("roles 값 : " + roles.toString());
+//        // JWT토큰 생성
+//        String accessToken = jwtTokenizer.createAccessToken(member.getMemberId(), member.getMemberEmail(), roles);
+//        String refreshToken = jwtTokenizer.createRefreshToken(member.getMemberId(), member.getMemberEmail(), roles);
+//
+//        System.out.println("accessToken 값 :" + accessToken);
+//        System.out.println("refreshToken 값 :" + refreshToken);
+//        
+//        // RefreshToken 생성 및 저장
+//        RefreshTokenDTO refreshTokenEntity = new RefreshTokenDTO();
+//        refreshTokenEntity.setValue(refreshToken);
+//        refreshTokenEntity.setUserEmail(member.getMemberEmail());
+//        refreshTokenService.addRefreshToken(refreshTokenEntity);
+//
+//        MemberLoginResponseDTO loginResponse = MemberLoginResponseDTO.builder()
+//                .accessToken(accessToken)
+//                .refreshToken(refreshToken)
+//                .memberId(member.getMemberId())
+//                .memberName(member.getMemberName())
+//                .memberAuth(member.getMemberAuth())
+//                .build();
+//        return new ResponseEntity(loginResponse, HttpStatus.OK);
+//    }
     /**
      * 	@author 	: 백두산	 
      *  @created	: 2024-01-02
@@ -149,27 +149,27 @@ public class MemberController {
      * 	@explain	: 유저 및 Refresh Token 유효성 체크 후 Access Token 발급
      * 
      * */
-    @PostMapping("/refreshToken")
-    public ResponseEntity requestRefresh(@RequestBody RefreshToken param) {
-        RefreshToken refreshToken = refreshTokenService.findRefreshToken(param.getRefreshToken()).orElseThrow(() -> new IllegalArgumentException("Refresh token not found"));
-        Claims claims = jwtTokenizer.parseRefreshToken(refreshToken.getValue());
-
-        Integer userId = (Integer)claims.get("userId");
-
-        MemberDTO member = memberService.getMember(userId).orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
-
-
-        List roles = (List) claims.get("roles");
-        String email = claims.getSubject();
-
-        String accessToken = jwtTokenizer.createAccessToken(userId, email, roles);
-
-        MemberLoginResponseDTO loginResponse = MemberLoginResponseDTO.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken.getRefreshToken())
-                .memberId(member.getMemberId())
-                .memberName(member.getMemberName())
-                .build();
-        return new ResponseEntity(loginResponse, HttpStatus.OK);
-    }
+//    @PostMapping("/refreshToken")
+//    public ResponseEntity requestRefresh(@RequestBody RefreshToken param) {
+//        RefreshToken refreshToken = refreshTokenService.findRefreshToken(param.getRefreshToken()).orElseThrow(() -> new IllegalArgumentException("Refresh token not found"));
+//        Claims claims = jwtTokenizer.parseRefreshToken(refreshToken.getValue());
+//
+//        Integer userId = (Integer)claims.get("userId");
+//
+//        MemberDTO member = memberService.getMember(userId).orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+//
+//
+//        List roles = (List) claims.get("roles");
+//        String email = claims.getSubject();
+//
+//        String accessToken = jwtTokenizer.createAccessToken(userId, email, roles);
+//
+//        MemberLoginResponseDTO loginResponse = MemberLoginResponseDTO.builder()
+//                .accessToken(accessToken)
+//                .refreshToken(refreshToken.getRefreshToken())
+//                .memberId(member.getMemberId())
+//                .memberName(member.getMemberName())
+//                .build();
+//        return new ResponseEntity(loginResponse, HttpStatus.OK);
+//    }
 }

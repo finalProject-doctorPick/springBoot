@@ -2,10 +2,12 @@ package com.example.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @Data
-public class UserRequest {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Users {
 
     private String userEmail;
 

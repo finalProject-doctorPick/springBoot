@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.example.domain.UserResponse;
+import com.example.domain.ServerResponse;
 import com.example.service.ValidationService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class ValidationServiceImpl implements ValidationService{
      * 	@explain	: 데이터 값 타입 별 체크
      * */
 	public ResponseEntity<?> checkValue(List<String[]> checkValues) {
-		UserResponse response = new UserResponse();
+		ServerResponse response = new ServerResponse();
 		 for (String[] stringArray : checkValues) {
 		        String type = stringArray[0];
 		        String value = stringArray[1];

@@ -20,9 +20,9 @@
         <result property="fileKey" 			column="file_key"/>
     </resultMap>
     
-    <select id="findByMember" parameterType="com.example.domain.Member" resultMap="MemberResultMap">
+    <select id="findByMember" parameterType="String" resultMap="MemberResultMap">
 		SELECT *
-		  FROM member
+		  FROM members
 		 WHERE member_email = #{memberEmail}
 	</select>
 	

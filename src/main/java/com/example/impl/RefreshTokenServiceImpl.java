@@ -19,8 +19,12 @@ public class RefreshTokenServiceImpl implements RefreshTokenService{
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Transactional
-    public RefreshToken addRefreshToken(RefreshToken refreshToken) {
-        return refreshTokenRepository.save(refreshToken);
+    public RefreshToken addRefreshToken(RefreshTokenDTO refreshTokenDTO) {
+    	RefreshToken result = refreshTokenRepository.save(refreshTokenDTO);
+    	result.setId(result.getId());
+    	result.setUserEmail(result.getUserEmail());
+    	result.setValue(result.getValue());
+        return result;
     }
 
 //    @Transactional

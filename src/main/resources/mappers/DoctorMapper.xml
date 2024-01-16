@@ -45,9 +45,9 @@
 		)
 	</insert>
 	
-	<select id="findByDoctorByEmail" parameterType="String" resultMap="DoctorResultMap">
+	<select id="findDoctorByEmail" parameterType="String" resultMap="DoctorResultMap">
 		SELECT *
 		  FROM doctor
-		 WHERE doctor_email = #{email}
+		 WHERE doctor_email = #{doctorEmail}
 	</select>
 </mapper>

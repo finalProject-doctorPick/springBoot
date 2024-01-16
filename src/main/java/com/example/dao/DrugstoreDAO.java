@@ -9,4 +9,6 @@ import com.example.domain.Drugstore;
 @Mapper
 public interface DrugstoreDAO {
 	List<Drugstore> selectDrugstore();
+	
+	Drugstore findByDrugstoreEmail(String email);
 }

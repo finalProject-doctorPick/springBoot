@@ -1,5 +1,8 @@
 package com.example.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Doctor {
+	
 	// 의사 ID
 	private Integer doctorId;
 	
@@ -58,4 +62,10 @@ public class Doctor {
 	
 	// 의사 확인 여부
 	private String doctorConfirmYn;
+	
+	private Set<Role> roles = new HashSet<>();
+	
+	public void addRole(Role doctorRole) {
+		roles.add(doctorRole);
+	}
 }
