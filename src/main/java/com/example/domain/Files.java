@@ -3,6 +3,8 @@ package com.example.domain;
 import java.io.File;
 import java.util.UUID;
 
+import javax.transaction.Transactional;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;

@@ -1,5 +1,6 @@
 package com.example.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -72,5 +73,10 @@ public class SecurityConfig {
     @Bean
     public Files files() {
         return new Files();
+    }
+    
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 }

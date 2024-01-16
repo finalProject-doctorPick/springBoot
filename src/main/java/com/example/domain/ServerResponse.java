@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class UserResponse {
+public class ServerResponse {
 
 	// 회원가입 성공 여부
     private boolean success;
@@ -21,5 +21,10 @@ public class UserResponse {
 	
     // 회원 이름
     private String userName;
-
+    
+    // 토큰
+    private String accessToken;
+    
+    // 리프레시 토큰
+    private String refreshToken;
 }
