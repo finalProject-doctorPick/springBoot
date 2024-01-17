@@ -8,6 +8,8 @@ import com.example.domain.RefreshToken;
 import com.example.entity.RefreshTokenEntity;
 
 public interface RefreshTokenRepository extends JpaRepository<RefreshTokenEntity, Long> {
-    Optional<RefreshToken> findByValue(String value);
+    Optional<RefreshTokenEntity> findByValue(String value);
+
+	void deleteByUserEmail(String userEmail);
 
 }

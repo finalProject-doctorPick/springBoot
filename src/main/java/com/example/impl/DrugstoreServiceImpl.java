@@ -104,4 +104,16 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 		return drugstoreRepository.findByDrugstoreEmail(email);
 	}
 
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-17
+     *  @param		: void
+     *  @return		: List<Drugstore>
+     * 	@explain	: 약국 리스트 조회
+     * */
+	@Transactional(readOnly = true)
+	public List<Drugstore> getDrugstoreList() {
+		return drugstoreDAO.getDrugstoreList();
+	}
+
 }

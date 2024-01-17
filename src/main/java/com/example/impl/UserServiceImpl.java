@@ -11,13 +11,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.domain.Doctor;
+import com.example.domain.Drugstore;
+import com.example.domain.Member;
+import com.example.domain.RefreshToken;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
-import com.example.entity.DoctorEntity;
-import com.example.entity.DrugstoreEntity;
-import com.example.entity.MemberEntity;
+import com.example.dto.MemberDTO;
+import com.example.dto.MemberLoginResponseDTO;
 import com.example.entity.RefreshTokenEntity;
 import com.example.entity.RoleEntity;
+import com.example.repository.RefreshTokenRepository;
 import com.example.security.jwt.util.JwtTokenizer;
 import com.example.service.DoctorService;
 import com.example.service.DrugstoreService;
@@ -26,6 +30,7 @@ import com.example.service.RefreshTokenService;
 import com.example.service.UserService;
 import com.example.service.ValidationService;
 
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -37,6 +42,7 @@ public class UserServiceImpl implements UserService{
     private final DrugstoreService drugstoreService;
     private final ValidationService validationService;
     private final RefreshTokenService refreshTokenService;
+    private final RefreshTokenRepository refreshTokenRepository;
     private final JwtTokenizer jwtTokenizer;
 
     /**
@@ -135,9 +141,9 @@ public class UserServiceImpl implements UserService{
         }
         
         // 일반 회원, 의사, 약국 순으로 확인
-        MemberEntity member = memberService.getMember(email);
-        DoctorEntity doctor = doctorService.getDoctor(email);
-        DrugstoreEntity drugstore = drugstoreService.getDrugstore(email);
+        Member member = memberService.findByMemberEmail(email, pwd);
+        Doctor doctor = doctorService.validateDoctorEmailAndPwd(email, pwd);
+        Drugstore drugstore = drugstoreService.validateDrugstoreEmail(email, pwd);
 
         if (member != null || doctor != null || drugstore != null) {
             // 로그인 성공
@@ -185,8 +191,6 @@ public class UserServiceImpl implements UserService{
     	// 해당 유저 & role 조회
         RoleEntity userRole = getUserRole(userAuth, email);
         
-        // List<Role> -> List<String>
-//        List<String> roles = userRole.getRoles().stream().map(RoleEntity::getRoles).collect(Collectors.toList());
         List<String> roles = getRoleNames(userRole);
 
         // JWT 토큰 생성
@@ -234,4 +238,57 @@ public class UserServiceImpl implements UserService{
         }
         return Collections.emptyList();
     }
+
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-17
+     *  @param		: RefreshToken, bindingResult
+     *  @return		: ResponseEntity
+     * 	@explain	: logout > Refresh Token 제거
+     * */
+    @Transactional
+	public ResponseEntity<?> deleteRefreshToken(String refreshToken) {
+    	ServerResponse response = new ServerResponse();
+    	 refreshTokenRepository.findByValue(refreshToken).ifPresent(refreshTokenEntity -> {
+             String userEmail = refreshTokenEntity.getUserEmail();
+             refreshTokenRepository.deleteByUserEmail(userEmail);
+             response.setSuccess(true);
+             response.setMessage(userEmail + " 님의 토큰이 삭제 되었습니다.");
+         });
+         
+         return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+    
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-02
+     *  @param		: refreshTokenDTO
+     *  @return		: ResponseEntity
+     * 	@explain	: 유저 및 Refresh Token 유효성 체크 후 Access Token 발급
+     * */
+	@Transactional
+	public ResponseEntity<?> issueAccessToken(RefreshToken refreshToken) {
+		ServerResponse response = new ServerResponse();
+
+		RefreshTokenEntity checkToken = refreshTokenService.findRefreshToken(refreshToken.getRefreshToken())
+				.orElseThrow(() -> new IllegalArgumentException("Refresh token not found"));
+		Claims claims = jwtTokenizer.parseRefreshToken(refreshToken.getValue());
+
+		System.out.println(claims.toString());
+//		Integer userId = (Integer) claims.get("userId");
+//
+//		Member member = memberService.getMember(userId)
+//				.orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+//
+//		List<?> roles = (List<?>) claims.get("roles");
+//		String email = claims.getSubject();
+//
+//		String accessToken = jwtTokenizer.createAccessToken(userId, email, roles);
+//
+//		MemberLoginResponseDTO loginResponse = MemberLoginResponseDTO.builder().accessToken(accessToken)
+//				.refreshToken(refreshToken.getRefreshToken()).memberId(member.getMemberId())
+//				.memberName(member.getMemberName()).build();
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 }

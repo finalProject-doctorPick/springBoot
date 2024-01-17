@@ -41,7 +41,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService{
 
 
     @Transactional(readOnly = true)
-    public Optional<RefreshToken> findRefreshToken(String refreshToken) {
+    public Optional<RefreshTokenEntity> findRefreshToken(String refreshToken) {
         return refreshTokenRepository.findByValue(refreshToken);
     }
 }

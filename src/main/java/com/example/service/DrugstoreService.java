@@ -17,7 +17,8 @@ public interface DrugstoreService {
 	// 약국 정보 조회
 	Drugstore validateDrugstoreEmail(String email, String pwd);
 
-
+	// 약국 리스트 조회
+	List<Drugstore> getDrugstoreList();
 
 	/**
 	 *	*******************JPA*********************** 
@@ -27,9 +28,7 @@ public interface DrugstoreService {
 
 	// 약국 등록
 	ServerResponse registerDrugstore(Users userSignupDTO, List<MultipartFile> fileList);
-	
 
-	// 약국 정보 조회
+	// 약국 회원 정보 조회
 	DrugstoreEntity getDrugstore(String email);
-	
 }

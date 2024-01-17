@@ -9,15 +9,15 @@
         <result property="drugCompany" column="drug_company"/>
         <result property="drugShape" column="drug_shape"/>
         <result property="drugColor" column="drug_color"/>
+        <result property="drugEfficacy" column="drug_efficacy"/>
     </resultMap>
 
-
-
 	<select id="getDrugsList" parameterType="com.example.dto.DrugsDTO" resultMap="drugsResultMap">
-		SELECT drug_name, drug_company, drug_shape, drug_color
+		SELECT drug_id, drug_name, drug_company, drug_shape, drug_color, drug_efficacy
         FROM drugs
-        WHERE (drug_front = #{drugFront} OR drug_back = #{drugBack})
+        WHERE (drug_front LIKE CONCAT('%', #{drugFront}, '%') OR drug_back LIKE CONCAT('%', #{drugBack}, '%'))
         AND drug_color = #{drugColor}
+        GROUP BY drug_name
 	</select>
 
 </mapper>

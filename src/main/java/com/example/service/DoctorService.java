@@ -15,7 +15,7 @@ public interface DoctorService {
 	 *	****************MyBatis********************* 
 	 * */
 	// 의사 조회
-	Doctor findByDoctorEmail(String email, String pwd);
+	Doctor validateDoctorEmailAndPwd(String email, String pwd);
 	
 	/**
 	 *	*******************JPA*********************** 

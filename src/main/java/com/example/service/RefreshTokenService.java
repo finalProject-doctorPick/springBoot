@@ -11,6 +11,6 @@ public interface RefreshTokenService {
 
     public void deleteRefreshToken(String refreshToken);
 
-    public Optional<RefreshToken> findRefreshToken(String refreshTokenDTO);
+    public Optional<RefreshTokenEntity> findRefreshToken(String refreshTokenDTO);
 
 }

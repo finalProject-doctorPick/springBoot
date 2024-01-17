@@ -26,20 +26,6 @@ public class MemberController {
      *  @created	: 2024-01-02
      *  @param		: refreshTokenDTO
      *  @return		: ResponseEntity
-     * 	@explain	: logout > Refresh Token 제거
-     * 
-     * */
-    @DeleteMapping("/logout")
-    public ResponseEntity logout(@RequestBody RefreshToken refreshToken) {
-        refreshTokenService.deleteRefreshToken(refreshToken.getRefreshToken());
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    /**
-     * 	@author 	: 백두산	 
-     *  @created	: 2024-01-02
-     *  @param		: refreshTokenDTO
-     *  @return		: ResponseEntity
      * 	@explain	: 유저 및 Refresh Token 유효성 체크 후 Access Token 발급
      * 
      * */

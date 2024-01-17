@@ -21,8 +21,11 @@ public class DrugsServiceImpl implements DrugsService {
 	public List<Drugs> getDrugsList(DrugsDTO dto) {
 		System.out.println("service =======> dto : " + dto);
 		
-		return drugsDAO.getDrugsList(dto);
-
+		List<Drugs> d = drugsDAO.getDrugsList(dto);
+		
+		System.out.println("List : " + d.size());
+		
+		return d;
 	} 
 
 }

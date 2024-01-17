@@ -30,4 +30,10 @@
 		  FROM drugstore
 		 WHERE drugstore_email = #{drugstoreEmail}
 	</select>
+	
+	<select id="getDrugstoreList" resultMap="DrugstoreResultMap">
+		SELECT *
+		  FROM drugstore
+		 LIMIT 1000
+	</select>
 </mapper>
