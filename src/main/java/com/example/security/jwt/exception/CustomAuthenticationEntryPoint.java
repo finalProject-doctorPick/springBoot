@@ -19,37 +19,37 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-    @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        String exception = (String) request.getAttribute("exception");
-        log.debug("Commence Get Exception : {}", exception);
-        log.error("Exception details: ", authException);
+	@Override
+	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+	    String exception = (String) request.getAttribute("exception");
+	    log.debug("Commence Get Exception : {}", exception);
+	    log.error("Exception details: ", authException);
 
-        // 토큰없음
-        if (exception == null) {
-            log.error("entry point >> exception is null");
-            setResponse(response, JwtExceptionCode.NOT_FOUND_TOKEN);
-        // 잘못된 토큰
-        } else if (exception.equals(JwtExceptionCode.INVALID_TOKEN.getCode())) {
-            log.error("entry point >> invalid token");
-            setResponse(response, JwtExceptionCode.INVALID_TOKEN);
-        // 만료 토큰
-        } else if (exception.equals(JwtExceptionCode.EXPIRED_TOKEN.getCode())) {
-            log.error("entry point >> expired token");
-            setResponse(response, JwtExceptionCode.EXPIRED_TOKEN);
-        // 지원하지 않는 토큰
-        } else if (exception.equals(JwtExceptionCode.UNSUPPORTED_TOKEN.getCode())) {
-            log.error("entry point >> unsupported token");
-            setResponse(response, JwtExceptionCode.UNSUPPORTED_TOKEN);
-        // 토큰 조회 실패
-        } else if (exception.equals(JwtExceptionCode.NOT_FOUND_TOKEN.getCode())) {
-            log.error("entry point >> not found token");
-            setResponse(response, JwtExceptionCode.NOT_FOUND_TOKEN);
-        // 그 외
-        } else {
-            setResponse(response, JwtExceptionCode.UNKNOWN_ERROR);
-        }
-    }
+	    // 토큰없음
+	    if (exception == null || exception.equals(JwtExceptionCode.NOT_FOUND_TOKEN.getCode())) {
+	        log.error("entry point >> not found token");
+	        setResponse(response, JwtExceptionCode.NOT_FOUND_TOKEN);
+	    // 잘못된 토큰
+	    } else if (exception.equals(JwtExceptionCode.INVALID_TOKEN.getCode())) {
+	        log.error("entry point >> invalid token");
+	        setResponse(response, JwtExceptionCode.INVALID_TOKEN);
+	    // 만료 토큰
+	    } else if (exception.equals(JwtExceptionCode.EXPIRED_TOKEN.getCode())) {
+	        log.error("entry point >> expired token");
+	        setResponse(response, JwtExceptionCode.EXPIRED_TOKEN);
+	    // 지원하지 않는 토큰
+	    } else if (exception.equals(JwtExceptionCode.UNSUPPORTED_TOKEN.getCode())) {
+	        log.error("entry point >> unsupported token");
+	        setResponse(response, JwtExceptionCode.UNSUPPORTED_TOKEN);
+	    // 토큰 조회 실패
+	    } else if (exception.equals(JwtExceptionCode.NOT_FOUND_TOKEN.getCode())) {
+	        log.error("entry point >> not found token");
+	        setResponse(response, JwtExceptionCode.NOT_FOUND_TOKEN);
+	    // 그 외
+	    } else {
+	        setResponse(response, JwtExceptionCode.UNKNOWN_ERROR);
+	    }
+	}
 
     private void setResponse(HttpServletResponse response, JwtExceptionCode exceptionCode) throws IOException {
         response.setContentType("application/json;charset=UTF-8");

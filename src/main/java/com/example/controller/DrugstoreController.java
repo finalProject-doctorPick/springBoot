@@ -8,21 +8,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.domain.Hospital;
-import com.example.service.HospitalService;
+import com.example.domain.Drugstore;
+import com.example.service.DrugstoreService;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/hospitals")
-public class HospitalController {
-
-	private final HospitalService hospitalService;
+@RequestMapping("/drugstores")
+public class DrugstoreController {
 	
-	@GetMapping("/getHospitalList")
-	public ResponseEntity<?> getHospitalList(){
-		List<Hospital> list = hospitalService.getHospitalList();
+	private final DrugstoreService drugstoreService;
+	
+	@GetMapping("/getDrugstoreList")
+	public ResponseEntity<?> getDrugstoreList(){
+		List<Drugstore> list = drugstoreService.getDrugstoreList();
 		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}

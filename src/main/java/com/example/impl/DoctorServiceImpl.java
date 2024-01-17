@@ -98,7 +98,7 @@ public class DoctorServiceImpl implements DoctorService{
      * 	@explain	: 의사 회원 로그인
      * */
 	@Transactional(readOnly = true)
-	public Doctor findByDoctorEmail(String email, String pwd) {
+	public Doctor validateDoctorEmailAndPwd(String email, String pwd) {
 		Doctor d = doctorDAO.findDoctorByEmail(email);
 		
 		// 비밀번호 체크

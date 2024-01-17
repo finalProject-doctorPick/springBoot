@@ -59,9 +59,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			log.error("Unsupported Token // token : {}", token);
 			log.error("Set Request Exception Code : {}", request.getAttribute("exception"));
 			throw new BadCredentialsException("throw new unsupported token exception");
-		} catch (Exception e) {
+		} catch (BadCredentialsException e) {
+			log.error("인증 실패: {}", e.getMessage());
+            logger.error("암호가 잘못되었습니다. 토큰 확인에 실패했습니다.", e);
+            // 필요에 따라 예외를 처리하거나 다시 던집니다.
+            throw e;
+        } catch (Exception e) {
 			log.error("====================================================");
-			log.error("JwtFilter - doFilterInternal() 오류 발생");
+			log.error("JwtFilter - doFilterInternal() 오류 발생", e);
 			log.error("token : {}", token);
 			log.error("Exception Message : {}", e.getMessage());
 			log.error("Exception StackTrace : {");
@@ -79,11 +84,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	}
 
 	private String getToken(HttpServletRequest request) {
-		String authorization = request.getHeader("Authorization");
-		if (StringUtils.hasText(authorization) && authorization.startsWith("Bearer")) {
-			String[] arr = authorization.split(" ");
-			return arr[1];
-		}
-		return null;
+	    String authorization = request.getHeader("Authorization");
+	    if (StringUtils.hasText(authorization) && authorization.startsWith("Bearer ")) {
+	        return authorization.replace("Bearer ", "");
+	    }
+	    return null;
 	}
 }

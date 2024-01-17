@@ -23,10 +23,15 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        JwtAuthenticationToken authenticationToken = (JwtAuthenticationToken) authentication;
+    	System.out.println("authenticate 진입 *********************************************");
+    	JwtAuthenticationToken authenticationToken = (JwtAuthenticationToken) authentication;
+    	System.out.println("authentication 값 : " + authentication.toString());
+    	System.out.println("authenticationToken 값 : " + authenticationToken.toString());
+    	System.out.println("authenticationToken.getToken 값 : " + authenticationToken.getToken());
         
         // 토큰 기간만료, 문자열 등 검증
         Claims claims = jwtTokenizer.parseAccessToken(authenticationToken.getToken());
+        System.out.println("claims 값 : " + claims.toString());
         
         // 암호화 데이터 및 복호화 코드 삽입
         String email = claims.getSubject();

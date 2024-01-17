@@ -11,8 +11,6 @@
         <result property="drugColor" column="drug_color"/>
     </resultMap>
 
-
-
 	<select id="getDrugsList" parameterType="com.example.dto.DrugsDTO" resultMap="drugsResultMap">
 		SELECT drug_name, drug_company, drug_shape, drug_color
         FROM drugs

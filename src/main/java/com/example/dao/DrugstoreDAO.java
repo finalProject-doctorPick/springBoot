@@ -11,4 +11,6 @@ public interface DrugstoreDAO {
 	List<Drugstore> selectDrugstore();
 	
 	Drugstore validateDrugstoreEmail(String email);
+
+	List<Drugstore> getDrugstoreList();
 }

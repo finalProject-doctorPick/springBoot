@@ -2,11 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dao.HospitalDAO">
-    <select id="getHospitalList" resultType="com.example.domain.Hospital">
-        <![CDATA[
+	<resultMap id="HospitalResultMap" type="com.example.domain.Hospital">
+        <id property="hospitalId" 				column="hospital_id"/>
+        <result property="hospitalName" 		column="hospital_name"/>
+        <result property="hospitalAddrMain" 	column="hospital_addr_main"/>
+        <result property="hospitalAddrDetail" 	column="hospital_addr_detail"/>
+        <result property="hospitalJoinDate"		column="hospital_join_date"/>
+        <result property="hospitalLeaveDate" 	column="hospital_leave_date"/>
+        <result property="hospitalLati"		 	column="hospital_lati"/>
+        <result property="hospitalLong"		 	column="hospital_long"/>
+        <result property="partnershipStatus"	column="partnership_status"/>
+    </resultMap>
+
+    <select id="getHospitalList" resultMap="HospitalResultMap">
         SELECT *
         FROM hospital
         LIMIT 1000
-        ]]>
     </select>
 </mapper>
