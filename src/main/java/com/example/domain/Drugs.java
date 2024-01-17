@@ -6,7 +6,8 @@ import lombok.Data;
 
 @Data
 public class Drugs {
-	private int drugId;
+
+	private Integer drugId;
 
 	private String drugName;
 	
@@ -15,5 +16,8 @@ public class Drugs {
 	private String drugShape;
 
 	private String drugColor;
+	
+	private String drugEfficacy;
+	
 	
 }
