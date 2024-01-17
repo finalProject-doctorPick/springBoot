@@ -12,7 +12,6 @@
         <result property="drugEfficacy" column="drug_efficacy"/>
     </resultMap>
 
-
 	<select id="getDrugsList" parameterType="com.example.dto.DrugsDTO" resultMap="drugsResultMap">
 		SELECT drug_id, drug_name, drug_company, drug_shape, drug_color, drug_efficacy
         FROM drugs

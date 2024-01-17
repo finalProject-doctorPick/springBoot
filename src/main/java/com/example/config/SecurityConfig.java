@@ -1,5 +1,8 @@
 package com.example.config;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,28 +31,27 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    	return http
-    			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-	            .and()
-	            .formLogin().disable()
-	            .csrf().disable()
-	            .apply(authenticationManagerConfig)
-	            .and()
-	            .httpBasic().disable()
-	            .authorizeRequests()
-	            .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-	            .antMatchers("/users/signup", "/users/login", "/users/refreshToken", "/members/signup", "/members/login", "/api/drugsSearch", "/members/refreshToken").permitAll()
-	            .antMatchers(HttpMethod.GET, "/**").hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
-	            .antMatchers(HttpMethod.POST, "/**").hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
-	            .antMatchers(HttpMethod.OPTIONS, "/**").hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
-	            .anyRequest().hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
-	            .and()
-	            .exceptionHandling()
-	            .authenticationEntryPoint(customAuthenticationEntryPoint)
-	            .and()
-	            .cors()
-	            .and()
-	            .build();
+        return http
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .formLogin().disable()
+            .csrf().disable()
+            .apply(authenticationManagerConfig)
+            .and()
+            .httpBasic().disable()
+            .authorizeRequests()
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                .antMatchers("/users/signup", "/users/login", "/users/refreshToken", "/members/refreshToken").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/**").hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
+                .antMatchers(HttpMethod.POST, "/api/**").hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
+                .anyRequest().hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
+            .and()
+            .exceptionHandling()
+                .authenticationEntryPoint(customAuthenticationEntryPoint)
+            .and()
+            .cors()
+            .and()
+            .build();
     }
 
     @Bean
@@ -58,10 +60,10 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOrigin("*");
         config.addAllowedMethod("*");
-        config.addAllowedHeader("*");
-
+        config.setAllowedMethods(Arrays.asList("GET","POST","DELETE","PATCH","OPTIONS","PUT"));
+        config.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
         source.registerCorsConfiguration("/**", config);
-
+        
         return source;
     }
 

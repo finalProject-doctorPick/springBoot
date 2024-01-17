@@ -70,6 +70,7 @@ public class MemberServiceImpl implements MemberService{
     	insertMember.setMemberBirth(memberData.getUserBirth());
     	insertMember.setMemberAuth(memberData.getUserAuth());
     	insertMember.setMemberSex(memberData.getUserSex());
+    	insertMember.setMemberTel(memberData.getUserTel().replaceAll("-", ""));
     	insertMember.setMemberPoint(0);
     	
     	// 회원정보 저장
@@ -108,15 +109,10 @@ public class MemberServiceImpl implements MemberService{
     	Member m = memberDAO.findByMember(email);
     	// 비밀번호 체크
     	if(m != null){
-    		System.out.println("*****************************************");
-    		System.out.println("memberServiceImpl > findByMemberEmail 후 member 값 : " + m.toString());
-    		System.out.println("memberServiceImpl > findByMemberEmail 후 Role값 : " + m.getRoles());
-    		System.out.println("*****************************************");
     		return (passwordEncoder.matches(pwd, m.getMemberPwd())) ? m : null;
     	}else {
     		return null;
     	}
-    	
 	}
     
     /**

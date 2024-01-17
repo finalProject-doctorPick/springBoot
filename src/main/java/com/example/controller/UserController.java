@@ -5,14 +5,17 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.domain.RefreshToken;
 import com.example.domain.Users;
 import com.example.service.UserService;
 
@@ -50,10 +53,6 @@ public class UserController {
      * */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Users userLoginData, BindingResult bindingResult) {
-        System.out.println("***************************");
-        System.out.println("users/login 진입 성공 !!!");
-        System.out.println("userLoginData 값 : " + userLoginData.toString());
-        System.out.println("***************************");
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -62,4 +61,32 @@ public class UserController {
         return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
     }
     
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-17
+     *  @param		: RefreshToken refreshToken
+     *  @return		: ResponseEntity
+     * 	@explain	: logout > Refresh Token 제거
+     * */
+    @DeleteMapping("/logout")
+    public ResponseEntity<?> logout(@RequestParam String refreshToken) {
+    	
+    	ResponseEntity<?> responseEntity = userService.deleteRefreshToken(refreshToken);
+    	return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
+    }
+    
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-17
+     *  @param		: RefreshToken refreshToken
+     *  @return		: ResponseEntity
+     * 	@explain	: 유저 및 Refresh Token 유효성 체크 후 Access Token 발급
+     * 
+     * */
+    @PostMapping("/refreshToken")
+    public ResponseEntity<?> issueAccessToken(@RequestBody RefreshToken refreshToken) {
+    	
+    	ResponseEntity<?> responseEntity = userService.issueAccessToken(refreshToken);
+    	return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
+    }
 }

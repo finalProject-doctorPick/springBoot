@@ -10,15 +10,12 @@ import lombok.Getter;
 @Getter
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
     private String token;
-    private Object principal;
-    private Object credentials;
 
-    public JwtAuthenticationToken(Collection<? extends GrantedAuthority> authorities,
-                                  Object principal, Object credentials) {
+    public JwtAuthenticationToken(Collection<? extends GrantedAuthority> authorities, String email, String token) {
         super(authorities);
-        this.principal = principal;
-        this.credentials = credentials;
         this.setAuthenticated(true);
+        this.token = token;
+        this.setDetails(email);
     }
 
     public JwtAuthenticationToken(String token) {
@@ -29,11 +26,11 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
     @Override
     public Object getCredentials() {
-        return this.credentials;
+        return this.token;
     }
 
     @Override
     public Object getPrincipal() {
-        return this.principal;
+        return this.getDetails();
     }
 }

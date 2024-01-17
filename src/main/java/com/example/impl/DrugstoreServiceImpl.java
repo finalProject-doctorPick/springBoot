@@ -11,7 +11,6 @@ import com.example.dao.DrugstoreDAO;
 import com.example.domain.Drugstore;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
-import com.example.dto.DrugstoreDTO;
 import com.example.entity.DrugstoreEntity;
 import com.example.entity.RoleEntity;
 import com.example.repository.DrugstoreRepository;
@@ -74,7 +73,8 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 		insertDrugstore.setDrugstoreAddrMain(drugstoreData.getUserAddrMain());
 		insertDrugstore.setDrugstoreAddrDetail(drugstoreData.getUserAddrDetail());
 		insertDrugstore.setFileKey(fileKey);
-		insertDrugstore.setDrugstoreTel(drugstoreData.getUserTel());
+		insertDrugstore.setDrugstoreTel(drugstoreData.getUserTel().replaceAll("-", ""));
+		insertDrugstore.setDrugstoreConfirmYn("N");
 		
 		// 약국 정보 저장
 		DrugstoreEntity result = drugstoreRepository.save(insertDrugstore);
@@ -93,11 +93,6 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 		Drugstore s = drugstoreDAO.validateDrugstoreEmail(email);
 		// 비밀번호 체크
     	if(s != null){
-    		System.out.println("********약국 findByDrugstoreEmail check ");
-    		System.out.println("약국 조회 값 " + s.toString());
-    		System.out.println("parameter pwd 값 : " + pwd);
-    		System.out.println("p s 값 : " + s.getDrugstorePwd());
-    		System.out.println("**************************************");
     		return (passwordEncoder.matches(pwd, s.getDrugstorePwd())) ? s : null;
     	}else {
     		return null;
@@ -107,6 +102,18 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 	@Transactional(readOnly = true)
 	public DrugstoreEntity getDrugstore(String email) {
 		return drugstoreRepository.findByDrugstoreEmail(email);
+	}
+
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-17
+     *  @param		: void
+     *  @return		: List<Drugstore>
+     * 	@explain	: 약국 리스트 조회
+     * */
+	@Transactional(readOnly = true)
+	public List<Drugstore> getDrugstoreList() {
+		return drugstoreDAO.getDrugstoreList();
 	}
 
 }

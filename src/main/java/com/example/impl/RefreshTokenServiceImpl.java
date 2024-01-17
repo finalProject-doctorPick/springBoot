@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.RefreshToken;
-import com.example.dto.RefreshTokenDTO;
 import com.example.entity.RefreshTokenEntity;
 import com.example.repository.RefreshTokenRepository;
 import com.example.service.RefreshTokenService;
@@ -24,10 +23,6 @@ public class RefreshTokenServiceImpl implements RefreshTokenService{
     @Transactional
     public RefreshToken addRefreshToken(RefreshTokenEntity refreshTokenEntity) {
     	RefreshToken token = modelMapper.map(refreshTokenRepository.save(refreshTokenEntity), RefreshToken.class);
-//    	refreshTokenRepository.save(refreshTokenEntity);
-//    	result.setId(result.getId());
-//    	result.setUserEmail(result.getUserEmail());
-//    	result.setValue(result.getValue());
         return token;
     }
 
@@ -46,7 +41,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService{
 
 
     @Transactional(readOnly = true)
-    public Optional<RefreshToken> findRefreshToken(String refreshToken) {
+    public Optional<RefreshTokenEntity> findRefreshToken(String refreshToken) {
         return refreshTokenRepository.findByValue(refreshToken);
     }
 }
