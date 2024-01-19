@@ -1,5 +1,7 @@
 package com.example.impl;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -126,4 +128,18 @@ public class MemberServiceImpl implements MemberService{
     public MemberEntity getMember(String email){
         return memberRepository.findByMemberEmail(email);
     }
+
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-16
+     *  @param		: String email
+     *  @return		: MemberEntity
+     * 	@explain	: 회원 정보 조회
+     * */
+    @Transactional(readOnly = true)
+	public List<?> getMemberCurrntHistory(Integer memberId) {
+		List<Member> response = memberDAO.getMemberCurrntHistory(memberId);
+		
+		return response;
+	}
 }

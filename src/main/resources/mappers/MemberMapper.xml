@@ -20,10 +20,94 @@
         <result property="fileKey" 			column="file_key"/>
     </resultMap>
     
+    <resultMap id="MemberHistoryResultMap" type="com.example.domain.MemberHistory">
+        <id property="memberId" 					column="member_id"/>
+        <result property="certificateNum" 			column="certificate_num"/>
+        <result property="certificateDate" 			column="certificate_date"/>
+        <result property="reservationNum" 			column="reservation_num"/>
+        <result property="paymentAmount" 			column="payment_amount"/>
+        <result property="certificatePaymentStatus" column="certificate_payment_status"/>
+        <result property="description" 				column="description"/>
+        <result property="certificateFile" 			column="certificate_file"/>
+        <result property="doctorId" 				column="doctor_id"/>
+        <result property="reservationDate" 			column="reservation_date"/>
+        <result property="reservationStatus" 		column="reservation_status"/>
+        <result property="doctorEmail" 				column="doctor_email"/>
+        <result property="doctorName" 				column="doctor_name"/>
+        <result property="doctorBirth" 				column="doctor_birth"/>
+        <result property="doctorSex" 				column="doctor_sex"/>
+        <result property="doctorTel" 				column="doctor_tel"/>
+        <result property="doctorSubject" 			column="doctor_subject"/>
+        <result property="doctorMajor" 				column="doctor_major"/>
+        <result property="doctorComments" 			column="doctor_comments"/>
+        <result property="doctorFile" 				column="doctor_file"/>
+        <result property="hospitalName" 			column="hospital_name"/>
+        <result property="hospitalAddrMain" 		column="hospital_addr_main"/>
+        <result property="hospitalAddrDetail" 		column="hospital_addr_detail"/>
+        <result property="hospitalFile" 			column="hospital_file"/>
+        <result property="hospitalLati" 			column="hospital_lati"/>
+        <result property="hospitalLong" 			column="hospital_long"/>
+        <result property="partnershipStatus" 		column="partnership_status"/>
+        <result property="paymentId" 				column="payment_id"/>
+        <result property="paymentDate" 				column="payment_date"/>
+        <result property="transactionType" 			column="transaction_type"/>
+        <result property="paymentStatus" 			column="payment_status"/>
+    </resultMap>
+    
     <select id="findByMember" parameterType="String" resultMap="MemberResultMap">
 		SELECT *
 		  FROM members
 		 WHERE member_email = #{memberEmail}
 	</select>
 	
+	<select id="getMemberCurrntHistory" parameterType="int" resultMap="MemberHistoryResultMap">
+		SELECT *
+		  FROM members m 
+	INNER JOIN (
+			    SELECT 
+			          c.certificate_num 	 AS certificate_num
+			        , c.certificate_date 	 AS certificate_date
+			        , c.reservation_num 	 AS reservation_num
+			        , c.payment_amount 		 AS payment_amount	
+			        , c.payment_status 		 AS certificate_payment_status 
+			        , c.description 		 AS description
+			        , c.file_key 			 AS certificate_file
+			        , r.member_id 			 AS member_id
+			        , r.doctor_id 			 AS doctor_id
+			        , r.reservation_date 	 AS reservation_date
+			        , r.reservation_status	 AS reservation_status
+			        , d.doctor_email 		 AS doctor_email
+			        , d.hospital_id 		 AS hospital_id
+			        , d.doctor_name 		 AS doctor_name
+			        , d.doctor_birth 		 AS doctor_birth
+			        , d.doctor_sex 			 AS doctor_sex
+			        , d.doctor_tel 			 AS doctor_tel
+			        , d.doctor_subject 		 AS doctor_subject
+			        , d.doctor_major 		 AS doctor_major	
+			        , d.doctor_comments 	 AS doctor_comments
+			        , d.file_key 			 AS doctor_file
+			        , h.hospital_name 		 AS hospital_name
+			        , h.hospital_addr_main	 AS hospital_addr_main
+			        , h.hospital_addr_detail AS hospital_addr_detail	
+			        , h.file_key 			 AS hospital_file 
+			        , h.hospital_lati 		 AS hospital_lati
+			        , h.hospital_long 		 AS hospital_long
+			        , h.partnership_status 	 AS partnership_status
+			        , p.payment_id 			 AS payment_id
+			        , p.payment_date 		 AS payment_date
+			        , p.transaction_type 	 AS transaction_type
+			        , p.payment_status 		 AS payment_status
+			    FROM certificate c
+		  INNER JOIN reservation r 
+		          ON c.reservation_num = r.reservation_num 
+		  INNER JOIN doctor d 
+		  		  ON r.doctor_id = d.doctor_id  
+		  INNER JOIN hospital h 
+		          ON d.hospital_id = h.hospital_id
+		  INNER JOIN payments p 
+		          ON c.certificate_num = p.certificate_num
+			    ) AS j 
+			  ON m.member_id = j.member_id
+			 AND m.member_id = ${memberId}
+	</select>
 </mapper>

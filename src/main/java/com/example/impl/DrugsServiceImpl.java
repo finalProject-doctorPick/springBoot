@@ -10,8 +10,11 @@ import com.example.domain.Drugs;
 import com.example.dto.DrugsDTO;
 import com.example.service.DrugsService;
 
+import lombok.RequiredArgsConstructor;
+
 
 @Service
+@RequiredArgsConstructor
 public class DrugsServiceImpl implements DrugsService {
 	
 	@Autowired
