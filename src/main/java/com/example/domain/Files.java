@@ -40,6 +40,15 @@ public class Files {
             // 나중에 웹서버 경로를 찾아서 수정
             String path =  "C:\\imgFolder\\";
             this.filePath= path;
+            
+            File directory = new File(path);
+            if (!directory.exists()) {
+                boolean created = directory.mkdirs();
+                if (!created) {
+                    // Handle the case where directory creation fails
+                    throw new RuntimeException("Failed to create directory: " + path);
+                }
+            }
             File f = new File(path + r_rimg);
 
             try {
