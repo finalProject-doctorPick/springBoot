@@ -23,17 +23,17 @@ public class DrugsController {
 
     private final DrugsService drugsService;
 
-   @GetMapping("/drugsSearch")
-   public ResponseEntity<?> getDrugsList(@RequestParam String drugText, @RequestParam String drugColor){
-      DrugsDTO dto = new DrugsDTO();
-      dto.setDrugText(drugText);
-       dto.setDrugFront(drugText);
-       dto.setDrugBack(drugText);
-      dto.setDrugColor(drugColor);
-      
-      System.out.println("=====================> dto: " + dto);
-      List<Drugs> list = drugsService.getDrugsList(dto);
-      return new ResponseEntity<>(list, HttpStatus.OK);
-   }
-    
+	@GetMapping("/drugsSearch")
+	public ResponseEntity<?> getDrugsList(@RequestParam String drugText, @RequestParam String drugColor){
+		DrugsDTO dto = new DrugsDTO();
+		dto.setDrugText(drugText);
+	    dto.setDrugFront(drugText);
+	    dto.setDrugBack(drugText);
+		dto.setDrugColor(drugColor);
+		
+		System.out.println("=====================> dto: " + dto);
+		List<Drugs> list = drugsService.getDrugsList(dto);
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	 
 }

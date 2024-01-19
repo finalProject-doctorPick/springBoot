@@ -1,7 +1,6 @@
 package com.example.config;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -41,7 +40,7 @@ public class SecurityConfig {
             .httpBasic().disable()
             .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .antMatchers("/users/signup", "/users/login", "/users/refreshToken", "/members/refreshToken", "/api/drugsSearch").permitAll()
+                .antMatchers("/users/signup", "/users/login", "/users/refreshToken", "/members/refreshToken").permitAll()
                 .antMatchers(HttpMethod.GET, "/**").hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
                 .antMatchers(HttpMethod.POST, "/**").hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
                 .anyRequest().hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")

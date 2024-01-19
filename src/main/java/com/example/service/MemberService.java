@@ -1,5 +1,7 @@
 package com.example.service;
 
+import java.util.List;
+
 import com.example.domain.Member;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
@@ -19,5 +21,8 @@ public interface MemberService {
 	
 	// 회원 조회
 	MemberEntity getMember(String email);
+
+	// 회원 기록 조회
+	List<?> getMemberCurrntHistory(Integer memberId);
 	
 }
