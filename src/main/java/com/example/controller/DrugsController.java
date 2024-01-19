@@ -2,8 +2,8 @@ package com.example.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,17 +13,18 @@ import com.example.domain.Drugs;
 import com.example.dto.DrugsDTO;
 import com.example.service.DrugsService;
 
+import lombok.RequiredArgsConstructor;
 
-@CrossOrigin
+
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api")
 public class DrugsController {
 
-	@Autowired
-    private DrugsService drugsService;
+    private final DrugsService drugsService;
 
 	@GetMapping("/drugsSearch")
-	public List<Drugs> getDrugsList(@RequestParam String drugText, @RequestParam String drugColor){
+	public ResponseEntity<?> getDrugsList(@RequestParam String drugText, @RequestParam String drugColor){
 		DrugsDTO dto = new DrugsDTO();
 		dto.setDrugText(drugText);
 	    dto.setDrugFront(drugText);
@@ -31,8 +32,8 @@ public class DrugsController {
 		dto.setDrugColor(drugColor);
 		
 		System.out.println("=====================> dto: " + dto);
-			
-		return drugsService.getDrugsList(dto);
+		List<Drugs> list = drugsService.getDrugsList(dto);
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	 
 }

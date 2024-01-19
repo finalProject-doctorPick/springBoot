@@ -10,22 +10,25 @@ import com.example.domain.Drugs;
 import com.example.dto.DrugsDTO;
 import com.example.service.DrugsService;
 
+import lombok.RequiredArgsConstructor;
+
 
 @Service
+@RequiredArgsConstructor
 public class DrugsServiceImpl implements DrugsService {
-	
-	@Autowired
-	private DrugsDAO drugsDAO;
+   
+   @Autowired
+   private DrugsDAO drugsDAO;
 
-	@Override
-	public List<Drugs> getDrugsList(DrugsDTO dto) {
-		System.out.println("service =======> dto : " + dto);
-		
-		List<Drugs> d = drugsDAO.getDrugsList(dto);
-		
-		System.out.println("List : " + d.size());
-		
-		return d;
-	} 
+   @Override
+   public List<Drugs> getDrugsList(DrugsDTO dto) {
+      System.out.println("service =======> dto : " + dto);
+      
+      List<Drugs> d = drugsDAO.getDrugsList(dto);
+      
+      System.out.println("List : " + d.size());
+      
+      return d;
+   } 
 
 }

@@ -20,7 +20,8 @@ public class JwtTokenizer {
 	private final byte[] accessSecret;
     private final byte[] refreshSecret;
 
-    public final static Long ACCESS_TOKEN_EXPIRE_COUNT = 30 * 60 * 1000L; // 30 minutes
+//    public final static Long ACCESS_TOKEN_EXPIRE_COUNT = 30 * 60 * 1000L; // 30 minutes
+    public final static Long ACCESS_TOKEN_EXPIRE_COUNT = 3000 * 6000 * 1000L; // 30 minutes
     public final static Long REFRESH_TOKEN_EXPIRE_COUNT = 7 * 24 * 60 * 60 * 1000L; // 7 days
 
     public JwtTokenizer(@Value("${jwt.secretKey}") String accessSecret, @Value("${jwt.refreshKey}") String refreshSecret) {
@@ -37,7 +38,6 @@ public class JwtTokenizer {
      * 
      * */
     public String createAccessToken(Integer id, String email, List<String> roles) {
-    	System.out.println("createAccessToken 진입 > accessSecret 확인 : " + accessSecret);
         return createToken(id, email, roles, ACCESS_TOKEN_EXPIRE_COUNT, accessSecret, SignatureAlgorithm.HS256);
     }
 
@@ -50,7 +50,6 @@ public class JwtTokenizer {
      *  
      * */
     public String createRefreshToken(Integer id, String email, List<String> roles) {
-    	System.out.println("createRefreshToken 진입 > refreshSecret 확인 : " + refreshSecret);
         return createToken(id, email, roles, REFRESH_TOKEN_EXPIRE_COUNT, refreshSecret, SignatureAlgorithm.HS256);
     }
 
@@ -65,9 +64,6 @@ public class JwtTokenizer {
      * */
 	private String createToken(Integer id, String email, List<String> roles, Long expire, byte[] secretKey,
 			SignatureAlgorithm algorithm) {
-		System.out.println("*******************************");
-		System.out.println("createToken 진입 ");
-		System.out.println("secretKey 값 : " + secretKey);
 		
 		Key signingKey = getSigningKey(secretKey);
 		

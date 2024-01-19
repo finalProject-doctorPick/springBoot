@@ -17,8 +17,6 @@ import com.example.domain.Member;
 import com.example.domain.RefreshToken;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
-import com.example.dto.MemberDTO;
-import com.example.dto.MemberLoginResponseDTO;
 import com.example.entity.RefreshTokenEntity;
 import com.example.entity.RoleEntity;
 import com.example.repository.RefreshTokenRepository;
@@ -274,9 +272,9 @@ public class UserServiceImpl implements UserService{
 				.orElseThrow(() -> new IllegalArgumentException("Refresh token not found"));
 		Claims claims = jwtTokenizer.parseRefreshToken(refreshToken.getValue());
 
-		System.out.println(claims.toString());
-//		Integer userId = (Integer) claims.get("userId");
-//
+		String email= (String) claims.get("sub");
+		System.out.println("issueAccessToken > email 값 : " + email);
+
 //		Member member = memberService.getMember(userId)
 //				.orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
 //

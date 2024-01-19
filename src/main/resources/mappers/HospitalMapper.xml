@@ -17,6 +17,6 @@
     <select id="getHospitalList" resultMap="HospitalResultMap">
         SELECT *
         FROM hospital
-        LIMIT 1000
+        LIMIT 5000
     </select>
 </mapper>

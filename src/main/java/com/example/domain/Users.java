@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Users {
 
+	private Integer userId;
+	
     private String userEmail;
 
     private String userPwd;
