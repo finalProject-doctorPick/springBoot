@@ -21,19 +21,30 @@
 
     <select id="selectDrugstore">
 		SELECT *
-		  FROM drugstore
-		 LIMIT 10
+		FROM drugstore
+		LIMIT 10
 	</select>
 	
 	<select id="validateDrugstoreEmail" parameterType="String" resultMap="DrugstoreResultMap">
 		SELECT *
-		  FROM drugstore
-		 WHERE drugstore_email = #{drugstoreEmail}
+		FROM drugstore
+		WHERE drugstore_email = #{drugstoreEmail}
 	</select>
 	
 	<select id="getDrugstoreList" resultMap="DrugstoreResultMap">
 		SELECT *
-		  FROM drugstore
-		 LIMIT 1000
+		FROM drugstore
+		LIMIT 1000
 	</select>
+
+	<select id="getDrugstoreListByKeword" resultMap="DrugstoreResultMap">
+		SELECT *
+		FROM drugstore
+		WHERE 
+			drugstore_name LIKE CONCAT('%', #{keyword}, '%') OR
+			drugstore_addr_main LIKE CONCAT('%', #{keyword}, '%') OR
+			drugstore_addr_detail LIKE CONCAT('%', #{keyword}, '%')
+	</select>
+	
+	
 </mapper>

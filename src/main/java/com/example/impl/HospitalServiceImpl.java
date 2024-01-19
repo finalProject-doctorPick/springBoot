@@ -21,4 +21,10 @@ public class HospitalServiceImpl implements HospitalService {
     public List<Hospital> getHospitalList() {
         return hospitalDAO.getHospitalList();
     }
+
+	@Override
+	public List<Hospital> getHospitalListByKeyword(String keyword) {
+
+		return hospitalDAO.getHospitalListByKeyword(keyword);
+	}
 }

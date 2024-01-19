@@ -6,9 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.domain.Drugstore;
+import com.example.domain.Hospital;
 import com.example.service.DrugstoreService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,4 +28,22 @@ public class DrugstoreController {
 		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
+	
+	/**
+     * 	@author 	: 정하림 
+     *  @created	: 2024-01-19
+     *  @param		: String keyword
+     *  @return		: ResponseEntity
+     * 	@explain	: 검색어로 약국 검색
+     * 
+     * */
+	@GetMapping("/getDrugstoreListByKeyword")
+    public ResponseEntity<?> getDrugstoreListByKeyword(@RequestParam(required = false) String keyword){
+        List<Drugstore> list = drugstoreService.getDrugstoreListByKeyword(keyword);
+        
+        System.out.println("keyword ======> " + keyword);
+        System.out.println("list ======> " + list.size());
+        
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 }

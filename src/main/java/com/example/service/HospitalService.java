@@ -8,4 +8,6 @@ public interface HospitalService {
 
 	List<Hospital> getHospitalList();
 
+	List<Hospital> getHospitalListByKeyword(String keyword);
+
 }

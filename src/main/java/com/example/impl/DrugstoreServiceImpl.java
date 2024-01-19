@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dao.DrugstoreDAO;
 import com.example.domain.Drugstore;
+import com.example.domain.Hospital;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
 import com.example.entity.DrugstoreEntity;
@@ -115,5 +116,21 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 	public List<Drugstore> getDrugstoreList() {
 		return drugstoreDAO.getDrugstoreList();
 	}
+
+	
+	/**
+     * 	@author 	: 정하림 
+     *  @created	: 2024-01-19
+     *  @param		: String keyword
+     *  @return		: ResponseEntity
+     * 	@explain	: 검색어로 병원 검색
+     * 
+     * */
+	@Override
+	public List<Drugstore> getDrugstoreListByKeyword(String keyword) {
+		return drugstoreDAO.getDrugstoreListByKeyword(keyword);
+	}
+	
+
 
 }

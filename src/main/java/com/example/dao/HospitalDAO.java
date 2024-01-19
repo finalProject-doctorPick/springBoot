@@ -10,4 +10,6 @@ import com.example.domain.Hospital;
 public interface HospitalDAO {
 
     List<Hospital> getHospitalList();
+
+	List<Hospital> getHospitalListByKeyword(String keyword);
 }
