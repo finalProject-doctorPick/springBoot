@@ -48,6 +48,7 @@ public class DrugstoreController {
 		System.out.println("getDrugstoreHistoryList 진입");
 		System.out.println("param 값 : " + drugstoreId);
 		List<DrugstoreHistory> list = drugstoreService.getDrugstoreHistoryList(drugstoreId);
+		System.out.println("getDrugstoreHistoryList 리턴 전 list 크기 : " + list.size());
 		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	} 

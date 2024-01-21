@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.MemberDAO">
+	<resultMap id="MemberResultMap" type="com.example.domain.Member">
+        <id property="memberId" 			column="member_id"/>
+        <result property="memberEmail" 		column="member_email"/>
+        <result property="memberPwd" 		column="member_pwd"/>
+        <result property="memberName" 		column="member_name"/>
+        <result property="memberBirth" 		column="member_birth"/>
+        <result property="memberSex" 		column="member_sex"/>
+        <result property="memberTel" 		column="member_tel"/>
+        <result property="memberAddrMain" 	column="member_addr_main"/>
+        <result property="memberAddrDetail" column="member_addr_detail"/>
+        <result property="memberJoinDate" 	column="member_join_date"/>
+        <result property="memberLeaveDate" 	column="member_leave_date"/>
+        <result property="memberCreditNum" 	column="member_credit_num"/>
+        <result property="memberPoint" 		column="member_point"/>
+        <result property="memberAuth" 		column="member_auth"/>
+        <result property="fileKey" 			column="file_key"/>
+    </resultMap>
+    
+    <select id="getMemberList" parameterType="String" resultMap="MemberResultMap">
+		SELECT *
+		  FROM members
+		 <where>
+	        <if test="searchKeyword != null and searchKeyword != ''">
+	            (
+	            member_email LIKE '%' || #{searchKeyword} || '%'
+	            OR member_name LIKE '%' || #{searchKeyword} || '%'
+	            OR member_birth LIKE '%' || #{searchKeyword} || '%'
+	            OR member_tel LIKE '%' || #{searchKeyword} || '%'
+	            )
+	        </if>
+    	</where>
+	</select>
+</mapper>

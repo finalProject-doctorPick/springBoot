@@ -10,6 +10,7 @@ public class DrugstoreHistory {
 	private Integer certificateNum;
 	private Integer memberId;
 	private String memberName;
+	private String memberBirth;
 	private Integer doctorId;
 	private String receiveType;
 	private String remarks;

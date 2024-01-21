@@ -16,11 +16,8 @@ public interface MemberService {
 	Member findByMemberEmailAndPwd(String email, String pwd);
 	
 	// 회원 기록 조회
-	List<?> getMemberCurrntHistory(Integer memberId);
-	
-	// 관리자) 회원 조회
-	List<?> getMemberListForAdmin(String searchKeyword);
-	
+	List<?> getMemberCurrentHistory(Integer memberId);
+		
 	/**
 	 *	*******************JPA*********************** 
 	 * */
