@@ -6,6 +6,9 @@ import com.example.domain.Hospital;
 
 public interface HospitalService {
 
+	/**
+	 *	****************MyBatis********************* 
+	 * */
 	List<Hospital> getHospitalList();
 
 }

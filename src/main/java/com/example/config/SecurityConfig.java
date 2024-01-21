@@ -40,7 +40,7 @@ public class SecurityConfig {
             .httpBasic().disable()
             .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .antMatchers("/users/signup", "/users/login", "/users/refreshToken", "/members/refreshToken").permitAll()
+                .antMatchers("/users/signup", "/users/login", "/users/refreshToken").permitAll()
                 .antMatchers(HttpMethod.GET, "/**").hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
                 .antMatchers(HttpMethod.POST, "/**").hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")
                 .anyRequest().hasAnyRole("USER", "ADMIN", "DOCTOR", "DRUGSTORE")

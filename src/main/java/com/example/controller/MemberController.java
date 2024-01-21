@@ -22,7 +22,6 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 
 	private final MemberService memberService;
-    private final RefreshTokenService refreshTokenService;
 
     /**
      * 	@author 	: 백두산	 
@@ -66,7 +65,19 @@ public class MemberController {
     public ResponseEntity<?> memberCurrentHistory(@RequestParam Integer memberId){
     	
     	List<?> list = memberService.getMemberCurrntHistory(memberId);
-    	System.out.println("list return 전 size : " + list.size());
+    	return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+    
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-19
+     *  @param		: String searchKeyword
+     *  @return		: ResponseEntity
+     * 	@explain	: 관리자) 회원 목록 조회
+     * */
+    @GetMapping("/memberListForAdmin")
+    public ResponseEntity<?> memberListForAdmin(@RequestParam String searchKeyword){
+    	List<?> list = memberService.getMemberListForAdmin(searchKeyword);
     	return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }

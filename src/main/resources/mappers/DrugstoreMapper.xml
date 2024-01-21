@@ -18,6 +18,20 @@
         <result property="drugstoreSex" column="drugstore_sex"/>
         <result property="drugstoreTel" column="drugstore_tel"/>
     </resultMap>
+    
+    <resultMap id="DrugstoreHistoryResultMap" type="com.example.domain.DrugstoreHistory">
+        <id property="drugstorHistoryId" column="drugstor_history_id"/>
+        <result property="drugstoreId" column="drugstore_id"/>
+        <result property="certificateNum" column="certificate_num"/>
+        <result property="memberId" column="member_id"/>
+        <result property="memberName" column="member_name"/>
+        <result property="doctorId" column="doctor_id"/>
+        <result property="receiveType" column="receive_type"/>
+        <result property="remarks" column="remarks"/>
+        <result property="paymentAmount" column="payment_amount"/>
+        <result property="paymentStatus" column="payment_status"/>
+        <result property="status" column="status"/>
+    </resultMap>
 
     <select id="selectDrugstore">
 		SELECT *
@@ -36,4 +50,21 @@
 		  FROM drugstore
 		 LIMIT 1000
 	</select>
+	
+	<select id="getDrugstoreHistoryList" parameterType="int" resultMap="DrugstoreHistoryResultMap">
+		SELECT dh.drugstore_history_id 			AS drugstoreHistoryId 
+			 , m.member_name					AS memberName 
+			 , m.member_birth					AS memberBirth 
+			 , CASE WHEN dh.receive_type = "W" 
+			 		THEN "직접수령"
+		 	  	 	ELSE "택배수령"
+		 	  	END 							AS receive_type
+			 , dh.status						AS status 
+		  FROM drugstore_history dh
+	INNER JOIN members m
+			ON dh.member_id = m.member_id 
+	INNER JOIN doctor d
+			ON dh.doctor_id = d.doctor_id 
+		 WHERE dh.drugstore_id = ${drugstoreId}
+	</select>	
 </mapper>

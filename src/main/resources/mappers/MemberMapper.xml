@@ -60,6 +60,21 @@
 		 WHERE member_email = #{memberEmail}
 	</select>
 	
+	<select id="getMemberListForAdmin" parameterType="String" resultMap="MemberResultMap">
+		SELECT *
+		  FROM members
+		 <where>
+	        <if test="searchKeyword != null and searchKeyword != ''">
+	            (
+	            member_email LIKE '%' || #{searchKeyword} || '%'
+	            OR member_name LIKE '%' || #{searchKeyword} || '%'
+	            OR member_birth LIKE '%' || #{searchKeyword} || '%'
+	            OR member_tel LIKE '%' || #{searchKeyword} || '%'
+	            )
+	        </if>
+    	</where>
+	</select>
+	
 	<select id="getMemberCurrntHistory" parameterType="int" resultMap="MemberHistoryResultMap">
 		SELECT *
 		  FROM members m 

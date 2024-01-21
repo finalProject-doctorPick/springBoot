@@ -14,4 +14,7 @@ public interface MemberDAO {
 	// 회원 진료 조회
 	public List<Member> getMemberCurrntHistory(Integer memberId);
 
+	// 관리자) 회원 목록 조회
+	public List<Member> getMemberListForAdmin(String searchKeyword);
+
 }

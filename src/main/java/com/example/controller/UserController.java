@@ -70,7 +70,7 @@ public class UserController {
      * */
     @DeleteMapping("/logout")
     public ResponseEntity<?> logout(@RequestParam String refreshToken) {
-    	
+    	System.out.println("logout 진입 > refreshToken 값 : " + refreshToken);
     	ResponseEntity<?> responseEntity = userService.deleteRefreshToken(refreshToken);
     	return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
     }

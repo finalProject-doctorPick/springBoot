@@ -48,7 +48,6 @@ public class MemberServiceImpl implements MemberService{
 //    }
 //    
 
-
     /**
      * 	@author 	: 백두산	 
      *  @created	: 2024-01-11
@@ -107,7 +106,7 @@ public class MemberServiceImpl implements MemberService{
      * 	@explain	: 일반 회원 조회
      * */
     @Transactional(readOnly = true)
-	public Member findByMemberEmail(String email, String pwd) {
+	public Member findByMemberEmailAndPwd(String email, String pwd) {
     	Member m = memberDAO.findByMember(email);
     	// 비밀번호 체크
     	if(m != null){
@@ -140,6 +139,22 @@ public class MemberServiceImpl implements MemberService{
 	public List<?> getMemberCurrntHistory(Integer memberId) {
 		List<Member> response = memberDAO.getMemberCurrntHistory(memberId);
 		
+		return response;
+	}
+
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-19
+     *  @param		: String searchKeyword
+     *  @return		: ResponseEntity
+     * 	@explain	: 관리자) 회원 목록 조회
+     * */
+    @Transactional(readOnly = true)
+	public List<?> getMemberListForAdmin(String searchKeyword) {
+    	System.out.println("관리자) 회원 목록 조회 진입");
+    	System.out.println("memberDAO.getMemberListForAdmin(searchKeyword) 진입 전 search값 : " + searchKeyword);
+    	
+		List<Member> response = memberDAO.getMemberListForAdmin(searchKeyword);
 		return response;
 	}
 }
