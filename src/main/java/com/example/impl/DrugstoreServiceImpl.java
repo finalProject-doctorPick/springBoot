@@ -9,11 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dao.DrugstoreDAO;
 import com.example.domain.Drugstore;
-<<<<<<< HEAD
-import com.example.domain.Hospital;
-=======
 import com.example.domain.DrugstoreHistory;
->>>>>>> refs/remotes/origin/DOOSAN
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
 import com.example.entity.DrugstoreEntity;
