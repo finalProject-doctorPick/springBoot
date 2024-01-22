@@ -5,11 +5,9 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.domain.Drugstore;
-<<<<<<< HEAD
-import com.example.domain.Hospital;
-=======
+
 import com.example.domain.DrugstoreHistory;
->>>>>>> refs/remotes/origin/DOOSAN
+
 import com.example.domain.Users;
 import com.example.entity.DrugstoreEntity;
 import com.example.domain.ServerResponse;
@@ -41,5 +39,4 @@ public interface DrugstoreService {
 
 	// 약국 회원 정보 조회
 	DrugstoreEntity getDrugstore(String email);
-
 }
