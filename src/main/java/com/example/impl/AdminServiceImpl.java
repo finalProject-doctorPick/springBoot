@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dao.AdminDAO;
+import com.example.domain.Inquiry;
 import com.example.domain.Member;
 import com.example.service.AdminService;
 
@@ -25,10 +26,20 @@ public class AdminServiceImpl implements AdminService{
      * */
 	@Transactional(readOnly = true)
 	public List<?> getMemberList(String searchKeyword) {
-		System.out.println("관리자) 회원 목록 조회 진입");
-    	System.out.println("memberDAO.getMemberList(searchKeyword) 진입 전 search값 : " + searchKeyword);
-    	
 		List<Member> response = adminDAO.getMemberList(searchKeyword);
+		return response;
+	}
+	
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-22
+     *  @param		: void
+     *  @return		: ResponseEntity
+     * 	@explain	: 관리자) 문의 목록 조회
+     * */
+	@Transactional(readOnly = true)
+	public List<?> getInquiryList(String userEmail) {
+		List<Inquiry> response = adminDAO.getInquiryList(userEmail);
 		return response;
 	}
 }

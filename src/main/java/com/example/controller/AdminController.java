@@ -34,4 +34,17 @@ public class AdminController {
     	List<?> list = adminService.getMemberList(searchKeyword);
     	return new ResponseEntity<>(list, HttpStatus.OK);
     }
+    
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-22
+     *  @param		: void
+     *  @return		: ResponseEntity
+     * 	@explain	: 관리자) 문의 목록 조회
+     * */
+    @GetMapping("/getInquiryList")
+    public ResponseEntity<?> getInquiryList(){
+    	List<?> list = adminService.getInquiryList("");
+    	return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 }

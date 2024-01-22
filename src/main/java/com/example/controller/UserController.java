@@ -85,7 +85,6 @@ public class UserController {
      *  @param		: RefreshToken refreshToken
      *  @return		: ResponseEntity
      * 	@explain	: 유저 및 Refresh Token 유효성 체크 후 Access Token 발급
-     * 
      * */
     @PostMapping("/refreshToken")
     public ResponseEntity<?> issueAccessToken(@RequestBody RefreshToken refreshToken) {

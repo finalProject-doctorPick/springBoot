@@ -9,5 +9,5 @@ import com.example.dto.DoctorDTO;
 public interface DoctorDAO {
 	void registerDoctor(DoctorDTO dto);
 
-	Doctor findDoctorByEmail(String email);
+	Doctor findDoctorByEmail(String userEmail);
 }

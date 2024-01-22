@@ -54,6 +54,8 @@ public class MemberServiceImpl implements MemberService{
     	insertMember.setMemberAuth(memberData.getUserAuth());
     	insertMember.setMemberSex(memberData.getUserSex());
     	insertMember.setMemberTel(memberData.getUserTel().replaceAll("-", ""));
+    	insertMember.setMemberAddrMain(memberData.getUserAddrMain());
+    	insertMember.setMemberAddrDetail(memberData.getUserAddrDetail());
     	insertMember.setMemberPoint(0);
     	
     	// 회원정보 저장
