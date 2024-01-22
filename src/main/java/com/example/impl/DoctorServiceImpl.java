@@ -17,7 +17,6 @@ import com.example.entity.DoctorEntity;
 import com.example.entity.RoleEntity;
 import com.example.repository.DoctorRepository;
 import com.example.repository.MemberRepository;
-import com.example.repository.ReservationRepository;
 import com.example.repository.RoleRepository;
 import com.example.service.DoctorService;
 import com.example.service.FilesService;
