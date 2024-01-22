@@ -60,7 +60,7 @@
 		 WHERE member_email = #{memberEmail}
 	</select>
 	
-	<select id="getMemberCurrntHistory" parameterType="int" resultMap="MemberHistoryResultMap">
+	<select id="getMemberCurrentHistory" parameterType="int" resultMap="MemberHistoryResultMap">
 		SELECT *
 		  FROM members m 
 	INNER JOIN (
