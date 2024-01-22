@@ -20,10 +20,18 @@
         <result property="fileKey" 			column="file_key"/>
     </resultMap>
     
+    <resultMap id="DashBoardResultMap" type="com.example.domain.DashBoard">
+    	<result property="memberBirth" 		column="member_birth"/>
+    	<result property="memberCnt" 		column="memberCnt"/>
+        <result property="ageGroup" 		column="ageGroup"/>
+    </resultMap>
+    
+    
     <resultMap id="MemberHistoryResultMap" type="com.example.domain.MemberHistory">
         <id property="memberId" 					column="member_id"/>
         <result property="certificateNum" 			column="certificate_num"/>
         <result property="certificateDate" 			column="certificate_date"/>
+        <result property="status"		 			column="status"/>
         <result property="reservationNum" 			column="reservation_num"/>
         <result property="paymentAmount" 			column="payment_amount"/>
         <result property="certificatePaymentStatus" column="certificate_payment_status"/>
@@ -60,12 +68,14 @@
 		 WHERE member_email = #{memberEmail}
 	</select>
 	
-	<select id="getMemberCurrntHistory" parameterType="int" resultMap="MemberHistoryResultMap">
+	<select id="getMemberCurrentHistory" parameterType="int" resultMap="MemberHistoryResultMap">
 		SELECT *
 		  FROM members m 
 	INNER JOIN (
 			    SELECT 
+			    		
 			          c.certificate_num 	 AS certificate_num
+			        , c.status				 AS status
 			        , c.certificate_date 	 AS certificate_date
 			        , c.reservation_num 	 AS reservation_num
 			        , c.payment_amount 		 AS payment_amount	
@@ -109,5 +119,20 @@
 			    ) AS j 
 			  ON m.member_id = j.member_id
 			 AND m.member_id = ${memberId}
+	</select>
+	
+	<select id="getMembersCntByAge" resultMap="DashBoardResultMap">
+		SELECT
+            COUNT(member_birth) AS memberCnt,
+            YEAR(CURDATE()) - SUBSTRING(member_birth, 1, 4) + 1 AS age,
+            CASE
+                WHEN YEAR(CURDATE()) - SUBSTRING(member_birth, 1, 4) + 1 BETWEEN 20 AND 29 THEN '20대'
+                WHEN YEAR(CURDATE()) - SUBSTRING(member_birth, 1, 4) + 1 BETWEEN 30 AND 39 THEN '30대'
+                WHEN YEAR(CURDATE()) - SUBSTRING(member_birth, 1, 4) + 1 BETWEEN 40 AND 49 THEN '40대'
+                WHEN YEAR(CURDATE()) - SUBSTRING(member_birth, 1, 4) + 1 BETWEEN 50 AND 59 THEN '50대'
+                WHEN YEAR(CURDATE()) - SUBSTRING(member_birth, 1, 4) + 1 >= 60 THEN '60대 이상'
+            END AS ageGroup
+        FROM members m
+        GROUP BY ageGroup;
 	</select>
 </mapper>

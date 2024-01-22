@@ -2,6 +2,7 @@ package com.example.service;
 
 import java.util.List;
 
+import com.example.domain.DashBoard;
 import com.example.domain.Member;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
@@ -17,6 +18,9 @@ public interface MemberService {
 	
 	// 회원 기록 조회
 	List<?> getMemberCurrentHistory(Integer memberId);
+	
+	// 통계 - 나이대별 회원 조회
+	List<DashBoard> getMembersCntByAge();
 		
 	/**
 	 *	*******************JPA*********************** 
@@ -29,6 +33,10 @@ public interface MemberService {
 	
 	// 일반 회원 조회
 	MemberEntity getMember(String email);
+
+
+
+
 
 
 

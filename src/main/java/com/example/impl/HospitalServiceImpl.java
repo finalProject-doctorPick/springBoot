@@ -34,4 +34,9 @@ public class HospitalServiceImpl implements HospitalService {
 
 		return hospitalDAO.getCurrentLocationList(requestData);
 	}
+
+	@Override
+	public List<Hospital> getHospitalRegionCnt() {
+		return hospitalDAO.getHospitalRegionCnt();
+	}
 }

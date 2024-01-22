@@ -16,4 +16,6 @@ public interface HospitalService {
 
 	List<Hospital> getCurrentLocationList(Map<String, String> requestData);
 
+	List<Hospital> getHospitalRegionCnt();
+
 }
