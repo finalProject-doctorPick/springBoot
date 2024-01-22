@@ -1,6 +1,7 @@
 package com.example.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,5 +27,11 @@ public class HospitalServiceImpl implements HospitalService {
 	public List<Hospital> getHospitalListByKeyword(String keyword) {
 
 		return hospitalDAO.getHospitalListByKeyword(keyword);
+	}
+
+	@Override
+	public List<Hospital> getCurrentLocationList(Map<String, String> requestData) {
+
+		return hospitalDAO.getCurrentLocationList(requestData);
 	}
 }

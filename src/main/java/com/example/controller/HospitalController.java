@@ -1,10 +1,13 @@
 package com.example.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,4 +48,25 @@ public class HospitalController {
         
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+	
+	/**
+     * 	@author 	: 정하림 
+     *  @created	: 2024-01-20
+     *  @param		: Map requestData
+     *  @return		: ResponseEntity
+     * 	@explain	: 현재 위치로 병원 검색
+     * 
+     * */
+	@PostMapping("/getCurrentLocationList")
+	public ResponseEntity<?> getCurrentLocationList(@RequestBody Map<String, String> requestData){
+		String addr1 = requestData.get("addr1");
+	    String addr2 = requestData.get("addr2");
+	   
+
+	    List<Hospital> list = hospitalService.getCurrentLocationList(requestData);
+	    System.out.println(addr1 + ", " + addr2);
+	    System.out.println(list.size());
+
+	    return new ResponseEntity<>(list, HttpStatus.OK);
+	}
 }

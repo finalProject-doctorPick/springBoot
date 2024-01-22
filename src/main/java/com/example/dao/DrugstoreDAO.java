@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.domain.Drugstore;
-import com.example.domain.Hospital;
 
 @Mapper
 public interface DrugstoreDAO {

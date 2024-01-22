@@ -37,7 +37,7 @@
 		LIMIT 1000
 	</select>
 
-	<select id="getDrugstoreListByKeword" resultMap="DrugstoreResultMap">
+	<select id="getDrugstoreListByKeyword" resultMap="DrugstoreResultMap">
 		SELECT *
 		FROM drugstore
 		WHERE 
