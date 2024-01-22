@@ -34,5 +34,15 @@ public class Hospital {
 	// 제휴 상태
 	private String partnershipStatus;
 	
+	// 지역별
+	private String region;
+	
+	// 지역별 병원 수
+	private int count;
+	
+	private int partnershipNcount;
+	
+	private int partnershipYcount;
+	
 	
 }

@@ -12,6 +12,10 @@
         <result property="hospitalLati"		 	column="hospital_lati"/>
         <result property="hospitalLong"		 	column="hospital_long"/>
         <result property="partnershipStatus"	column="partnership_status"/>
+        <result property="region"				column="region"/>
+        <result property="count"				column="count"/>
+        <result property="partnershipYcount"	column="partnershipYcount"/>
+        <result property="partnershipNcount"	column="partnershipNcount"/>
     </resultMap>
 
     <select id="getHospitalList" resultMap="HospitalResultMap">
@@ -34,5 +38,17 @@
 	    WHERE hospital_addr_main LIKE CONCAT('%', #{addr1}, '%')
 	    AND hospital_addr_main LIKE CONCAT('%', #{addr2}, '%')
 	</select>
+	
+	<select id="getHospitalRegionCnt" resultMap="HospitalResultMap">
+		SELECT 
+		    SUBSTRING_INDEX(hospital_addr_main, ' ', 1) AS region,
+		    SUM(CASE WHEN partnership_status = 'Y' THEN 1 ELSE 0 END) AS partnershipYcount,
+		    SUM(CASE WHEN partnership_status != 'Y' THEN 1 ELSE 0 END) AS partnershipNcount
+		FROM hospital
+		GROUP BY region
+	</select>
+	
+	
+	
 	
 </mapper>

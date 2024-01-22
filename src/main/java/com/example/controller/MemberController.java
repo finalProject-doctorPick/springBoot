@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.domain.DashBoard;
 import com.example.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -34,5 +35,23 @@ public class MemberController {
     	
     	List<?> list = memberService.getMemberCurrentHistory(memberId);
     	return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+    
+    /**
+     * 	@author 	: 정하림
+     *  @created	: 2024-01-22
+     *  @param		: 
+     *  @return		: ResponseEntity
+     * 	@explain	: 나이대별 회원 조회
+     * 
+     * */
+    @GetMapping("/getMembersCntByAge")
+    public ResponseEntity<?> getMembersCntByAge(){
+    	List<DashBoard> list = memberService.getMembersCntByAge();
+    	
+		System.out.println("Controller 내용" + list);
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
+    	
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.domain.DashBoard;
+import com.example.domain.Hospital;
+import com.example.domain.Member;
 import com.example.domain.RefreshToken;
 import com.example.domain.Users;
 import com.example.service.UserService;
@@ -81,7 +85,6 @@ public class UserController {
      *  @param		: RefreshToken refreshToken
      *  @return		: ResponseEntity
      * 	@explain	: 유저 및 Refresh Token 유효성 체크 후 Access Token 발급
-     * 
      * */
     @PostMapping("/refreshToken")
     public ResponseEntity<?> issueAccessToken(@RequestBody RefreshToken refreshToken) {
@@ -89,4 +92,9 @@ public class UserController {
     	ResponseEntity<?> responseEntity = userService.issueAccessToken(refreshToken);
     	return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
     }
+    
+
+    
+   
+    
 }

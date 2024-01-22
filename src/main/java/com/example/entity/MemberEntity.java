@@ -59,6 +59,12 @@ public class MemberEntity implements Serializable{
     @Column(name = "member_tel")
     private String memberTel;
     
+    @Column(name = "member_addr_main")
+    private String memberAddrMain;
+    
+    @Column(name = "member_addr_detail")
+    private String memberAddrDetail;
+    
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_email", referencedColumnName = "member_email"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();

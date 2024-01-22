@@ -8,6 +8,7 @@ public class Inquiry {
 	private String inquiryType;
 	private String inquiryTitle;
 	private String inquiryWriterEmail;
+	private String inquiryComments;
 	private String inquiryRegdate;
 	private String inquiryAnswer;
 	private String inquiryAnswerRegdate;

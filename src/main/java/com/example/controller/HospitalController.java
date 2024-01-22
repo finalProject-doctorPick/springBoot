@@ -69,4 +69,22 @@ public class HospitalController {
 
 	    return new ResponseEntity<>(list, HttpStatus.OK);
 	}
+	
+	
+	/**
+     * 	@author 	: 정하림 
+     *  @created	: 2024-01-22
+     *  @param		: 
+     *  @return		: ResponseEntity
+     * 	@explain	: 차트 - 지역별 병원
+     * 
+     * */
+	@GetMapping("/getHospitalRegionCnt")
+	public ResponseEntity<?> getHospitalRegionCnt(){
+		List<Hospital> list = hospitalService.getHospitalRegionCnt();
+		System.out.println("Controller 내용" + list);
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
 }

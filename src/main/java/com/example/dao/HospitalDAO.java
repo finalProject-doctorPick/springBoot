@@ -15,4 +15,6 @@ public interface HospitalDAO {
 	List<Hospital> getHospitalListByKeyword(String keyword);
 
 	List<Hospital> getCurrentLocationList(Map<String, String> requestData);
+
+	List<Hospital> getHospitalRegionCnt();
 }

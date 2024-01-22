@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dao.MemberDAO;
+import com.example.domain.DashBoard;
 import com.example.domain.Member;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
@@ -53,6 +54,8 @@ public class MemberServiceImpl implements MemberService{
     	insertMember.setMemberAuth(memberData.getUserAuth());
     	insertMember.setMemberSex(memberData.getUserSex());
     	insertMember.setMemberTel(memberData.getUserTel().replaceAll("-", ""));
+    	insertMember.setMemberAddrMain(memberData.getUserAddrMain());
+    	insertMember.setMemberAddrDetail(memberData.getUserAddrDetail());
     	insertMember.setMemberPoint(0);
     	
     	// 회원정보 저장
@@ -121,6 +124,19 @@ public class MemberServiceImpl implements MemberService{
 		List<Member> response = memberDAO.getMemberCurrentHistory(memberId);
 		
 		return response;
+	}
+
+    /**
+     * 	@author 	: 정하림 
+     *  @created	: 2024-01-22
+     *  @param		: 
+     *  @return		: MemberEntity
+     * 	@explain	: 통계 - 나이대별 회원 조회
+     * */
+	@Override
+	public List<DashBoard> getMembersCntByAge() {
+
+		return memberDAO.getMembersCntByAge();
 	}
 
 }
