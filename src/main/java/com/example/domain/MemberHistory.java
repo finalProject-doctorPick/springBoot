@@ -38,4 +38,5 @@ public class MemberHistory {
 	private LocalDateTime paymentDate;
 	private String transactionType;
 	private String paymentStatus;
+	private String status;
 }

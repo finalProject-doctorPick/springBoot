@@ -9,20 +9,28 @@ import com.example.entity.MemberEntity;
 
 public interface MemberService {
 
+	/**
+	 *	****************MyBatis********************* 
+	 * */
+	// 일반 회원 조회 및 비밀번호 검증
+	Member findByMemberEmailAndPwd(String email, String pwd);
+	
+	// 회원 기록 조회
+	List<?> getMemberCurrentHistory(Integer memberId);
+		
+	/**
+	 *	*******************JPA*********************** 
+	 * */
 	// 이메일 존재 유무
 	boolean existsByMemberEmail(String email);
 	
-	// 회원 등록
+	// 일반 회원 등록
 	ServerResponse registerMember(Users saveData);
-
-	// 회원 조회
-	Member findByMemberEmail(String email, String pwd);
-
 	
-	// 회원 조회
+	// 일반 회원 조회
 	MemberEntity getMember(String email);
 
-	// 회원 기록 조회
-	List<?> getMemberCurrntHistory(Integer memberId);
+
+
 	
 }

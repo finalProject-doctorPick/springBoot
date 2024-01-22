@@ -19,4 +19,20 @@
         FROM hospital
         LIMIT 5000
     </select>
+
+	<select id="getHospitalListByKeyword" resultMap="HospitalResultMap">
+		SELECT *
+		FROM hospital
+		WHERE
+			hospital_name LIKE CONCAT('%', #{keyword}, '%') OR
+			hospital_addr_main LIKE CONCAT('%', #{keyword}, '%') OR
+			hospital_addr_detail LIKE CONCAT('%', #{keyword}, '%')
+	</select>
+	
+	<select id="getCurrentLocationList" parameterType="java.util.Map" resultMap="HospitalResultMap">
+		SELECT * FROM hospital h
+	    WHERE hospital_addr_main LIKE CONCAT('%', #{addr1}, '%')
+	    AND hospital_addr_main LIKE CONCAT('%', #{addr2}, '%')
+	</select>
+	
 </mapper>
