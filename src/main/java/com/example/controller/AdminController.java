@@ -10,29 +10,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.service.MemberService;
+import com.example.service.AdminService;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 @Validated
-@RequestMapping("/members")
-public class MemberController {
-
-	private final MemberService memberService;
-
+@RequestMapping("/admin")
+public class AdminController {
+	
+	private final AdminService adminService;
+	
     /**
      * 	@author 	: 백두산	 
-     *  @created	: 2024-01-18
-     *  @param		: Users userData
+     *  @created	: 2024-01-19
+     *  @param		: String searchKeyword
      *  @return		: ResponseEntity
-     * 	@explain	: 일반 회원 최근 진료 내역
+     * 	@explain	: 관리자) 회원 목록 조회
      * */
-    @GetMapping("/currentHistory")
-    public ResponseEntity<?> getMemberCurrentHistory(@RequestParam Integer memberId){
-    	
-    	List<?> list = memberService.getMemberCurrentHistory(memberId);
+    @GetMapping("/getMemberList")
+    public ResponseEntity<?> getMemberList(@RequestParam String searchKeyword){
+    	List<?> list = adminService.getMemberList(searchKeyword);
     	return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }

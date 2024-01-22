@@ -17,6 +17,9 @@ import com.example.domain.Member;
 import com.example.domain.RefreshToken;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
+import com.example.entity.DoctorEntity;
+import com.example.entity.DrugstoreEntity;
+import com.example.entity.MemberEntity;
 import com.example.entity.RefreshTokenEntity;
 import com.example.entity.RoleEntity;
 import com.example.repository.RefreshTokenRepository;
@@ -139,7 +142,7 @@ public class UserServiceImpl implements UserService{
         }
         
         // 일반 회원, 의사, 약국 순으로 확인
-        Member member = memberService.findByMemberEmail(email, pwd);
+        Member member = memberService.findByMemberEmailAndPwd(email, pwd);
         Doctor doctor = doctorService.validateDoctorEmailAndPwd(email, pwd);
         Drugstore drugstore = drugstoreService.validateDrugstoreEmail(email, pwd);
 
@@ -249,6 +252,7 @@ public class UserServiceImpl implements UserService{
     	ServerResponse response = new ServerResponse();
     	 refreshTokenRepository.findByValue(refreshToken).ifPresent(refreshTokenEntity -> {
              String userEmail = refreshTokenEntity.getUserEmail();
+             System.out.println("deleteRefreshToken 전 email 값 : " + userEmail);
              refreshTokenRepository.deleteByUserEmail(userEmail);
              response.setSuccess(true);
              response.setMessage(userEmail + " 님의 토큰이 삭제 되었습니다.");
@@ -267,26 +271,42 @@ public class UserServiceImpl implements UserService{
 	@Transactional
 	public ResponseEntity<?> issueAccessToken(RefreshToken refreshToken) {
 		ServerResponse response = new ServerResponse();
+		Integer userId = 0;
+		String userName = "";
 
 		RefreshTokenEntity checkToken = refreshTokenService.findRefreshToken(refreshToken.getRefreshToken())
 				.orElseThrow(() -> new IllegalArgumentException("Refresh token not found"));
+		
 		Claims claims = jwtTokenizer.parseRefreshToken(refreshToken.getValue());
+		String email= (String) claims.getSubject();
+		List<String> roles = (List) claims.get("roles");
 
-		String email= (String) claims.get("sub");
 		System.out.println("issueAccessToken > email 값 : " + email);
-
-//		Member member = memberService.getMember(userId)
-//				.orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
-//
-//		List<?> roles = (List<?>) claims.get("roles");
-//		String email = claims.getSubject();
-//
-//		String accessToken = jwtTokenizer.createAccessToken(userId, email, roles);
-//
-//		MemberLoginResponseDTO loginResponse = MemberLoginResponseDTO.builder().accessToken(accessToken)
-//				.refreshToken(refreshToken.getRefreshToken()).memberId(member.getMemberId())
-//				.memberName(member.getMemberName()).build();
-
+		
+		
+		MemberEntity m = memberService.getMember(email);
+		DoctorEntity d = doctorService.getDoctor(email);
+		DrugstoreEntity s = drugstoreService.getDrugstore(email);
+		if(m != null) {
+			userId = m.getMemberId();
+			userName = m.getMemberName();
+		}else if( d != null) {
+			userId = d.getDoctorId();
+			userName = d.getDoctorName();
+		}else {
+			userId = s.getDrugstoreId();
+			userName = s.getDrugstoreName();
+		}
+		
+		String accessToken = jwtTokenizer.createAccessToken(userId, email, roles);
+		
+		response.setSuccess(true);
+		response.setMessage("token 재발급이 완료 되었습니다.");
+		response.setAccessToken(accessToken);
+		response.setRefreshToken(refreshToken.getRefreshToken());
+		response.setUserId(userId);
+		response.setUserName(userName);
+		
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 }

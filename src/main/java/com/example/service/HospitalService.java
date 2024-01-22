@@ -7,6 +7,9 @@ import com.example.domain.Hospital;
 
 public interface HospitalService {
 
+	/**
+	 *	****************MyBatis********************* 
+	 * */
 	List<Hospital> getHospitalList();
 
 	List<Hospital> getHospitalListByKeyword(String keyword);

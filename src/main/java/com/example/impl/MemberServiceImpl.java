@@ -29,26 +29,6 @@ public class MemberServiceImpl implements MemberService{
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
     
-//    @Transactional
-//    public Member addMember(MemberDTO member) {
-//    	// 회원 & 관리자 구분
-//        String role = member.getMemberAuth().equals("A")? "ROLE_ADMIN" : "ROLE_USER";
-//
-//        Role userRole = roleRepository.findByRoles(role).orElseThrow(() -> new RuntimeException("Role not found"));
-//        member.addRole(userRole);
-//        
-//        // 회원정보 저장
-//        MemberDTO saveMember = memberRepository.save(member);
-//        return saveMember;
-//    }
-//
-//    @Transactional(readOnly = true)
-//    public Optional<MemberDTO> getMember(Integer memberId){
-//    	return memberRepository.findById(memberId);
-//    }
-//    
-
-
     /**
      * 	@author 	: 백두산	 
      *  @created	: 2024-01-11
@@ -107,7 +87,7 @@ public class MemberServiceImpl implements MemberService{
      * 	@explain	: 일반 회원 조회
      * */
     @Transactional(readOnly = true)
-	public Member findByMemberEmail(String email, String pwd) {
+	public Member findByMemberEmailAndPwd(String email, String pwd) {
     	Member m = memberDAO.findByMember(email);
     	// 비밀번호 체크
     	if(m != null){
@@ -137,9 +117,10 @@ public class MemberServiceImpl implements MemberService{
      * 	@explain	: 회원 정보 조회
      * */
     @Transactional(readOnly = true)
-	public List<?> getMemberCurrntHistory(Integer memberId) {
-		List<Member> response = memberDAO.getMemberCurrntHistory(memberId);
+	public List<?> getMemberCurrentHistory(Integer memberId) {
+		List<Member> response = memberDAO.getMemberCurrentHistory(memberId);
 		
 		return response;
 	}
+
 }
