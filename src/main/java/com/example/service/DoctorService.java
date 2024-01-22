@@ -28,4 +28,8 @@ public interface DoctorService {
 
 	// 의사 정보 조회
 	DoctorEntity getDoctor(String email);
+
+	// 의사 진료 목록 조회
+	List<?> getDoctorCurrentHistory(Integer doctorId);
+
 }
