@@ -20,6 +20,7 @@
         <result property="doctorJoinDate" 	column="doctor_join_date"/>
         <result property="doctorLeaveDate" 	column="doctor_leave_date"/>
         <result property="doctorConfirmYn" 	column="doctor_confirm_yn"/>
+        <result property="doctorRequestCnt" column="doctorRequestCnt"/>
     </resultMap>
     
     <resultMap id="MemberHistoryResultMap" type="com.example.domain.MemberHistory">
@@ -134,5 +135,21 @@
 			    ) AS j 
 			  ON m.member_id = j.member_id
 			 AND j.doctor_id = ${doctorId}
+	</select>
+
+	<select id="getDoctorRequestCnt" resultType="int">
+		SELECT COUNT(*) AS count
+		FROM doctor
+		WHERE doctor_confirm_yn = 'N'
+	</select>
+
+
+	<select id="getDoctorsList" resultMap="DoctorResultMap">
+		SELECT * FROM doctor
+	</select>
+
+	<select id="getRegistRequestList" resultMap="DoctorResultMap">
+		SELECT * FROM doctor
+		WHERE doctor_confirm_yn = 'N'
 	</select>
 </mapper>

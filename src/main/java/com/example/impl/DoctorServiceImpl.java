@@ -124,4 +124,19 @@ public class DoctorServiceImpl implements DoctorService{
         return list;
 	}
 
+	@Override
+	public int getDoctorRequestCnt() {
+		return doctorDAO.getDoctorRequestCnt();
+	}
+
+	@Override
+	public List<Doctor> getDoctorsList() {
+		return doctorDAO.getDoctorsList();
+	}
+
+	@Override
+	public List<Doctor> getRegistRequestList() {
+		return doctorDAO.getRegistRequestList();
+	}
+
 }

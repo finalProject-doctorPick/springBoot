@@ -16,7 +16,16 @@ public interface DoctorService {
 	 * */
 	// 의사 조회
 	Doctor validateDoctorEmailAndPwd(String email, String pwd);
-	
+
+	// 의사 등록 요청 수 조회
+	int getDoctorRequestCnt();
+
+	// 의사 전체 조회
+	List<Doctor> getDoctorsList();
+
+	// 의사 등록 요청(한 의사) 목록 조회
+	List<Doctor> getRegistRequestList();
+
 	/**
 	 *	*******************JPA*********************** 
 	 * */
@@ -31,5 +40,6 @@ public interface DoctorService {
 
 	// 의사 진료 목록 조회
 	List<?> getDoctorCurrentHistory(Integer doctorId);
+
 
 }
