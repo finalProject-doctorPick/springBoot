@@ -5,18 +5,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import org.modelmapper.internal.util.Members;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.dao.MemberDAO;
-import com.example.domain.DashBoard;
 import com.example.domain.Doctor;
 import com.example.domain.Drugstore;
-import com.example.domain.Hospital;
 import com.example.domain.Member;
 import com.example.domain.RefreshToken;
 import com.example.domain.ServerResponse;
@@ -49,7 +45,6 @@ public class UserServiceImpl implements UserService{
     private final RefreshTokenService refreshTokenService;
     private final RefreshTokenRepository refreshTokenRepository;
     private final JwtTokenizer jwtTokenizer;
-    private final MemberDAO memberDAO;
 
     /**
      * 	@author 	: 백두산	 

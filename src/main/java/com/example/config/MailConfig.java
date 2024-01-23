@@ -21,20 +21,18 @@ public class MailConfig {
     public JavaMailSender javaMailService() {
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
 
-        // smtp 서버 주소
+        // smtp 서버 주소 설정
         javaMailSender.setHost("smtp.naver.com");
+        javaMailSender.setDefaultEncoding("UTF-8");
         javaMailSender.setUsername(id);
         javaMailSender.setPassword(password);
-        
-        // 메일 인증서버 포트
         javaMailSender.setPort(465); 
-
-     // 메일 인증서버 정보 가져오기
-        javaMailSender.setJavaMailProperties(getMailProperties()); 
+        javaMailSender.setJavaMailProperties(getMailProperties());
 
         return javaMailSender;
     }
     
+	// 메일 인증서버 정보 설정
     private Properties getMailProperties() {
         Properties properties = new Properties();
         properties.setProperty("mail.transport.protocol", "smtp");

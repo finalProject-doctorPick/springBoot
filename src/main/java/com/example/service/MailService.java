@@ -5,6 +5,8 @@ import java.io.UnsupportedEncodingException;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.http.ResponseEntity;
+
 public interface MailService {
 
 	// 메일 내용 작성 
@@ -14,5 +16,5 @@ public interface MailService {
     String createKey();
     
     // 메일 발송
-    String sendSimpleMessage(String to) throws Exception;
+    ResponseEntity<?> sendSimpleMessage(String to) throws Exception;
 }

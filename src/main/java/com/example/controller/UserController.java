@@ -21,6 +21,7 @@ import com.example.domain.Hospital;
 import com.example.domain.Member;
 import com.example.domain.RefreshToken;
 import com.example.domain.Users;
+import com.example.service.MailService;
 import com.example.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,7 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
 	private final UserService userService;
+	private final MailService mailService;
 
     /**
      * 	@author 	: 백두산	 
@@ -94,7 +96,17 @@ public class UserController {
     }
     
 
-    
-   
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-23
+     *  @param		: String email
+     *  @return		: ResponseEntity
+     * 	@explain	: 이메일 인증코드 발급 및 전송
+     * */ 
+    @PostMapping("/mailConfirm")
+    public ResponseEntity<?> mailConfirm(@RequestParam String userEmail) throws Exception {
+        ResponseEntity<?> responseEntity = mailService.sendSimpleMessage(userEmail);
+        return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
+    }
     
 }
