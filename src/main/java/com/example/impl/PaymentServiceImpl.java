@@ -66,7 +66,7 @@ public class PaymentServiceImpl implements PaymentService{
      *  @created	: 2024-01-23
      *  @param		: Payment (Entity)
      *  @return		: Integer
-     *  @explain	: 결제정보 DB에 저장 (결재전 요청)
+     *  @explain	: 결제 건 정보 DB에 저장 (결재전 요청)
      * */
 	@Override
 	public Integer recordTransaction(Payment paymentCompleteData) {

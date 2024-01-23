@@ -56,15 +56,15 @@ public class PaymentController {
      *  @created	: 2024-01-23
      *  @param		: Payment (Entity)
      *  @return		: String (결과)
-     *  @explain	: 결제정보 DB에 저장 (결재전 요청)
+     *  @explain	: 결제 건 정보 DB에 저장 (결재 전 요청)
      * */
 	@PostMapping("/recordTransaction")
 	public ResponseEntity<?> recordTransaction(@RequestBody Payment transactionRequestData) {
 		String response;
 		if(paymentService.recordTransaction(transactionRequestData) > 0) {
-			response = "결제등록 성공";
+			response = "결제 건 등록 성공";
 		} else {
-			response = "결제등록 실패";
+			response = "결제 건 등록 실패";
 		}
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	};
