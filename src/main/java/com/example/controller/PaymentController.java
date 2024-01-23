@@ -15,26 +15,28 @@ import com.example.domain.Hospital;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
 import com.example.service.DoctorService;
+import com.example.service.PaymentService;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/doctors")
-public class DoctorController {
+@RequestMapping("/payments")
+public class PaymentController {
 	
-	private final DoctorService doctorService;
+	private final PaymentService paymentService;
 	
 	/**
      * 	@author 	: 박병태
-     *  @created	: 2024-01-22
-     *  @param		: doctorId(의사 id번호)
-     *  @return		: ResponseEntity
-     * 	@explain	: 해당 의사의 진료 불러오기
+     *  @created	: 2024-01-23
+     *  @param		: Integer memberId(회원 id번호)
+     *  @return		: List<?> (결제정보)
+     *  @explain	: 유저 결제정보 조회
      * */
-	@GetMapping("/getDoctorCurrentHistory")
-	public ResponseEntity<?> getDoctorCurrentHistory(@RequestParam Integer doctorId){
-		System.out.println(doctorId);
-    	List<?> list = doctorService.getDoctorCurrentHistory(doctorId);
+	@GetMapping("/getUserPaymentInfo")
+	public ResponseEntity<?> getUserPaymentInfo(@RequestParam Integer memberId){
+		System.out.println("getUserPaymentInfo memberId: "+ memberId);
+    	List<?> list = paymentService.getUserPaymentInfo(memberId);
     	return new ResponseEntity<>(list, HttpStatus.OK);
     }
 	

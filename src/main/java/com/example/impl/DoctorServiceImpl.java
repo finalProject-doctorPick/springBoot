@@ -16,7 +16,6 @@ import com.example.domain.Users;
 import com.example.entity.DoctorEntity;
 import com.example.entity.RoleEntity;
 import com.example.repository.DoctorRepository;
-import com.example.repository.MemberRepository;
 import com.example.repository.RoleRepository;
 import com.example.service.DoctorService;
 import com.example.service.FilesService;
@@ -120,7 +119,6 @@ public class DoctorServiceImpl implements DoctorService{
 	@Override
 	public List<?> getDoctorCurrentHistory(Integer doctorId) {
 		List<Member> list = doctorDAO.getDoctorCurrentHistory(doctorId);
-		System.out.println("DAO 호출 데이터:"+list.toString());
         return list;
 	}
 
