@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.domain.Member;
 import com.example.domain.Payment;
+import com.example.service.MemberService;
 import com.example.service.PaymentService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,6 +25,20 @@ import lombok.RequiredArgsConstructor;
 public class PaymentController {
 	
 	private final PaymentService paymentService;
+	
+	/**
+     * 	@author 	: 박병태
+     *  @created	: 2024-01-24
+     *  @param		: memberid(회원id)
+     *  @return		: Member
+     *  @explain	: 카드번호+포인트 잔액 불러오기
+     * */
+	@GetMapping("/getUserPaymentMethodAmount")
+	public ResponseEntity<?> getUserPaymentMethodAmount(@RequestParam Integer memberId){
+		Member item = paymentService.getUserPaymentMethodAmount(memberId);
+    	return new ResponseEntity<>(item, HttpStatus.OK);
+	}
+	
 	
 	/**
      * 	@author 	: 박병태
@@ -54,7 +71,7 @@ public class PaymentController {
 	/**
      * 	@author 	: 박병태
      *  @created	: 2024-01-23
-     *  @param		: Payment (Entity)
+     *  @param		: Payment (결제정보: doctor_id, member_id, payment_date, amount)
      *  @return		: String (결과)
      *  @explain	: 결제 건 정보 DB에 저장 (결재 전 요청)
      * */
@@ -69,17 +86,18 @@ public class PaymentController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	};
 	
+	
 	/**
      * 	@author 	: 박병태
      *  @created	: 2024-01-23
-     *  @param		: Integer paymentId (결제id), String transactionType (결제방식)
+     *  @param		: Integer paymentId (결제id), String transactionType (결제방식), Integer paymentAmount(결제금액)
      *  @return		: String (결과)
      *  @explain	: 결제정보 DB에 저장 (결재전 요청)
      * */
 	@PutMapping("/completePayment")
-	public ResponseEntity<?> completePayment(@RequestParam Integer paymentId, @RequestParam String transactionType){
+	public ResponseEntity<?> completePayment(@RequestParam Integer paymentId, @RequestParam String transactionType, @RequestParam Integer paymentAmount){
 		String response;
-		if(paymentService.completePayment(paymentId, transactionType) > 0) {
+		if(paymentService.completePayment(paymentId, transactionType, paymentAmount) > 0) {
 			response = "결제완료 등록 성공";
 		} else {
 			response = "결제완료 등록 실패";

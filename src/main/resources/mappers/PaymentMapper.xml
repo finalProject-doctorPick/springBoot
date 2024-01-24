@@ -12,6 +12,12 @@
  		<result property="paymentStatus" 		column="payment_status"/>
  		<result property="certificateNum"	 	column="certificate_num"/> 
     </resultMap>
+    <resultMap id="MemberResultMap" type="com.example.domain.Member">
+        <id property="memberId" 			column="member_id"/>
+        <result property="memberEmail" 		column="member_email"/>
+        <result property="memberCreditNum" 	column="member_credit_num"/>
+        <result property="memberPoint" 		column="member_point"/>
+    </resultMap>
 	<select id="getUserPaymentInfo" parameterType="Integer" resultMap="PaymentResultMap">
 		SELECT *
 		FROM payments
@@ -44,4 +50,9 @@
 			payment_status = "Y"
 		WHERE payment_id = #{paymentId}
 	</update>
+	<select id="getUserPaymentMethodAmount" parameterType="Integer" resultMap="MemberResultMap">
+		SELECT *
+		FROM members
+		WHERE member_id = #{memberId}
+	</select>
 </mapper>

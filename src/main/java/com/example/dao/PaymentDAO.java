@@ -22,6 +22,9 @@ public interface PaymentDAO {
 	//결제완료 DB에 등록
 	Integer completePayment(HashMap<String, Object> map);
 
+	//카드번호+포인트 잔액 불러오기
+	Member getUserPaymentMethodAmount(Integer memberId);
+
 	
 
 }
