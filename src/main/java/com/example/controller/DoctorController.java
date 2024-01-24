@@ -4,32 +4,28 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.example.domain.Hospital;
-import com.example.domain.Inquiry;
+import com.example.domain.Doctor;
 import com.example.domain.MemberHistory;
-import com.example.domain.ServerResponse;
-import com.example.domain.Users;
 import com.example.service.AdminService;
 import com.example.service.DoctorService;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/doctors")
 public class DoctorController {
-	
+
 	private final DoctorService doctorService;
+
 	private final AdminService adminService;
 	
+
 	/**
      * 	@author 	: 박병태
      *  @created	: 2024-01-22
@@ -39,9 +35,14 @@ public class DoctorController {
      * */
 	@GetMapping("/getDoctorCurrentHistory")
 	public ResponseEntity<?> getDoctorCurrentHistory(@RequestParam Integer doctorId){
-    	List<?> list = doctorService.getDoctorCurrentHistory(doctorId);
-    	return new ResponseEntity<>(list, HttpStatus.OK);
+
+		System.out.println(doctorId);
+		List<?> list = doctorService.getDoctorCurrentHistory(doctorId);
+		System.out.println("getDoctorCurrentHistory: "+list.toString());
+		return new ResponseEntity<>(list, HttpStatus.OK);
+
     }
+
 	
 	/**
      * 	@author 	: 박병태
@@ -83,4 +84,5 @@ public class DoctorController {
 	}
 	*/
 	
+
 }

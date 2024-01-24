@@ -11,6 +11,9 @@ public class DashBoard {
 	private int memberCnt;
 	
 	private String ageGroup;
-	
-	
+
+	// 의사
+	private Integer doctorRequestCnt;
+
+	private String doctorConfirmYn;
 }

@@ -11,6 +11,7 @@ public class DrugstoreHistory {
 	private Integer memberId;
 	private String memberName;
 	private String memberBirth;
+	private String memberTel;
 	private Integer doctorId;
 	private String receiveType;
 	private String remarks;

@@ -78,7 +78,6 @@ public class PaymentController {
      * */
 	@PutMapping("/completePayment")
 	public ResponseEntity<?> completePayment(@RequestParam Integer paymentId, @RequestParam String transactionType){
-		System.out.println("payment컨트롤러: "+paymentId+transactionType);
 		String response;
 		if(paymentService.completePayment(paymentId, transactionType) > 0) {
 			response = "결제완료 등록 성공";

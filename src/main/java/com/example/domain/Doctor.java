@@ -62,6 +62,8 @@ public class Doctor {
 	
 	// 의사 확인 여부
 	private String doctorConfirmYn;
+
+	private Integer doctorRequestCnt;
 	
 	private Set<Role> roles = new HashSet<>();
 	
