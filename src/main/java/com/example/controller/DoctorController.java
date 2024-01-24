@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.domain.Doctor;
 import com.example.domain.MemberHistory;
 import com.example.service.AdminService;
 import com.example.service.DoctorService;

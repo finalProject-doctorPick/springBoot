@@ -1,11 +1,11 @@
 package com.example.domain;
 
+import java.io.File;
+import java.util.UUID;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
-
-import java.io.File;
-import java.util.UUID;
 
 @Data
 public class Files {
@@ -19,8 +19,8 @@ public class Files {
     private String r_rimg;
 
     // 내 PC의 IP 주소와 포트
-    private static final String MY_PC_IP_ADDRESS = "118.217.203.50";
-    private static final String MY_PC_PORT = "8080";
+//    private static final String MY_PC_IP_ADDRESS = "118.217.203.50";
+//    private static final String MY_PC_PORT = "8080";
 
     // 파일 설정 메서드
     // 파일 설정 메서드

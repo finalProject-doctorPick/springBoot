@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.domain.RefreshToken;
+import com.example.domain.SMS;
 import com.example.domain.Users;
 import com.example.service.MailService;
+import com.example.service.SMSService;
 import com.example.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,6 +31,7 @@ public class UserController {
 
 	private final UserService userService;
 	private final MailService mailService;
+	private final SMSService smsService;
 
     /**
      * 	@author 	: 백두산	 
@@ -105,5 +108,18 @@ public class UserController {
         return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
     }
 
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-24
+     *  @param		: SMS smsTarget
+     *  @return		: ResponseEntity
+     * 	@explain	: SMS 전송
+     * */ 
+    @PostMapping("/smsSend")
+    public ResponseEntity<?> sendSms(@RequestBody SMS smsTarget) {
+        
+    	ResponseEntity<?> responseEntity = smsService.sendSMSMessage(smsTarget.getUserTel(), smsTarget.getSendMessage());
+    	return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
+    }
     
 }

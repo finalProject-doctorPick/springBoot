@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.example.domain.DashBoard;
 import com.example.domain.Member;
-import com.example.domain.Users;
 
 @Mapper
 public interface MemberDAO {
