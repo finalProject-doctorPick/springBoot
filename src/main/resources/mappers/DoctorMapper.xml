@@ -250,9 +250,16 @@
 		WHERE doctor_confirm_yn = 'N'
 	</select>
 	
+
 	<select id="getDoctorInquiryList" resultMap="DoctorInquiryResultMap">
 		SELECT * FROM inquiry i
 		INNER JOIN doctor d 
 		ON i.inquiry_writer_email = d.doctor_email
+	</select>
+
+	<select id="getDoctorEmail" parameterType="int" resultType="String">
+		SELECT doctor_email
+		FROM doctor
+		WHERE doctor_id=${doctorId};
 	</select>
 </mapper>

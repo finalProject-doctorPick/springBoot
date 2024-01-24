@@ -26,6 +26,8 @@ public interface PaymentDAO {
 	// 관리자) 대시보드 - 월 매출 조회
 	List<DashBoard> getMonthlySales();
 
-	
+	//카드번호+포인트 잔액 불러오기
+	Member getUserPaymentMethodAmount(Integer memberId);
+
 
 }

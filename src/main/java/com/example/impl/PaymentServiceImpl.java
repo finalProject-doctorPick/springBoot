@@ -83,11 +83,32 @@ public class PaymentServiceImpl implements PaymentService{
      *  @explain	: 결제정보 DB에 저장 (결재전 요청)
      * */
 	@Override
-	public Integer completePayment(Integer paymentId, String transactionType) {
+	@Transactional
+	public Integer completePayment(Integer paymentId, String transactionType, Integer paymentAmount) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("transactionType", transactionType);
 		map.put("paymentId", paymentId);
-		return paymentDAO.completePayment(map);
+		map.put("paymentAmount", paymentAmount);
+		Integer result = paymentDAO.completePayment(map);
+		if(transactionType == "POINT") {
+
+		} else {
+			result = -1;
+		}
+		return result;
+	}
+
+	/**
+     * 	@author 	: 박병태
+     *  @created	: 2024-01-24
+     *  @param		: memberid(회원id)
+     *  @return		: Member (카드번호+현재 포인트 잔액)
+     *  @explain	: 카드번호+포인트 잔액 불러오기
+     * */
+	@Override
+	public Member getUserPaymentMethodAmount(Integer memberId) {
+		Member item = paymentDAO.getUserPaymentMethodAmount(memberId);
+        return item;
 	}
 
 

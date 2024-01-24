@@ -159,4 +159,8 @@ public class Inquiry {
 
 	// 회원 권한
 	private String memberAuth;
+
+
+	
 }
+

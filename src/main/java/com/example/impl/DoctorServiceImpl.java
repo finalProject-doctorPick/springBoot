@@ -132,7 +132,7 @@ public class DoctorServiceImpl implements DoctorService{
 	/**
      * 	@author 	: 박병태
      *  @created	: 2024-01-23
-     *  @param		: reservationNum(진료id)
+     *  @param		: Integer reservationNum(진료id)
      *  @return		: MemberHistory 
      * 	@explain	: 특정 진료 상세보기 조회
      * */
@@ -178,6 +178,7 @@ public class DoctorServiceImpl implements DoctorService{
 	}
 
 	/**
+
 	 * 	@author     : 정하림
 	 *  @created    : 2024-01-24
 	 *  @param      :
@@ -187,6 +188,18 @@ public class DoctorServiceImpl implements DoctorService{
 	@Override
 	public List<Member> getDoctorInquiryList() {
 		return doctorDAO.getDoctorInquiryList();
+	}
+	
+	/*
+     * 	@author 	: 박병태
+     *  @created	: 2024-01-23
+     *  @param		: Integer doctorId 
+     *  @return		: String doctorEmail 
+     * 	@explain	: 특정 진료 상세보기 조회
+     * */
+	@Override
+	public String getDoctorEmailFromId(Integer doctorId) {
+		return doctorDAO.getDoctorEmail(doctorId);
 	}
 
 }

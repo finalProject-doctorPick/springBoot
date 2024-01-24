@@ -6,7 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.example.domain.Drugstore;
 import com.example.domain.DrugstoreHistory;
-import com.example.domain.Member;
+import com.example.domain.Inquiry;
+
+
 
 @Mapper
 public interface DrugstoreDAO {
@@ -20,6 +22,10 @@ public interface DrugstoreDAO {
 
 	List<DrugstoreHistory> getDrugstoreHistoryList(Integer drugstoreId);
 
+
 	List<Drugstore> getDrugstoreInquiryList();
 
+	List<Inquiry> getDrugstoreInquiry(Integer drugstoreId);
+
 }
+

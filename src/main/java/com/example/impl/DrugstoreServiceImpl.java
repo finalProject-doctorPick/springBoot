@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.dao.DrugstoreDAO;
 import com.example.domain.Drugstore;
 import com.example.domain.DrugstoreHistory;
-import com.example.domain.Member;
+import com.example.domain.Inquiry;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
 import com.example.entity.DrugstoreEntity;
@@ -157,5 +157,18 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 		return drugstoreDAO.getDrugstoreInquiryList();
 	}
 
+
+	/*
+     * 	@author 	: 이성규	 
+     *  @created	: 2024-01-24
+     *  @param		: Integer drugstoreId
+     *  @return		: List<Inquiry>
+     * 	@explain	: 약국) 문의 목록 조회
+     * */
+	@Override
+	public List<Inquiry> getDrugstoreInquiry(Integer drugstoreId) {
+		// TODO Auto-generated method stub
+		return drugstoreDAO.getDrugstoreInquiry(drugstoreId);
+	}
 
 }

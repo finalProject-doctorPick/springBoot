@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dao.DrugstoreDAO">
     <resultMap id="DrugstoreResultMap" type="com.example.domain.Drugstore">
-        <id property="drugstoreId" column="drugstore_id"/>
+        <id property="drugstoreId" 		column="drugstore_id"/>
         <result property="drugstoreEmail" column="drugstore_email"/>
         <result property="drugstoreName" column="drugstore_name"/>
         <result property="drugstoreAddrMain" column="drugstore_addr_main"/>
@@ -34,8 +34,9 @@
         <result property="paymentStatus" 	column="payment_status"/>
         <result property="status" 			column="status"/>
     </resultMap>
-    
-    <resultMap id="DrugstoreInquiryResultMap" type="com.example.domain.Inquiry">
+
+	<resultMap id="DrugstoreInquiryResultMap" type="com.example.domain.Inquiry">
+
     	<id property="inquiryId" 				column="inquiry_id"/>
     	<result property="inquiryType" 			column="inquiry_type"/>
     	<result property="inquiryTitle" 		column="inquiry_title"/>
@@ -105,12 +106,29 @@
 	INNER JOIN doctor d
 			ON dh.doctor_id = d.doctor_id 
 		 WHERE dh.drugstore_id = #{drugstoreId}
+		 
 	</select>	
 	
 	<select id="getDrugstoreInquiryList" resultMap="DrugstoreInquiryResultMap">
 		SELECT * FROM inquiry i
 		INNER JOIN drugstore d 
 		ON i.inquiry_writer_email = d.drugstore_email
+	</select>
+
+	<select  id="getDrugstoreInquiry" parameterType="int" resultMap="DrugstoreInquiryResultMap">
+		SELECT i.inquiry_id AS inquiry_id,
+			i.inquiry_type AS inquiry_type,
+			i.inquiry_title AS inquiry_title,
+			i.inquiry_writer_email AS inquiry_writer_email,
+			i.inquiry_comments AS inquiry_comments,
+			i.inquiry_regdate AS inquiry_regdate,
+			i.inquiry_answer_regdate AS inquiry_answer_regdate,
+			i.status AS status,
+			d.drugstore_name AS drugstore_name
+		FROM inquiry i
+		INNER JOIN drugstore d 
+		ON i.inquiry_writer_email = d.drugstore_email 
+		WHERE d.drugstore_id = #{drugstoreId}
 	</select>
 
 </mapper>
