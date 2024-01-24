@@ -25,6 +25,5 @@ public interface PaymentDAO {
 	//카드번호+포인트 잔액 불러오기
 	Member getUserPaymentMethodAmount(Integer memberId);
 
-	
 
 }

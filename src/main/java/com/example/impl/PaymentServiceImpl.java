@@ -90,7 +90,7 @@ public class PaymentServiceImpl implements PaymentService{
 		map.put("paymentAmount", paymentAmount);
 		Integer result = paymentDAO.completePayment(map);
 		if(transactionType == "POINT") {
-			
+
 		} else {
 			result = -1;
 		}
