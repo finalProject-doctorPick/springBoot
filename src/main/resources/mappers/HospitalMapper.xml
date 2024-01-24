@@ -21,7 +21,7 @@
     <select id="getHospitalList" resultMap="HospitalResultMap">
         SELECT *
         FROM hospital
-        LIMIT 5000
+        
     </select>
 
 	<select id="getHospitalListByKeyword" resultMap="HospitalResultMap">
