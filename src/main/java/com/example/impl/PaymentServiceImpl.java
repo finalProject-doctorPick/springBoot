@@ -3,28 +3,13 @@ package com.example.impl;
 import java.util.HashMap;
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.example.dao.DoctorDAO;
 import com.example.dao.PaymentDAO;
-import com.example.domain.Doctor;
+import com.example.domain.DashBoard;
 import com.example.domain.Member;
 import com.example.domain.Payment;
-import com.example.domain.ServerResponse;
-import com.example.domain.Users;
-import com.example.entity.DoctorEntity;
-import com.example.entity.RoleEntity;
-import com.example.repository.DoctorRepository;
-import com.example.repository.MemberRepository;
-import com.example.repository.RoleRepository;
-import com.example.service.DoctorService;
-import com.example.service.FilesService;
 import com.example.service.PaymentService;
-
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -82,11 +67,52 @@ public class PaymentServiceImpl implements PaymentService{
      *  @explain	: 결제정보 DB에 저장 (결재전 요청)
      * */
 	@Override
+	@Transactional
 	public Integer completePayment(Integer paymentId, String transactionType) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("transactionType", transactionType);
 		map.put("paymentId", paymentId);
-		return paymentDAO.completePayment(map);
+		Integer result;
+		if(transactionType.equals("POINT")) {			
+			Integer memberId = paymentDAO.getMemberId(paymentId);
+			Integer paymentAmount = paymentDAO.getUserPaymentInfoById(paymentId).getAmount();
+			Integer memberPoint = paymentDAO.getMemberPoint(memberId);
+			if(memberPoint >= paymentAmount) {
+				map.put("paymentAmount", paymentAmount);
+				map.put("memberId", memberId);
+				result = paymentDAO.deductPoint(map);
+			} else {
+				return -1;
+			}
+		}
+		result = paymentDAO.completePayment(map);
+		return result;
+	}
+
+	/**
+     * 	@author 	: 박병태
+     *  @created	: 2024-01-24
+     *  @param		: memberid(회원id)
+     *  @return		: Member (카드번호+현재 포인트 잔액)
+     *  @explain	: 카드번호+포인트 잔액 불러오기
+     * */
+	@Override
+	public Member getUserPaymentMethodAmount(Integer memberId) {
+		Member item = paymentDAO.getUserPaymentMethodAmount(memberId);
+        return item;
+	}
+
+
+	/**
+     * 	@author 	: 정하림
+     *  @created	: 2024-01-24
+     *  @param		: 
+     *  @return		: List<DashBoard>
+     *  @explain	: 관리자) 대시보드 - 월 매출 조회
+     * */
+	@Override
+	public List<DashBoard> getMonthlySales() {
+		return paymentDAO.getMonthlySales();
 	}
 
 

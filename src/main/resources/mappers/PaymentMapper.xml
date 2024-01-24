@@ -7,21 +7,33 @@
         <result property="doctorId" 			column="doctor_id"/>
         <result property="memberId" 			column="member_id"/>
  		<result property="paymentDate" 			column="payment_date"/>
+ 		<result property="paymentRegdate" 		column="payment_regdate"/>
  		<result property="amount" 				column="amount"/>
  		<result property="transactionType" 		column="transaction_type"/>
  		<result property="paymentStatus" 		column="payment_status"/>
  		<result property="certificateNum"	 	column="certificate_num"/> 
     </resultMap>
+
+
+    <resultMap id="MemberResultMap" type="com.example.domain.Member">
+        <id property="memberId" 			column="member_id"/>
+        <result property="memberEmail" 		column="member_email"/>
+        <result property="memberCreditNum" 	column="member_credit_num"/>
+        <result property="memberPoint" 		column="member_point"/>
+    </resultMap>
+
 	<select id="getUserPaymentInfo" parameterType="Integer" resultMap="PaymentResultMap">
 		SELECT *
 		FROM payments
 	    WHERE member_id = #{memberId}
 	</select>
+	
 	<select id="getUserPaymentInfoById" parameterType="Integer" resultMap="PaymentResultMap">
 		SELECT *
 		FROM payments
 	    WHERE payment_id = #{paymentId}
 	</select>
+	
  	<insert id="recordTransaction" parameterType="com.example.domain.Payment">
  		INSERT INTO payments
  			(
@@ -38,10 +50,45 @@
 				, #{amount}
 			)
 	</insert>
+	
 	<update id="completePayment" parameterType="hashmap">
 		UPDATE  payments
 		SET transaction_type = #{transactionType}, 
 			payment_status = "Y"
 		WHERE payment_id = #{paymentId}
 	</update>
+
+	<select id="getMonthlySales" resultMap="PaymentResultMap">
+		SELECT DATE(payment_date) AS payment_date , SUM(amount) AS amount
+		FROM payments p
+		WHERE p.payment_status = 'Y'
+		GROUP BY payment_date
+	</select>
+	
+
+	<select id="getMemberId" parameterType="Integer" resultType="Integer">
+		SELECT member_id
+		FROM payments
+		WHERE payment_id = #{paymentId}
+	</select>
+	
+	<select id="getMemberPoint" parameterType="Integer" resultType="Integer">
+		SELECT member_point
+		FROM members
+		WHERE member_id = #{memberId}
+	</select>
+	
+	<update id="deductPoint" parameterType="hashmap">
+		UPDATE members
+		SET member_point = member_point-#{paymentAmount}
+		WHERE member_id = #{memberId}
+	</update>
+
+	<select id="getUserPaymentMethodAmount" parameterType="Integer" resultMap="MemberResultMap">
+		SELECT *
+		FROM members
+		WHERE member_id = #{memberId}
+	</select>
+
+	
 </mapper>

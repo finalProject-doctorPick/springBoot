@@ -16,4 +16,10 @@ public class DashBoard {
 	private Integer doctorRequestCnt;
 
 	private String doctorConfirmYn;
+	
+	// 매출 조회
+	private String paymentDate;
+	
+	private Integer amount;
+	
 }

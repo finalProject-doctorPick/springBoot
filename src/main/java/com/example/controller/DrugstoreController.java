@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.domain.Drugstore;
 
 import com.example.domain.DrugstoreHistory;
-
+import com.example.domain.Inquiry;
 import com.example.service.DrugstoreService;
 
 import lombok.RequiredArgsConstructor;
@@ -73,4 +73,18 @@ public class DrugstoreController {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	} 
 
+	/**
+     * 	@author 	: 이성규	 
+     *  @created	: 2024-01-24
+     *  @param		: Integer drugstoreId
+     *  @return		: List<Inquiry>
+     * 	@explain	: 약국) 문의 목록 조회 
+     * */	
+	@GetMapping("getDrugstoreInquiry")
+	public ResponseEntity<?> getDrugstoreInquiry(@RequestParam Integer drugstoreId){
+		System.out.println("getDrugstoreInquiry 진입");
+		System.out.println("param 값 : " + drugstoreId);
+		List<Inquiry> list = drugstoreService.getDrugstoreInquiry(drugstoreId);
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
 }

@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.example.domain.DashBoard;
 import com.example.domain.Member;
-import com.example.domain.Users;
 
 @Mapper
 public interface MemberDAO {
@@ -16,7 +15,10 @@ public interface MemberDAO {
 	// 회원 진료 조회
 	public List<Member> getMemberCurrentHistory(Integer memberId);
 
-	// 통계 - 나이대별 회원 조회
+	// 관리자) 통계 - 나이대별 회원 조회
 	public List<DashBoard> getMembersCntByAge();
+
+	// 관리자) 문의 관리 - 의사 문의 목록 조회
+	public List<Member> getMemberInquiryList();
 
 }

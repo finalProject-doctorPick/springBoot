@@ -21,6 +21,10 @@ public interface MemberService {
 	
 	// 통계 - 나이대별 회원 조회
 	List<DashBoard> getMembersCntByAge();
+	
+
+	// 관리자) 회원 문의 조회 
+	List<Member> getMemberInquiryList();
 		
 	/**
 	 *	*******************JPA*********************** 
@@ -34,11 +38,4 @@ public interface MemberService {
 	// 일반 회원 조회
 	MemberEntity getMember(String email);
 
-
-
-
-
-
-
-	
 }

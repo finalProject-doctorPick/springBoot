@@ -62,6 +62,33 @@
         <result property="paymentStatus" 			column="payment_status"/>
     </resultMap>
     
+    <resultMap id="MemberInquiryResultMap" type="com.example.domain.Inquiry">
+    	<id property="inquiryId" 				column="inquiry_id"/>
+    	<result property="inquiryType" 			column="inquiry_type"/>
+    	<result property="inquiryTitle" 		column="inquiry_title"/>
+    	<result property="inquiryWriterEmail" 	column="inquiry_writer_email"/>
+    	<result property="inquiryComments" 		column="inquiry_comments"/>
+    	<result property="inquiryRegdate" 		column="inquiry_regdate"/>
+    	<result property="inquiryAnswer" 		column="inquiry_answer"/>
+    	<result property="inquiryAnswerRegdate" column="inquiry_answer_regdate"/>
+    	<result property="status" 				column="status"/>
+    	<result property="memberId" 			column="member_id"/>
+    	<result property="memberEmail" 			column="member_email"/>
+        <result property="memberPwd" 			column="member_pwd"/>
+        <result property="memberName" 			column="member_name"/>
+        <result property="memberBirth" 			column="member_birth"/>
+        <result property="memberSex" 			column="member_sex"/>
+        <result property="memberTel" 			column="member_tel"/>
+        <result property="memberAddrMain" 		column="member_addr_main"/>
+        <result property="memberAddrDetail" 	column="member_addr_detail"/>
+        <result property="memberJoinDate" 		column="member_join_date"/>
+        <result property="memberLeaveDate" 		column="member_leave_date"/>
+        <result property="memberCreditNum" 		column="member_credit_num"/>
+        <result property="memberPoint" 			column="member_point"/>
+        <result property="memberAuth" 			column="member_auth"/>
+    </resultMap>
+    
+    
     <select id="findByMember" parameterType="String" resultMap="MemberResultMap">
 		SELECT *
 		  FROM members
@@ -134,5 +161,11 @@
             END AS ageGroup
         FROM members m
         GROUP BY ageGroup;
+	</select>
+	
+	<select id="getMemberInquiryList" resultMap="MemberInquiryResultMap">
+		SELECT * FROM inquiry i
+		INNER JOIN members m 
+		ON i.inquiry_writer_email = m.member_email
 	</select>
 </mapper>

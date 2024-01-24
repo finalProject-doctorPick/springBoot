@@ -6,6 +6,7 @@
         <id property="doctorId" 			column="doctor_id"/>
         <result property="doctorEmail" 		column="doctor_email"/>
         <result property="hospitalId" 		column="hospital_id"/>
+        <result property="hospitalName" 	column="hospital_name"/>
         <result property="doctorPwd" 		column="doctor_pwd"/>
         <result property="doctorName" 		column="doctor_name"/>
         <result property="doctorBirth" 		column="doctor_birth"/>
@@ -21,6 +22,34 @@
         <result property="doctorLeaveDate" 	column="doctor_leave_date"/>
         <result property="doctorConfirmYn" 	column="doctor_confirm_yn"/>
         <result property="doctorRequestCnt" column="doctorRequestCnt"/>
+    </resultMap>
+    
+    <resultMap id="DoctorInquiryResultMap" type="com.example.domain.Inquiry">
+    	<id property="inquiryId" 				column="inquiry_id"/>
+    	<result property="inquiryType" 			column="inquiry_type"/>
+    	<result property="inquiryTitle" 		column="inquiry_title"/>
+    	<result property="inquiryWriterEmail" 	column="inquiry_writer_email"/>
+    	<result property="inquiryComments" 		column="inquiry_comments"/>
+    	<result property="inquiryRegdate" 		column="inquiry_regdate"/>
+    	<result property="inquiryAnswer" 		column="inquiry_answer"/>
+    	<result property="inquiryAnswerRegdate" column="inquiry_answer_regdate"/>
+    	<result property="status" 				column="status"/>
+    	<result property="doctorId" 			column="doctor_id"/>
+        <result property="doctorEmail" 			column="doctor_email"/>
+        <result property="doctorPwd" 			column="doctor_pwd"/>
+        <result property="doctorName" 			column="doctor_name"/>
+        <result property="doctorBirth" 			column="doctor_birth"/>
+        <result property="doctorSex" 			column="doctor_sex"/>
+        <result property="doctorTel" 			column="doctor_tel"/>
+        <result property="doctorAddrMain" 		column="doctor_addr_main"/>
+        <result property="doctorAddrDetail" 	column="doctor_addr_detail"/>
+        <result property="doctorSubject" 		column="doctor_subject"/>
+        <result property="doctorMajor" 			column="doctor_major"/>
+        <result property="doctorComments" 		column="doctor_comments"/>
+        <result property="doctorJoinDate" 		column="doctor_join_date"/>
+        <result property="doctorLeaveDate" 		column="doctor_leave_date"/>
+        <result property="doctorConfirmYn" 		column="doctor_confirm_yn"/>
+        <result property="doctorRequestCnt" 	column="doctorRequestCnt"/>
     </resultMap>
     
     <resultMap id="MemberHistoryResultMap" type="com.example.domain.MemberHistory">
@@ -144,6 +173,8 @@
 		ON m.member_id = j.member_id 
 		WHERE j.doctor_id = ${doctorId};
 	</select>
+	
+	
 	<select id="getDetailedHistory" parameterType="int" resultMap="MemberHistoryResultMap">
 		SELECT *
 		FROM members m 
@@ -208,11 +239,27 @@
 
 
 	<select id="getDoctorsList" resultMap="DoctorResultMap">
-		SELECT * FROM doctor
+		SELECT d.doctor_name, h.hospital_name , d.doctor_subject, d.doctor_major  FROM doctor d 
+		LEFT OUTER JOIN hospital h 
+		ON d.hospital_id = h.hospital_id
+		WHERE doctor_confirm_yn = 'Y'
 	</select>
 
 	<select id="getRegistRequestList" resultMap="DoctorResultMap">
-		SELECT * FROM doctor
+		SELECT d.doctor_email, d.doctor_name, d.doctor_tel, d.doctor_birth FROM doctor d 
 		WHERE doctor_confirm_yn = 'N'
+	</select>
+	
+
+	<select id="getDoctorInquiryList" resultMap="DoctorInquiryResultMap">
+		SELECT * FROM inquiry i
+		INNER JOIN doctor d 
+		ON i.inquiry_writer_email = d.doctor_email
+	</select>
+
+	<select id="getDoctorEmail" parameterType="int" resultType="String">
+		SELECT doctor_email
+		FROM doctor
+		WHERE doctor_id=${doctorId};
 	</select>
 </mapper>

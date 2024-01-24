@@ -2,7 +2,6 @@ package com.example.impl;
 
 import java.io.UnsupportedEncodingException;
 
-import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
