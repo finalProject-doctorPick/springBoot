@@ -19,9 +19,6 @@ public interface DoctorDAO {
 	// 의사 진료 조회
 	List<Member> getDoctorCurrentHistory(Integer doctorId);
 
-	// 관리자  - 의사 등록 요청 수
-	int getDoctorRequestCnt();
-
 	// 의사 전체 조회
 	List<Doctor> getDoctorsList();
 
@@ -30,5 +27,13 @@ public interface DoctorDAO {
 
 	// 진료 상세보기 조회
 	MemberHistory getDetailedHistory(Integer certificateNum);
+	
+	/******************** 관리자 ********************/
+	
+	// 관리자  - 의사 등록 요청 수
+	int getDoctorRequestCnt();
+
+	// 관리자 - 의사 문의 목록 조회
+	List<Member> getDoctorInquiryList();
 
 }

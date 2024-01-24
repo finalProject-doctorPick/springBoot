@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.domain.DashBoard;
 import com.example.domain.Member;
 import com.example.domain.Payment;
 
@@ -21,6 +22,9 @@ public interface PaymentDAO {
 
 	//결제완료 DB에 등록
 	Integer completePayment(HashMap<String, Object> map);
+
+	// 관리자) 대시보드 - 월 매출 조회
+	List<DashBoard> getMonthlySales();
 
 	
 

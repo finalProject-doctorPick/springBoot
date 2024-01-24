@@ -130,13 +130,26 @@ public class MemberServiceImpl implements MemberService{
      * 	@author 	: 정하림 
      *  @created	: 2024-01-22
      *  @param		: 
-     *  @return		: MemberEntity
-     * 	@explain	: 통계 - 나이대별 회원 조회
+     *  @return		: List<DashBoard>
+     * 	@explain	: 관리자) 통계 - 나이대별 회원 조회
      * */
 	@Override
 	public List<DashBoard> getMembersCntByAge() {
 
 		return memberDAO.getMembersCntByAge();
+	}
+
+	/**
+     * 	@author 	: 정하림 
+     *  @created	: 2024-01-24
+     *  @param		: 
+     *  @return		: List<Member>
+     * 	@explain	: 관리자) 문의 관리 - 의사 문의 목록 조회
+     * */
+	@Override
+	public List<Member> getMemberInquiryList() {
+		
+		return memberDAO.getMemberInquiryList();
 	}
 
 }

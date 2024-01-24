@@ -21,6 +21,9 @@ public class Doctor {
 	// 소속병원 ID
 	private Integer hospitalId;
 	
+	// 소속병원 이름
+	private String hospitalName;
+	
 	// 의사 비밀번호
 	private String doctorPwd;
 	

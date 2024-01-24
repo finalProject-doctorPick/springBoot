@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.dao.DrugstoreDAO;
 import com.example.domain.Drugstore;
 import com.example.domain.DrugstoreHistory;
+import com.example.domain.Member;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
 import com.example.entity.DrugstoreEntity;
@@ -142,6 +143,18 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 	@Transactional(readOnly = true)
 	public List<DrugstoreHistory> getDrugstoreHistoryList(Integer drugstoreId) {
 		return drugstoreDAO.getDrugstoreHistoryList(drugstoreId);
+	}
+
+	/**
+     * 	@author 	: 정하림 
+     *  @created	: 2024-01-24
+     *  @param		: 
+     *  @return		: List<Member>
+     * 	@explain	: 관리자) 문의 관리 - 의사 문의 목록 조회
+     * */
+	@Override
+	public List<Drugstore> getDrugstoreInquiryList() {
+		return drugstoreDAO.getDrugstoreInquiryList();
 	}
 
 

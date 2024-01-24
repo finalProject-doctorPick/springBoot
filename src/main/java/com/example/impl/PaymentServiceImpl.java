@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dao.DoctorDAO;
 import com.example.dao.PaymentDAO;
+import com.example.domain.DashBoard;
 import com.example.domain.Doctor;
 import com.example.domain.Member;
 import com.example.domain.Payment;
@@ -87,6 +88,19 @@ public class PaymentServiceImpl implements PaymentService{
 		map.put("transactionType", transactionType);
 		map.put("paymentId", paymentId);
 		return paymentDAO.completePayment(map);
+	}
+
+
+	/**
+     * 	@author 	: 정하림
+     *  @created	: 2024-01-24
+     *  @param		: 
+     *  @return		: List<DashBoard>
+     *  @explain	: 관리자) 대시보드 - 월 매출 조회
+     * */
+	@Override
+	public List<DashBoard> getMonthlySales() {
+		return paymentDAO.getMonthlySales();
 	}
 
 

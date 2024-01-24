@@ -12,16 +12,19 @@
  		<result property="paymentStatus" 		column="payment_status"/>
  		<result property="certificateNum"	 	column="certificate_num"/> 
     </resultMap>
+    
 	<select id="getUserPaymentInfo" parameterType="Integer" resultMap="PaymentResultMap">
 		SELECT *
 		FROM payments
 	    WHERE member_id = #{memberId}
 	</select>
+	
 	<select id="getUserPaymentInfoById" parameterType="Integer" resultMap="PaymentResultMap">
 		SELECT *
 		FROM payments
 	    WHERE payment_id = #{paymentId}
 	</select>
+	
  	<insert id="recordTransaction" parameterType="com.example.domain.Payment">
  		INSERT INTO payments
  			(
@@ -38,10 +41,20 @@
 				, #{amount}
 			)
 	</insert>
+	
 	<update id="completePayment" parameterType="hashmap">
 		UPDATE  payments
 		SET transaction_type = #{transactionType}, 
 			payment_status = "Y"
 		WHERE payment_id = #{paymentId}
 	</update>
+	
+	<select id="getMonthlySales" resultMap="PaymentResultMap">
+		SELECT DATE(payment_date) AS payment_date , SUM(amount) AS amount
+		FROM payments p
+		WHERE p.payment_status = 'Y'
+		GROUP BY payment_date
+	</select>
+	
+	
 </mapper>

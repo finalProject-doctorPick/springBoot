@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.domain.Drugstore;
 
 import com.example.domain.DrugstoreHistory;
-
+import com.example.domain.Member;
 import com.example.domain.Users;
 import com.example.entity.DrugstoreEntity;
 import com.example.domain.ServerResponse;
@@ -28,6 +28,10 @@ public interface DrugstoreService {
 
 	// 약국 히스토리 조회
 	List<DrugstoreHistory> getDrugstoreHistoryList(Integer drugstoreId);
+	
+	// 관리자) 약국 문의 목록 조회
+	List<Drugstore> getDrugstoreInquiryList();
+	
 	/**
 	 *	*******************JPA*********************** 
 	 * */
@@ -39,4 +43,6 @@ public interface DrugstoreService {
 
 	// 약국 회원 정보 조회
 	DrugstoreEntity getDrugstore(String email);
+
+
 }
