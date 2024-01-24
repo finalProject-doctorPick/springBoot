@@ -5,9 +5,6 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.domain.DashBoard;
-import com.example.domain.Hospital;
-import com.example.domain.Member;
 import com.example.domain.RefreshToken;
 import com.example.domain.Users;
 

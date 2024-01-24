@@ -7,6 +7,7 @@
         <result property="doctorId" 			column="doctor_id"/>
         <result property="memberId" 			column="member_id"/>
  		<result property="paymentDate" 			column="payment_date"/>
+ 		<result property="paymentRegdate" 		column="payment_regdate"/>
  		<result property="amount" 				column="amount"/>
  		<result property="transactionType" 		column="transaction_type"/>
  		<result property="paymentStatus" 		column="payment_status"/>

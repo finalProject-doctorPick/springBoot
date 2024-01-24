@@ -33,4 +33,7 @@ public class Payment {
 	// 처방ID
 	private String certificateNum;
 	
+	// 결제정보생성일
+	private String paymentRegdate;
+	
 }
