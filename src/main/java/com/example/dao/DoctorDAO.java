@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.example.domain.Doctor;
 import com.example.domain.Member;
+import com.example.domain.MemberHistory;
 import com.example.dto.DoctorDTO;
 
 @Mapper
@@ -14,7 +15,7 @@ public interface DoctorDAO {
 
 	Doctor findDoctorByEmail(String userEmail);
 
-	
+
 	// 의사 진료 조회
 	List<Member> getDoctorCurrentHistory(Integer doctorId);
 
@@ -26,4 +27,8 @@ public interface DoctorDAO {
 
 	// 등록 전 의사 전체 조회
 	List<Doctor> getRegistRequestList();
+
+	// 진료 상세보기 조회
+	MemberHistory getDetailedHistory(Integer certificateNum);
+
 }

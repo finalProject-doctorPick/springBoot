@@ -25,6 +25,9 @@
     
     <resultMap id="MemberHistoryResultMap" type="com.example.domain.MemberHistory">
         <id property="memberId" 					column="member_id"/>
+        <result property="memberName" 				column="member_name"/>
+        <result property="memberTel" 				column="member_tel"/>
+        <result property="memberBirth" 				column="member_birth"/>
         <result property="certificateNum" 			column="certificate_num"/>
         <result property="certificateDate" 			column="certificate_date"/>
         <result property="reservationNum" 			column="reservation_num"/>
@@ -88,53 +91,113 @@
 	
 	<select id="getDoctorCurrentHistory" parameterType="int" resultMap="MemberHistoryResultMap">
 		SELECT *
-		  FROM members m 
-	INNER JOIN (
-			    SELECT 
-			          c.certificate_num 	 AS certificate_num
-			        , c.certificate_date 	 AS certificate_date
-			        , c.reservation_num 	 AS reservation_num
-			        , c.payment_amount 		 AS payment_amount	
-			        , c.payment_status 		 AS certificate_payment_status 
-			        , c.description 		 AS description
-			        , c.file_key 			 AS certificate_file
-			        , r.member_id 			 AS member_id
-			        , r.doctor_id 			 AS doctor_id
-			        , r.reservation_date 	 AS reservation_date
-			        , r.reservation_status	 AS reservation_status
-			        , d.doctor_email 		 AS doctor_email
-			        , d.hospital_id 		 AS hospital_id
-			        , d.doctor_name 		 AS doctor_name
-			        , d.doctor_birth 		 AS doctor_birth
-			        , d.doctor_sex 			 AS doctor_sex
-			        , d.doctor_tel 			 AS doctor_tel
-			        , d.doctor_subject 		 AS doctor_subject
-			        , d.doctor_major 		 AS doctor_major	
-			        , d.doctor_comments 	 AS doctor_comments
-			        , d.file_key 			 AS doctor_file
-			        , h.hospital_name 		 AS hospital_name
-			        , h.hospital_addr_main	 AS hospital_addr_main
-			        , h.hospital_addr_detail AS hospital_addr_detail	
-			        , h.file_key 			 AS hospital_file 
-			        , h.hospital_lati 		 AS hospital_lati
-			        , h.hospital_long 		 AS hospital_long
-			        , h.partnership_status 	 AS partnership_status
-			        , p.payment_id 			 AS payment_id
-			        , p.payment_date 		 AS payment_date
-			        , p.transaction_type 	 AS transaction_type
-			        , p.payment_status 		 AS payment_status
-			    FROM certificate c
-		  INNER JOIN reservation r 
-		          ON c.reservation_num = r.reservation_num 
-		  INNER JOIN doctor d 
-		  		  ON r.doctor_id = d.doctor_id  
-		  INNER JOIN hospital h 
-		          ON d.hospital_id = h.hospital_id
-		  INNER JOIN payments p 
-		          ON c.certificate_num = p.certificate_num
-			    ) AS j 
-			  ON m.member_id = j.member_id
-			 AND j.doctor_id = ${doctorId}
+		FROM members m 
+		INNER JOIN (
+		    SELECT 
+		        c.certificate_num AS certificate_num
+		        , c.certificate_date AS certificate_date
+		        , c.reservation_num AS reservation_num
+		        , c.payment_amount AS payment_amount	
+		        , c.payment_status AS certificate_payment_status 
+		        , c.description AS description
+		        , c.file_key AS certificate_file
+		        , r.member_id AS member_id
+		        , r.doctor_id AS doctor_id
+		        , r.reservation_date AS reservation_date
+		        , r.reservation_status AS reservation_status
+		        , d.doctor_email AS doctor_email
+		        , d.hospital_id AS hospital_id
+		        , d.doctor_name AS doctor_name
+		        , d.doctor_birth AS doctor_birth
+		        , d.doctor_sex AS doctor_sex
+		        , d.doctor_tel AS doctor_tel
+		        , d.doctor_subject AS doctor_subject
+		        , d.doctor_major AS doctor_major	
+		        , d.doctor_comments AS doctor_comments
+		        , d.file_key AS doctor_file
+		        , h.hospital_name AS hospital_name
+		        , h.hospital_addr_main AS hospital_addr_main
+		        , h.hospital_addr_detail AS hospital_addr_detail	
+		        , h.file_key AS hospital_file 
+		        , h.hospital_lati AS hospital_lati
+		        , h.hospital_long AS hospital_long
+		        , h.partnership_status AS partnership_status
+		        , p.payment_id AS payment_id
+		        , p.payment_date AS payment_date
+		        , p.transaction_type AS transaction_type
+		        , p.payment_status AS payment_status
+		        , m.member_name AS member_name
+		        , m.member_tel AS member_tel
+		        , m.member_birth AS member_birth
+		    FROM certificate c
+		    INNER JOIN reservation r 
+		        ON c.reservation_num = r.reservation_num 
+		    INNER JOIN doctor d 
+		        ON r.doctor_id = d.doctor_id  
+		    INNER JOIN hospital h 
+		        ON d.hospital_id = h.hospital_id
+		    INNER JOIN payments p 
+		        ON c.certificate_num = p.certificate_num
+		    INNER JOIN members m
+		    	ON m.member_id = r.member_id
+		) AS j
+		ON m.member_id = j.member_id 
+		WHERE j.doctor_id = ${doctorId};
+	</select>
+	<select id="getDetailedHistory" parameterType="int" resultMap="MemberHistoryResultMap">
+		SELECT *
+		FROM members m 
+		INNER JOIN (
+		    SELECT 
+		        c.certificate_num AS certificate_num
+		        , c.certificate_date AS certificate_date
+		        , c.reservation_num AS reservation_num
+		        , c.payment_amount AS payment_amount	
+		        , c.payment_status AS certificate_payment_status 
+		        , c.description AS description
+		        , c.file_key AS certificate_file
+		        , r.member_id AS member_id
+		        , r.doctor_id AS doctor_id
+		        , r.reservation_date AS reservation_date
+		        , r.reservation_status AS reservation_status
+		        , d.doctor_email AS doctor_email
+		        , d.hospital_id AS hospital_id
+		        , d.doctor_name AS doctor_name
+		        , d.doctor_birth AS doctor_birth
+		        , d.doctor_sex AS doctor_sex
+		        , d.doctor_tel AS doctor_tel
+		        , d.doctor_subject AS doctor_subject
+		        , d.doctor_major AS doctor_major	
+		        , d.doctor_comments AS doctor_comments
+		        , d.file_key AS doctor_file
+		        , h.hospital_name AS hospital_name
+		        , h.hospital_addr_main AS hospital_addr_main
+		        , h.hospital_addr_detail AS hospital_addr_detail	
+		        , h.file_key AS hospital_file 
+		        , h.hospital_lati AS hospital_lati
+		        , h.hospital_long AS hospital_long
+		        , h.partnership_status AS partnership_status
+		        , p.payment_id AS payment_id
+		        , p.payment_date AS payment_date
+		        , p.transaction_type AS transaction_type
+		        , p.payment_status AS payment_status
+		        , m.member_name AS member_name
+		        , m.member_tel AS member_tel
+		        , m.member_birth AS member_birth
+		    FROM certificate c
+		    INNER JOIN reservation r 
+		        ON c.reservation_num = r.reservation_num 
+		    INNER JOIN doctor d 
+		        ON r.doctor_id = d.doctor_id  
+		    INNER JOIN hospital h 
+		        ON d.hospital_id = h.hospital_id
+		    INNER JOIN payments p 
+		        ON c.certificate_num = p.certificate_num
+		    INNER JOIN members m
+		    	ON m.member_id = r.member_id
+		) AS j
+		ON m.member_id = j.member_id  
+		WHERE j.certificate_num = ${certificateNum};
 	</select>
 
 	<select id="getDoctorRequestCnt" resultType="int">

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.PaymentDAO">
+	<resultMap id="PaymentResultMap" type="com.example.domain.Payment">
+        <id property="paymentId" 				column="payment_id"/>
+        <result property="doctorId" 			column="doctor_id"/>
+        <result property="memberId" 			column="member_id"/>
+ 		<result property="paymentDate" 			column="payment_date"/>
+ 		<result property="amount" 				column="amount"/>
+ 		<result property="transactionType" 		column="transaction_type"/>
+ 		<result property="paymentStatus" 		column="payment_status"/>
+ 		<result property="certificateNum"	 	column="certificate_num"/> 
+    </resultMap>
+	<select id="getUserPaymentInfo" parameterType="Integer" resultMap="PaymentResultMap">
+		SELECT *
+		FROM payments
+	    WHERE member_id = #{memberId}
+	</select>
+	<select id="getUserPaymentInfoById" parameterType="Integer" resultMap="PaymentResultMap">
+		SELECT *
+		FROM payments
+	    WHERE payment_id = #{paymentId}
+	</select>
+ 	<insert id="recordTransaction" parameterType="com.example.domain.Payment">
+ 		INSERT INTO payments
+ 			(
+ 				doctor_id
+ 				, member_id
+ 				, payment_date
+ 				, amount
+ 			)
+ 		VALUES
+ 			(
+ 				#{doctorId}
+				, #{memberId}
+				, #{paymentDate}
+				, #{amount}
+			)
+	</insert>
+	<update id="completePayment" parameterType="hashmap">
+		UPDATE  payments
+		SET transaction_type = #{transactionType}, 
+			payment_status = "Y"
+		WHERE payment_id = #{paymentId}
+	</update>
+</mapper>

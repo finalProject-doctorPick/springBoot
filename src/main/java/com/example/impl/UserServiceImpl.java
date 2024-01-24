@@ -49,8 +49,6 @@ public class UserServiceImpl implements UserService{
     private final RefreshTokenService refreshTokenService;
     private final RefreshTokenRepository refreshTokenRepository;
     private final JwtTokenizer jwtTokenizer;
-    private final MemberDAO memberDAO;
-
     /**
      * 	@author 	: 백두산	 
      *  @created	: 2024-01-11
@@ -181,7 +179,7 @@ public class UserServiceImpl implements UserService{
                 userId = member.getMemberId();
             }
 
-            ResponseEntity<?> loginResponse = tokensIssuance(email, pwd, userAuth, userName, userId);
+            ResponseEntity<?> loginResponse = tokensIssuance(email, userAuth, userName, userId);
             return loginResponse;
         }
 
@@ -191,7 +189,7 @@ public class UserServiceImpl implements UserService{
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
     
-    private ResponseEntity<?> tokensIssuance(String email, String pwd, String userAuth, String userName, Integer userId) {
+    private ResponseEntity<?> tokensIssuance(String email, String userAuth, String userName, Integer userId) {
     	ServerResponse response = new ServerResponse();
     	
     	// 해당 유저 & role 조회
@@ -279,7 +277,7 @@ public class UserServiceImpl implements UserService{
 		Integer userId = 0;
 		String userName = "";
 
-		RefreshTokenEntity checkToken = refreshTokenService.findRefreshToken(refreshToken.getRefreshToken())
+		refreshTokenService.findRefreshToken(refreshToken.getRefreshToken())
 				.orElseThrow(() -> new IllegalArgumentException("Refresh token not found"));
 		
 		Claims claims = jwtTokenizer.parseRefreshToken(refreshToken.getValue());

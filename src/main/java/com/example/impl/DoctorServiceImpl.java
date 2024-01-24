@@ -11,12 +11,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.dao.DoctorDAO;
 import com.example.domain.Doctor;
 import com.example.domain.Member;
+import com.example.domain.MemberHistory;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
 import com.example.entity.DoctorEntity;
 import com.example.entity.RoleEntity;
 import com.example.repository.DoctorRepository;
-import com.example.repository.MemberRepository;
 import com.example.repository.RoleRepository;
 import com.example.service.DoctorService;
 import com.example.service.FilesService;
@@ -116,12 +116,29 @@ public class DoctorServiceImpl implements DoctorService{
 		return doctorRepository.findByDoctorEmail(email);
 	}
 
-
+	
+	/**
+     * 	@author 	: 박병태
+     *  @created	: 2024-01-22
+     *  @param		: doctorId(의사 id번호)
+     *  @return		: List(Generic)
+     * 	@explain	: 해당 의사의 진료 불러오기
+     * */
 	@Override
 	public List<?> getDoctorCurrentHistory(Integer doctorId) {
-		List<Member> list = doctorDAO.getDoctorCurrentHistory(doctorId);
-		System.out.println("DAO 호출 데이터:"+list.toString());
-        return list;
+		return doctorDAO.getDoctorCurrentHistory(doctorId);
+	}
+
+	/**
+     * 	@author 	: 박병태
+     *  @created	: 2024-01-23
+     *  @param		: reservationNum(진료id)
+     *  @return		: MemberHistory 
+     * 	@explain	: 특정 진료 상세보기 조회
+     * */
+	@Override
+	public MemberHistory getDetailedHistory(Integer certificateNum) {
+		return doctorDAO.getDetailedHistory(certificateNum);
 	}
 
 	@Override

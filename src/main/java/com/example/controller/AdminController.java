@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.domain.Doctor;
 import com.example.service.AdminService;
+import com.example.service.DoctorService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +23,8 @@ import lombok.RequiredArgsConstructor;
 public class AdminController {
 	
 	private final AdminService adminService;
+	
+	private final DoctorService doctorService;
 	
     /**
      * 	@author 	: 백두산	 
@@ -47,4 +51,45 @@ public class AdminController {
     	List<?> list = adminService.getInquiryList("");
     	return new ResponseEntity<>(list, HttpStatus.OK);
     }
+    
+    /**
+	 * 	@author     : 정하림
+	 *  @created    : 2024-01-23
+	 *  @param      :
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 의사 관리 - 의사 전체 목록 조회 
+	 * */
+	@GetMapping("/getDoctorsList")
+	public ResponseEntity<?> getDoctorsList(){
+		List<Doctor> list = doctorService.getDoctorsList();
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+
+
+	/**
+	 * 	@author     : 정하림
+	 *  @created    : 2024-01-23
+	 *  @param      :
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 대시보드 - 의사 등록 요청 수
+	 * */
+	@GetMapping("/getDoctorRequestCnt")
+	public ResponseEntity<Integer> getDoctorRequestCnt() {
+		int requestCnt = doctorService.getDoctorRequestCnt();
+		return new ResponseEntity<>(requestCnt, HttpStatus.OK);
+	}
+
+	
+	/**
+	 * 	@author     : 정하림
+	 *  @created    : 2024-01-23
+	 *  @param      :
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 의사 관리 - 등록 요청 의사 목록
+	 * */
+	@GetMapping("/getRegistRequestList")
+	public ResponseEntity<?> getRegistRequestList() {
+		List<Doctor> list = doctorService.getRegistRequestList();
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
 }

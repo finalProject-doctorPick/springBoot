@@ -14,6 +14,9 @@ public class MemberHistory {
 	private String description;
 	private String certificateFile;
 	private Integer memberId;
+	private String memberName;
+	private String memberBirth;
+	private String memberTel;
 	private Integer doctorId;
 	private String reservationDate;
 	private String reservationStatus;
