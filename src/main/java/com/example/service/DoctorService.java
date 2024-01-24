@@ -49,8 +49,5 @@ public interface DoctorService {
 	// 의사 정보 조회
 	DoctorEntity getDoctor(String email);
 
-	
-
-
 
 }

@@ -20,7 +20,7 @@ public interface PaymentService {
 	Integer recordTransaction(Payment paymentCompleteData);
 
 	//결제완료 DB에 등록
-	Integer completePayment(Integer paymentId, String transactionType, Integer paymentAmount);
+	Integer completePayment(Integer paymentId, String transactionType);
 
 	// 카드번호+포인트 잔액 불러오기
 	Member getUserPaymentMethodAmount(Integer memberId);

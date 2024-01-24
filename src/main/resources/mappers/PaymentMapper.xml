@@ -50,6 +50,21 @@
 			payment_status = "Y"
 		WHERE payment_id = #{paymentId}
 	</update>
+	<select id="getMemberId" parameterType="Integer" resultType="Integer">
+		SELECT member_id
+		FROM payments
+		WHERE payment_id = #{paymentId}
+	</select>
+		<select id="getMemberPoint" parameterType="Integer" resultType="Integer">
+		SELECT member_point
+		FROM members
+		WHERE member_id = #{memberId}
+	</select>
+	<update id="deductPoint" parameterType="hashmap">
+		UPDATE members
+		SET member_point = member_point-#{paymentAmount}
+		WHERE member_id = #{memberId}
+	</update>
 	<select id="getUserPaymentMethodAmount" parameterType="Integer" resultMap="MemberResultMap">
 		SELECT *
 		FROM members

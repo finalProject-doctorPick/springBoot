@@ -83,17 +83,24 @@ public class PaymentServiceImpl implements PaymentService{
      * */
 	@Override
 	@Transactional
-	public Integer completePayment(Integer paymentId, String transactionType, Integer paymentAmount) {
+	public Integer completePayment(Integer paymentId, String transactionType) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("transactionType", transactionType);
 		map.put("paymentId", paymentId);
-		map.put("paymentAmount", paymentAmount);
-		Integer result = paymentDAO.completePayment(map);
-		if(transactionType == "POINT") {
-
-		} else {
-			result = -1;
+		Integer result;
+		if(transactionType.equals("POINT")) {			
+			Integer memberId = paymentDAO.getMemberId(paymentId);
+			Integer paymentAmount = paymentDAO.getUserPaymentInfoById(paymentId).getAmount();
+			Integer memberPoint = paymentDAO.getMemberPoint(memberId);
+			if(memberPoint >= paymentAmount) {
+				map.put("paymentAmount", paymentAmount);
+				map.put("memberId", memberId);
+				result = paymentDAO.deductPoint(map);
+			} else {
+				return -1;
+			}
 		}
+		result = paymentDAO.completePayment(map);
 		return result;
 	}
 
