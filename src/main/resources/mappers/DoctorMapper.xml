@@ -215,4 +215,10 @@
 		SELECT * FROM doctor
 		WHERE doctor_confirm_yn = 'N'
 	</select>
+	
+	<select id="getDoctorEmail" parameterType="int" resultType="String">
+		SELECT doctor_email
+		FROM doctor
+		WHERE doctor_id=${doctorId};
+	</select>
 </mapper>

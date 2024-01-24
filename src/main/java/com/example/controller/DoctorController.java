@@ -29,7 +29,7 @@ public class DoctorController {
 	/**
      * 	@author 	: 박병태
      *  @created	: 2024-01-22
-     *  @param		: doctorId(의사 id번호)
+     *  @param		: Integer doctorId(의사 id번호)
      *  @return		: List(Generic)
      * 	@explain	: 해당 의사의 진료 불러오기
      * */
@@ -47,7 +47,7 @@ public class DoctorController {
 	/**
      * 	@author 	: 박병태
      *  @created	: 2024-01-23
-     *  @param		: reservationNum(진료id)
+     *  @param		: Integer reservationNum(진료id)
      *  @return		: MemberHistory 
      * 	@explain	: 특정 진료 상세보기 조회
      * */
@@ -61,12 +61,13 @@ public class DoctorController {
 	/**
      * 	@author 	: 박병태
      *  @created	: 2024-01-23
-     *  @param		: doctorId(의사 id번호)
+     *  @param		: Integer doctorId(의사 id번호)
      *  @return		: List(Generic)
      * 	@explain	: 의사) 문의 목록 조회
      * */
 	@GetMapping("/getDoctorInquiry")
-	public ResponseEntity<?> getDoctorInquiry(@RequestParam String doctorEmail ){
+	public ResponseEntity<?> getDoctorInquiry(@RequestParam Integer doctorId ){
+		String doctorEmail = doctorService.getDoctorEmailFromId(doctorId);
 		List<?> list = adminService.getInquiryList(doctorEmail);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}

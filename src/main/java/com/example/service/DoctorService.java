@@ -34,6 +34,8 @@ public interface DoctorService {
 	// 특정 진료 상세보기 조회
 	MemberHistory getDetailedHistory(Integer certificateNum);
 	
+	//id로 의사 이메일 찾기
+	String getDoctorEmailFromId(Integer doctorId);
 
 	/**
 	 *	*******************JPA*********************** 
@@ -47,6 +49,7 @@ public interface DoctorService {
 	// 의사 정보 조회
 	DoctorEntity getDoctor(String email);
 
+	
 
 
 
