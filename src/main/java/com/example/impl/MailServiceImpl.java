@@ -76,7 +76,7 @@ public class MailServiceImpl implements MailService{
 
 	    String msgg = "";
 	    msgg += "<img src='cid:logo'/>";
-	    msgg += "<h1 style='color:mint'>안녕하세요 !</h1>";
+	    msgg += "<h1>안녕하세요 !</h1>";
 	    msgg += "<h1>의료 플랫폼 DOCTORPICK 입니다 :)</h1>";
 	    msgg += "<br>";
 	    msgg += "<p>아래 인증코드를 회원가입 페이지에 입력해주세요</p>";
