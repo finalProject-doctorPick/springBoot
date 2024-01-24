@@ -95,12 +95,12 @@ public class PaymentController {
      *  @explain	: 결제정보 DB에 저장 (결재전 요청)
      * */
 	@PutMapping("/completePayment")
-	public ResponseEntity<?> completePayment(@RequestParam Integer paymentId, @RequestParam String transactionType, @RequestParam Integer paymentAmount){
+	public ResponseEntity<?> completePayment(@RequestParam Integer paymentId, @RequestParam String transactionType){
 		String response;
-		if(paymentService.completePayment(paymentId, transactionType, paymentAmount) > 0) {
-			response = "결제완료 등록 성공";
+		if(paymentService.completePayment(paymentId, transactionType) > 0) {
+			response = "결제 성공";
 		} else {
-			response = "결제완료 등록 실패";
+			response = "결제 실패";
 		}
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}

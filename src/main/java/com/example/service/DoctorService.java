@@ -7,9 +7,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.domain.Doctor;
 import com.example.domain.Member;
 import com.example.domain.MemberHistory;
+import com.example.domain.ServerResponse;
 import com.example.domain.Users;
 import com.example.entity.DoctorEntity;
-import com.example.domain.ServerResponse;
 
 public interface DoctorService {
 

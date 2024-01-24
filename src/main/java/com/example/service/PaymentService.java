@@ -21,7 +21,7 @@ public interface PaymentService {
 	Integer recordTransaction(Payment paymentCompleteData);
 
 	//결제완료 DB에 등록
-	Integer completePayment(Integer paymentId, String transactionType, Integer paymentAmount);
+	Integer completePayment(Integer paymentId, String transactionType);
 
 	// 관리자 - 월 매출 조회
 	List<DashBoard> getMonthlySales();
