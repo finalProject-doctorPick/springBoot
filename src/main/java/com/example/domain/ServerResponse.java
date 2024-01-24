@@ -27,4 +27,7 @@ public class ServerResponse {
     
     // 리프레시 토큰
     private String refreshToken;
+    
+    // 인증키
+    private String mailKey;
 }
