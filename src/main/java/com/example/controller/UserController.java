@@ -36,7 +36,7 @@ public class UserController {
     /**
      * 	@author 	: 백두산	 
      *  @created	: 2024-01-10
-     *  @param		: UserSignupDTO, List<MultipartFile>
+     *  @param		: Users, List<MultipartFile>
      *  @return		: ResponseEntity
      * 	@explain	: 회원가입
      * */
@@ -52,7 +52,7 @@ public class UserController {
     /**
      * 	@author 	: 백두산	 
      *  @created	: 2024-01-11
-     *  @param		: UserLoginDTO, bindingResult
+     *  @param		: Users, bindingResult
      *  @return		: ResponseEntity
      * 	@explain	: login > 필요 토큰 생성 및 저장
      * */
@@ -69,13 +69,12 @@ public class UserController {
     /**
      * 	@author 	: 백두산	 
      *  @created	: 2024-01-17
-     *  @param		: RefreshToken refreshToken
+     *  @param		: String refreshToken
      *  @return		: ResponseEntity
      * 	@explain	: logout > Refresh Token 제거
      * */
     @DeleteMapping("/logout")
     public ResponseEntity<?> logout(@RequestParam String refreshToken) {
-    	System.out.println("logout 진입 > refreshToken 값 : " + refreshToken);
     	ResponseEntity<?> responseEntity = userService.deleteRefreshToken(refreshToken);
     	return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
     }

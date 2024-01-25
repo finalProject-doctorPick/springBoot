@@ -30,4 +30,7 @@ public class ServerResponse {
     
     // 인증키
     private String mailKey;
+    
+    // 이메일
+    private String userEmail;
 }

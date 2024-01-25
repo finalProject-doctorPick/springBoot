@@ -26,55 +26,59 @@ public class ValidationServiceImpl implements ValidationService{
 		ServerResponse response = new ServerResponse();
 		 for (String[] stringArray : checkValues) {
 		        String type = stringArray[0];
-		        String value = stringArray[1];
+		        String concept = stringArray[1];
+		        String value = stringArray[2];
 		        
 		        if(value == null || value.equals("")) {
 		        	response.setSuccess(false);
-		        	response.setMessage(type + "값을 입력해 주세요.");
-		        	return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+		        	response.setMessage(concept + " 값을 입력해 주세요.");
+		        	return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		        }
 
-		        switch (type) {
-		        	// 이메일 형식 검증
-		            case "email":
-		                if (!isValidEmail(value)) {
-		                    response.setSuccess(false);
-		                    response.setMessage("이메일 형식이 올바르지 않습니다.");
-		                    return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
-		                }
-		                break;
-
-	                // 비밀번호 형식 검증
-		            case "password":
-		                if (!isValidPassword(value)) {
-		                    response.setSuccess(false);
-		                    response.setMessage("비밀번호는 영문+숫자+특수문자를 포함한 8~20자여야 합니다.");
-		                    return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
-		                }
-		                break;
-		                
-		             // 이름 형식 검증
-		            case "name":
-		                if (!isValidName(value)) {
-		                    response.setSuccess(false);
-		                    response.setMessage("이름은 영문자, 한글, 공백포함 2글자부터 15글자까지 가능합니다.");
-		                    return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
-		                }
-		                break;
-		                
-		            case "birth":
-		                if (!isValidBirth(value)) {
-		                    response.setSuccess(false);
-		                    response.setMessage("생년월일은 8자리의 숫자로 입력해야 합니다.");
-		                    return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
-		                }
-		                break;
-
-		            // 알 수 없는 유형
-		            default:
-		            	response.setSuccess(false);
-	                    response.setMessage("알 수 없는 유형입니다.");
-	                    return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+		        if(!type.isEmpty()) {
+			        switch (type) {
+			        	// 이메일 형식 검증
+			            case "email":
+			                if (!isValidEmail(value)) {
+			                    response.setSuccess(false);
+			                    response.setMessage("이메일 형식이 올바르지 않습니다.");
+			                    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+			                }
+			                break;
+	
+		                // 비밀번호 형식 검증
+			            case "password":
+			                if (!isValidPassword(value)) {
+			                    response.setSuccess(false);
+			                    response.setMessage("비밀번호는 영문+숫자+특수문자를 포함한 8~20자여야 합니다.");
+			                    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+			                }
+			                break;
+			                
+			             // 이름 형식 검증
+			            case "name":
+			                if (!isValidName(value)) {
+			                    response.setSuccess(false);
+			                    response.setMessage("이름은 영문자, 한글, 공백포함 2글자부터 15글자까지 가능합니다.");
+			                    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+			                }
+			                break;
+			                
+			            // 생년월일
+			            case "birth":
+			                if (!isValidBirth(value)) {
+			                    response.setSuccess(false);
+			                    response.setMessage("생년월일은 8자리의 숫자로 입력해야 합니다.");
+			                    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+			                }
+			                break;
+	
+			            // 알 수 없는 유형
+			            default:
+			            	response.setSuccess(false);
+		                    response.setMessage("알 수 없는 유형입니다.");
+		                    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+			        }
 		        }
 		    }
 

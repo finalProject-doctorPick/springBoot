@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.domain.Member;
 import com.example.domain.Payment;
-import com.example.service.MemberService;
 import com.example.service.PaymentService;
 
 import lombok.RequiredArgsConstructor;
@@ -62,9 +61,7 @@ public class PaymentController {
      * */
 	@GetMapping("/getUserPaymentInfoById")
 	public ResponseEntity<?> getUserPaymentInfoById(@RequestParam Integer paymentId){
-		System.out.println("getUserPaymentInfoById paymentId: "+ paymentId);
     	Payment item = paymentService.getUserPaymentInfoById(paymentId);
-    	System.out.println(item.toString());
     	return new ResponseEntity<>(item, HttpStatus.OK);
     }
 	

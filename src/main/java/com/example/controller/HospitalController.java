@@ -42,10 +42,6 @@ public class HospitalController {
 	@GetMapping("/getHospitalListByKeyword")
     public ResponseEntity<?> getHospitalListByKeyword(@RequestParam(required = false) String keyword){
         List<Hospital> list = hospitalService.getHospitalListByKeyword(keyword);
-        
-        System.out.println("keyword ======> " + keyword);
-        System.out.println("list ======> " + list.size());
-        
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 	
@@ -59,14 +55,7 @@ public class HospitalController {
      * */
 	@PostMapping("/getCurrentLocationList")
 	public ResponseEntity<?> getCurrentLocationList(@RequestBody Map<String, String> requestData){
-		String addr1 = requestData.get("addr1");
-	    String addr2 = requestData.get("addr2");
-	   
-
 	    List<Hospital> list = hospitalService.getCurrentLocationList(requestData);
-	    System.out.println(addr1 + ", " + addr2);
-	    System.out.println(list.size());
-
 	    return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
@@ -82,8 +71,6 @@ public class HospitalController {
 	@GetMapping("/getHospitalRegionCnt")
 	public ResponseEntity<?> getHospitalRegionCnt(){
 		List<Hospital> list = hospitalService.getHospitalRegionCnt();
-		System.out.println("Controller 내용" + list);
-		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	

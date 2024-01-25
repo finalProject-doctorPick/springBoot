@@ -48,9 +48,6 @@ public class MemberController {
     @GetMapping("/getMembersCntByAge")
     public ResponseEntity<?> getMembersCntByAge(){
     	List<DashBoard> list = memberService.getMembersCntByAge();
-    	
-		System.out.println("Controller 내용" + list);
-		
 		return new ResponseEntity<>(list, HttpStatus.OK);
     	
     }

@@ -105,8 +105,6 @@ public class AdminController {
 	@GetMapping("/getMonthlySales")
 	public ResponseEntity<?> getMonthlySales() {
 		List<DashBoard> list = paymentService.getMonthlySales();
-		System.out.println("월 매출 리스트 : " + list);
-		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
