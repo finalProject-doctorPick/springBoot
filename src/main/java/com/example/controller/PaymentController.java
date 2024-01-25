@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.domain.Member;
 import com.example.domain.Payment;
-import com.example.service.MemberService;
 import com.example.service.PaymentService;
 
 import lombok.RequiredArgsConstructor;
@@ -97,6 +96,7 @@ public class PaymentController {
 	@PutMapping("/completePayment")
 	public ResponseEntity<?> completePayment(@RequestParam Integer paymentId, @RequestParam String transactionType){
 		String response;
+		System.out.println(transactionType);
 		if(paymentService.completePayment(paymentId, transactionType) > 0) {
 			response = "결제 성공";
 		} else {
