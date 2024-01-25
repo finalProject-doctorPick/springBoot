@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.dao.MemberDAO;
 import com.example.domain.DashBoard;
 import com.example.domain.Member;
-import com.example.domain.Review;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
 import com.example.entity.MemberEntity;

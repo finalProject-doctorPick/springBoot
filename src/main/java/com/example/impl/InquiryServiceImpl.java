@@ -63,7 +63,7 @@ public class InquiryServiceImpl implements InquiryService{
         inquiryDAO.registInquiry(inquiry);
         
         response.setSuccess(true);
-        response.setMessage(inquiry.getInquiryWriterEmail() + "님, 문의등록이 완료되었습니다.");
+        response.setMessage("문의등록이 완료되었습니다.");
         
         return new ResponseEntity<>(response, HttpStatus.OK);
 	}
