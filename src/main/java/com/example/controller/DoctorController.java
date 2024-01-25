@@ -34,10 +34,7 @@ public class DoctorController {
      * */
 	@GetMapping("/getDoctorCurrentHistory")
 	public ResponseEntity<?> getDoctorCurrentHistory(@RequestParam Integer doctorId){
-
-		System.out.println(doctorId);
 		List<?> list = doctorService.getDoctorCurrentHistory(doctorId);
-		System.out.println("getDoctorCurrentHistory: "+list.toString());
 		return new ResponseEntity<>(list, HttpStatus.OK);
 
     }

@@ -31,7 +31,6 @@ public class DrugsController {
 	    dto.setDrugBack(drugText);
 		dto.setDrugColor(drugColor);
 		
-		System.out.println("=====================> dto: " + dto);
 		List<Drugs> list = drugsService.getDrugsList(dto);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}

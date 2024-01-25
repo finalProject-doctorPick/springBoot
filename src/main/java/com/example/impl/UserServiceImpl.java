@@ -5,10 +5,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.domain.Doctor;
@@ -62,10 +63,10 @@ public class UserServiceImpl implements UserService{
 		String auth  = userSignupData.getUserAuth();
 
 		// 데이터 체크 리스트 생성 및 체크
-    	checkValues.add(new String[]{"email", email});
-    	checkValues.add(new String[]{"password", userSignupData.getUserPwd()});
-    	checkValues.add(new String[]{"name", userSignupData.getUserName()});
-    	checkValues.add(new String[]{"birth", userSignupData.getUserBirth()});
+    	checkValues.add(new String[]{"email", "이메일", email});
+    	checkValues.add(new String[]{"password", "비밀번호", userSignupData.getUserPwd()});
+    	checkValues.add(new String[]{"name", "이름", userSignupData.getUserName()});
+    	checkValues.add(new String[]{"birth", "생년월일", userSignupData.getUserBirth()});
         
     	ResponseEntity<?> validationResponse = validationService.checkValue(checkValues);
     	
@@ -131,8 +132,8 @@ public class UserServiceImpl implements UserService{
 		String pwd = userLoginData.getUserPwd();
 		
 		// 데이터 체크 리스트 생성 및 체크
-    	checkValues.add(new String[]{"email", email});
-    	checkValues.add(new String[]{"password", pwd});
+    	checkValues.add(new String[]{"email", "이메일", email});
+    	checkValues.add(new String[]{"password", "비밀번호", pwd});
         
 		ResponseEntity<?> validationResponse = validationService.checkValue(checkValues);
     	
@@ -211,6 +212,7 @@ public class UserServiceImpl implements UserService{
         response.setUserId(userId);
         response.setUserName(userName);
         response.setUserAuth(userAuth);
+        response.setUserEmail(email);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -252,7 +254,6 @@ public class UserServiceImpl implements UserService{
     	ServerResponse response = new ServerResponse();
     	 refreshTokenRepository.findByValue(refreshToken).ifPresent(refreshTokenEntity -> {
              String userEmail = refreshTokenEntity.getUserEmail();
-             System.out.println("deleteRefreshToken 전 email 값 : " + userEmail);
              refreshTokenRepository.deleteByUserEmail(userEmail);
              response.setSuccess(true);
              response.setMessage(userEmail + " 님의 토큰이 삭제 되었습니다.");
@@ -281,9 +282,6 @@ public class UserServiceImpl implements UserService{
 		String email= (String) claims.getSubject();
 		List<String> roles = (List) claims.get("roles");
 
-		System.out.println("issueAccessToken > email 값 : " + email);
-		
-		
 		MemberEntity m = memberService.getMember(email);
 		DoctorEntity d = doctorService.getDoctor(email);
 		DrugstoreEntity s = drugstoreService.getDrugstore(email);

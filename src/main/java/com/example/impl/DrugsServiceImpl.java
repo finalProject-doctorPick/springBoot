@@ -22,12 +22,7 @@ public class DrugsServiceImpl implements DrugsService {
 
    @Override
    public List<Drugs> getDrugsList(DrugsDTO dto) {
-      System.out.println("service =======> dto : " + dto);
-      
       List<Drugs> d = drugsDAO.getDrugsList(dto);
-      
-      System.out.println("List : " + d.size());
-      
       return d;
    } 
 

@@ -49,10 +49,6 @@ public class DrugstoreController {
 	@GetMapping("/getDrugstoreListByKeyword")
     public ResponseEntity<?> getDrugstoreListByKeyword(@RequestParam(required = false) String keyword){
         List<Drugstore> list = drugstoreService.getDrugstoreListByKeyword(keyword);
-        
-        System.out.println("keyword ======> " + keyword);
-        System.out.println("list ======> " + list.size());
-        
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
@@ -65,11 +61,7 @@ public class DrugstoreController {
      * */	
 	@GetMapping("/getDrugstoreHistoryList")
 	public ResponseEntity<?> getDrugstoreHistoryList(@RequestParam Integer drugstoreId){
-		System.out.println("getDrugstoreHistoryList 진입");
-		System.out.println("param 값 : " + drugstoreId);
 		List<DrugstoreHistory> list = drugstoreService.getDrugstoreHistoryList(drugstoreId);
-		System.out.println("getDrugstoreHistoryList 리턴 전 list 크기 : " + list.size());
-		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	} 
 
@@ -82,8 +74,6 @@ public class DrugstoreController {
      * */	
 	@GetMapping("getDrugstoreInquiry")
 	public ResponseEntity<?> getDrugstoreInquiry(@RequestParam Integer drugstoreId){
-		System.out.println("getDrugstoreInquiry 진입");
-		System.out.println("param 값 : " + drugstoreId);
 		List<Inquiry> list = drugstoreService.getDrugstoreInquiry(drugstoreId);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}

@@ -13,11 +13,13 @@ import com.example.domain.ServerResponse;
 import com.example.service.SMSService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class SMSServiceImpl implements SMSService{
 
 	/**
@@ -46,10 +48,9 @@ public class SMSServiceImpl implements SMSService{
 
         try {
             JSONObject obj = (JSONObject) coolsms.send(params);
-            System.out.println(obj.toString());
+            log.debug(String.valueOf(obj));
         } catch (CoolsmsException e) {
-            System.out.println(e.getMessage());
-            System.out.println(e.getCode());
+        	log.error(e.getMessage());
         }
         
         response.setSuccess(true);
