@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.dao.MemberDAO;
 import com.example.domain.DashBoard;
 import com.example.domain.Member;
+import com.example.domain.Review;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
 import com.example.entity.MemberEntity;
@@ -150,6 +151,19 @@ public class MemberServiceImpl implements MemberService{
 	public List<Member> getMemberInquiryList() {
 		
 		return memberDAO.getMemberInquiryList();
+	}
+
+	/**
+     * 	@author 	: 이성규 
+     *  @created	: 2024-01-25
+     *  @param		: MemberEntity
+     *  @return		: List<?>
+     * 	@explain	: 회원 리뷰 조회
+     * */
+	@Override
+	public List<?> getMemberReview(Integer memberId) {
+		return memberDAO.getMemberReview(memberId);
+		
 	}
 
 }

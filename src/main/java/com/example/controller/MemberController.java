@@ -54,4 +54,18 @@ public class MemberController {
 		return new ResponseEntity<>(list, HttpStatus.OK);
     	
     }
+    
+    /**
+     * 	@author 	: 이성규	 
+     *  @created	: 2024-01-25
+     *  @param		: Users userData
+     *  @return		: ResponseEntity
+     * 	@explain	: 일반 회원 리뷰 조회
+     * */
+    @GetMapping("/getMemberReview")
+    public ResponseEntity<?> getMemberReview(@RequestParam Integer memberId){
+    	System.out.println("리뷰 컨트롤러 memberId :" + memberId);
+    	List<?> list = memberService.getMemberReview(memberId);
+    	return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 }
