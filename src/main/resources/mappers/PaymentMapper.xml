@@ -18,8 +18,12 @@
     <resultMap id="MemberResultMap" type="com.example.domain.Member">
         <id property="memberId" 			column="member_id"/>
         <result property="memberEmail" 		column="member_email"/>
+        <result property="memberName" 		column="member_name"/>
         <result property="memberCreditNum" 	column="member_credit_num"/>
         <result property="memberPoint" 		column="member_point"/>
+        <result property="customerKey" 		column="customer_key"/>
+        <result property="billingKey" 		column="billing_key"/>
+
     </resultMap>
 
 	<select id="getUserPaymentInfo" parameterType="Integer" resultMap="PaymentResultMap">
@@ -89,6 +93,12 @@
 		FROM members
 		WHERE member_id = #{memberId}
 	</select>
+	
+	<update id="recordBillingKey" parameterType="hashmap">
+		UPDATE members
+		SET billing_key = #{billingKey}, customer_key=#{customerKey}
+		WHERE member_id = #{memberId}
+	</update>
 
 	
 </mapper>

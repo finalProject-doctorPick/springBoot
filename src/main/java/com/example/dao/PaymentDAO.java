@@ -36,6 +36,9 @@ public interface PaymentDAO {
 	// 회원 보유 포인트 조회
 	Integer getMemberPoint(Integer memberId);
 
+	// 카드번호 등록
+	Integer recordBillingKey(HashMap<String, Object> map);
+
 
 
 }

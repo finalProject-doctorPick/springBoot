@@ -56,6 +56,12 @@ public class Member {
 	// 회원 권한
 	private String memberAuth;
 	
+	// 카드등록 시 필요한 키(토스제공)
+	private String billingKey;
+	
+	// 카드등록 시 필요한 키(본 사이트 제공)
+	private String customerKey;
+	
 	private Set<Role> roles = new HashSet<>();
 	
 	public void addRole(Role memberRole) {
