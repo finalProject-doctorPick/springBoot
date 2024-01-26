@@ -30,7 +30,7 @@ public class PaymentController {
      *  @created	: 2024-01-24
      *  @param		: memberid(회원id)
      *  @return		: Member
-     *  @explain	: 카드번호+포인트 잔액 불러오기
+     *  @explain	: 회원의 결제 정보 조회
      * */
 	@GetMapping("/getUserPaymentMethodAmount")
 	public ResponseEntity<?> getUserPaymentMethodAmount(@RequestParam Integer memberId){
@@ -94,13 +94,34 @@ public class PaymentController {
 	@PutMapping("/completePayment")
 	public ResponseEntity<?> completePayment(@RequestParam Integer paymentId, @RequestParam String transactionType){
 		String response;
-		System.out.println(transactionType);
 		if(paymentService.completePayment(paymentId, transactionType) > 0) {
 			response = "결제 성공";
 		} else {
 			response = "결제 실패";
 		}
 		return new ResponseEntity<>(response, HttpStatus.OK);
-	}
+	};
+	
+	/**
+     * 	@author 	: 박병태
+     *  @created	: 2024-01-25
+     *  @param		: String billingKey, String customerKey, Integer memberId(회원id)
+     *  @return		: String (결과)
+     *  @explain	: 카드등록 시 BillingKey 및 customerKey 등록
+     * */
+	@PutMapping("/recordBillingKey")
+	public ResponseEntity <?> recordBillingKey(@RequestParam String billingKey, @RequestParam String customerKey, @RequestParam Integer memberId ){
+		String response = null;
+		if(paymentService.recordBillingKey(billingKey, customerKey, memberId) > 0) {
+			response = "카드등록 성공";
+		} else {
+			response = "카드등록 실패";
+		}
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	};
+	
+
+	
+	
 }
 

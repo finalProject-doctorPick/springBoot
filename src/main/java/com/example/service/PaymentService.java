@@ -28,5 +28,8 @@ public interface PaymentService {
 	// 카드번호+포인트 잔액 불러오기
 	Member getUserPaymentMethodAmount(Integer memberId);
 
+	// 카드번호 등록
+	Integer recordBillingKey(String billingKey, String customerKey, Integer memberId);
+
 
 }

@@ -72,21 +72,7 @@ public class PaymentServiceImpl implements PaymentService{
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("transactionType", transactionType);
 		map.put("paymentId", paymentId);
-		Integer result;
-		if(transactionType.equals("POINT")) {			
-			Integer memberId = paymentDAO.getMemberId(paymentId);
-			Integer paymentAmount = paymentDAO.getUserPaymentInfoById(paymentId).getAmount();
-			Integer memberPoint = paymentDAO.getMemberPoint(memberId);
-			if(memberPoint >= paymentAmount) {
-				map.put("paymentAmount", paymentAmount);
-				map.put("memberId", memberId);
-				result = paymentDAO.deductPoint(map);
-			} else {
-				return -1;
-			}
-		}
-		result = paymentDAO.completePayment(map);
-		return result;
+		return paymentDAO.completePayment(map);
 	}
 
 	/**
@@ -113,6 +99,23 @@ public class PaymentServiceImpl implements PaymentService{
 	@Override
 	public List<DashBoard> getMonthlySales() {
 		return paymentDAO.getMonthlySales();
+	}
+
+
+	/**
+     * 	@author 	: 박병태
+     *  @created	: 2024-01-25
+     *  @param		: String billingKey, String customerKey, Integer memberId(회원id)
+     *  @return		: Integer (결과)
+     *  @explain	: 카드등록 시 BillingKey 및 customerKey 등록
+     * */
+	@Override
+	public Integer recordBillingKey(String billingKey, String customerKey, Integer memberId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("billingKey", billingKey);
+		map.put("customerKey", customerKey);
+		map.put("memberId", memberId);
+		return paymentDAO.recordBillingKey(map);
 	}
 
 
