@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.domain.DashBoard;
+import com.example.domain.Member;
 import com.example.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -64,5 +65,18 @@ public class MemberController {
     	System.out.println("리뷰 컨트롤러 memberId :" + memberId);
     	List<?> list = memberService.getMemberReview(memberId);
     	return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+    
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-26
+     *  @param		: String memberEmail
+     *  @return		: ResponseEntity
+     * 	@explain	: 일반회원 정보 조회
+     * */
+    @GetMapping("/getMemberInfo")
+    public ResponseEntity<?> getMemberInfo(@RequestParam String memberEmail){
+    	Member m = memberService.findMemberByEmail(memberEmail);
+		return new ResponseEntity<>(m, HttpStatus.OK);
     }
 }

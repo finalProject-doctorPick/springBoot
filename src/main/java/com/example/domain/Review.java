@@ -1,8 +1,5 @@
 package com.example.domain;
 
-import java.time.LocalDateTime;
-import java.util.Set;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,8 +11,8 @@ public class Review {
 	// 리뷰 ID
 	private Integer reviewId;
 
-	// 예약 번호
-	private Integer reservationNum;
+	// 진료 번호
+	private Integer certificateNum;
 	
 	// 회원 번호
 	private Integer memberId;
@@ -34,8 +31,10 @@ public class Review {
 	
 	// 진료일
 	private String certificateDate;
+	
 	// 병원명
 	private String hospitalName;
+	
 	// 의사명
 	private String DoctorName;
 	

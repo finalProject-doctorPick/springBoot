@@ -89,7 +89,7 @@
     
     <resultMap id="MemberReviewResultMap" type="com.example.domain.Review">
 		<id property="reviewId" 				column="review_id"/>
-		<result property="reservationNum"		column="reservation_num"/>
+		<result property="certificateNum"		column="certificate_num"/>
 		<result property="memberId"				column="member_id"/>
 		<result property="doctorId"				column="doctor_id"/>
 		<result property="rating" 				column="rating"/>
@@ -101,7 +101,7 @@
 	</resultMap>
     
     
-    <select id="findByMember" parameterType="String" resultMap="MemberResultMap">
+    <select id="findMemberByEmail" parameterType="String" resultMap="MemberResultMap">
 		SELECT *
 		  FROM members
 		 WHERE member_email = #{memberEmail}
@@ -112,10 +112,9 @@
 		  FROM members m 
 	INNER JOIN (
 			    SELECT 
-			    		
 			          c.certificate_num 	 AS certificate_num
 			        , c.status				 AS status
-			        , c.certificate_date 	 AS certificate_date
+			        , TO_CHAR(c.certificate_date, 'YYYY-mm-DD') 	 AS certificate_date
 			        , c.reservation_num 	 AS reservation_num
 			        , c.payment_status 		 AS certificate_payment_status 
 			        , c.description 		 AS description
@@ -157,6 +156,7 @@
 			    ) AS j 
 			  ON m.member_id = j.member_id
 			 AND m.member_id = ${memberId}
+		ORDER BY j.certificate_date desc
 	</select>
 	
 	<select id="getMembersCntByAge" resultMap="DashBoardResultMap">
@@ -182,7 +182,7 @@
 	
 	<select id="getMemberReview" resultMap="MemberReviewResultMap">
 		SELECT r.review_id AS review_id
-		,r.reservation_num AS reservation_num 
+		,r.certificate_num AS certificate_num 
 		,r.member_id AS member_id
 		,r.doctor_id AS doctor_id
 		,r.rating AS rating
@@ -190,11 +190,11 @@
 		,r.status AS status 
 		,d.doctor_name AS doctor_name
 		,h.hospital_name AS hospital_name
-		,c.certificate_date AS certificate_date 
+		, TO_CHAR(c.certificate_date, 'YYYY-mm-DD') AS certificate_date 
 		FROM reviews r 
 		INNER JOIN doctor d  ON d.doctor_id = r.doctor_id 
 		INNER JOIN hospital h ON h.hospital_id = d.hospital_id 
-		INNER JOIN certificate c ON c.reservation_num = r.reservation_num 
+		INNER JOIN certificate c ON c.certificate_num = r.certificate_num 
 		WHERE member_id = ${memberId}
 	</select>
 </mapper>

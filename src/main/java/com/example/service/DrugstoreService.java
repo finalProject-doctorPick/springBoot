@@ -2,6 +2,7 @@ package com.example.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.domain.Drugstore;
@@ -35,6 +36,8 @@ public interface DrugstoreService {
 	// 약국 문의 목록 조회
 	List<Inquiry> getDrugstoreInquiry(Integer drugstoreId);
 
+	// 약국 정보 수정
+	ResponseEntity<?> updateDrugstoreInfo(Drugstore storeData);
 	/**
 	 *	*******************JPA*********************** 
 	 * */
@@ -46,6 +49,7 @@ public interface DrugstoreService {
 
 	// 약국 회원 정보 조회
 	DrugstoreEntity getDrugstore(String email);
+
 
 
 }
