@@ -91,7 +91,7 @@ public class MemberServiceImpl implements MemberService{
      * */
     @Transactional(readOnly = true)
 	public Member findByMemberEmailAndPwd(String email, String pwd) {
-    	Member m = memberDAO.findByMember(email);
+    	Member m = findMemberByEmail(email);
     	// 비밀번호 체크
     	if(m != null){
     		return (passwordEncoder.matches(pwd, m.getMemberPwd())) ? m : null;
@@ -165,4 +165,15 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-26
+     *  @param		: String memberEmail
+     *  @return		: ResponseEntity
+     * 	@explain	: 일반회원 정보 조회 
+     * */
+	@Transactional(readOnly = true)
+	public Member findMemberByEmail(String memberEmail) {
+		return memberDAO.findMemberByEmail(memberEmail);
+	}
 }

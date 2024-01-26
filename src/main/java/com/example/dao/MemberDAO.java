@@ -10,7 +10,7 @@ import com.example.domain.Member;
 @Mapper
 public interface MemberDAO {
 	// 회원 조회
-	public Member findByMember(String email);
+	public Member findMemberByEmail(String email);
 
 	// 회원 진료 조회
 	public List<Member> getMemberCurrentHistory(Integer memberId);

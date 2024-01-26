@@ -101,7 +101,7 @@
 	</resultMap>
     
     
-    <select id="findByMember" parameterType="String" resultMap="MemberResultMap">
+    <select id="findMemberByEmail" parameterType="String" resultMap="MemberResultMap">
 		SELECT *
 		  FROM members
 		 WHERE member_email = #{memberEmail}
@@ -112,10 +112,9 @@
 		  FROM members m 
 	INNER JOIN (
 			    SELECT 
-			    		
 			          c.certificate_num 	 AS certificate_num
 			        , c.status				 AS status
-			        , c.certificate_date 	 AS certificate_date
+			        , TO_CHAR(c.certificate_date, 'YYYY-mm-DD') 	 AS certificate_date
 			        , c.reservation_num 	 AS reservation_num
 			        , c.payment_status 		 AS certificate_payment_status 
 			        , c.description 		 AS description
@@ -157,6 +156,7 @@
 			    ) AS j 
 			  ON m.member_id = j.member_id
 			 AND m.member_id = ${memberId}
+		ORDER BY j.certificate_date desc
 	</select>
 	
 	<select id="getMembersCntByAge" resultMap="DashBoardResultMap">

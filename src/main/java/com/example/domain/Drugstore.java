@@ -57,6 +57,9 @@ public class Drugstore {
 	// 약국 연락처
 	private String drugstoreTel;
 	
+	// 약국 
+	
+	// 약국 역할
 	private Set<Role> roles = new HashSet<>();
 	
 	public void addRole(Role drugstoreRole) {

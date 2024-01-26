@@ -2,6 +2,7 @@ package com.example.impl;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -169,6 +170,19 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 	public List<Inquiry> getDrugstoreInquiry(Integer drugstoreId) {
 		// TODO Auto-generated method stub
 		return drugstoreDAO.getDrugstoreInquiry(drugstoreId);
+	}
+
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-26
+     *  @param		: Drugstore drugstoreData
+     *  @return		: ResponseEntity
+     * 	@explain	: 약국 정보 수정
+     * */	
+	@Transactional
+	public ResponseEntity<?> updateDrugstoreInfo(Drugstore storeData) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

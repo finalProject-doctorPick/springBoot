@@ -5,12 +5,13 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.domain.Drugstore;
-
 import com.example.domain.DrugstoreHistory;
 import com.example.domain.Inquiry;
 import com.example.service.DrugstoreService;
@@ -76,5 +77,36 @@ public class DrugstoreController {
 	public ResponseEntity<?> getDrugstoreInquiry(@RequestParam Integer drugstoreId){
 		List<Inquiry> list = drugstoreService.getDrugstoreInquiry(drugstoreId);
 		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-26
+     *  @param		: Integer drugstoreId
+     *  @return		: ResponseEntity
+     * 	@explain	: 약국 및 약국 운영시간 정보 단건 조회
+     * */
+	@GetMapping("/searchDrugstoreAndAvail")
+	public ResponseEntity<?> searchDrugstoreAndAvail(@RequestParam Integer drugstoreId){
+		System.out.println("*************************************");
+		System.out.println("searchDrugstoreAndAvail 진입 > 약국ID 값 > " + drugstoreId);
+		
+		return null;
+	}
+	
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-26
+     *  @param		: Drugstore drugstoreData
+     *  @return		: ResponseEntity
+     * 	@explain	: 약국 정보 수정
+     * */
+	@PostMapping("/updateDrugstoreInfo")
+	public ResponseEntity<?> updateDrugstoreInfo(@RequestBody Drugstore storeData){
+//		ResponseEntity<?> responseEntity = drugstoreService.updateDrugstoreInfo(storeData);
+//    	return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
+		System.out.println("**********************************");
+		System.out.println("updateDrugstoreInfo 진입 > 데이터 값 : " + storeData.toString());
+		return null;
 	}
 }
