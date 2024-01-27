@@ -146,19 +146,6 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 		return drugstoreDAO.getDrugstoreHistoryList(drugstoreId);
 	}
 
-	/**
-     * 	@author 	: 정하림 
-     *  @created	: 2024-01-24
-     *  @param		: 
-     *  @return		: List<Member>
-     * 	@explain	: 관리자) 문의 관리 - 의사 문의 목록 조회
-     * */
-	@Override
-	public List<Drugstore> getDrugstoreInquiryList() {
-		return drugstoreDAO.getDrugstoreInquiryList();
-	}
-
-
 	/*
      * 	@author 	: 이성규	 
      *  @created	: 2024-01-24

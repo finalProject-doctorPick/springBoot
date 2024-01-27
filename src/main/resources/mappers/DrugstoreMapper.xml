@@ -36,7 +36,6 @@
     </resultMap>
 
 	<resultMap id="DrugstoreInquiryResultMap" type="com.example.domain.Inquiry">
-
     	<id property="inquiryId" 				column="inquiry_id"/>
     	<result property="inquiryType" 			column="inquiry_type"/>
     	<result property="inquiryTitle" 		column="inquiry_title"/>
@@ -105,13 +104,13 @@
 	INNER JOIN doctor d
 			ON dh.doctor_id = d.doctor_id 
 		 WHERE dh.drugstore_id = #{drugstoreId}
-		 
 	</select>	
 	
 	<select id="getDrugstoreInquiryList" resultMap="DrugstoreInquiryResultMap">
-		SELECT * FROM inquiry i
-		INNER JOIN drugstore d 
-		ON i.inquiry_writer_email = d.drugstore_email
+		SELECT * 
+		  FROM inquiry i
+	INNER JOIN drugstore d 
+			ON i.inquiry_writer_email = d.drugstore_email
 	</select>
 
 	<select  id="getDrugstoreInquiry" parameterType="int" resultMap="DrugstoreInquiryResultMap">

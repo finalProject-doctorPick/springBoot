@@ -1,14 +1,18 @@
 package com.example.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dao.MemberDAO;
 import com.example.domain.DashBoard;
+import com.example.domain.Inquiry;
 import com.example.domain.Member;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
@@ -17,6 +21,7 @@ import com.example.entity.RoleEntity;
 import com.example.repository.MemberRepository;
 import com.example.repository.RoleRepository;
 import com.example.service.MemberService;
+import com.example.service.ValidationService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,6 +34,7 @@ public class MemberServiceImpl implements MemberService{
 	private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
+    private final ValidationService validationService;
     
     /**
      * 	@author 	: 백두산	 
@@ -122,7 +128,6 @@ public class MemberServiceImpl implements MemberService{
     @Transactional(readOnly = true)
 	public List<?> getMemberCurrentHistory(Integer memberId) {
 		List<Member> response = memberDAO.getMemberCurrentHistory(memberId);
-		
 		return response;
 	}
 
@@ -135,21 +140,7 @@ public class MemberServiceImpl implements MemberService{
      * */
 	@Override
 	public List<DashBoard> getMembersCntByAge() {
-
 		return memberDAO.getMembersCntByAge();
-	}
-
-	/**
-     * 	@author 	: 정하림 
-     *  @created	: 2024-01-24
-     *  @param		: 
-     *  @return		: List<Member>
-     * 	@explain	: 관리자) 문의 관리 - 의사 문의 목록 조회
-     * */
-	@Override
-	public List<Member> getMemberInquiryList() {
-		
-		return memberDAO.getMemberInquiryList();
 	}
 
 	/**
@@ -175,5 +166,56 @@ public class MemberServiceImpl implements MemberService{
 	@Transactional(readOnly = true)
 	public Member findMemberByEmail(String memberEmail) {
 		return memberDAO.findMemberByEmail(memberEmail);
+	}
+
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-27
+     *  @param		: Member updateMemberData
+     *  @return		: ResponseEntity
+     * 	@explain	: 일반회원 정보 수정
+     * */
+	@Transactional
+	public ResponseEntity<?> updateMemberInfo(Member updateMemberData) {
+		ServerResponse response = new ServerResponse();
+		List<String[]> checkValues = new ArrayList<>();
+		
+		checkValues.add(new String[]{"name", "이름", updateMemberData.getMemberName()});
+		if(!updateMemberData.getMemberPwd().equals("")) {
+			checkValues.add(new String[]{"password", "비밀번호", updateMemberData.getMemberPwd()});	
+		}
+		checkValues.add(new String[]{"", "전화번호", updateMemberData.getMemberTel()});
+		
+		ResponseEntity<?> validationResponse = validationService.checkValue(checkValues);
+		if (validationResponse != null) {
+            return validationResponse;
+        }
+		
+		int updateYn = memberDAO.updateMemberInfo(updateMemberData);
+		System.out.println(updateYn);
+		if(updateYn == 0) {
+			response.setSuccess(false);
+			response.setMessage("회원정보 수정이 실패되었습니다.");
+			
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		}else {
+			response.setSuccess(true);
+			response.setMessage("회원정보 수정이 완료되었습니다.");
+			
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+	}
+
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-27
+     *  @param		: Integer memberId
+     *  @return		: ResponseEntity
+     * 	@explain	: 일반회원 문의 조회
+     * */
+	@Transactional(readOnly = true)
+	public List<Inquiry> getMemberInquiryList(String userEmail) {
+		List<Inquiry> list = memberDAO.getMemberInquiryList(userEmail);
+		return list;
 	}
 }

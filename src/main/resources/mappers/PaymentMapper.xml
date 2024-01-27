@@ -14,7 +14,6 @@
  		<result property="certificateNum"	 	column="certificate_num"/> 
     </resultMap>
 
-
     <resultMap id="MemberResultMap" type="com.example.domain.Member">
         <id property="memberId" 			column="member_id"/>
         <result property="memberEmail" 		column="member_email"/>
@@ -23,7 +22,6 @@
         <result property="memberPoint" 		column="member_point"/>
         <result property="customerKey" 		column="customer_key"/>
         <result property="billingKey" 		column="billing_key"/>
-
     </resultMap>
 
 	<select id="getUserPaymentInfo" parameterType="Integer" resultMap="PaymentResultMap">
@@ -62,14 +60,6 @@
 		WHERE payment_id = #{paymentId}
 	</update>
 
-	<select id="getMonthlySales" resultMap="PaymentResultMap">
-		SELECT DATE(payment_date) AS payment_date , SUM(amount) AS amount
-		FROM payments p
-		WHERE p.payment_status = 'Y'
-		GROUP BY payment_date
-	</select>
-	
-
 	<select id="getMemberId" parameterType="Integer" resultType="Integer">
 		SELECT member_id
 		FROM payments
@@ -100,5 +90,11 @@
 		WHERE member_id = #{memberId}
 	</update>
 
+	<select id="getMonthlySales" resultMap="PaymentResultMap">
+		SELECT DATE(payment_date) AS payment_date , SUM(amount) AS amount
+		FROM payments p
+		WHERE p.payment_status = 'Y'
+		GROUP BY payment_date
+	</select>
 	
 </mapper>

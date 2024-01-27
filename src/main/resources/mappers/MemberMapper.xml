@@ -3,21 +3,22 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dao.MemberDAO">
 	<resultMap id="MemberResultMap" type="com.example.domain.Member">
-        <id property="memberId" 			column="member_id"/>
-        <result property="memberEmail" 		column="member_email"/>
-        <result property="memberPwd" 		column="member_pwd"/>
-        <result property="memberName" 		column="member_name"/>
-        <result property="memberBirth" 		column="member_birth"/>
-        <result property="memberSex" 		column="member_sex"/>
-        <result property="memberTel" 		column="member_tel"/>
-        <result property="memberAddrMain" 	column="member_addr_main"/>
-        <result property="memberAddrDetail" column="member_addr_detail"/>
-        <result property="memberJoinDate" 	column="member_join_date"/>
-        <result property="memberLeaveDate" 	column="member_leave_date"/>
-        <result property="memberCreditNum" 	column="member_credit_num"/>
-        <result property="memberPoint" 		column="member_point"/>
-        <result property="memberAuth" 		column="member_auth"/>
-        <result property="fileKey" 			column="file_key"/>
+        <id property="memberId" 				column="member_id"/>
+        <result property="memberEmail" 			column="member_email"/>
+        <result property="memberPwd" 			column="member_pwd"/>
+    	<result property="memberName" 			column="member_name"/>
+        <result property="memberBirth" 			column="member_birth"/>
+        <result property="memberSex" 			column="member_sex"/>
+        <result property="memberTel" 			column="member_tel"/>
+        <result property="memberAddrMain" 		column="member_addr_main"/>
+        <result property="memberAddrDetail" 	column="member_addr_detail"/>
+        <result property="memberAddrSubdetail" 	column="member_addr_subdetail"/>
+        <result property="memberJoinDate" 		column="member_join_date"/>
+        <result property="memberLeaveDate" 		column="member_leave_date"/>
+        <result property="memberCreditNum" 		column="member_credit_num"/>
+        <result property="memberPoint" 			column="member_point"/>
+        <result property="memberAuth" 			column="member_auth"/>
+        <result property="fileKey" 				column="file_key"/>
     </resultMap>
     
     <resultMap id="DashBoardResultMap" type="com.example.domain.DashBoard">
@@ -25,7 +26,6 @@
     	<result property="memberCnt" 		column="memberCnt"/>
         <result property="ageGroup" 		column="ageGroup"/>
     </resultMap>
-    
     
     <resultMap id="MemberHistoryResultMap" type="com.example.domain.MemberHistory">
         <id property="memberId" 					column="member_id"/>
@@ -61,7 +61,20 @@
         <result property="paymentStatus" 			column="payment_status"/>
     </resultMap>
     
-    <resultMap id="MemberInquiryResultMap" type="com.example.domain.Inquiry">
+    <resultMap id="MemberReviewResultMap" type="com.example.domain.Review">
+		<id property="reviewId" 				column="review_id"/>
+		<result property="certificateNum"		column="certificate_num"/>
+		<result property="memberId"				column="member_id"/>
+		<result property="doctorId"				column="doctor_id"/>
+		<result property="rating" 				column="rating"/>
+		<result property="comments"				column="comments"/>
+		<result property="status"				column="status"/>
+		<result property="certificateDate" 		column="certificate_date"/>
+		<result property="hospitalName" 		column="hospital_name"/>
+		<result property="doctorName" 			column="doctor_name"/>
+	</resultMap>
+	
+	<resultMap id="MemberInquiryResultMap" type="com.example.domain.Inquiry">
     	<id property="inquiryId" 				column="inquiry_id"/>
     	<result property="inquiryType" 			column="inquiry_type"/>
     	<result property="inquiryTitle" 		column="inquiry_title"/>
@@ -80,26 +93,13 @@
         <result property="memberTel" 			column="member_tel"/>
         <result property="memberAddrMain" 		column="member_addr_main"/>
         <result property="memberAddrDetail" 	column="member_addr_detail"/>
+        <result property="memberAddrSubdetail" 	column="member_addr_subdetail"/>
         <result property="memberJoinDate" 		column="member_join_date"/>
         <result property="memberLeaveDate" 		column="member_leave_date"/>
         <result property="memberCreditNum" 		column="member_credit_num"/>
         <result property="memberPoint" 			column="member_point"/>
         <result property="memberAuth" 			column="member_auth"/>
     </resultMap>
-    
-    <resultMap id="MemberReviewResultMap" type="com.example.domain.Review">
-		<id property="reviewId" 				column="review_id"/>
-		<result property="certificateNum"		column="certificate_num"/>
-		<result property="memberId"				column="member_id"/>
-		<result property="doctorId"				column="doctor_id"/>
-		<result property="rating" 				column="rating"/>
-		<result property="comments"				column="comments"/>
-		<result property="status"				column="status"/>
-		<result property="certificateDate" 		column="certificate_date"/>
-		<result property="hospitalName" 		column="hospital_name"/>
-		<result property="doctorName" 			column="doctor_name"/>
-	</resultMap>
-    
     
     <select id="findMemberByEmail" parameterType="String" resultMap="MemberResultMap">
 		SELECT *
@@ -174,12 +174,6 @@
         GROUP BY ageGroup;
 	</select>
 	
-	<select id="getMemberInquiryList" resultMap="MemberInquiryResultMap">
-		SELECT * FROM inquiry i
-		INNER JOIN members m 
-		ON i.inquiry_writer_email = m.member_email
-	</select>
-	
 	<select id="getMemberReview" resultMap="MemberReviewResultMap">
 		SELECT r.review_id AS review_id
 		,r.certificate_num AS certificate_num 
@@ -196,5 +190,40 @@
 		INNER JOIN hospital h ON h.hospital_id = d.hospital_id 
 		INNER JOIN certificate c ON c.certificate_num = r.certificate_num 
 		WHERE member_id = ${memberId}
+	</select>
+	
+	<update id="updateMemberInfo" parameterType="com.example.domain.Member">
+		UPDATE members
+		<set>
+    		<if test="memberTel != null and memberTel != ''">
+      			member_tel = #{memberTel},
+    		</if>
+    		<if test="memberPwd != null and memberPwd != ''">
+      			member_pwd = #{memberPwd},
+    		</if>
+    		<if test="memberAddrMain != null and memberAddrMain != ''">
+      			member_addr_main = #{memberAddrMain},
+    		</if>
+    		<if test="memberAddrDetail != null and memberAddrDetail != ''">
+      			member_addr_detail = #{memberAddrDetail},
+    		</if>
+    		<if test="memberAddrSubdetail != null and memberAddrSubdetail != ''">
+      			member_addr_subdetail = #{memberAddrSubdetail},
+    		</if>
+    		<if test="memberName != null and memberName != ''">
+      			member_name = #{memberName}
+    		</if>
+  		</set>
+		 WHERE member_id = #{memberId}
+	</update>
+	
+	<select id="getMemberInquiryList" parameterType="String" resultMap="MemberInquiryResultMap">
+		SELECT * 
+		  FROM inquiry i
+	INNER JOIN members m 
+			ON i.inquiry_writer_email = m.member_email
+		<if test="userEmail != null and userEmail != ''">
+		 WHERE i.inquiry_writer_email = #{userEmail} 
+		</if>
 	</select>
 </mapper>

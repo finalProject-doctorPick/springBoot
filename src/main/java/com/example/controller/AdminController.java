@@ -7,20 +7,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.domain.DashBoard;
 import com.example.domain.Doctor;
 import com.example.domain.Drugstore;
 import com.example.domain.Hospital;
+import com.example.domain.Inquiry;
 import com.example.domain.Member;
 import com.example.service.AdminService;
-import com.example.service.DoctorService;
-import com.example.service.DrugstoreService;
-import com.example.service.HospitalService;
-import com.example.service.MemberService;
-import com.example.service.PaymentService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,16 +27,6 @@ public class AdminController {
 	
 	private final AdminService adminService;
 	
-	private final DoctorService doctorService;
-	
-	private final HospitalService hospitalService;
-	
-	private final DrugstoreService drugstoreService;
-	
-	private final MemberService memberService;
-	
-	private final PaymentService paymentService;
-	
     /**
      * 	@author 	: 백두산	 
      *  @created	: 2024-01-19
@@ -50,8 +35,8 @@ public class AdminController {
      * 	@explain	: 관리자) 회원 목록 조회
      * */
     @GetMapping("/getMemberList")
-    public ResponseEntity<?> getMemberList(@RequestParam String searchKeyword){
-    	List<?> list = adminService.getMemberList(searchKeyword);
+    public ResponseEntity<?> getMemberList(){
+    	List<?> list = adminService.getMemberList();
     	return new ResponseEntity<>(list, HttpStatus.OK);
     }
     
@@ -71,80 +56,78 @@ public class AdminController {
     /**
 	 * 	@author     : 정하림
 	 *  @created    : 2024-01-23
-	 *  @param      :
+	 *  @param      : void
 	 *  @return     : ResponseEntity
 	 * 	@explain    : 관리자) 의사 관리 - 의사 전체 목록 조회 
 	 * */
 	@GetMapping("/getDoctorsList")
 	public ResponseEntity<?> getDoctorsList(){
-		List<Doctor> list = doctorService.getDoctorsList();
+		List<Doctor> list = adminService.getDoctorsList();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
-
 
 	/**
 	 * 	@author     : 정하림
 	 *  @created    : 2024-01-23
-	 *  @param      :
+	 *  @param      : void
 	 *  @return     : ResponseEntity
 	 * 	@explain    : 관리자) 대시보드 - 의사 등록 요청 수
 	 * */
 	@GetMapping("/getDoctorRequestCnt")
 	public ResponseEntity<Integer> getDoctorRequestCnt() {
-		int requestCnt = doctorService.getDoctorRequestCnt();
+		int requestCnt = adminService.getDoctorRequestCnt();
 		return new ResponseEntity<>(requestCnt, HttpStatus.OK);
 	}
 	
 	/**
 	 * 	@author     : 정하림
 	 *  @created    : 2024-01-24
-	 *  @param      :
+	 *  @param      : void
 	 *  @return     : ResponseEntity
 	 * 	@explain    : 관리자) 대시보드 - 월 매출
 	 * */
 	@GetMapping("/getMonthlySales")
 	public ResponseEntity<?> getMonthlySales() {
-		List<DashBoard> list = paymentService.getMonthlySales();
+		List<DashBoard> list = adminService.getMonthlySales();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
-
 	
 	/**
 	 * 	@author     : 정하림
 	 *  @created    : 2024-01-23
-	 *  @param      :
+	 *  @param      : void
 	 *  @return     : ResponseEntity
 	 * 	@explain    : 관리자) 의사 관리 - 등록 요청 의사 목록
 	 * */
 	@GetMapping("/getRegistRequestList")
 	public ResponseEntity<?> getRegistRequestList() {
-		List<Doctor> list = doctorService.getRegistRequestList();
+		List<Doctor> list = adminService.getRegistRequestList();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
 	/**
 	 * 	@author     : 정하림
 	 *  @created    : 2024-01-24
-	 *  @param      :
+	 *  @param      : void
 	 *  @return     : ResponseEntity
 	 * 	@explain    : 관리자) 병원 관리 - 병원 목록
 	 * */
 	@GetMapping("/getHospitalList")
 	public ResponseEntity<?> getHospitalList() {
-		List<Hospital> list = hospitalService.getHospitalList();
+		List<Hospital> list = adminService.getHospitalList();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
 	/**
 	 * 	@author     : 정하림
 	 *  @created    : 2024-01-24
-	 *  @param      :
+	 *  @param      : void
 	 *  @return     : ResponseEntity
 	 * 	@explain    : 관리자) 약국 관리 - 약국 목록
 	 * */
 	@GetMapping("/getDrugstoreList")
 	public ResponseEntity<?> getDrugstoreList() {
-		List<Drugstore> list = drugstoreService.getDrugstoreList();
+		List<Drugstore> list = adminService.getDrugstoreList();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
@@ -157,33 +140,33 @@ public class AdminController {
 	 * */
 	@GetMapping("/getMemberInquiryList")
 	public ResponseEntity<?> getMemberInquiryList() {
-		List<Member> list = memberService.getMemberInquiryList();
+		List<Inquiry> list = adminService.getMemberInquiryList();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
 	/**
 	 * 	@author     : 정하림
 	 *  @created    : 2024-01-24
-	 *  @param      :
+	 *  @param      : void
 	 *  @return     : ResponseEntity
 	 * 	@explain    : 관리자) 문의 관리 - 의사 문의 목록
 	 * */
 	@GetMapping("/getDoctorInquiryList")
 	public ResponseEntity<?> getDoctorInquiryList() {
-		List<Member> list = doctorService.getDoctorInquiryList();
+		List<Member> list = adminService.getDoctorInquiryList();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
 	/**
 	 * 	@author     : 정하림
 	 *  @created    : 2024-01-24
-	 *  @param      :
+	 *  @param      : void
 	 *  @return     : ResponseEntity
 	 * 	@explain    : 관리자) 문의 관리 - 약국 문의 목록
 	 * */
 	@GetMapping("/getDrugstoreInquiryList")
 	public ResponseEntity<?> getDrugstoreInquiryList() {
-		List<Drugstore> list = drugstoreService.getDrugstoreInquiryList();
+		List<Drugstore> list = adminService.getDrugstoreInquiryList();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 }

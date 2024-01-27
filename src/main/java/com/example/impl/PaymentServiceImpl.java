@@ -5,11 +5,12 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.example.dao.PaymentDAO;
-import com.example.domain.DashBoard;
 import com.example.domain.Member;
 import com.example.domain.Payment;
 import com.example.service.PaymentService;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -25,13 +26,11 @@ public class PaymentServiceImpl implements PaymentService{
      *  @return		: List<?> (결제정보)
      *	@explain	: 유저 결제정보 조회
      * */
-
 	@Override
 	public List<?> getUserPaymentInfo(Integer memberId) {
 		List<Payment> list = paymentDAO.getUserPaymentInfo(memberId);
         return list;
 	}
-
 	
 	/**
      * 	@author 	: 박병태
@@ -57,7 +56,6 @@ public class PaymentServiceImpl implements PaymentService{
 	public Integer recordTransaction(Payment paymentCompleteData) {
 		return paymentDAO.recordTransaction(paymentCompleteData); 
 	}
-
 
 	/**
      * 	@author 	: 박병태
@@ -87,20 +85,6 @@ public class PaymentServiceImpl implements PaymentService{
 		Member item = paymentDAO.getUserPaymentMethodAmount(memberId);
         return item;
 	}
-
-
-	/**
-     * 	@author 	: 정하림
-     *  @created	: 2024-01-24
-     *  @param		: 
-     *  @return		: List<DashBoard>
-     *  @explain	: 관리자) 대시보드 - 월 매출 조회
-     * */
-	@Override
-	public List<DashBoard> getMonthlySales() {
-		return paymentDAO.getMonthlySales();
-	}
-
 
 	/**
      * 	@author 	: 박병태

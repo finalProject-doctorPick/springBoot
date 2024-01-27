@@ -30,22 +30,39 @@
         <result property="inquiryAnswer" 		column="inquiry_answer"/>
         <result property="inquiryAnswerRegdate" column="inquiryAnswerRegdate"/>
         <result property="status" 				column="status"/>
-        
     </resultMap>
     
-    <select id="getMemberList" parameterType="String" resultMap="MemberResultMapForAdmin">
+    <resultMap id="DoctorInquiryResultMap" type="com.example.domain.Inquiry">
+    	<id property="inquiryId" 				column="inquiry_id"/>
+    	<result property="inquiryType" 			column="inquiry_type"/>
+    	<result property="inquiryTitle" 		column="inquiry_title"/>
+    	<result property="inquiryWriterEmail" 	column="inquiry_writer_email"/>
+    	<result property="inquiryComments" 		column="inquiry_comments"/>
+    	<result property="inquiryRegdate" 		column="inquiry_regdate"/>
+    	<result property="inquiryAnswer" 		column="inquiry_answer"/>
+    	<result property="inquiryAnswerRegdate" column="inquiry_answer_regdate"/>
+    	<result property="status" 				column="status"/>
+    	<result property="doctorId" 			column="doctor_id"/>
+        <result property="doctorEmail" 			column="doctor_email"/>
+        <result property="doctorPwd" 			column="doctor_pwd"/>
+        <result property="doctorName" 			column="doctor_name"/>
+        <result property="doctorBirth" 			column="doctor_birth"/>
+        <result property="doctorSex" 			column="doctor_sex"/>
+        <result property="doctorTel" 			column="doctor_tel"/>
+        <result property="doctorAddrMain" 		column="doctor_addr_main"/>
+        <result property="doctorAddrDetail" 	column="doctor_addr_detail"/>
+        <result property="doctorSubject" 		column="doctor_subject"/>
+        <result property="doctorMajor" 			column="doctor_major"/>
+        <result property="doctorComments" 		column="doctor_comments"/>
+        <result property="doctorJoinDate" 		column="doctor_join_date"/>
+        <result property="doctorLeaveDate" 		column="doctor_leave_date"/>
+        <result property="doctorConfirmYn" 		column="doctor_confirm_yn"/>
+        <result property="doctorRequestCnt" 	column="doctorRequestCnt"/>
+    </resultMap>
+    
+    <select id="getMemberList" resultMap="MemberResultMapForAdmin">
 		SELECT *
 		FROM members
-		 <where>
-	        <if test="searchKeyword != null and searchKeyword != ''">
-	            (
-	            member_email LIKE '%' || #{searchKeyword} || '%'
-	            OR member_name LIKE '%' || #{searchKeyword} || '%'
-	            OR member_birth LIKE '%' || #{searchKeyword} || '%'
-	            OR member_tel LIKE '%' || #{searchKeyword} || '%'
-	            )
-	        </if>
-    	</where>
 	</select>
 	
 	<select id="getInquiryList" parameterType="String" resultMap="InquiryResultMapForAdmin">
@@ -55,4 +72,17 @@
 		 WHERE inquiry_writer_email = #{userEmail}
 		</if>
 	</select>
+	
+	<select id="getDoctorRequestCnt" resultType="int">
+		SELECT COUNT(*) AS count
+		FROM doctor
+		WHERE doctor_confirm_yn = 'N'
+	</select>
+	
+	<select id="getDoctorInquiryList" resultMap="DoctorInquiryResultMap">
+		SELECT * FROM inquiry i
+		INNER JOIN doctor d 
+		ON i.inquiry_writer_email = d.doctor_email
+	</select>
+	
 </mapper>

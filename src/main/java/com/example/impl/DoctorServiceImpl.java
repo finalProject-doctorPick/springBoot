@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dao.DoctorDAO;
 import com.example.domain.Doctor;
-import com.example.domain.Member;
 import com.example.domain.MemberHistory;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
@@ -139,55 +138,6 @@ public class DoctorServiceImpl implements DoctorService{
 	@Override
 	public MemberHistory getDetailedHistory(Integer certificateNum) {
 		return doctorDAO.getDetailedHistory(certificateNum);
-	}
-
-	/**
-	 * 	@author     : 정하림
-	 *  @created    : 2024-01-23
-	 *  @param      :
-	 *  @return     : int
-	 * 	@explain    : 관리자) 대시보드 - 의사 등록 요청 수
-	 * */
-	@Override
-	public int getDoctorRequestCnt() {
-		return doctorDAO.getDoctorRequestCnt();
-	}
-
-	/**
-	 * 	@author     : 정하림
-	 *  @created    : 2024-01-23
-	 *  @param      :
-	 *  @return     : List<Doctor>
-	 * 	@explain    : 관리자) 의사 관리 - 의사 전체 목록 조회 
-	 * */
-	@Override
-	public List<Doctor> getDoctorsList() {
-		return doctorDAO.getDoctorsList();
-	}
-
-	/**
-	 * 	@author     : 정하림
-	 *  @created    : 2024-01-23
-	 *  @param      :
-	 *  @return     : List<Doctor>
-	 * 	@explain    : 관리자) 의사 관리 - 등록 요청 의사 목록 조회
-	 * */
-	@Override
-	public List<Doctor> getRegistRequestList() {
-		return doctorDAO.getRegistRequestList();
-	}
-
-	/**
-
-	 * 	@author     : 정하림
-	 *  @created    : 2024-01-24
-	 *  @param      :
-	 *  @return     : List<Member>
-	 * 	@explain    : 관리자) 문의 관리 - 의사 문의 목록 조회
-	 * */
-	@Override
-	public List<Member> getDoctorInquiryList() {
-		return doctorDAO.getDoctorInquiryList();
 	}
 	
 	/*

@@ -6,11 +6,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.domain.DashBoard;
+import com.example.domain.Inquiry;
 import com.example.domain.Member;
 import com.example.service.MemberService;
 
@@ -33,7 +36,6 @@ public class MemberController {
      * */
     @GetMapping("/currentHistory")
     public ResponseEntity<?> getMemberCurrentHistory(@RequestParam Integer memberId){
-    	
     	List<?> list = memberService.getMemberCurrentHistory(memberId);
     	return new ResponseEntity<>(list, HttpStatus.OK);
     }
@@ -50,7 +52,6 @@ public class MemberController {
     public ResponseEntity<?> getMembersCntByAge(){
     	List<DashBoard> list = memberService.getMembersCntByAge();
 		return new ResponseEntity<>(list, HttpStatus.OK);
-    	
     }
     
     /**
@@ -62,7 +63,6 @@ public class MemberController {
      * */
     @GetMapping("/getMemberReview")
     public ResponseEntity<?> getMemberReview(@RequestParam Integer memberId){
-    	System.out.println("리뷰 컨트롤러 memberId :" + memberId);
     	List<?> list = memberService.getMemberReview(memberId);
     	return new ResponseEntity<>(list, HttpStatus.OK);
     }
@@ -78,5 +78,33 @@ public class MemberController {
     public ResponseEntity<?> getMemberInfo(@RequestParam String memberEmail){
     	Member m = memberService.findMemberByEmail(memberEmail);
 		return new ResponseEntity<>(m, HttpStatus.OK);
+    }
+    
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-27
+     *  @param		: Member updateMemberData
+     *  @return		: ResponseEntity
+     * 	@explain	: 일반회원 정보 수정
+     * */
+    @PostMapping("/updateMemberInfo")
+    public ResponseEntity<?> updateMemberInfo(@RequestBody Member updateMemberData) {
+    	ResponseEntity<?> response = memberService.updateMemberInfo(updateMemberData);
+    	return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+    
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-27
+     *  @param		: Integer memberId
+     *  @return		: ResponseEntity
+     * 	@explain	: 일반회원 문의 조회
+     * */
+    @GetMapping("/getMemberInquiry")
+    public ResponseEntity<?> getMemberInquiry(@RequestParam String userEmail){
+    	System.out.println("일반회원 문의 조회 진입");
+    	System.out.println("userEmail 값 : " + userEmail);
+    	List<Inquiry> response = memberService.getMemberInquiryList(userEmail);
+    	return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

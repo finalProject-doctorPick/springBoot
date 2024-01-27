@@ -36,10 +36,8 @@ public class DoctorController {
 	public ResponseEntity<?> getDoctorCurrentHistory(@RequestParam Integer doctorId){
 		List<?> list = doctorService.getDoctorCurrentHistory(doctorId);
 		return new ResponseEntity<>(list, HttpStatus.OK);
-
     }
 
-	
 	/**
      * 	@author 	: 박병태
      *  @created	: 2024-01-23
@@ -53,7 +51,6 @@ public class DoctorController {
 		return new ResponseEntity<>(item, HttpStatus.OK);
 	}
 
-	
 	/**
      * 	@author 	: 박병태
      *  @created	: 2024-01-23

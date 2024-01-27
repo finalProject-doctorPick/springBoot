@@ -13,29 +13,21 @@ import com.example.dto.DoctorDTO;
 public interface DoctorDAO {
 	void registerDoctor(DoctorDTO dto);
 
-	Doctor findDoctorByEmail(String userEmail);
+	// 의사 조회 (이메일)
+	public Doctor findDoctorByEmail(String userEmail);
 
-	//의사 이메일 id에서 차지기
-	String getDoctorEmail(Integer doctorId);
+	// 의사 이메일 id에서 찾기
+	public String getDoctorEmail(Integer doctorId);
 
 	// 의사 진료 조회
-	List<Member> getDoctorCurrentHistory(Integer doctorId);
-
-	// 의사 전체 조회
-	List<Doctor> getDoctorsList();
-
-	// 등록 전 의사 전체 조회
-	List<Doctor> getRegistRequestList();
+	public List<Member> getDoctorCurrentHistory(Integer doctorId);
 
 	// 진료 상세보기 조회
-	MemberHistory getDetailedHistory(Integer certificateNum);
-	
-	/******************** 관리자 ********************/
-	
-	// 관리자  - 의사 등록 요청 수
-	int getDoctorRequestCnt();
+	public MemberHistory getDetailedHistory(Integer certificateNum);
 
-	// 관리자 - 의사 문의 목록 조회
-	List<Member> getDoctorInquiryList();
-
+	// 관리자) 의사 전체 조회
+	public List<Doctor> getDoctorsList();
+	
+	// 관리자) 등록 전 의사 전체 조회
+	public List<Doctor> getRegistRequestList();
 }
