@@ -100,6 +100,19 @@
 		<result property="doctorName" 			column="doctor_name"/>
 	</resultMap>
     
+     <resultMap id="ReservationResultMap" type="com.example.domain.Reservation">
+		<id property="reservationNum" 				column="reservation_num"/>
+		<result property="memberId"		column="member_id"/>
+		<result property="doctorId"		column="docto_id"/>
+		<result property="reservationDate"		column="reservation_date"/>
+		<result property="reservationStatus"		column="reservation_status"/>
+		<result property="reservationPayment"		column="reservation_payment"/>
+		<result property="fileKey"		column="file_key"/>
+		<result property="patientComments"		column="patient_comments"/>
+		
+	</resultMap>
+    
+    
     
     <select id="findMemberByEmail" parameterType="String" resultMap="MemberResultMap">
 		SELECT *
@@ -197,4 +210,24 @@
 		INNER JOIN certificate c ON c.certificate_num = r.certificate_num 
 		WHERE member_id = ${memberId}
 	</select>
+	
+	<insert id="registReservation" parameterType="com.example.domain.Reservation">
+		 INSERT INTO reservation (
+            member_id,
+            doctor_id,
+            reservation_date,
+            reservation_status,
+            reservation_payment,
+            file_key,
+            patient_comments
+        ) VALUES (
+            #{memberId},
+            #{doctorId},
+            #{reservationDate},
+            #{reservationStatus},
+            #{reservationPayment},
+            #{fileKey},
+            #{patientComments}
+        );
+	</insert>
 </mapper>

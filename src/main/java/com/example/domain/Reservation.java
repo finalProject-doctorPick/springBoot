@@ -10,18 +10,27 @@ import lombok.NoArgsConstructor;
 public class Reservation {
 	
 	//에약 id번호
-	private Integer reservation_num;
+	private Integer reservationNum;
 	
 	//에약회원id번호
-	private Integer  member_id;
+	private Integer memberId;
 	
 	//예약회원id번호
-	private Integer doctor_id;
+	private Integer doctorId;
 	
 	//예약 진료일
-	private String reservation_date;
+	private String reservationDate;
 	
 	//예약 상태
-	private String reservation_status;
+	private String reservationStatus;
+	
+	//결제방법
+	private String reservationPayment;
+	
+	//업로드파일
+	private String fileKey;
+	
+	// 환자증상
+	private String patientComments;
 
 }

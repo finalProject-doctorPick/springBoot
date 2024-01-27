@@ -202,4 +202,33 @@ public class DoctorServiceImpl implements DoctorService{
 		return doctorDAO.getDoctorEmail(doctorId);
 	}
 
+	
+	/**
+
+	 * 	@author     : 이성규
+	 *  @created    : 2024-01-26
+	 *  @param      : String doctorMajor
+	 *  @return     : List<Doctor>
+	 * 	@explain    : 진료) 의사 목록 조회 - 진료과목
+	 * */
+	
+	@Override
+	public List<?> getDoctorClinicList(String doctorSubject) {
+		return doctorDAO.getDoctorClinicList(doctorSubject);
+	}
+	
+	/**
+
+	 * 	@author     : 이성규
+	 *  @created    : 2024-01-27
+	 *  @param      : Integer doctorId
+	 *  @return     : List<Doctor>
+	 * 	@explain    : 진료) 의사 상세 - 리뷰
+	 * */
+
+	@Override
+	public List<?> getDoctorReview(Integer doctorId) {
+		return doctorDAO.getDoctorReview(doctorId);
+	}
+
 }

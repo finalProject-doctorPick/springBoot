@@ -2,8 +2,12 @@ package com.example.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.example.domain.DashBoard;
 import com.example.domain.Member;
+import com.example.domain.Reservation;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
 import com.example.entity.MemberEntity;
@@ -30,7 +34,10 @@ public interface MemberService {
 	
 	// 일반회원 정보 조회
 	Member findMemberByEmail(String memberEmail);
-		
+	
+	
+	void registReservation(Reservation reservationData,  List<MultipartFile> fileList);
+	
 	/**
 	 *	*******************JPA*********************** 
 	 * */
@@ -42,5 +49,8 @@ public interface MemberService {
 	
 	// 일반 회원 조회
 	MemberEntity getMember(String email);
+
+
+	
 
 }

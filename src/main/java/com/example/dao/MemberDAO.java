@@ -3,9 +3,12 @@ package com.example.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.domain.DashBoard;
 import com.example.domain.Member;
+import com.example.domain.Reservation;
 
 @Mapper
 public interface MemberDAO {
@@ -23,5 +26,9 @@ public interface MemberDAO {
 
 	// 회원 리뷰 조회
 	public List<?> getMemberReview(Integer memberId);
+
+	public void registReservation(Reservation reservation);
+	
+	
 
 }

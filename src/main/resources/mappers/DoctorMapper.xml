@@ -7,6 +7,7 @@
         <result property="doctorEmail" 		column="doctor_email"/>
         <result property="hospitalId" 		column="hospital_id"/>
         <result property="hospitalName" 	column="hospital_name"/>
+        <result property="hospitalTel" 		column="hospital_tel"/>
         <result property="doctorPwd" 		column="doctor_pwd"/>
         <result property="doctorName" 		column="doctor_name"/>
         <result property="doctorBirth" 		column="doctor_birth"/>
@@ -22,6 +23,14 @@
         <result property="doctorLeaveDate" 	column="doctor_leave_date"/>
         <result property="doctorConfirmYn" 	column="doctor_confirm_yn"/>
         <result property="doctorRequestCnt" column="doctorRequestCnt"/>
+        <result property="rating"			column="rating"/>
+        <result property="comments"			column="comments"/>
+        <result property="ratingCnt"			column="rating_cnt"/>
+        <result property="ratingAvg"			column="rating_avg"/>
+        <result property="reviewCnt"			column="review_cnt"/>
+        <result property="reviewTitleA" 		column="review_titleA"/>
+        <result property="reviewTitleB" 		column="review_titleB"/>
+        <result property="reviewTitleC" 		column="review_titleC"/>
     </resultMap>
     
     <resultMap id="DoctorInquiryResultMap" type="com.example.domain.Inquiry">
@@ -262,4 +271,43 @@
 		FROM doctor
 		WHERE doctor_id=${doctorId};
 	</select>
+	
+	<select id="getDoctorClinicList"  resultMap="DoctorResultMap">
+	SELECT d.doctor_id  
+ 	, d.doctor_name 
+	, (SELECT hospital_name
+		FROM hospital h
+	   WHERE d.hospital_id = h.hospital_id) AS hospital_name
+	, d.doctor_major
+	, d.doctor_subject
+	, d.doctor_comments
+	, r.rating
+	, r.review_title 
+	, r.comments 
+	, (
+	    SELECT IFNULL(AVG(rr.rating), 0) 
+	    FROM reviews rr 
+	    WHERE d.doctor_id = rr.doctor_id AND rr.status = 'RY'
+  	) AS '평균'
+	FROM doctor d
+	LEFT OUTER JOIN reviews r 
+	ON d.doctor_id = r.doctor_id 
+	AND r.status = 'RY'
+	WHERE d.doctor_subject =  #{doctorSubject}
+	GROUP BY doctor_id;
+	</select>
+	
+	<select id="getDoctorReview"  resultMap="DoctorResultMap">
+	SELECT
+    SUM(CASE WHEN review_title = '친절하게 알려주셨어요' THEN 1 ELSE 0 END) AS review_titleA,
+    SUM(CASE WHEN review_title = '꼼꼼하게 진단해주셨어요' THEN 1 ELSE 0 END) AS review_titleB,
+    SUM(CASE WHEN review_title = '정확하게 처방해주셨어요' THEN 1 ELSE 0 END) AS review_titleC,
+    COUNT(*) AS review_cnt,
+    COUNT(rating) AS rating_cnt,
+    ROUND(AVG(rating),1) AS rating_avg
+	FROM reviews
+	WHERE doctor_id = #{doctorId};	
+	</select>
+	
+	
 </mapper>

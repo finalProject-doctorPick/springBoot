@@ -1,21 +1,28 @@
 package com.example.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dao.MemberDAO;
 import com.example.domain.DashBoard;
 import com.example.domain.Member;
+import com.example.domain.Reservation;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
 import com.example.entity.MemberEntity;
+import com.example.entity.ReservationEntity;
 import com.example.entity.RoleEntity;
 import com.example.repository.MemberRepository;
+import com.example.repository.ReservationRepository;
 import com.example.repository.RoleRepository;
+import com.example.service.FilesService;
 import com.example.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,7 +33,9 @@ public class MemberServiceImpl implements MemberService{
 
 	private final MemberDAO memberDAO;
 	private final MemberRepository memberRepository;
+	private final ReservationRepository reservationRepository;
 	private final RoleRepository roleRepository;
+	private final FilesService filesService;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
     
@@ -176,4 +185,35 @@ public class MemberServiceImpl implements MemberService{
 	public Member findMemberByEmail(String memberEmail) {
 		return memberDAO.findMemberByEmail(memberEmail);
 	}
+
+
+	
+    /**
+     * 	@author 	: 이성규	 
+     *  @created	: 2024-01-27
+     *  @param		: Reservation reservationData
+     *  @return		: ResponseEntity
+     * 	@explain	: 진료 접수
+     * */
+	@Override
+	public void registReservation(Reservation reservationData,  List<MultipartFile> file) {
+		System.out.println("memberServiceImpl :"+ reservationData.getMemberId()); 
+		Reservation reservation = new Reservation();
+		 reservation.setMemberId(reservationData.getMemberId());
+		 reservation.setDoctorId(reservationData.getDoctorId());
+		 reservation.setReservationDate(reservationData.getReservationDate());
+		 reservation.setReservationStatus(reservationData.getReservationStatus());
+		 reservation.setReservationPayment(reservationData.getReservationPayment());
+		 reservation.setFileKey(reservationData.getFileKey());
+		 reservation.setPatientComments(reservationData.getPatientComments());
+		 
+		 memberDAO.registReservation(reservation); 
+		 if (file != null && !file.isEmpty()) {
+		        String fileKey = filesService.fileupload(file, reservationData.getFileKey());
+		        // 
+		    }
+		
+	}
+	
+	
 }
