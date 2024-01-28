@@ -20,6 +20,8 @@
         <result property="memberEmail" 		column="member_email"/>
         <result property="memberName" 		column="member_name"/>
         <result property="memberCreditNum" 	column="member_credit_num"/>
+        <result property="issuerCode"		column="issuer_code"/>
+        <result property="cardType" 		column="card_type"/>
         <result property="memberPoint" 		column="member_point"/>
         <result property="customerKey" 		column="customer_key"/>
         <result property="billingKey" 		column="billing_key"/>
@@ -94,11 +96,39 @@
 		WHERE member_id = #{memberId}
 	</select>
 	
-	<update id="recordBillingKey" parameterType="hashmap">
+	<update id="recordBillingKey" parameterType="com.example.domain.Member">
 		UPDATE members
-		SET billing_key = #{billingKey}, customer_key=#{customerKey}
+		SET billing_key = #{billingKey}, customer_key=#{customerKey}, member_credit_num=#{memberCreditNum}, card_type=#{cardType}, issuer_code=#{issuerCode}
 		WHERE member_id = #{memberId}
 	</update>
 
+	<update id="deleteRegisteredCard" parameterType="Integer">
+		UPDATE members
+		SET billing_key = NULL, customer_key=NULL, member_credit_num=NULL, card_type=NULL, issuer_code=NULL
+		WHERE member_id = #{memberId}
+	</update>
+	
+	<update id="updatePoint" parameterType="hashmap">
+		UPDATE members
+		SET member_point=member_point+#{amount}
+		WHERE member_id = #{memberId}
+	</update>
+	
+	<insert id="recordPointEntry" parameterType="com.example.domain.PointHistory">
+		INSERT INTO point_history
+ 			(
+ 				member_id
+ 				, transaction_type
+ 				, amount
+ 				, transaction_date
+ 			)
+ 		VALUES
+ 			(
+ 				#{memberId}
+				, #{transactionType}
+				, #{amount}
+				, now()
+			)
+	</insert>
 	
 </mapper>
