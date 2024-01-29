@@ -35,5 +35,5 @@ public class Payment {
 	
 	// 결제정보생성일
 	private String paymentRegdate;
-	
+		
 }

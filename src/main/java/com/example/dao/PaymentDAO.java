@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.example.domain.DashBoard;
 import com.example.domain.Member;
 import com.example.domain.Payment;
+import com.example.domain.PointHistory;
 
 @Mapper
 public interface PaymentDAO {
@@ -37,8 +38,15 @@ public interface PaymentDAO {
 	Integer getMemberPoint(Integer memberId);
 
 	// 카드번호 등록
-	Integer recordBillingKey(HashMap<String, Object> map);
+	Integer recordBillingKey(Member entry);
 
+	// 등록된 카드 삭제
+	Integer deleteRegisteredCard(Integer memberId);
 
-
+	// 포인트 충전
+	Integer updatePoint(HashMap<String, Object> map);
+	
+	// 충전 내역 기록
+	Integer recordPointEntry(PointHistory entry);
+	
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import com.example.domain.DashBoard;
 import com.example.domain.Member;
 import com.example.domain.Payment;
+import com.example.domain.PointHistory;
 
 public interface PaymentService {
 
@@ -12,7 +13,7 @@ public interface PaymentService {
 	 * */
 	// 사용자 결제정보 조회
 	List<?> getUserPaymentInfo(Integer memberId);
-	
+
 	// 특정 건 결제정보 조회
 	Payment getUserPaymentInfoById(Integer paymentId);
 
@@ -29,7 +30,15 @@ public interface PaymentService {
 	Member getUserPaymentMethodAmount(Integer memberId);
 
 	// 카드번호 등록
-	Integer recordBillingKey(String billingKey, String customerKey, Integer memberId);
+	Integer recordBillingKey(Member entry);
 
+	// 등록된 카드 삭제
+	Integer deleteRegisteredCard(Integer memberId);
 
+	// 포인트 충전 내역
+	Integer chargePoint(PointHistory entry);
+
+	// 포인트 결제
+	Integer payPoints(Payment entry);
+	
 }
