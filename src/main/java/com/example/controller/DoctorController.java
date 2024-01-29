@@ -36,10 +36,8 @@ public class DoctorController {
 	public ResponseEntity<?> getDoctorCurrentHistory(@RequestParam Integer doctorId){
 		List<?> list = doctorService.getDoctorCurrentHistory(doctorId);
 		return new ResponseEntity<>(list, HttpStatus.OK);
-
     }
 
-	
 	/**
      * 	@author 	: 박병태
      *  @created	: 2024-01-23
@@ -53,7 +51,6 @@ public class DoctorController {
 		return new ResponseEntity<>(item, HttpStatus.OK);
 	}
 
-	
 	/**
      * 	@author 	: 박병태
      *  @created	: 2024-01-23
@@ -82,5 +79,30 @@ public class DoctorController {
 	adf
 	*/
 	
-
+	/**
+     * 	@author 	: 이성규
+     *  @created	: 2024-01-26
+     *  @param		: String doctorMajor(의사전공)
+     *  @return		: List(Generic)
+     * 	@explain	: 진료) 의사목록조회 
+     * */
+	@GetMapping("/getDoctorClinicList")
+	public ResponseEntity<?> getDoctorList(@RequestParam String doctorSubject ){
+		List<?> list = doctorService.getDoctorClinicList(doctorSubject);
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	/**
+     * 	@author 	: 이성규
+     *  @created	: 2024-01-27
+     *  @param		: Integer doctorId (의사 id번호)
+     *  @return		: List(Generic)
+     * 	@explain	: 진료) 의사상세 - 리뷰  
+     * */
+	@GetMapping("/getDoctorReview")
+	public ResponseEntity<?> getDoctorReview(@RequestParam Integer doctorId ){
+		System.out.println(">>>>>>>>>>>>>>의사 컨트롤러진입"+"의사ID:"+doctorId);
+		List<?> list = doctorService.getDoctorReview(doctorId);
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
 }

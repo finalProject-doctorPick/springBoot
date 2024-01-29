@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dao.DoctorDAO;
 import com.example.domain.Doctor;
-import com.example.domain.Member;
 import com.example.domain.MemberHistory;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
@@ -140,55 +139,6 @@ public class DoctorServiceImpl implements DoctorService{
 	public MemberHistory getDetailedHistory(Integer certificateNum) {
 		return doctorDAO.getDetailedHistory(certificateNum);
 	}
-
-	/**
-	 * 	@author     : 정하림
-	 *  @created    : 2024-01-23
-	 *  @param      :
-	 *  @return     : int
-	 * 	@explain    : 관리자) 대시보드 - 의사 등록 요청 수
-	 * */
-	@Override
-	public int getDoctorRequestCnt() {
-		return doctorDAO.getDoctorRequestCnt();
-	}
-
-	/**
-	 * 	@author     : 정하림
-	 *  @created    : 2024-01-23
-	 *  @param      :
-	 *  @return     : List<Doctor>
-	 * 	@explain    : 관리자) 의사 관리 - 의사 전체 목록 조회 
-	 * */
-	@Override
-	public List<Doctor> getDoctorsList() {
-		return doctorDAO.getDoctorsList();
-	}
-
-	/**
-	 * 	@author     : 정하림
-	 *  @created    : 2024-01-23
-	 *  @param      :
-	 *  @return     : List<Doctor>
-	 * 	@explain    : 관리자) 의사 관리 - 등록 요청 의사 목록 조회
-	 * */
-	@Override
-	public List<Doctor> getRegistRequestList() {
-		return doctorDAO.getRegistRequestList();
-	}
-
-	/**
-
-	 * 	@author     : 정하림
-	 *  @created    : 2024-01-24
-	 *  @param      :
-	 *  @return     : List<Member>
-	 * 	@explain    : 관리자) 문의 관리 - 의사 문의 목록 조회
-	 * */
-	@Override
-	public List<Member> getDoctorInquiryList() {
-		return doctorDAO.getDoctorInquiryList();
-	}
 	
 	/*
      * 	@author 	: 박병태
@@ -200,6 +150,35 @@ public class DoctorServiceImpl implements DoctorService{
 	@Override
 	public String getDoctorEmailFromId(Integer doctorId) {
 		return doctorDAO.getDoctorEmail(doctorId);
+	}
+
+	
+	/**
+
+	 * 	@author     : 이성규
+	 *  @created    : 2024-01-26
+	 *  @param      : String doctorMajor
+	 *  @return     : List<Doctor>
+	 * 	@explain    : 진료) 의사 목록 조회 - 진료과목
+	 * */
+	
+	@Override
+	public List<?> getDoctorClinicList(String doctorSubject) {
+		return doctorDAO.getDoctorClinicList(doctorSubject);
+	}
+	
+	/**
+
+	 * 	@author     : 이성규
+	 *  @created    : 2024-01-27
+	 *  @param      : Integer doctorId
+	 *  @return     : List<Doctor>
+	 * 	@explain    : 진료) 의사 상세 - 리뷰
+	 * */
+
+	@Override
+	public List<?> getDoctorReview(Integer doctorId) {
+		return doctorDAO.getDoctorReview(doctorId);
 	}
 
 }

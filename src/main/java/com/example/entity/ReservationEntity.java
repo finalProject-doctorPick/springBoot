@@ -40,6 +40,15 @@ public class ReservationEntity implements Serializable{
 	@Column(name = "reservation_status")
 	private String reservationStatus;
 	
+	@Column(name = "reservation_payment")
+	private String reservationPayment;
+	
+	@Column(name = "file_key")
+	private String fileKey;
+	
+	@Column(name = "patient_comments")
+	private String patientComments;
+	
 	@ManyToOne
     @JoinColumn(name = "member_id", referencedColumnName = "member_id", insertable = false, updatable = false)
     private MemberEntity members;

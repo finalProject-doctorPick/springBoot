@@ -29,9 +29,6 @@ public interface DrugstoreService {
 
 	// 약국 히스토리 조회
 	List<DrugstoreHistory> getDrugstoreHistoryList(Integer drugstoreId);
-	
-	// 관리자) 약국 문의 목록 조회
-	List<Drugstore> getDrugstoreInquiryList();
 
 	// 약국 문의 목록 조회
 	List<Inquiry> getDrugstoreInquiry(Integer drugstoreId);

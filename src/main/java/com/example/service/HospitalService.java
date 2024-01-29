@@ -10,12 +10,12 @@ public interface HospitalService {
 	/**
 	 *	****************MyBatis********************* 
 	 * */
-	List<Hospital> getHospitalList();
+	public List<Hospital> getHospitalList();
 
-	List<Hospital> getHospitalListByKeyword(String keyword);
+	public List<Hospital> getHospitalListByKeyword(String keyword);
 
-	List<Hospital> getCurrentLocationList(Map<String, String> requestData);
+	public List<Hospital> getCurrentLocationList(Map<String, String> requestData);
 
-	List<Hospital> getHospitalRegionCnt();
+	public List<Hospital> getHospitalRegionCnt();
 
 }

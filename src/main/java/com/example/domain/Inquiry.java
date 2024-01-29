@@ -145,6 +145,8 @@ public class Inquiry {
 	// 회원 상세주소
 	private String memberAddrDetail;
 
+	// 회원 나머지주소
+	private String memberAddrSubdetail;
 	// 회원 가입일
 	private LocalDateTime memberJoinDate;
 
