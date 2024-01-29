@@ -6,15 +6,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.domain.DashBoard;
 import com.example.domain.Inquiry;
 import com.example.domain.Member;
+import com.example.domain.Reservation;
 import com.example.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -102,9 +106,23 @@ public class MemberController {
      * */
     @GetMapping("/getMemberInquiry")
     public ResponseEntity<?> getMemberInquiry(@RequestParam String userEmail){
-    	System.out.println("일반회원 문의 조회 진입");
-    	System.out.println("userEmail 값 : " + userEmail);
     	List<Inquiry> response = memberService.getMemberInquiryList(userEmail);
     	return new ResponseEntity<>(response, HttpStatus.OK);
     }
+    
+    /**
+     * 	@author 	: 이성규	 
+     *  @created	: 2024-01-27
+     *  @param		: void
+     *  @return		: ResponseEntity
+     * 	@explain	: 진료신청 (reservation)
+     * */
+    @PostMapping("/registReservation")
+    public ResponseEntity<?> registReservation(
+    		@ModelAttribute Reservation reservationData,
+            @RequestPart(name = "fileList", required = false) List<MultipartFile> fileList)  {
+        memberService.registReservation(reservationData, fileList);
+        return new ResponseEntity<>("성공적으로 접수되었습니다", HttpStatus.OK);
+    }
+
 }

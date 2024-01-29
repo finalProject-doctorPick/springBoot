@@ -24,6 +24,9 @@ public class Doctor {
 	// 소속병원 이름
 	private String hospitalName;
 	
+	// 소속병원 전화번호
+	private String hospitalTel;
+	
 	// 의사 비밀번호
 	private String doctorPwd;
 	
@@ -65,7 +68,28 @@ public class Doctor {
 	
 	// 의사 확인 여부
 	private String doctorConfirmYn;
-
+	
+	// 의사 평점 
+	private Integer rating;
+	
+	// 의사 평점 평균
+	private float ratingAvg;
+	
+	// 의사 평점 총 개수
+	private Integer ratingCnt;
+	
+	// 의사 리뷰 총 개수
+	private Integer reviewCnt;
+	
+	// 의사 리뷰 제목
+	private String reviewTitleA;
+	private String reviewTitleB;
+	private String reviewTitleC;
+	
+	// 의사 리뷰 내용
+	private String comments;
+	
+	// 관리자_통계) 의사 등록 요청 수 
 	private Integer doctorRequestCnt;
 	
 	private Set<Role> roles = new HashSet<>();
