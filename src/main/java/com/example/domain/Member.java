@@ -65,6 +65,12 @@ public class Member {
 	// 카드등록 시 필요한 키(본 사이트 제공)
 	private String customerKey;
 	
+	// 신용/체크 카드 구분
+	private String cardType;
+	
+	// 카드발급사 발급사 코드
+	private String issuerCode;
+	
 	private Set<Role> roles = new HashSet<>();
 	
 	public void addRole(Role memberRole) {
