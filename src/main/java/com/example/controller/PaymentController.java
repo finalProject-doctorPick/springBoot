@@ -69,7 +69,7 @@ public class PaymentController {
 	/**
 	 * 	@author 	: 박병태
 	 *  @created	: 2024-01-23
-	 *  @param		: Payment (결제정보: doctor_id, member_id, payment_date, amount)
+	 *  @param		: Payment 
 	 *  @return		: String (결과)
 	 *  @explain	: 결제 건 정보 DB에 저장 (결재 전 요청)
 	 * */
@@ -142,7 +142,7 @@ public class PaymentController {
 	/**
 	 * 	@author 	: 박병태
 	 *  @created	: 2024-01-26
-	 *  @param		: Integer memberId(회원id)
+	 *  @param		: PointHistory
 	 *  @return		: Integer (결과)
 	 *  @explain	: 카드 충전 및 충전내역 등록
 	 * */
@@ -154,6 +154,25 @@ public class PaymentController {
 		} else {
 			response = "포인트 내역 등록 실패";
 		}
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
+	/**
+	 * 	@author 	: 박병태
+	 *  @created	: 2024-01-28
+	 *  @param		: Payment
+	 *  @return		: Integer(결과)
+	 *  @explain	: 카드 결제
+	 * */
+	@PutMapping("/payPoints")
+	public ResponseEntity<?> payPoints(@RequestBody Payment entry){
+		String response = null;
+		if(paymentService.payPoints(entry) > 0) {
+			response = "포인트 결제 성공";
+		} else {
+			response = "포인트 결제 실패";
+		}
+
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 

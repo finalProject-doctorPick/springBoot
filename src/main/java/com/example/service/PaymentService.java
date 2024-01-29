@@ -37,5 +37,8 @@ public interface PaymentService {
 
 	// 포인트 충전 내역
 	Integer chargePoint(PointHistory entry);
+
+	// 포인트 결제
+	Integer payPoints(Payment entry);
 	
 }

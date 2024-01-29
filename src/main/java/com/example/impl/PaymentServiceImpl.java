@@ -150,4 +150,35 @@ public class PaymentServiceImpl implements PaymentService{
 
 	}
 
+	/**
+	 * 	@author 	: 박병태
+	 *  @created	: 2024-01-28
+	 *  @param		: Payment
+	 *  @return		: Integer(결과)
+	 *  @explain	: 카드 결제
+	 * */
+	@Override
+	@Transactional
+	public Integer payPoints(Payment entry) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberId", entry.getMemberId());
+		map.put("amount", entry.getAmount());
+		if(paymentDAO.updatePoint(map) > 0){
+		    PointHistory pointHistory = new PointHistory();
+		    pointHistory.setMemberId(entry.getMemberId());
+		    pointHistory.setTransactionType(entry.getTransactionType());
+		    pointHistory.setAmount(entry.getAmount());    
+			if(paymentDAO.recordPointEntry(pointHistory)>0) {
+				map.put("transactionType", entry.getTransactionType());
+				map.put("paymentId", entry.getPaymentId());
+				return paymentDAO.completePayment(map);
+			}else{
+				return -1;
+			}
+		} else {
+			return -1;
+		}
+		
+	}
+
 }

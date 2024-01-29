@@ -21,6 +21,6 @@ public class PointHistory {
 	//금액
 	private Integer amount;
 	
-	//내역 
+	//내역입력 날짜
 	private String transactionDate;
 }

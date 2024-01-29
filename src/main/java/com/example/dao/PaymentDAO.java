@@ -48,4 +48,5 @@ public interface PaymentDAO {
 	
 	// 충전 내역 기록
 	Integer recordPointEntry(PointHistory entry);
+	
 }

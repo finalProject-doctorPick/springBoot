@@ -2,133 +2,159 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dao.PaymentDAO">
-	<resultMap id="PaymentResultMap" type="com.example.domain.Payment">
-        <id property="paymentId" 				column="payment_id"/>
-        <result property="doctorId" 			column="doctor_id"/>
-        <result property="memberId" 			column="member_id"/>
- 		<result property="paymentDate" 			column="payment_date"/>
- 		<result property="paymentRegdate" 		column="payment_regdate"/>
- 		<result property="amount" 				column="amount"/>
- 		<result property="transactionType" 		column="transaction_type"/>
- 		<result property="paymentStatus" 		column="payment_status"/>
- 		<result property="certificateNum"	 	column="certificate_num"/> 
-    </resultMap>
+	<resultMap id="PaymentResultMap"
+		type="com.example.domain.Payment">
+		<id property="paymentId" column="payment_id" />
+		<result property="doctorId" column="doctor_id" />
+		<result property="memberId" column="member_id" />
+		<result property="paymentDate" column="payment_date" />
+		<result property="paymentRegdate" column="payment_regdate" />
+		<result property="amount" column="amount" />
+		<result property="transactionType" column="transaction_type" />
+		<result property="paymentStatus" column="payment_status" />
+		<result property="certificateNum" column="certificate_num" />
+	</resultMap>
 
 
-    <resultMap id="MemberResultMap" type="com.example.domain.Member">
-        <id property="memberId" 			column="member_id"/>
-        <result property="memberEmail" 		column="member_email"/>
-        <result property="memberName" 		column="member_name"/>
-        <result property="memberCreditNum" 	column="member_credit_num"/>
-        <result property="issuerCode"		column="issuer_code"/>
-        <result property="cardType" 		column="card_type"/>
-        <result property="memberPoint" 		column="member_point"/>
-        <result property="customerKey" 		column="customer_key"/>
-        <result property="billingKey" 		column="billing_key"/>
+	<resultMap id="MemberResultMap"
+		type="com.example.domain.Member">
+		<id property="memberId" column="member_id" />
+		<result property="memberEmail" column="member_email" />
+		<result property="memberName" column="member_name" />
+		<result property="memberCreditNum" column="member_credit_num" />
+		<result property="issuerCode" column="issuer_code" />
+		<result property="cardType" column="card_type" />
+		<result property="memberPoint" column="member_point" />
+		<result property="customerKey" column="customer_key" />
+		<result property="billingKey" column="billing_key" />
 
-    </resultMap>
+	</resultMap>
 
-	<select id="getUserPaymentInfo" parameterType="Integer" resultMap="PaymentResultMap">
+	<select id="getUserPaymentInfo" parameterType="Integer"
+		resultMap="PaymentResultMap">
 		SELECT *
 		FROM payments
-	    WHERE member_id = #{memberId}
+		WHERE member_id = #{memberId}
 	</select>
-	
-	<select id="getUserPaymentInfoById" parameterType="Integer" resultMap="PaymentResultMap">
+
+	<select id="getUserPaymentInfoById" parameterType="Integer"
+		resultMap="PaymentResultMap">
 		SELECT *
 		FROM payments
-	    WHERE payment_id = #{paymentId}
-	</select>
-	
- 	<insert id="recordTransaction" parameterType="com.example.domain.Payment">
- 		INSERT INTO payments
- 			(
- 				doctor_id
- 				, member_id
- 				, payment_date
- 				, amount
- 			)
- 		VALUES
- 			(
- 				#{doctorId}
-				, #{memberId}
-				, #{paymentDate}
-				, #{amount}
-			)
-	</insert>
-	
-	<update id="completePayment" parameterType="hashmap">
-		UPDATE  payments
-		SET transaction_type = #{transactionType}, 
-			payment_status = "Y"
 		WHERE payment_id = #{paymentId}
+	</select>
+
+	<insert id="recordTransaction"
+		parameterType="com.example.domain.Payment">
+		INSERT INTO payments
+		(
+		doctor_id
+		, member_id
+		, payment_date
+		, amount
+		)
+		VALUES
+		(
+		#{doctorId}
+		, #{memberId}
+		, #{paymentDate}
+		, #{amount}
+		)
+	</insert>
+
+	<update id="completePayment" parameterType="hashmap">
+		UPDATE payments
+		SET
+		transaction_type = #{transactionType},
+		payment_status = "Y"
+		WHERE
+		payment_id = #{paymentId}
 	</update>
 
 	<select id="getMonthlySales" resultMap="PaymentResultMap">
-		SELECT DATE(payment_date) AS payment_date , SUM(amount) AS amount
+		SELECT DATE(payment_date)
+		AS payment_date , SUM(amount) AS amount
 		FROM payments p
-		WHERE p.payment_status = 'Y'
+		WHERE
+		p.payment_status = 'Y'
 		GROUP BY payment_date
 	</select>
-	
 
-	<select id="getMemberId" parameterType="Integer" resultType="Integer">
+
+	<select id="getMemberId" parameterType="Integer"
+		resultType="Integer">
 		SELECT member_id
 		FROM payments
-		WHERE payment_id = #{paymentId}
+		WHERE payment_id =
+		#{paymentId}
 	</select>
-	
-	<select id="getMemberPoint" parameterType="Integer" resultType="Integer">
+
+	<select id="getMemberPoint" parameterType="Integer"
+		resultType="Integer">
 		SELECT member_point
 		FROM members
-		WHERE member_id = #{memberId}
+		WHERE member_id =
+		#{memberId}
 	</select>
-	
+
 	<update id="deductPoint" parameterType="hashmap">
 		UPDATE members
-		SET member_point = member_point-#{paymentAmount}
-		WHERE member_id = #{memberId}
+		SET
+		member_point = member_point-#{paymentAmount}
+		WHERE member_id =
+		#{memberId}
 	</update>
 
-	<select id="getUserPaymentMethodAmount" parameterType="Integer" resultMap="MemberResultMap">
+	<select id="getUserPaymentMethodAmount" parameterType="Integer"
+		resultMap="MemberResultMap">
 		SELECT *
 		FROM members
 		WHERE member_id = #{memberId}
 	</select>
-	
-	<update id="recordBillingKey" parameterType="com.example.domain.Member">
+
+	<update id="recordBillingKey"
+		parameterType="com.example.domain.Member">
 		UPDATE members
-		SET billing_key = #{billingKey}, customer_key=#{customerKey}, member_credit_num=#{memberCreditNum}, card_type=#{cardType}, issuer_code=#{issuerCode}
-		WHERE member_id = #{memberId}
+		SET billing_key = #{billingKey},
+		customer_key=#{customerKey}, member_credit_num=#{memberCreditNum},
+		card_type=#{cardType}, issuer_code=#{issuerCode}
+		WHERE member_id =
+		#{memberId}
 	</update>
 
 	<update id="deleteRegisteredCard" parameterType="Integer">
 		UPDATE members
-		SET billing_key = NULL, customer_key=NULL, member_credit_num=NULL, card_type=NULL, issuer_code=NULL
+		SET billing_key = NULL, customer_key=NULL, member_credit_num=NULL,
+		card_type=NULL, issuer_code=NULL
 		WHERE member_id = #{memberId}
 	</update>
-	
+
 	<update id="updatePoint" parameterType="hashmap">
 		UPDATE members
-		SET member_point=member_point+#{amount}
+		SET
+		member_point=member_point+#{amount}
 		WHERE member_id = #{memberId}
 	</update>
-	
-	<insert id="recordPointEntry" parameterType="com.example.domain.PointHistory">
+
+	<insert id="recordPointEntry"
+		parameterType="com.example.domain.PointHistory">
 		INSERT INTO point_history
- 			(
- 				member_id
- 				, transaction_type
- 				, amount
- 				, transaction_date
- 			)
- 		VALUES
- 			(
- 				#{memberId}
-				, #{transactionType}
-				, #{amount}
-				, now()
-			)
+		(
+		member_id
+		, transaction_type
+		,
+		amount
+		, transaction_date
+		)
+		VALUES
+		(
+		#{memberId}
+		, #{transactionType}
+		,
+		#{amount}
+		, now()
+		)
 	</insert>
+
 	
 </mapper>
