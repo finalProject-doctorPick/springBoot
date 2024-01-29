@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.domain.Doctor;
+import com.example.domain.DoctorAvail;
 import com.example.domain.Member;
 import com.example.domain.MemberHistory;
 import com.example.dto.DoctorDTO;
@@ -30,6 +31,14 @@ public interface DoctorDAO {
 	
 	// 진료) 의사상세 리뷰 
 	List<?> getDoctorReview(Integer doctorId);
+	
+	// 의사 진료시간 정보 조회
+	List<DoctorAvail> getDoctorAvailList(String doctorEmail);
+
+	// 의사 정보 조회
+	Doctor getDoctorInfoList(String doctorEmail);
+	
+	
 	/******************** 관리자 ********************/
 	
 	// 관리자  - 의사 등록 요청 수
@@ -43,5 +52,6 @@ public interface DoctorDAO {
 
 	// 관리자 - 의사 문의 목록 조회
 	List<Member> getDoctorInquiryList();
+
 
 }

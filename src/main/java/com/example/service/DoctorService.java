@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.domain.Doctor;
+import com.example.domain.DoctorAvail;
 import com.example.domain.MemberHistory;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
@@ -33,6 +34,12 @@ public interface DoctorService {
 	// 진료) 의사 상세 - 리뷰
 	List<?> getDoctorReview(Integer doctorId);
 	
+	// 의사 진료시간 조회
+	List<DoctorAvail> getDoctorAvailList(String doctorEmail);
+	
+
+	// 의사 정보 조회
+	Doctor getDoctorInfoList(String doctorEmail);
 	
 	/**
 	 *	*******************JPA*********************** 
@@ -45,6 +52,12 @@ public interface DoctorService {
 
 	// 의사 정보 조회
 	DoctorEntity getDoctor(String email);
+
+
+
+
+
+
 
 
 

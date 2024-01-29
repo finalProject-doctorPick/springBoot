@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.domain.DashBoard;
@@ -37,6 +39,8 @@ public class AdminController {
     @GetMapping("/getMemberList")
     public ResponseEntity<?> getMemberList(){
     	List<?> list = adminService.getMemberList();
+    	
+    	System.out.println("받아오는 멤버 리스트 : "+ list);
     	return new ResponseEntity<>(list, HttpStatus.OK);
     }
     
@@ -169,4 +173,20 @@ public class AdminController {
 		List<Drugstore> list = adminService.getDrugstoreInquiryList();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
+	
+	
+//	/**
+//	 * 	@author     : 정하림
+//	 *  @created    : 2024-01-29
+//	 *  @param      : void
+//	 *  @return     : ResponseEntity
+//	 * 	@explain    : 관리자) 의사 관리 - 의사 정보 수정
+//	 * */
+//	@PostMapping("/updateDoctorsInfo")
+//	public ResponseEntity<?> updateDoctorsInfo(@RequestParam String memberEmail){
+//		
+//	}
+	
+	
+	
 }

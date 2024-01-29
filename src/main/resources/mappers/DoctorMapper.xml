@@ -33,6 +33,17 @@
         <result property="reviewTitleC" 		column="review_titleC"/>
     </resultMap>
     
+   	<resultMap id="DoctorAvailResultMap" type="com.example.domain.DoctorAvail">
+       <id property="doctorAvailId" 		column="doctor_avail_id"/>
+       <result property="doctorId" 			column="doctor_id"/>
+       <result property="doctorEmail" 		column="doctor_email"/>
+       <result property="day" 				column="day"/>
+       <result property="starttime" 		column="starttime"/>
+       <result property="endtime" 			column="endtime"/>
+       <result property="restStarttime" 	column="rest_starttime"/>
+       <result property="restEndtime" 		column="rest_endtime"/>
+    </resultMap>
+    
     <resultMap id="MemberHistoryResultMap" type="com.example.domain.MemberHistory">
         <id property="memberId" 					column="member_id"/>
         <result property="memberName" 				column="member_name"/>
@@ -218,14 +229,11 @@
 	</select>
 	
 	<select id="getDoctorsList" resultMap="DoctorResultMap">
-		 SELECT d.doctor_name
-			  , h.hospital_name 
-			  , d.doctor_subject
-			  , d.doctor_major  
-		   FROM doctor d 
-	 LEFT OUTER JOIN hospital h 
-			 ON d.hospital_id = h.hospital_id
-		  WHERE doctor_confirm_yn = 'Y'
+		SELECT d.*, h.hospital_name 
+		FROM doctor d 
+		LEFT OUTER JOIN hospital h 
+		ON d.hospital_id = h.hospital_id
+		WHERE doctor_confirm_yn = 'Y'
 	</select>
 	
 	<select id="getRegistRequestList" resultMap="DoctorResultMap">
@@ -272,6 +280,20 @@
     		, ROUND(AVG(rating),1) AS rating_avg
 		  FROM reviews
 		 WHERE doctor_id = #{doctorId};	
+	</select>
+	
+	<select id="getDoctorInfoList" resultMap="DoctorResultMap">
+		SELECT d.*, h.hospital_name 
+		FROM doctor d LEFT OUTER JOIN hospital h 
+		ON h.hospital_id = d.hospital_id
+		WHERE doctor_email = #{doctorEmail}
+	</select>
+	
+	<select id="getDoctorAvailList" resultMap="DoctorAvailResultMap">
+		SELECT * FROM doctor_avail da
+		INNER JOIN doctor d 
+		ON d.doctor_id = da.doctor_id
+		WHERE d.doctor_email = #{doctorEmail}
 	</select>
 	
 </mapper>

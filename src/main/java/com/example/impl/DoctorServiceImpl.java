@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dao.DoctorDAO;
 import com.example.domain.Doctor;
+import com.example.domain.DoctorAvail;
 import com.example.domain.MemberHistory;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
@@ -180,5 +181,34 @@ public class DoctorServiceImpl implements DoctorService{
 	public List<?> getDoctorReview(Integer doctorId) {
 		return doctorDAO.getDoctorReview(doctorId);
 	}
+
+	
+	/**
+     * 	@author 	: 정하림
+     *  @created	: 2024-01-29
+     *  @param		: String doctorEmail
+     *  @return		: List<DoctorAvail>
+     * 	@explain	: 의사정보 조회(진료시간)
+     * */
+	@Override
+	public List<DoctorAvail> getDoctorAvailList(String doctorEmail) {
+		
+		return doctorDAO.getDoctorAvailList(doctorEmail);
+	}
+
+	
+	/**
+     * 	@author 	: 정하림
+     *  @created	: 2024-01-29
+     *  @param		: String doctorEmail
+     *  @return		: Doctor
+     * 	@explain	: 의사정보 조회
+     * */
+	@Override
+	public Doctor getDoctorInfoList(String doctorEmail) {
+		
+		return doctorDAO.getDoctorInfoList(doctorEmail);
+	}
+
 
 }

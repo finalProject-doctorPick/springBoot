@@ -1,6 +1,8 @@
 package com.example.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.domain.Doctor;
+import com.example.domain.DoctorAvail;
 import com.example.domain.MemberHistory;
+import com.example.entity.DoctorEntity;
 import com.example.service.AdminService;
 import com.example.service.DoctorService;
 
@@ -100,9 +105,34 @@ public class DoctorController {
      * 	@explain	: 진료) 의사상세 - 리뷰  
      * */
 	@GetMapping("/getDoctorReview")
-	public ResponseEntity<?> getDoctorReview(@RequestParam Integer doctorId ){
+	public ResponseEntity<?> getDoctorReview(@RequestParam Integer doctorId){
 		System.out.println(">>>>>>>>>>>>>>의사 컨트롤러진입"+"의사ID:"+doctorId);
 		List<?> list = doctorService.getDoctorReview(doctorId);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
+	
+
+	/**
+     * 	@author 	: 정하림
+     *  @created	: 2024-01-29
+     *  @param		: String doctorEmail
+     *  @return		: HashMap
+     * 	@explain	: 의사정보 조회(의사정보+진료시간)
+     * */
+	@GetMapping("/getDoctorEntireInfoList")
+	public ResponseEntity<?> getDoctorEntireInfoList(@RequestParam String doctorEmail) {
+		Doctor doctor = doctorService.getDoctorInfoList(doctorEmail);
+		
+		List<DoctorAvail> availlist = doctorService.getDoctorAvailList(doctorEmail);
+		
+		// 응답에 필요한 데이터를 HashMap에 담기
+	    Map<String, Object> result = new HashMap<>();
+	    result.put("doctorInfo", doctor);
+	    result.put("doctorAvailability", availlist);
+
+	    System.out.println("의사 정보 : "+doctor);
+	    // ResponseEntity에 담아서 반환
+	    return ResponseEntity.ok(result);
+	}
+	
 }
