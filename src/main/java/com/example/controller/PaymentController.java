@@ -176,6 +176,17 @@ public class PaymentController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
-
+	/**
+	 * 	@author 	: 박병태
+	 *  @created	: 2024-01-28
+	 *  @param		: Integer certificateNum(진료id번호)
+	 *  @return		: String reservationPayment(결제방식)
+	 *  @explain	: 진료비 결제방식 조회
+	 * */
+	@GetMapping("/getPaymentMethod")
+	public ResponseEntity<?> getPamentMethod(@RequestParam Integer certificateNum){
+		String response = paymentService.getPaymentMethod(certificateNum).toUpperCase();
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 }
 

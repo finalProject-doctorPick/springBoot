@@ -52,5 +52,8 @@ public interface PaymentDAO {
 	
 	// 충전 내역 기록
 	public Integer recordPointEntry(PointHistory entry);
+
+	// 진료비 결제방식 조회
+	public String getPaymentMethod(Integer certificateNum);
 	
 }
