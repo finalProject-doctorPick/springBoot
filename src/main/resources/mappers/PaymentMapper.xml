@@ -108,11 +108,12 @@
 	</update>
 
 	<select id="getMonthlySales" resultMap="PaymentResultMap">
-		SELECT DATE(payment_date) AS payment_date 
-			 , SUM(amount) AS amount
-		  FROM payments p
-		 WHERE p.payment_status = 'Y'
-	  GROUP BY payment_date
+		SELECT DATE(payment_date) AS payment_date, SUM(amount) AS amount
+		FROM payments p
+		WHERE p.payment_status = 'Y'
+		  AND MONTH(payment_date) = MONTH(CURRENT_DATE())
+		  AND YEAR(payment_date) = YEAR(CURRENT_DATE())
+		GROUP BY payment_date
 	</select>
 
 	<update id="updatePoint" parameterType="hashmap">
@@ -140,5 +141,13 @@
 		, now()
 		)
 	</insert>
+	
+	<select id="getPaymentMethod" parameterType="Integer" resultType="String">
+		SELECT r.reservation_payment
+		FROM reservation r
+		INNER JOIN certificate c
+		ON r.reservation_num = c.reservation_num
+		WHERE certificate_num = #{certificateNum};
+	</select>
 	
 </mapper>
