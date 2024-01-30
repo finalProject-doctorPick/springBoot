@@ -93,7 +93,7 @@ public class AdminController {
 		List<DashBoard> list = adminService.getMonthlySales();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * 	@author     : 정하림
 	 *  @created    : 2024-01-23
