@@ -92,6 +92,7 @@ public class Doctor {
 	// 관리자_통계) 의사 등록 요청 수 
 	private Integer doctorRequestCnt;
 	
+
 	private Set<Role> roles = new HashSet<>();
 	
 	public void addRole(Role doctorRole) {

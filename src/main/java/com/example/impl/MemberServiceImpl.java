@@ -183,17 +183,24 @@ public class MemberServiceImpl implements MemberService{
 	public ResponseEntity<?> updateMemberInfo(Member updateMemberData) {
 		ServerResponse response = new ServerResponse();
 		List<String[]> checkValues = new ArrayList<>();
+		String chkPwd = updateMemberData.getMemberPwd();
+		System.out.println("memberServiceImpl > updateMemberInfo 진입");
+		System.out.println("chkPwd 값 : " + chkPwd);
 		
 		checkValues.add(new String[]{"name", "이름", updateMemberData.getMemberName()});
-		if(!updateMemberData.getMemberPwd().equals("")) {
-			checkValues.add(new String[]{"password", "비밀번호", updateMemberData.getMemberPwd()});	
+		
+		if(!updateMemberData.getMemberPwd().equals("") && updateMemberData.getMemberPwd() != null) {
+			checkValues.add(new String[]{"password", "비밀번호", chkPwd});	
+			updateMemberData.setMemberPwd(passwordEncoder.encode(chkPwd));
 		}
+		
 		checkValues.add(new String[]{"", "전화번호", updateMemberData.getMemberTel()});
 		
 		ResponseEntity<?> validationResponse = validationService.checkValue(checkValues);
 		if (validationResponse != null) {
             return validationResponse;
         }
+		
 		
 		int updateYn = memberDAO.updateMemberInfo(updateMemberData);
 		if(updateYn == 0) {
