@@ -179,4 +179,17 @@ public class PaymentServiceImpl implements PaymentService{
 		
 	}
 
+	
+	/**
+	 * 	@author 	: 박병태
+	 *  @created	: 2024-01-28
+	 *  @param		: certificateNum(진료id번호)
+	 *  @return		: String reservationPayment(결제방식)
+	 *  @explain	: 진료비 결제방식 조회
+	 * */
+	@Override
+	public String getPaymentMethod(Integer certificateNum) {
+		return paymentDAO.getPaymentMethod(certificateNum);
+	}
+	
 }

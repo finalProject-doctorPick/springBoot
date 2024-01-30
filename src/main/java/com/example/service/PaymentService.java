@@ -40,5 +40,8 @@ public interface PaymentService {
 	public Integer payPoints(Payment entry);
 
 	public List<DashBoard> getMonthlySales();
+
+	//진료번호에 해당하는 결제 방식 가져오기
+	String getPaymentMethod(Integer certificateNum);
 	
 }
