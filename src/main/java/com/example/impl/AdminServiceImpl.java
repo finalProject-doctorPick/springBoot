@@ -2,6 +2,8 @@ package com.example.impl;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,6 +11,7 @@ import com.example.dao.AdminDAO;
 import com.example.dao.DoctorDAO;
 import com.example.dao.DrugstoreDAO;
 import com.example.dao.HospitalDAO;
+import com.example.dao.InquiryDAO;
 import com.example.dao.MemberDAO;
 import com.example.dao.PaymentDAO;
 import com.example.domain.DashBoard;
@@ -17,6 +20,7 @@ import com.example.domain.Drugstore;
 import com.example.domain.Hospital;
 import com.example.domain.Inquiry;
 import com.example.domain.Member;
+import com.example.domain.ServerResponse;
 import com.example.service.AdminService;
 
 import lombok.RequiredArgsConstructor;
@@ -31,6 +35,7 @@ public class AdminServiceImpl implements AdminService{
 	private final PaymentDAO paymentDAO;
 	private final DoctorDAO doctorDAO;
 	private final MemberDAO memberDAO;
+	private final InquiryDAO inquiryDAO;
 	
 	/**
      * 	@author 	: 백두산	 
@@ -164,5 +169,31 @@ public class AdminServiceImpl implements AdminService{
 	@Transactional(readOnly = true)
 	public List<Drugstore> getDrugstoreInquiryList() {
 		return drugstoreDAO.getDrugstoreInquiryList();
+	}
+
+	/**
+     * 	@author 	: 백두산
+     *  @created	: 2024-01-30
+     *  @param		: Inquiry inquiryData
+     *  @return		: ResponseEntity
+     * 	@explain	: 관리자) 문의 답변
+     * */
+	@Transactional
+	public ResponseEntity<?> updateInquiryAnswer(Inquiry inquiryData) {
+		ServerResponse response = new ServerResponse();
+		int updateYn = inquiryDAO.updateInquiryAnswer(inquiryData);
+		
+		if(updateYn == 0) {
+			response.setSuccess(false);
+			response.setMessage("문의 답변 등록에 실패했습니다.");
+			
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		}else {
+			response.setSuccess(true);
+			response.setMessage("문의 답변 등록을 하였습니다.");
+			
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+		
 	}
 }

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dao.MemberDAO;
+import com.example.dao.ReviewDAO;
 import com.example.domain.DashBoard;
 import com.example.domain.Inquiry;
 import com.example.domain.Member;
@@ -39,6 +40,7 @@ public class MemberServiceImpl implements MemberService{
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
     private final ValidationService validationService;
+    private final ReviewDAO reviewDAO;
     
     /**
      * 	@author 	: 백두산	 
@@ -252,7 +254,27 @@ public class MemberServiceImpl implements MemberService{
 		        String fileKey = filesService.fileupload(file, reservationData.getFileKey());
 		        // 
 		    }
+	}
+
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-30
+     *  @param		: List<Integer> reviewId
+     *  @return		: ResponseEntity
+     * 	@explain	: 일반회원 리뷰 삭제
+     * */
+	@Transactional
+	public ResponseEntity<?> deleteReviewId(List<Integer> reviewList) {
+		ServerResponse response = new ServerResponse();
 		
+		for(Integer r : reviewList) {
+			Integer reviewId = r;
+			reviewDAO.deleteReviewId(reviewId);
+		}
+		
+		response.setSuccess(true);
+		response.setMessage("리뷰 삭제가 완료 되었습니다.");
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
 }

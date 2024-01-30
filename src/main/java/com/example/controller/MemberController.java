@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -125,4 +126,19 @@ public class MemberController {
         return new ResponseEntity<>("성공적으로 접수되었습니다", HttpStatus.OK);
     }
 
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-30
+     *  @param		: List<Integer> reviewId
+     *  @return		: ResponseEntity
+     * 	@explain	: 일반회원 리뷰 삭제
+     * */
+    @DeleteMapping("/deleteReviewId")
+    public ResponseEntity<?> deleteReviewId(@RequestBody List<Integer> reviewList){
+    	System.out.println("deleteReviewId 진입");
+    	System.out.println("reviewList 값 : " + reviewList.size());
+    	ResponseEntity<?> response = memberService.deleteReviewId(reviewList);
+    	return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+    
 }

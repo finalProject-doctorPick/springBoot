@@ -34,4 +34,12 @@
 		)
 	</insert>
 	
+	<update id="updateInquiryAnswer" parameterType="com.example.domain.Inquiry">
+		UPDATE inquiry
+		   SET inquiry_answer 		  = #{inquiryAnswer}
+		     , inquiry_answer_regdate = now()
+		     , status 				  = 'Y'
+		 WHERE inquiry_id 			  = #{inquiryId}
+	</update>
+	
 </mapper>

@@ -2,6 +2,8 @@ package com.example.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
 import com.example.domain.DashBoard;
 import com.example.domain.Doctor;
 import com.example.domain.Drugstore;
@@ -46,4 +48,7 @@ public interface AdminService {
 
 	// 관리자) 약국 문의 목록 조회
 	public List<Drugstore> getDrugstoreInquiryList();
+
+	// 관리자) 문의 답변
+	public ResponseEntity<?> updateInquiryAnswer(Inquiry inquiryData);
 }

@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -170,6 +172,21 @@ public class AdminController {
 	public ResponseEntity<?> getDrugstoreInquiryList() {
 		List<Drugstore> list = adminService.getDrugstoreInquiryList();
 		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	/**
+     * 	@author 	: 백두산
+     *  @created	: 2024-01-30
+     *  @param		: Inquiry inquiryData
+     *  @return		: ResponseEntity
+     * 	@explain	: 관리자) 문의 답변
+     * */
+	@PostMapping("/updateInquiryAnswer")
+	public ResponseEntity<?> updateInquiryAnswer(@RequestBody Inquiry inquiryData){
+		System.out.println("updateInquiryAnswer 진입*******************************");
+		System.out.println("inquiry data 값 : " + inquiryData.toString());
+		ResponseEntity<?> response = adminService.updateInquiryAnswer(inquiryData);
+    	return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
 	
