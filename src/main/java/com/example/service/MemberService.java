@@ -39,7 +39,11 @@ public interface MemberService {
 	// 일반회원 문의 조회
 	public List<Inquiry> getMemberInquiryList(String userEmail);
 
-	void registReservation(Reservation reservationData,  List<MultipartFile> fileList);
+	// 예약 등록
+	public void registReservation(Reservation reservationData,  List<MultipartFile> fileList);
+	
+	// 일반회원 리뷰 삭제
+	public ResponseEntity<?> deleteReviewId(List<Integer> reviewList);
 	
 	/**
 	 *	*******************JPA*********************** 
@@ -52,6 +56,7 @@ public interface MemberService {
 	
 	// 일반 회원 조회
 	public MemberEntity getMember(String email);
+
 
 
 	
