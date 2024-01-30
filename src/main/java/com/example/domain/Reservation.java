@@ -32,5 +32,10 @@ public class Reservation {
 	
 	// 환자증상
 	private String patientComments;
-
+	
+	// 환자이름
+	private String memberName;
+	
+	// 진료상태
+	private String certificateStatus;
 }

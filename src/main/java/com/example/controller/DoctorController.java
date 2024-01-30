@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -105,4 +106,17 @@ public class DoctorController {
 		List<?> list = doctorService.getDoctorReview(doctorId);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
+	
+	/**
+     * 	@author 	: 백두산
+     *  @created	: 2024-01-29
+     *  @param		: Integer doctorId
+     *  @return		: List<?> list
+     * 	@explain	: 의사 비대면진료 목록 조회 (접수대기/진료목록/진료종료) 
+     * */
+	@GetMapping("/getDoctorNonFaceToFaceList")
+	public ResponseEntity<?> getDoctorNonFaceToFaceList(@RequestParam Integer doctorId ){
+		Map<String, List<?>> list = doctorService.getDoctorNonFaceToFaceList(doctorId);
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	} 
 }

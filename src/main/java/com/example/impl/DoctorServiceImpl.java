@@ -1,6 +1,8 @@
 package com.example.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,8 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dao.DoctorDAO;
+import com.example.dao.ReservationDAO;
 import com.example.domain.Doctor;
 import com.example.domain.MemberHistory;
+import com.example.domain.Reservation;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
 import com.example.entity.DoctorEntity;
@@ -32,6 +36,7 @@ public class DoctorServiceImpl implements DoctorService{
 	private final FilesService filesService;
 	private final PasswordEncoder passwordEncoder;
 	private final ModelMapper modelMapper;
+	private final ReservationDAO reservationDAO;
 	
 	/**
      * 	@author 	: 백두산	 
@@ -168,7 +173,6 @@ public class DoctorServiceImpl implements DoctorService{
 	}
 	
 	/**
-
 	 * 	@author     : 이성규
 	 *  @created    : 2024-01-27
 	 *  @param      : Integer doctorId
@@ -179,6 +183,36 @@ public class DoctorServiceImpl implements DoctorService{
 	@Override
 	public List<?> getDoctorReview(Integer doctorId) {
 		return doctorDAO.getDoctorReview(doctorId);
+	}
+
+	/**
+     * 	@author 	: 백두산
+     *  @created	: 2024-01-29
+     *  @param		: Integer doctorId
+     *  @return		: List<?> list
+     * 	@explain	: 의사 비대면진료 목록 조회 (접수대기/진료목록/진료종료) 
+     * */
+	@Transactional
+	public Map<String, List<?>> getDoctorNonFaceToFaceList(Integer doctorId) {
+		Map<String, List<?>> result = new HashMap<>();
+		System.out.println("getDoctorNonFaceToFaceList 진입");
+		// 접수대기 목록 조회
+		List<Reservation> reservationWaitList = reservationDAO.getDoctorReservationWaitList(doctorId);
+		System.out.println("접수대기 목록 조회 후 list : " + reservationWaitList.size());
+		
+		// 진료대기 목록 조회
+		List<Reservation> reservationConfirmList = reservationDAO.getDoctorReservationConfirmList(doctorId);
+		System.out.println("진료대기 목록 조회 후 list : " + reservationConfirmList.size());
+		
+		// 진료종료 목록 조회
+		List<Reservation> reservationFinishList = reservationDAO.getDoctorReservationFinishList(doctorId);
+		System.out.println("진료종료 목록 조회 후 list : " + reservationFinishList.size());
+		
+		result.put("waitList", reservationWaitList);
+		result.put("confirmList", reservationConfirmList);
+		result.put("finishList", reservationFinishList);
+		
+		return result;
 	}
 
 }

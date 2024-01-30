@@ -41,7 +41,6 @@
         <result property="certificateNum" 			column="certificate_num"/>
         <result property="certificateDate" 			column="certificate_date"/>
         <result property="reservationNum" 			column="reservation_num"/>
-        <result property="paymentAmount" 			column="payment_amount"/>
         <result property="certificatePaymentStatus" column="certificate_payment_status"/>
         <result property="description" 				column="description"/>
         <result property="certificateFile" 			column="certificate_file"/>
@@ -107,7 +106,6 @@
 		        c.certificate_num AS certificate_num
 		        , c.certificate_date AS certificate_date
 		        , c.reservation_num AS reservation_num
-		        , c.payment_amount AS payment_amount	
 		        , c.payment_status AS certificate_payment_status 
 		        , c.description AS description
 		        , c.file_key AS certificate_file
@@ -163,7 +161,6 @@
 		        c.certificate_num AS certificate_num
 		        , c.certificate_date AS certificate_date
 		        , c.reservation_num AS reservation_num
-		        , c.payment_amount AS payment_amount	
 		        , c.payment_status AS certificate_payment_status 
 		        , c.description AS description
 		        , c.file_key AS certificate_file

@@ -30,6 +30,7 @@ public interface DoctorDAO {
 	
 	// 진료) 의사상세 리뷰 
 	List<?> getDoctorReview(Integer doctorId);
+	
 	/******************** 관리자 ********************/
 	
 	// 관리자  - 의사 등록 요청 수
@@ -43,5 +44,6 @@ public interface DoctorDAO {
 
 	// 관리자 - 의사 문의 목록 조회
 	List<Member> getDoctorInquiryList();
+
 
 }
