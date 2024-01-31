@@ -43,22 +43,6 @@
     	<result property="inquiryAnswer" 		column="inquiry_answer"/>
     	<result property="inquiryAnswerRegdate" column="inquiry_answer_regdate"/>
     	<result property="status" 				column="status"/>
-    	<result property="doctorId" 			column="doctor_id"/>
-        <result property="doctorEmail" 			column="doctor_email"/>
-        <result property="doctorPwd" 			column="doctor_pwd"/>
-        <result property="doctorName" 			column="doctor_name"/>
-        <result property="doctorBirth" 			column="doctor_birth"/>
-        <result property="doctorSex" 			column="doctor_sex"/>
-        <result property="doctorTel" 			column="doctor_tel"/>
-        <result property="doctorAddrMain" 		column="doctor_addr_main"/>
-        <result property="doctorAddrDetail" 	column="doctor_addr_detail"/>
-        <result property="doctorSubject" 		column="doctor_subject"/>
-        <result property="doctorMajor" 			column="doctor_major"/>
-        <result property="doctorComments" 		column="doctor_comments"/>
-        <result property="doctorJoinDate" 		column="doctor_join_date"/>
-        <result property="doctorLeaveDate" 		column="doctor_leave_date"/>
-        <result property="doctorConfirmYn" 		column="doctor_confirm_yn"/>
-        <result property="doctorRequestCnt" 	column="doctorRequestCnt"/>
     </resultMap>
     
     <select id="getMemberList" resultMap="MemberResultMapForAdmin">
@@ -81,9 +65,24 @@
 	</select>
 	
 	<select id="getDoctorInquiryList" resultMap="DoctorInquiryResultMap">
-		SELECT * FROM inquiry i
-		INNER JOIN doctor d 
-		ON i.inquiry_writer_email = d.doctor_email
+		SELECT i.inquiry_id 									AS inquiry_id
+			 , i.inquiry_type 									AS inquiry_type
+			 , i.inquiry_title 									AS inquiry_title
+			 , i.inquiry_writer_email 							AS inquiry_writer_email
+			 , i.inquiry_comments 								AS inquiry_comments
+			 , TO_CHAR(i.inquiry_regdate, 'YYYY-mm-DD') 		AS inquiry_regdate
+			 , i.inquiry_answer 								AS inquiry_answer
+			 , TO_CHAR(i.inquiry_answer_regdate, 'YYYY-mm-DD') 	AS inquiry_answer_regdate 
+			 , i.file_key  										AS file_key
+			 , i.status											AS status
+		  FROM inquiry i
+	INNER JOIN doctor d 
+			ON i.inquiry_writer_email = d.doctor_email
+	  ORDER BY CASE WHEN i.status = 'N' 
+					THEN 1 
+					ELSE 2 
+				END
+  			  , i.inquiry_regdate desc
 	</select>
 	
 </mapper>
