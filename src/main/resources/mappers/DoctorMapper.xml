@@ -237,7 +237,10 @@
 		SELECT d.doctor_email
 			 , d.doctor_name
 			 , d.doctor_tel
-			 , d.doctor_birth 
+			 , d.doctor_birth
+			 , d.doctor_addr_main
+			 , d.doctor_addr_detail
+			 , d.doctor_sex
 		  FROM doctor d 
 		 WHERE doctor_confirm_yn = 'N'
 	</select>
