@@ -135,15 +135,27 @@ public class DoctorController {
 		Doctor doctor = doctorService.getDoctorInfoList(doctorEmail);
 		
 		List<DoctorAvail> availlist = doctorService.getDoctorAvailList(doctorEmail);
-		
-		// 응답에 필요한 데이터를 HashMap에 담기
+
 	    Map<String, Object> result = new HashMap<>();
 	    result.put("doctorInfo", doctor);
 	    result.put("doctorAvailability", availlist);
 
 	    System.out.println("의사 정보 : "+doctor);
-	    // ResponseEntity에 담아서 반환
+
 	    return ResponseEntity.ok(result);
 	}
+
+	/**z
+	 * 	@author     : 정하림
+	 *  @created    : 2024-01-30
+	 *  @param      : void
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 의사 대시보드 목록 조회
+	 * */
+//	@GetMapping("/getDoctorDashBoard")
+//	public ResponseEntity<?> getDoctorDashBoard(@RequestParam String doctorEmail) {
+//		//대시보드 값들 한번에 가져와서 찍어주기
+//	}
+
 	
 }
