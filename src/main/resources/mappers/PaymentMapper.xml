@@ -20,6 +20,8 @@
         <result property="memberName" 		column="member_name"/>
         <result property="memberCreditNum" 	column="member_credit_num"/>
         <result property="memberPoint" 		column="member_point"/>
+        <result property="cardType" 		column="card_type"/>
+        <result property="issuerCode" 		column="issuer_code"/>
         <result property="customerKey" 		column="customer_key"/>
         <result property="billingKey" 		column="billing_key"/>
     </resultMap>
