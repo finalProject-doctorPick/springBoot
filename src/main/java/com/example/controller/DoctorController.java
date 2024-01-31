@@ -145,7 +145,7 @@ public class DoctorController {
 	    return ResponseEntity.ok(result);
 	}
 
-	/**
+	/**z
 	 * 	@author     : 정하림
 	 *  @created    : 2024-01-30
 	 *  @param      : void
