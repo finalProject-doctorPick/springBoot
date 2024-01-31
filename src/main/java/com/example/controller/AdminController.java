@@ -1,6 +1,8 @@
 package com.example.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.domain.DashBoard;
@@ -132,6 +135,29 @@ public class AdminController {
 		List<Inquiry> list = adminService.getMemberInquiryList();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
+	
+	/**
+	 * 	@author     : 정하림
+	 *  @created    : 2024-01-31
+	 *  @param      :
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 문의 관리 - 회원 문의 목록(날짜 필터링)
+	 * */
+	@GetMapping("/getMemberInquiryListByDate")
+	public ResponseEntity<?> getMemberInquiryListByDate(
+	    @RequestParam String startDate,
+	    @RequestParam String endDate
+	) {
+		Map<String, String> date = new HashMap<>();
+		date.put("startDate", startDate);
+		date.put("endDate", endDate);
+
+	    List<Inquiry> list = adminService.getMemberInquiryListByDate(date);
+	    System.out.println("받아온 리스트 : "+list);
+	    
+	    return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
 	
 	/**
 	 * 	@author     : 정하림

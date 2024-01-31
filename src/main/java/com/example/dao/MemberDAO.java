@@ -1,6 +1,7 @@
 package com.example.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -27,5 +28,5 @@ public interface MemberDAO {
 
 	// 회원 문의 조회
 	public List<Inquiry> getMemberInquiryList(String userEmail);
-	
+
 }

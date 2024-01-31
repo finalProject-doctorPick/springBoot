@@ -238,4 +238,5 @@
 	  		  , i.inquiry_regdate desc
 	</select>
 
+
 </mapper>

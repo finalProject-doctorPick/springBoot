@@ -92,4 +92,21 @@
   			 , i.inquiry_regdate desc
 	</select>
 	
+	<select id="getMemberInquiryListByDate" parameterType="hashmap" resultMap="InquiryResultMap">
+		SELECT i.inquiry_id 									AS inquiry_id
+				 , i.inquiry_type 									AS inquiry_type
+				 , i.inquiry_title 									AS inquiry_title
+				 , i.inquiry_writer_email 							AS inquiry_writer_email
+				 , i.inquiry_comments 								AS inquiry_comments
+				 , TO_CHAR(i.inquiry_regdate, 'YYYY-mm-DD') 		AS inquiry_regdate
+				 , i.inquiry_answer 								AS inquiry_answer
+				 , TO_CHAR(i.inquiry_answer_regdate, 'YYYY-mm-DD') 	AS inquiry_answer_regdate 
+				 , i.file_key  										AS file_key
+				 , i.status											AS status
+			  FROM inquiry i
+		INNER JOIN members m 
+				ON i.inquiry_writer_email = m.member_email
+		WHERE TO_CHAR(i.inquiry_regdate, 'yyyymmdd') BETWEEN #{startDate} AND #{endDate}
+	</select>
+	
 </mapper>
