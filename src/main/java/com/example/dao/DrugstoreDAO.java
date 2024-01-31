@@ -21,6 +21,11 @@ public interface DrugstoreDAO {
 	List<Drugstore> getDrugstoreListByKeyword(String keyword);
 
 	List<DrugstoreHistory> getDrugstoreHistoryList(Integer drugstoreId);
+	
+	int updateDrugstoreHistory(DrugstoreHistory storeHistory);
+	
+	// 관리자) 문의 관리 - 약국 문의 목록
+	List<Drugstore> getDrugstoreInquiryList();
 
 	List<Inquiry> getDrugstoreInquiry(Integer drugstoreId);
 

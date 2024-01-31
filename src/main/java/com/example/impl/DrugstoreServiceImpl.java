@@ -2,6 +2,7 @@ package com.example.impl;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -168,6 +169,35 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 	@Transactional
 	public ResponseEntity<?> updateDrugstoreInfo(Drugstore storeData) {
 		return null;
+	}
+	
+	/**
+     * 	@author 	: 이성규	 
+     *  @created	: 2024-01-31
+     *  @param		: Integer drugstorHistoryId, String remarks
+     *  @return		: ResponseEntity
+     * 	@explain	: 약국 정보 수정
+     * */	
+	@Transactional
+	public ResponseEntity<?> updateDrugstoreHistory(DrugstoreHistory storeHistory) {
+		ServerResponse response = new ServerResponse();
+
+		
+		int result = drugstoreDAO.updateDrugstoreHistory(storeHistory);
+		
+	    if (result > 0) {
+	        // 업데이트 성공
+	        response.setSuccess(true);
+	        response.setMessage("수령 확인이 완료되었습니다.");
+	        return new ResponseEntity<>(response, HttpStatus.OK);
+	    } else {
+	        // 업데이트 실패
+	        response.setSuccess(false);
+	        response.setMessage("등록에 실패했습니다.");
+	        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+	    }
+
+		
 	}
 
 }

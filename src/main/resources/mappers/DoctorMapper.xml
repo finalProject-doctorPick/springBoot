@@ -231,7 +231,10 @@
 		SELECT d.doctor_email
 			 , d.doctor_name
 			 , d.doctor_tel
-			 , d.doctor_birth 
+			 , d.doctor_birth
+			 , d.doctor_addr_main
+			 , d.doctor_addr_detail
+			 , d.doctor_sex
 		  FROM doctor d 
 		 WHERE doctor_confirm_yn = 'N'
 	</select>
@@ -286,5 +289,17 @@
 		ON d.doctor_id = da.doctor_id
 		WHERE d.doctor_email = #{doctorEmail}
 	</select>
+	
+	<insert id="saveAvailInfo" parameterType="int">
+		INSERT INTO doctor_avail(doctor_id, day, starttime, endtime) VALUES
+			(#{doctorId}, '월요일', '09:00', '18:00'),
+			(#{doctorId}, '화요일', '09:00', '18:00'),
+			(#{doctorId}, '수요일', '09:00', '18:00'),
+			(#{doctorId}, '목요일', '09:00', '18:00'),
+			(#{doctorId}, '금요일', '09:00', '18:00'),
+			(#{doctorId}, '토요일', '09:00', '18:00'),
+			(#{doctorId}, '일요일', '09:00', '18:00'),
+			(#{doctorId}, '공휴일', '09:00', '18:00')
+	</insert>
 	
 </mapper>

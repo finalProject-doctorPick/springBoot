@@ -24,21 +24,21 @@ public interface DoctorDAO {
 	public MemberHistory getDetailedHistory(Integer certificateNum);
 	
 	// 진료) 의사목록 조회
-	List<?> getDoctorClinicList(String doctorSubject);
+	public List<?> getDoctorClinicList(String doctorSubject);
 	
 	// 진료) 의사상세 리뷰 
-	List<?> getDoctorReview(Integer doctorId);
+	public List<?> getDoctorReview(Integer doctorId);
 	
 	// 의사 진료시간 정보 조회
-	List<DoctorAvail> getDoctorAvailList(String doctorEmail);
+	public List<DoctorAvail> getDoctorAvailList(String doctorEmail);
 
 	// 의사 정보 조회
-	Doctor getDoctorInfoList(String doctorEmail);
+	public Doctor getDoctorInfoList(String doctorEmail);
 	
 	/******************** 관리자 ********************/
 	
 	// 관리자  - 의사 등록 요청 수
-	int getDoctorRequestCnt();
+	public int getDoctorRequestCnt();
 	
 	// 관리자) 의사 전체 조회
 	public List<Doctor> getDoctorsList();
@@ -47,7 +47,13 @@ public interface DoctorDAO {
 	public List<Doctor> getRegistRequestList();
 
 	// 관리자 - 의사 문의 목록 조회
-	List<Member> getDoctorInquiryList();
+	public List<Member> getDoctorInquiryList();
+
+	
+	/******************** 의사 ********************/
+	
+	// 의사 회원가입 - 진료시간 기본 설정
+	public int saveAvailInfo(Integer doctorId);
 
 
 }

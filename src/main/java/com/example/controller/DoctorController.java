@@ -134,7 +134,7 @@ public class DoctorController {
 	}
 
 	/**
-	 * z
+	 *
 	 * 
 	 * @author : 정하림
 	 * @created : 2024-01-30
