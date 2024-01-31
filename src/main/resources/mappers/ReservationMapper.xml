@@ -16,24 +16,21 @@
     </resultMap>
     
     <select id="getDoctorReservationWaitList" parameterType="int" resultMap="ReservationMap">
-		SELECT r.reservation_num 		AS reservation_num
-			 , r.member_id 				AS member_id
+		SELECT r.reservation_num 						AS reservation_num
+			 , r.member_id 								AS member_id
 			 , (SELECT m.member_name 
 			      FROM members m 
 			     WHERE m.member_id = r.member_id
-			   ) 						AS member_name
-			 , r.doctor_id 				AS doctor_id
-			 , r.reservation_date 		AS reservation_date
-			 , CASE WHEN r.reservation_status = 'R'
-					THEN CONCAT('예약환자 : ', TO_CHAR(r.reservation_date, 'hh24:mi'))
-					ELSE '일반환자'
-				END 					AS reservation_status
-			 , r.reservation_payment  	AS reservation_payment
-			 , r.file_key  				AS file_key 
-			 , r.patient_comments  		AS patient_comments
+			   ) 										AS member_name
+			 , r.doctor_id 								AS doctor_id
+			 , TO_CHAR(r.reservation_date, 'hh24:mi') 	AS reservation_date
+			 , r.reservation_status						AS reservation_status
+			 , r.reservation_payment  					AS reservation_payment
+			 , r.file_key  								AS file_key 
+			 , r.patient_comments  						AS patient_comments
 		  FROM reservation r
 	 LEFT JOIN certificate c 
-	 		ON r.reservation_num = c.reservation_num
+	 		ON r.reservation_num 		= c.reservation_num
 		 WHERE r.doctor_id 				= #{doctorId}
   		   AND DATE(r.reservation_date) = CURDATE()
   		   AND c.reservation_num IS NULL
@@ -45,25 +42,22 @@
 	</select>
 	
 	<select id="getDoctorReservationConfirmList" parameterType="int" resultMap="ReservationMap">
-		SELECT r.reservation_num 		AS reservation_num
-			 , r.member_id 				AS member_id
+		SELECT r.reservation_num 						AS reservation_num
+			 , r.member_id 								AS member_id
 			 , (SELECT m.member_name 
 			      FROM members m 
 			     WHERE m.member_id = r.member_id
-			   ) 						AS member_name
-			 , r.doctor_id 				AS doctor_id
-			 , r.reservation_date		AS reservation_date 
-			 , CASE WHEN r.reservation_status = 'R'
-					THEN CONCAT('예약환자 : ', TO_CHAR(r.reservation_date, 'hh24:mi'))
-					ELSE '일반환자'
-				END 					AS reservation_status
-			 , r.reservation_payment  	AS reservation_payment
-			 , r.file_key  				AS file_key 
-			 , r.patient_comments  		AS patient_comments
-			 , c.certificate_status		AS certificate_status
+			   ) 										AS member_name
+			 , r.doctor_id 								AS doctor_id
+ 			 , TO_CHAR(r.reservation_date, 'hh24:mi') 	AS reservation_date
+			 , r.reservation_status						AS reservation_status
+			 , r.reservation_payment  					AS reservation_payment
+			 , r.file_key  								AS file_key 
+			 , r.patient_comments  						AS patient_comments
+			 , c.certificate_status						AS certificate_status
 		  FROM reservation r
 	INNER JOIN certificate c
-			ON r.reservation_num = c.reservation_num 
+			ON r.reservation_num 		= c.reservation_num 
 		 WHERE r.doctor_id				= #{doctorId}
 		   AND status 					= 'UN'
 		   AND certificate_status 		= 'N'
@@ -72,24 +66,21 @@
 	</select>
 	
 	<select id="getDoctorReservationFinishList" parameterType="int" resultMap="ReservationMap">
-		SELECT r.reservation_num		AS reservation_num 
-			 , r.member_id 				AS member_id
+		SELECT r.reservation_num						AS reservation_num 
+			 , r.member_id 								AS member_id
 			 , (SELECT m.member_name 
 			      FROM members m 
 			     WHERE m.member_id = r.member_id
-			   ) 						AS member_name
-			 , r.doctor_id 				AS doctor_id
-			 , r.reservation_date		AS reservation_date 
-			 , CASE WHEN r.reservation_status = 'R'
-					THEN CONCAT('예약환자 : ', TO_CHAR(r.reservation_date, 'hh24:mi'))
-					ELSE '일반환자'
-				END 					AS reservation_status
-			 , r.reservation_payment  	AS reservation_payment
-			 , r.file_key  				AS file_key 
-			 , r.patient_comments  		AS patient_comments
+			   ) 										AS member_name
+			 , r.doctor_id 								AS doctor_id
+ 			 , TO_CHAR(r.reservation_date, 'hh24:mi') 	AS reservation_date
+			 , r.reservation_status						AS reservation_status
+			 , r.reservation_payment  					AS reservation_payment
+			 , r.file_key  								AS file_key 
+			 , r.patient_comments  						AS patient_comments
 		  FROM reservation r
 	INNER JOIN certificate c
-			ON r.reservation_num = c.reservation_num 
+			ON r.reservation_num 		= c.reservation_num 
 		 WHERE r.doctor_id 		 		= #{doctorId}
 		   AND status 			 		= 'UY'
 		   AND certificate_status 		= 'Y'

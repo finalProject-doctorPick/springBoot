@@ -39,8 +39,6 @@ public class AdminController {
     @GetMapping("/getMemberList")
     public ResponseEntity<?> getMemberList(){
     	List<?> list = adminService.getMemberList();
-    	
-    	System.out.println("받아오는 멤버 리스트 : "+ list);
     	return new ResponseEntity<>(list, HttpStatus.OK);
     }
     
