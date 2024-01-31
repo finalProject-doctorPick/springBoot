@@ -293,4 +293,16 @@
 		WHERE d.doctor_email = #{doctorEmail}
 	</select>
 	
+	<insert id="saveAvailInfo" parameterType="int">
+		INSERT INTO doctor_avail(doctor_id, day, starttime, endtime) VALUES
+			(#{doctorId}, '월요일', '09:00', '18:00'),
+			(#{doctorId}, '화요일', '09:00', '18:00'),
+			(#{doctorId}, '수요일', '09:00', '18:00'),
+			(#{doctorId}, '목요일', '09:00', '18:00'),
+			(#{doctorId}, '금요일', '09:00', '18:00'),
+			(#{doctorId}, '토요일', '09:00', '18:00'),
+			(#{doctorId}, '일요일', '09:00', '18:00'),
+			(#{doctorId}, '공휴일', '09:00', '18:00')
+	</insert>
+	
 </mapper>

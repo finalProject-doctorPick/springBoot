@@ -88,6 +88,9 @@ public class DoctorServiceImpl implements DoctorService{
 		// 의사 정보 저장
 		DoctorEntity result = doctorRepository.save(insertDoctor);
 		
+		// 의사 진료시간 기본 설정
+		int availresult = doctorDAO.saveAvailInfo(result.getDoctorId());
+		
 		userSignupResponseDTO.setSuccess(true);
         userSignupResponseDTO.setMessage("DOCTORPICK 의사가입이 완료되었습니다. \n관리자 확인 후 이용 가능 합니다.");
         userSignupResponseDTO.setUserAuth("D");
