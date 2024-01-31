@@ -80,7 +80,7 @@
 			ON dh.doctor_id = d.doctor_id 
 		 WHERE dh.drugstore_id = #{drugstoreId}
 	</select>	
-	
+
 	<update id="updateDrugstoreHistory" parameterType="com.example.domain.DrugstoreHistory">
 		UPDATE drugstore_history
   		SET remarks = #{remarks},

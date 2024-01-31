@@ -41,4 +41,5 @@ public class MemberHistory {
 	private String transactionType;
 	private String paymentStatus;
 	private String status;
+	private Integer paymentAmount;
 }

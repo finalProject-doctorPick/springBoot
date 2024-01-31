@@ -78,6 +78,7 @@
         <result property="paymentDate" 				column="payment_date"/>
         <result property="transactionType" 			column="transaction_type"/>
         <result property="paymentStatus" 			column="payment_status"/>
+        <result property="paymentAmount" 			column="payment_amount"/>
     </resultMap>
     
     <insert id="registerDoctor" parameterType="com.example.dto.DoctorDTO">
@@ -302,4 +303,27 @@
 			(#{doctorId}, '공휴일', '09:00', '18:00')
 	</insert>
 	
+	<select id="getPatientDetail" parameterType="int" resultMap="MemberHistoryResultMap">
+		SELECT m.member_name 							 AS member_name
+			 , m.member_tel 							 AS member_tel
+			 , m.member_birth 							 AS member_birth
+			 , TO_CHAR(c.certificate_date, 'YYYY-mm-DD') AS certificate_date
+			 , p.amount 								 AS payment_amount
+			 , d.doctor_name 							 AS doctor_name
+			 , c.file_key  								 AS certificate_file
+			 , c.description 							 AS description
+		  FROM certificate c
+	INNER JOIN reservation r
+			ON c.reservation_num = r.reservation_num 
+	INNER JOIN members m
+			ON m.member_id = r.member_id 
+	INNER JOIN doctor d
+			ON d.doctor_id = r.doctor_id 
+	 LEFT JOIN payments p 
+			ON c.certificate_num = p.certificate_num 
+		 WHERE r.member_id 	= #{memberId}
+  		   AND c.status 	= 'UY'
+	  ORDER BY c.certificate_date DESC 
+;
+	</select>
 </mapper>

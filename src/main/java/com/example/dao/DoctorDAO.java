@@ -55,5 +55,8 @@ public interface DoctorDAO {
 	// 의사 회원가입 - 진료시간 기본 설정
 	public int saveAvailInfo(Integer doctorId);
 
+	// 환자 진료내역 조회
+	List<MemberHistory> getPatientDetail(Integer memberId);
+
 
 }

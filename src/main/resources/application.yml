@@ -22,6 +22,13 @@ spring:
   mail:
     username: doctorpick
     password: a13579!@#
+  cloud:
+    gcp:
+      storage:
+        credentials:
+          location: classpath:sigma-hallway-412908-9c9881339bd8.json
+        project-id: sigma-hallway-412908
+        bucket: doctorpick
 
 mybatis:
   mapper-locations: classpath:mappers/**/*.xml

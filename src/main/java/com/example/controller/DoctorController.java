@@ -134,8 +134,6 @@ public class DoctorController {
 	}
 
 	/**
-	 *
-	 * 
 	 * @author : 정하림
 	 * @created : 2024-01-30
 	 * @param : void
@@ -146,5 +144,16 @@ public class DoctorController {
 //	public ResponseEntity<?> getDoctorDashBoard(@RequestParam String doctorEmail) {
 //		//대시보드 값들 한번에 가져와서 찍어주기
 //	}
-
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-31
+     *  @param		: Integer memberId
+     *  @return		: List<MemberHistory>
+     * 	@explain	: 환자 진료내역 조회
+     * */	
+	@GetMapping("/getPatientDetail")
+	public ResponseEntity<?> getPatientDetail(@RequestParam Integer memberId){
+		List<MemberHistory> list = doctorService.getPatientDetail(memberId);
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
 }

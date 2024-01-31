@@ -92,7 +92,7 @@ public class DoctorServiceImpl implements DoctorService{
 		DoctorEntity result = doctorRepository.save(insertDoctor);
 		
 		// 의사 진료시간 기본 설정
-		int availresult = doctorDAO.saveAvailInfo(result.getDoctorId());
+		doctorDAO.saveAvailInfo(result.getDoctorId());
 		
 		userSignupResponseDTO.setSuccess(true);
         userSignupResponseDTO.setMessage("DOCTORPICK 의사가입이 완료되었습니다. \n관리자 확인 후 이용 가능 합니다.");
@@ -242,6 +242,18 @@ public class DoctorServiceImpl implements DoctorService{
 	@Override
 	public List<Inquiry> getDoctorInquiryList(Integer doctorId) {
 		return inquiryService.getDoctorInquiryList(doctorId);
+	}
+
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-31
+     *  @param		: Integer memberId
+     *  @return		: List<MemberHistory>
+     * 	@explain	: 환자 진료내역 조회
+     * */	
+	@Transactional(readOnly = true)
+	public List<MemberHistory> getPatientDetail(Integer memberId) {
+		return doctorDAO.getPatientDetail(memberId);
 	}
 
 }
