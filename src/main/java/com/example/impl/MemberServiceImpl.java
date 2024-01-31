@@ -188,8 +188,6 @@ public class MemberServiceImpl implements MemberService{
 		ServerResponse response = new ServerResponse();
 		List<String[]> checkValues = new ArrayList<>();
 		String chkPwd = updateMemberData.getMemberPwd();
-		System.out.println("memberServiceImpl > updateMemberInfo 진입");
-		System.out.println("chkPwd 값 : " + chkPwd);
 		
 		checkValues.add(new String[]{"name", "이름", updateMemberData.getMemberName()});
 		

@@ -185,18 +185,15 @@ public class DoctorServiceImpl implements DoctorService{
 	@Transactional
 	public Map<String, List<?>> getDoctorNonFaceToFaceList(Integer doctorId) {
 		Map<String, List<?>> result = new HashMap<>();
-		System.out.println("getDoctorNonFaceToFaceList 진입");
+
 		// 접수대기 목록 조회
 		List<Reservation> reservationWaitList = reservationDAO.getDoctorReservationWaitList(doctorId);
-		System.out.println("접수대기 목록 조회 후 list : " + reservationWaitList.size());
 		
 		// 진료대기 목록 조회
 		List<Reservation> reservationConfirmList = reservationDAO.getDoctorReservationConfirmList(doctorId);
-		System.out.println("진료대기 목록 조회 후 list : " + reservationConfirmList.size());
 		
 		// 진료종료 목록 조회
 		List<Reservation> reservationFinishList = reservationDAO.getDoctorReservationFinishList(doctorId);
-		System.out.println("진료종료 목록 조회 후 list : " + reservationFinishList.size());
 		
 		result.put("waitList", reservationWaitList);
 		result.put("confirmList", reservationConfirmList);
