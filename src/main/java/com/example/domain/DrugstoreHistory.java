@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class DrugstoreHistory {
 
-	private Integer drugstorHistoryId;
+	private Integer drugstoreHistoryId;
 	private Integer drugstoreId;
 	private Integer certificateNum;
 	private Integer memberId;
@@ -18,4 +18,5 @@ public class DrugstoreHistory {
 	private Integer paymentAmount;
 	private String paymentStatus;
 	private String status;
+	
 }

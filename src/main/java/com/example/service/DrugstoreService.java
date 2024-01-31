@@ -35,6 +35,9 @@ public interface DrugstoreService {
 
 	// 약국 정보 수정
 	ResponseEntity<?> updateDrugstoreInfo(Drugstore storeData);
+	
+	// 약국 수령 확인
+	ResponseEntity<?> updateDrugstoreHistory(DrugstoreHistory storeHistory);
 	/**
 	 *	*******************JPA*********************** 
 	 * */
@@ -46,6 +49,8 @@ public interface DrugstoreService {
 
 	// 약국 회원 정보 조회
 	DrugstoreEntity getDrugstore(String email);
+
+	
 
 
 

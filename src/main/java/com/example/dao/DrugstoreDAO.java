@@ -3,6 +3,7 @@ package com.example.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.http.ResponseEntity;
 
 import com.example.domain.Drugstore;
 import com.example.domain.DrugstoreHistory;
@@ -22,10 +23,12 @@ public interface DrugstoreDAO {
 
 	List<DrugstoreHistory> getDrugstoreHistoryList(Integer drugstoreId);
 
+	int updateDrugstoreHistory(DrugstoreHistory storeHistory);
 	// 관리자) 문의 관리 - 약국 문의 목록
 	List<Drugstore> getDrugstoreInquiryList();
 
 	List<Inquiry> getDrugstoreInquiry(Integer drugstoreId);
+
 
 }
 

@@ -109,4 +109,17 @@ public class DrugstoreController {
 		System.out.println("updateDrugstoreInfo 진입 > 데이터 값 : " + storeData.toString());
 		return null;
 	}
+	/**
+     * 	@author 	: 이성규	 
+     *  @created	: 2024-01-31
+     *  @param		: Integer drugstoreHistoryId, String remarks
+     *  @return		: ResponseEntity
+     * 	@explain	: 약국 수령확인 
+     * */
+	@PostMapping("/updateDrugstoreHistory")
+	public ResponseEntity<?> updateDrugstoreHistory(@RequestBody DrugstoreHistory storeHistory){
+		System.out.println("drugstore컨트롤러 진입" + storeHistory);
+		ResponseEntity<?> response = drugstoreService.updateDrugstoreHistory(storeHistory);
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 }
