@@ -36,17 +36,17 @@ public class FilesServiceImpl implements FilesService{
     	String fileKey = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+ "_" + key;
     	
     	for (MultipartFile f : fileList) {
-    		try {
-				BlobInfo blobInfo = storage.create(
-						BlobInfo.newBuilder(bucketName, "")
-								.setContentType(".jpg")
-								.build(),
-							f.getInputStream()
-				);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//    		try {
+//				BlobInfo blobInfo = storage.create(
+//						BlobInfo.newBuilder(bucketName, "")
+//								.setContentType(".jpg")
+//								.build(),
+//							f.getInputStream()
+//				);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
     		Files result = new Files();
     		result.setFileKey(fileKey);
     		result.setFile(f);
