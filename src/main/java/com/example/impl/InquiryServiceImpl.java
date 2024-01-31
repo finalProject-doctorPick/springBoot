@@ -3,7 +3,7 @@ package com.example.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,6 +66,11 @@ public class InquiryServiceImpl implements InquiryService{
         response.setMessage("문의등록이 완료되었습니다.");
         
         return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	@Transactional(readOnly = true)
+	public List<Inquiry> getDoctorInquiryList(Integer doctorId) {
+		return inquiryDAO.getDoctorInquiryList(doctorId);
 	}
 
 }

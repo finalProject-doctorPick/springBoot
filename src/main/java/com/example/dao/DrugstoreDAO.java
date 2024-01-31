@@ -22,9 +22,6 @@ public interface DrugstoreDAO {
 
 	List<DrugstoreHistory> getDrugstoreHistoryList(Integer drugstoreId);
 
-	// 관리자) 문의 관리 - 약국 문의 목록
-	List<Drugstore> getDrugstoreInquiryList();
-
 	List<Inquiry> getDrugstoreInquiry(Integer drugstoreId);
 
 }

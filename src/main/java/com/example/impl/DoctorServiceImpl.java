@@ -14,6 +14,7 @@ import com.example.dao.DoctorDAO;
 import com.example.dao.ReservationDAO;
 import com.example.domain.Doctor;
 import com.example.domain.DoctorAvail;
+import com.example.domain.Inquiry;
 import com.example.domain.MemberHistory;
 import com.example.domain.Reservation;
 import com.example.domain.ServerResponse;
@@ -24,6 +25,7 @@ import com.example.repository.DoctorRepository;
 import com.example.repository.RoleRepository;
 import com.example.service.DoctorService;
 import com.example.service.FilesService;
+import com.example.service.InquiryService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -38,6 +40,7 @@ public class DoctorServiceImpl implements DoctorService{
 	private final PasswordEncoder passwordEncoder;
 	private final ModelMapper modelMapper;
 	private final ReservationDAO reservationDAO;
+	private final InquiryService inquiryService;
 	
 	/**
      * 	@author 	: 백두산	 
@@ -120,7 +123,6 @@ public class DoctorServiceImpl implements DoctorService{
 	public DoctorEntity getDoctor(String email) {
 		return doctorRepository.findByDoctorEmail(email);
 	}
-
 	
 	/**
      * 	@author 	: 박병태
@@ -145,19 +147,6 @@ public class DoctorServiceImpl implements DoctorService{
 	public MemberHistory getDetailedHistory(Integer certificateNum) {
 		return doctorDAO.getDetailedHistory(certificateNum);
 	}
-	
-	/*
-     * 	@author 	: 박병태
-     *  @created	: 2024-01-23
-     *  @param		: Integer doctorId 
-     *  @return		: String doctorEmail 
-     * 	@explain	: 특정 진료 상세보기 조회
-     * */
-	@Override
-	public String getDoctorEmailFromId(Integer doctorId) {
-		return doctorDAO.getDoctorEmail(doctorId);
-	}
-
 	
 	/**
 
@@ -241,6 +230,18 @@ public class DoctorServiceImpl implements DoctorService{
 	public Doctor getDoctorInfoList(String doctorEmail) {
 		
 		return doctorDAO.getDoctorInfoList(doctorEmail);
+	}
+
+	/**
+     * 	@author 	: 박병태
+     *  @created	: 2024-01-23
+     *  @param		: Integer doctorId(의사 id번호)
+     *  @return		: List(Generic)
+     * 	@explain	: 의사) 문의 목록 조회
+     * */
+	@Override
+	public List<Inquiry> getDoctorInquiryList(Integer doctorId) {
+		return inquiryService.getDoctorInquiryList(doctorId);
 	}
 
 }

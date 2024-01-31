@@ -12,4 +12,7 @@ public interface InquiryService {
 	// 문의 등록
 	ResponseEntity<?> registInquiry(Inquiry inquiry, List<MultipartFile> fileList);
 
+	// 의사) 문의 목록 조회
+	List<Inquiry> getDoctorInquiryList(Integer doctorId);
+
 }

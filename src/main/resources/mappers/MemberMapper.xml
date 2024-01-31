@@ -238,23 +238,4 @@
 	  		  , i.inquiry_regdate desc
 	</select>
 
-	<insert id="registReservation" parameterType="com.example.domain.Reservation">
-		 INSERT INTO reservation (
-            member_id,
-            doctor_id,
-            reservation_date,
-            reservation_status,
-            reservation_payment,
-            file_key,
-            patient_comments
-        ) VALUES (
-            #{memberId},
-            #{doctorId},
-            #{reservationDate},
-            #{reservationStatus},
-            #{reservationPayment},
-            #{fileKey},
-            #{patientComments}
-        )
-	</insert>
 </mapper>

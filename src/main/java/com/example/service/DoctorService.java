@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.domain.Doctor;
 import com.example.domain.DoctorAvail;
+import com.example.domain.Inquiry;
 import com.example.domain.MemberHistory;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
@@ -25,9 +26,6 @@ public interface DoctorService {
 
 	// 특정 진료 상세보기 조회
 	MemberHistory getDetailedHistory(Integer certificateNum);
-
-	//id로 의사 이메일 찾기
-	String getDoctorEmailFromId(Integer doctorId);
 	
 	// 진료) 의사 목록 조회
 	List<?> getDoctorClinicList(String doctorSubject);
@@ -43,6 +41,9 @@ public interface DoctorService {
 
 	// 의사 정보 조회
 	Doctor getDoctorInfoList(String doctorEmail);
+	
+	// 의사 문의 조회
+	List<Inquiry> getDoctorInquiryList(Integer doctorId);
 	
 	/**
 	 *	*******************JPA*********************** 

@@ -119,9 +119,7 @@ public class MemberController {
      * 	@explain	: 진료신청 (reservation)
      * */
     @PostMapping("/registReservation")
-    public ResponseEntity<?> registReservation(
-    		@ModelAttribute Reservation reservationData,
-            @RequestPart(name = "fileList", required = false) List<MultipartFile> fileList)  {
+    public ResponseEntity<?> registReservation(@ModelAttribute Reservation reservationData, @RequestPart(name = "fileList", required = false) List<MultipartFile> fileList)  {
         memberService.registReservation(reservationData, fileList);
         return new ResponseEntity<>("성공적으로 접수되었습니다", HttpStatus.OK);
     }
@@ -135,8 +133,6 @@ public class MemberController {
      * */
     @DeleteMapping("/deleteReviewId")
     public ResponseEntity<?> deleteReviewId(@RequestBody List<Integer> reviewList){
-    	System.out.println("deleteReviewId 진입");
-    	System.out.println("reviewList 값 : " + reviewList.size());
     	ResponseEntity<?> response = memberService.deleteReviewId(reviewList);
     	return new ResponseEntity<>(response, HttpStatus.OK);
     }

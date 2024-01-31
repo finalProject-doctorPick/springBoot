@@ -45,19 +45,6 @@ public class AdminController {
     }
     
     /**
-     * 	@author 	: 백두산	 
-     *  @created	: 2024-01-22
-     *  @param		: void
-     *  @return		: ResponseEntity
-     * 	@explain	: 관리자) 문의 목록 조회
-     * */
-    @GetMapping("/getInquiryList")
-    public ResponseEntity<?> getInquiryList(){
-    	List<?> list = adminService.getInquiryList("");
-    	return new ResponseEntity<>(list, HttpStatus.OK);
-    }
-    
-    /**
 	 * 	@author     : 정하림
 	 *  @created    : 2024-01-23
 	 *  @param      : void
@@ -170,7 +157,7 @@ public class AdminController {
 	 * */
 	@GetMapping("/getDrugstoreInquiryList")
 	public ResponseEntity<?> getDrugstoreInquiryList() {
-		List<Drugstore> list = adminService.getDrugstoreInquiryList();
+		List<Inquiry> list = adminService.getDrugstoreInquiryList();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
@@ -183,12 +170,9 @@ public class AdminController {
      * */
 	@PostMapping("/updateInquiryAnswer")
 	public ResponseEntity<?> updateInquiryAnswer(@RequestBody Inquiry inquiryData){
-		System.out.println("updateInquiryAnswer 진입*******************************");
-		System.out.println("inquiry data 값 : " + inquiryData.toString());
 		ResponseEntity<?> response = adminService.updateInquiryAnswer(inquiryData);
     	return new ResponseEntity<>(response, HttpStatus.OK);
 	}
-	
 	
 //	/**
 //	 * 	@author     : 정하림

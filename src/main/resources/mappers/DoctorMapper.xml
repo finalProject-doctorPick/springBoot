@@ -218,12 +218,6 @@
 		ON m.member_id = j.member_id  
 		WHERE j.certificate_num = ${certificateNum};
 	</select>
-
-	<select id="getDoctorEmail" parameterType="int" resultType="String">
-		SELECT doctor_email
-		FROM doctor
-		WHERE doctor_id=${doctorId};
-	</select>
 	
 	<select id="getDoctorsList" resultMap="DoctorResultMap">
 		SELECT d.*, h.hospital_name 

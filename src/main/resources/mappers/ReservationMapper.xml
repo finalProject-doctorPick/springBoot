@@ -96,4 +96,24 @@
 		   AND DATE(r.reservation_date) = CURDATE()
 	  ORDER BY r.reservation_date ASC, r.reservation_num ASC
 	</select>
+	
+	<insert id="registReservation" parameterType="com.example.domain.Reservation">
+		 INSERT INTO reservation (
+            member_id,
+            doctor_id,
+            reservation_date,
+            reservation_status,
+            reservation_payment,
+            file_key,
+            patient_comments
+        ) VALUES (
+            #{memberId},
+            #{doctorId},
+            #{reservationDate},
+            #{reservationStatus},
+            #{reservationPayment},
+            #{fileKey},
+            #{patientComments}
+        )
+	</insert>
 </mapper>

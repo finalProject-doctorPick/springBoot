@@ -25,7 +25,6 @@ import lombok.RequiredArgsConstructor;
 public class DoctorController {
 
 	private final DoctorService doctorService;
-
 	private final AdminService adminService;
 	
 
@@ -64,8 +63,7 @@ public class DoctorController {
      * */
 	@GetMapping("/getDoctorInquiry")
 	public ResponseEntity<?> getDoctorInquiry(@RequestParam Integer doctorId ){
-		String doctorEmail = doctorService.getDoctorEmailFromId(doctorId);
-		List<?> list = adminService.getInquiryList(doctorEmail);
+		List<?> list = doctorService.getDoctorInquiryList(doctorId);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	

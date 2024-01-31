@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dao.MemberDAO;
+import com.example.dao.ReservationDAO;
 import com.example.dao.ReviewDAO;
 import com.example.domain.DashBoard;
 import com.example.domain.Inquiry;
@@ -41,6 +42,7 @@ public class MemberServiceImpl implements MemberService{
     private final ModelMapper modelMapper;
     private final ValidationService validationService;
     private final ReviewDAO reviewDAO;
+    private final ReservationDAO reservationDAO;
     
     /**
      * 	@author 	: 백두산	 
@@ -238,22 +240,24 @@ public class MemberServiceImpl implements MemberService{
      *  @return		: ResponseEntity
      * 	@explain	: 진료 접수
      * */
-	@Override
+	@Transactional
 	public void registReservation(Reservation reservationData,  List<MultipartFile> file) {
 		Reservation reservation = new Reservation();
-		 reservation.setMemberId(reservationData.getMemberId());
-		 reservation.setDoctorId(reservationData.getDoctorId());
-		 reservation.setReservationDate(reservationData.getReservationDate());
-		 reservation.setReservationStatus(reservationData.getReservationStatus());
-		 reservation.setReservationPayment(reservationData.getReservationPayment());
-		 reservation.setFileKey(reservationData.getFileKey());
-		 reservation.setPatientComments(reservationData.getPatientComments());
 		 
-		 memberDAO.registReservation(reservation); 
-		 if (file != null && !file.isEmpty()) {
-		        String fileKey = filesService.fileupload(file, reservationData.getFileKey());
-		        // 
-		    }
+		reservation.setMemberId(reservationData.getMemberId());
+		reservation.setDoctorId(reservationData.getDoctorId());
+		reservation.setReservationDate(reservationData.getReservationDate());
+		reservation.setReservationStatus(reservationData.getReservationStatus());
+		reservation.setReservationPayment(reservationData.getReservationPayment());
+		reservation.setFileKey(reservationData.getFileKey());
+		reservation.setPatientComments(reservationData.getPatientComments());
+
+		if (file != null && !file.isEmpty()) {
+	       String fileKey = filesService.fileupload(file, reservationData.getFileKey());
+	       reservation.setFileKey(fileKey);
+		}
+		
+		reservationDAO.registReservation(reservation);
 	}
 
 	/**

@@ -17,9 +17,6 @@ public interface DoctorDAO {
 	// 의사 조회 (이메일)
 	public Doctor findDoctorByEmail(String userEmail);
 
-	// 의사 이메일 id에서 찾기
-	public String getDoctorEmail(Integer doctorId);
-
 	// 의사 진료 조회
 	public List<Member> getDoctorCurrentHistory(Integer doctorId);
 

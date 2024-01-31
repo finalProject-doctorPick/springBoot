@@ -11,8 +11,9 @@
         <result property="inquiryRegdate" 		column="inquiry_regdate"/>
         <result property="inquiryAnswer" 		column="inquiry_answer"/>
         <result property="inquiryAnswerRegdate" column="inquiry_answer_regdate"/>
-        <result property="status" 				column="status"/>
-        <result property="fileKey" 			column="file_key"/>
+        <result property="drugstoreName" 		column="drugstore_name"/>
+        <result property="drugstoreName" 		column="drugstore_name"/>
+        <result property="fileKey" 				column="file_key"/>
     </resultMap>
     
     <insert id="registInquiry" parameterType="com.example.domain.Inquiry">
@@ -41,5 +42,54 @@
 		     , status 				  = 'Y'
 		 WHERE inquiry_id 			  = #{inquiryId}
 	</update>
+	
+	<select id="getDrugstoreInquiryList" resultMap="InquiryResultMap">
+		SELECT i.inquiry_id 									AS inquiry_id
+			 , i.inquiry_type 									AS inquiry_type
+			 , i.inquiry_title 									AS inquiry_title
+			 , i.inquiry_writer_email 							AS inquiry_writer_email
+			 , i.inquiry_comments 								AS inquiry_comments
+			 , TO_CHAR(i.inquiry_regdate, 'YYYY-mm-DD') 		AS inquiry_regdate
+			 , i.inquiry_answer 								AS inquiry_answer
+			 , TO_CHAR(i.inquiry_answer_regdate, 'YYYY-mm-DD') 	AS inquiry_answer_regdate 
+			 , i.file_key  										AS file_key 
+			 , i.status											AS status
+			 , d.drugstore_name 								AS drugstore_name
+		  FROM inquiry i
+	INNER JOIN drugstore d 
+			ON i.inquiry_writer_email = d.drugstore_email
+		<if test="drugstoreId != 0">
+		 WHERE d.drugstore_id = #{drugstoreId}		
+		</if>
+	  ORDER BY CASE WHEN i.status = 'N' 
+					THEN 1 
+					ELSE 2 
+				END
+  			 , i.inquiry_regdate desc
+	</select>
+	
+	<select id="getDoctorInquiryList" resultMap="InquiryResultMap">
+		SELECT i.inquiry_id 									AS inquiry_id
+			 , i.inquiry_type 									AS inquiry_type
+			 , i.inquiry_title 									AS inquiry_title
+			 , i.inquiry_writer_email 							AS inquiry_writer_email
+			 , i.inquiry_comments 								AS inquiry_comments
+			 , TO_CHAR(i.inquiry_regdate, 'YYYY-mm-DD') 		AS inquiry_regdate
+			 , i.inquiry_answer 								AS inquiry_answer
+			 , TO_CHAR(i.inquiry_answer_regdate, 'YYYY-mm-DD') 	AS inquiry_answer_regdate 
+			 , i.file_key  										AS file_key 
+			 , i.status											AS status
+		  FROM inquiry i
+	INNER JOIN doctor d 
+			ON i.inquiry_writer_email = d.doctor_email
+		<if test="drugstoreId != 0">
+		 WHERE d.doctor_id = #{doctorId}		
+		</if>
+	  ORDER BY CASE WHEN i.status = 'N' 
+					THEN 1 
+					ELSE 2 
+				END
+  			 , i.inquiry_regdate desc
+	</select>
 	
 </mapper>

@@ -19,9 +19,6 @@ public interface AdminService {
 	// 관리자) 회원 조회
 	public List<?> getMemberList();
 
-	// 관리자) 문의 조회
-	public List<?> getInquiryList(String userEmail);
-
 	// 관리자) 의사 전체 조회
 	public List<Doctor> getDoctorsList();
 
@@ -47,7 +44,7 @@ public interface AdminService {
 	public List<Inquiry> getMemberInquiryList();
 
 	// 관리자) 약국 문의 목록 조회
-	public List<Drugstore> getDrugstoreInquiryList();
+	public List<Inquiry> getDrugstoreInquiryList();
 
 	// 관리자) 문의 답변
 	public ResponseEntity<?> updateInquiryAnswer(Inquiry inquiryData);

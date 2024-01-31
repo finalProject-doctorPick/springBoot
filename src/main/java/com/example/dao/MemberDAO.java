@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import com.example.domain.DashBoard;
 import com.example.domain.Inquiry;
 import com.example.domain.Member;
-import com.example.domain.Reservation;
 
 @Mapper
 public interface MemberDAO {
@@ -28,7 +27,5 @@ public interface MemberDAO {
 
 	// 회원 문의 조회
 	public List<Inquiry> getMemberInquiryList(String userEmail);
-	
-	public void registReservation(Reservation reservation);
 	
 }

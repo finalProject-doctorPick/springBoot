@@ -50,19 +50,6 @@ public class AdminServiceImpl implements AdminService{
 		return response;
 	}
 	
-    /**
-     * 	@author 	: 백두산	 
-     *  @created	: 2024-01-22
-     *  @param		: void
-     *  @return		: ResponseEntity
-     * 	@explain	: 관리자) 문의 목록 조회
-     * */
-	@Transactional(readOnly = true)
-	public List<?> getInquiryList(String userEmail) {
-		List<Inquiry> response = adminDAO.getInquiryList(userEmail);
-		return response;
-	}
-
 	/**
 	 * 	@author     : 정하림
 	 *  @created    : 2024-01-23
@@ -114,7 +101,7 @@ public class AdminServiceImpl implements AdminService{
 	/**
      * 	@author 	: 정하림
      *  @created	: 2024-01-24
-     *  @param		: 
+     *  @param		: void
      *  @return		: List<DashBoard>
      *  @explain	: 관리자) 대시보드 - 월 매출 조회
      * */
@@ -167,8 +154,8 @@ public class AdminServiceImpl implements AdminService{
 	 * 	@explain    : 관리자) 문의 관리 - 약국 문의 목록
 	 * */
 	@Transactional(readOnly = true)
-	public List<Drugstore> getDrugstoreInquiryList() {
-		return drugstoreDAO.getDrugstoreInquiryList();
+	public List<Inquiry> getDrugstoreInquiryList() {
+		return inquiryDAO.getDrugstoreInquiryList(0);
 	}
 
 	/**

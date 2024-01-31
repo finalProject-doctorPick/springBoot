@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dao.DrugstoreDAO;
+import com.example.dao.InquiryDAO;
 import com.example.domain.Drugstore;
 import com.example.domain.DrugstoreHistory;
 import com.example.domain.Inquiry;
@@ -32,6 +33,7 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 	private final RoleRepository roleRepository;
 	private final FilesService filesService;
 	private final PasswordEncoder passwordEncoder;
+	private final InquiryDAO inquiryDAO;
 	
 	/**
      * 	@author 	: 백두산	 
@@ -118,7 +120,6 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 	public List<Drugstore> getDrugstoreList() {
 		return drugstoreDAO.getDrugstoreList();
 	}
-
 	
 	/**
      * 	@author 	: 정하림 
@@ -133,7 +134,6 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 		return drugstoreDAO.getDrugstoreListByKeyword(keyword);
 	}
 	
-
 	/**
      * 	@author 	: 백두산	 
      *  @created	: 2024-01-21
@@ -153,10 +153,9 @@ public class DrugstoreServiceImpl implements DrugstoreService {
      *  @return		: List<Inquiry>
      * 	@explain	: 약국) 문의 목록 조회
      * */
-	@Override
+	@Transactional(readOnly = true)
 	public List<Inquiry> getDrugstoreInquiry(Integer drugstoreId) {
-		// TODO Auto-generated method stub
-		return drugstoreDAO.getDrugstoreInquiry(drugstoreId);
+		return inquiryDAO.getDrugstoreInquiryList(drugstoreId);
 	}
 
 	/**
@@ -168,7 +167,6 @@ public class DrugstoreServiceImpl implements DrugstoreService {
      * */	
 	@Transactional
 	public ResponseEntity<?> updateDrugstoreInfo(Drugstore storeData) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
