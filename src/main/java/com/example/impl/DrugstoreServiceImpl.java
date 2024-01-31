@@ -182,7 +182,6 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 	public ResponseEntity<?> updateDrugstoreHistory(DrugstoreHistory storeHistory) {
 		ServerResponse response = new ServerResponse();
 
-		
 		int result = drugstoreDAO.updateDrugstoreHistory(storeHistory);
 		
 	    if (result > 0) {

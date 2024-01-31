@@ -123,7 +123,7 @@ public class AdminController {
 	/**
 	 * 	@author     : 정하림
 	 *  @created    : 2024-01-24
-	 *  @param      :
+	 *  @param      : void
 	 *  @return     : ResponseEntity
 	 * 	@explain    : 관리자) 문의 관리 - 회원 문의 목록
 	 * */
