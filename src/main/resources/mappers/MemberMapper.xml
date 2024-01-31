@@ -84,21 +84,6 @@
     	<result property="inquiryAnswer" 		column="inquiry_answer"/>
     	<result property="inquiryAnswerRegdate" column="inquiry_answer_regdate"/>
     	<result property="status" 				column="status"/>
-    	<result property="memberId" 			column="member_id"/>
-    	<result property="memberEmail" 			column="member_email"/>
-        <result property="memberPwd" 			column="member_pwd"/>
-        <result property="memberName" 			column="member_name"/>
-        <result property="memberBirth" 			column="member_birth"/>
-        <result property="memberSex" 			column="member_sex"/>
-        <result property="memberTel" 			column="member_tel"/>
-        <result property="memberAddrMain" 		column="member_addr_main"/>
-        <result property="memberAddrDetail" 	column="member_addr_detail"/>
-        <result property="memberAddrSubdetail" 	column="member_addr_subdetail"/>
-        <result property="memberJoinDate" 		column="member_join_date"/>
-        <result property="memberLeaveDate" 		column="member_leave_date"/>
-        <result property="memberCreditNum" 		column="member_credit_num"/>
-        <result property="memberPoint" 			column="member_point"/>
-        <result property="memberAuth" 			column="member_auth"/>
     </resultMap>
     
      <resultMap id="ReservationResultMap" type="com.example.domain.Reservation">
@@ -230,13 +215,27 @@
 	</update>
 	
 	<select id="getMemberInquiryList" parameterType="String" resultMap="MemberInquiryResultMap">
-		SELECT * 
+		SELECT i.inquiry_id 									AS inquiry_id
+			 , i.inquiry_type 									AS inquiry_type
+			 , i.inquiry_title 									AS inquiry_title
+			 , i.inquiry_writer_email 							AS inquiry_writer_email
+			 , i.inquiry_comments 								AS inquiry_comments
+			 , TO_CHAR(i.inquiry_regdate, 'YYYY-mm-DD') 		AS inquiry_regdate
+			 , i.inquiry_answer 								AS inquiry_answer
+			 , TO_CHAR(i.inquiry_answer_regdate, 'YYYY-mm-DD') 	AS inquiry_answer_regdate 
+			 , i.file_key  										AS file_key
+			 , i.status											AS status
 		  FROM inquiry i
 	INNER JOIN members m 
 			ON i.inquiry_writer_email = m.member_email
 		<if test="userEmail != null and userEmail != ''">
 		 WHERE i.inquiry_writer_email = #{userEmail} 
 		</if>
+	  ORDER BY CASE WHEN i.status = 'N' 
+	  				THEN 1 
+	  				ELSE 2 
+	  			END
+	  		  , i.inquiry_regdate desc
 	</select>
 
 	<insert id="registReservation" parameterType="com.example.domain.Reservation">
