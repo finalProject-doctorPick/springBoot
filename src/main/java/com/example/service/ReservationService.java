@@ -17,5 +17,8 @@ public interface ReservationService {
 
 	// 예약 정보 수정
 	void updateReservationStatus(Integer reservationNum);
+
+	// 예약 취소
+	void cancelReservation(Integer reservationNum);
 	
 }

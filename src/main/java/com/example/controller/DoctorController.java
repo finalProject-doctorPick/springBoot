@@ -7,7 +7,6 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -179,7 +178,7 @@ public class DoctorController {
      * 	@author 	: 백두산	 
      *  @created	: 2024-02-01
      *  @param		: Integer reservationNum
-     *  @return		: List<MemberHistory>
+     *  @return		: ResponseEntity
      * 	@explain	: 진료 등록
      * */	
 	@GetMapping("/registCertificate")
@@ -187,4 +186,44 @@ public class DoctorController {
 		ResponseEntity<?> responseEntity = doctorService.registCertificate(reservationNum);
 		return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
 	}
+	
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-01
+     *  @param		: Integer reservationNum
+     *  @return		: ResponseEntity
+     * 	@explain	: 환자 입장요청 SMS 전송
+     * */
+	@GetMapping("/callSMSSendToPatient")
+	public ResponseEntity<?> callSMSSendToPatient(@RequestParam Integer memberId){
+		ResponseEntity<?> responseEntity = doctorService.callSMSSendToPatient(memberId);
+		return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
+	}
+	
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-01
+     *  @param		: Integer reservationNum, Integer memberId
+     *  @return		: ResponseEntity
+     * 	@explain	: 환자 예약 취소
+     * */
+	@GetMapping("/cancelReservation")
+	public ResponseEntity<?> cancelReservation(@RequestParam Integer reservationNum, @RequestParam Integer memberId){
+		ResponseEntity<?> responseEntity = doctorService.cancelReservation(reservationNum, memberId);
+		return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
+	}
+	
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-01
+     *  @param		: Integer certificateNum, Integer memberId
+     *  @return		: ResponseEntity
+     * 	@explain	: 환자 진료 취소
+     * */
+	@GetMapping("/cancelCertification")
+	public ResponseEntity<?> cancelCertification(@RequestParam Integer certificateNum, @RequestParam Integer memberId){
+		ResponseEntity<?> responseEntity = doctorService.cancelCertification(certificateNum, memberId);
+		return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
+	}
+	
 }

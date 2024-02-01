@@ -11,5 +11,8 @@ public interface CertificateService {
 
 	// 진료 등록
 	public void registCertificate(Integer reservationNum);
+
+	// 진료 취소
+	public void cancelCertification(Integer certificateNum);
 	
 }

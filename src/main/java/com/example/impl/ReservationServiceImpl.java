@@ -37,4 +37,9 @@ public class ReservationServiceImpl implements ReservationService{
 		reservationDAO.updateReservationStatus(reservationNum);
 	}
 
+	@Override
+	public void cancelReservation(Integer reservationNum) {
+		reservationDAO.cancelReservation(reservationNum);
+	}
+
 }

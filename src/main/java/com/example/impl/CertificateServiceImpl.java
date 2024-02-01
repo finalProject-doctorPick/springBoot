@@ -40,4 +40,16 @@ public class CertificateServiceImpl implements CertificateService{
 		certificateDAO.registCertificate(reservationNum);
 	}
 
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-01
+     *  @param		: Integer certificateNum, Integer memberId
+     *  @return		: ResponseEntity
+     * 	@explain	: 환자 진료 취소
+     * */
+	@Transactional
+	public void cancelCertification(Integer certificateNum) {
+		certificateDAO.cancelCertification(certificateNum);
+	}
+
 }
