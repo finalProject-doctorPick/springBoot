@@ -278,5 +278,10 @@ public class MemberServiceImpl implements MemberService{
 		response.setMessage("리뷰 삭제가 완료 되었습니다.");
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+
+	@Override
+	public List<Member> getMemberInfo(Integer memberId) {
+		return memberDAO.findMemberById(memberId);
+	}
 	
 }

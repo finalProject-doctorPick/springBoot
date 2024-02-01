@@ -32,6 +32,9 @@ public interface MemberService {
 	
 	// 일반회원 정보 조회
 	public Member findMemberByEmail(String memberEmail);
+	
+	// 일반회원 정보 조회(memberId)
+	public List<Member> getMemberInfo(Integer memberId);
 
 	// 일반회원 정보 수정
 	public ResponseEntity<?> updateMemberInfo(Member updateMemberData);
@@ -44,7 +47,7 @@ public interface MemberService {
 	
 	// 일반회원 리뷰 삭제
 	public ResponseEntity<?> deleteReviewId(List<Integer> reviewList);
-	
+
 	/**
 	 *	*******************JPA*********************** 
 	 * */
@@ -56,9 +59,5 @@ public interface MemberService {
 	
 	// 일반 회원 조회
 	public MemberEntity getMember(String email);
-
-
-
-	
 
 }

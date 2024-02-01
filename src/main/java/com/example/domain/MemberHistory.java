@@ -9,7 +9,6 @@ public class MemberHistory {
 	private Integer certificateNum;
 	private String certificateDate;
 	private Integer reservationNum;
-	private String certificatePaymentStatus;
 	private String description;
 	private String certificateFile;
 	private Integer memberId;

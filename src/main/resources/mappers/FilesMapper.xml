@@ -7,6 +7,7 @@
         <result property="originFilename" 	column="origin_file_name"/>
         <result property="fileName" 		column="file_name"/>
         <result property="filePath" 		column="file_path"/>
+        <result property="fileExtension"	column="file_extension"/>
     </resultMap>
     <insert id="registerFile" parameterType="com.example.domain.Files">
         INSERT INTO file
@@ -15,6 +16,7 @@
 			, origin_file_name
 			, file_name
 			, file_path
+			, file_extension
         )
         VALUES
         (
@@ -22,6 +24,7 @@
 			, #{originFileName}
 			, #{fileName}
 			, #{filePath}
+			, #{fileExtension}
         )
     </insert>
 </mapper>

@@ -33,7 +33,6 @@
         <result property="certificateDate" 			column="certificate_date"/>
         <result property="status"		 			column="status"/>
         <result property="reservationNum" 			column="reservation_num"/>
-        <result property="certificatePaymentStatus" column="certificate_payment_status"/>
         <result property="description" 				column="description"/>
         <result property="certificateFile" 			column="certificate_file"/>
         <result property="doctorId" 				column="doctor_id"/>
@@ -74,28 +73,15 @@
 		<result property="doctorName" 			column="doctor_name"/>
 	</resultMap>
 	
-	<resultMap id="MemberInquiryResultMap" type="com.example.domain.Inquiry">
-    	<id property="inquiryId" 				column="inquiry_id"/>
-    	<result property="inquiryType" 			column="inquiry_type"/>
-    	<result property="inquiryTitle" 		column="inquiry_title"/>
-    	<result property="inquiryWriterEmail" 	column="inquiry_writer_email"/>
-    	<result property="inquiryComments" 		column="inquiry_comments"/>
-    	<result property="inquiryRegdate" 		column="inquiry_regdate"/>
-    	<result property="inquiryAnswer" 		column="inquiry_answer"/>
-    	<result property="inquiryAnswerRegdate" column="inquiry_answer_regdate"/>
-    	<result property="status" 				column="status"/>
-    </resultMap>
-    
-     <resultMap id="ReservationResultMap" type="com.example.domain.Reservation">
-		<id property="reservationNum" 				column="reservation_num"/>
-		<result property="memberId"		column="member_id"/>
-		<result property="doctorId"		column="docto_id"/>
+    <resultMap id="ReservationResultMap" type="com.example.domain.Reservation">
+		<id property="reservationNum" 			column="reservation_num"/>
+		<result property="memberId"				column="member_id"/>
+		<result property="doctorId"				column="docto_id"/>
 		<result property="reservationDate"		column="reservation_date"/>
-		<result property="reservationStatus"		column="reservation_status"/>
-		<result property="reservationPayment"		column="reservation_payment"/>
-		<result property="fileKey"		column="file_key"/>
+		<result property="reservationStatus"	column="reservation_status"/>
+		<result property="reservationPayment"	column="reservation_payment"/>
+		<result property="fileKey"				column="file_key"/>
 		<result property="patientComments"		column="patient_comments"/>
-		
 	</resultMap>
     
     <select id="findMemberByEmail" parameterType="String" resultMap="MemberResultMap">
@@ -113,7 +99,6 @@
 			        , c.status				 AS status
 			        , TO_CHAR(c.certificate_date, 'YYYY-mm-DD') 	 AS certificate_date
 			        , c.reservation_num 	 AS reservation_num
-			        , c.payment_status 		 AS certificate_payment_status 
 			        , c.description 		 AS description
 			        , c.file_key 			 AS certificate_file
 			        , r.member_id 			 AS member_id
@@ -214,28 +199,9 @@
 		 WHERE member_id = #{memberId}
 	</update>
 	
-	<select id="getMemberInquiryList" parameterType="String" resultMap="MemberInquiryResultMap">
-		SELECT i.inquiry_id 									AS inquiry_id
-			 , i.inquiry_type 									AS inquiry_type
-			 , i.inquiry_title 									AS inquiry_title
-			 , i.inquiry_writer_email 							AS inquiry_writer_email
-			 , i.inquiry_comments 								AS inquiry_comments
-			 , TO_CHAR(i.inquiry_regdate, 'YYYY-mm-DD') 		AS inquiry_regdate
-			 , i.inquiry_answer 								AS inquiry_answer
-			 , TO_CHAR(i.inquiry_answer_regdate, 'YYYY-mm-DD') 	AS inquiry_answer_regdate 
-			 , i.file_key  										AS file_key
-			 , i.status											AS status
-		  FROM inquiry i
-	INNER JOIN members m 
-			ON i.inquiry_writer_email = m.member_email
-		<if test="userEmail != null and userEmail != ''">
-		 WHERE i.inquiry_writer_email = #{userEmail} 
-		</if>
-	  ORDER BY CASE WHEN i.status = 'N' 
-	  				THEN 1 
-	  				ELSE 2 
-	  			END
-	  		  , i.inquiry_regdate desc
+	<select id="findMemberById" parameterType="int" resultMap="MemberResultMap">
+		SELECT *
+		  FROM members
+		 WHERE member_id = #{memberId}
 	</select>
-
 </mapper>

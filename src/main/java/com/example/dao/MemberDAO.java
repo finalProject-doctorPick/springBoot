@@ -13,6 +13,9 @@ public interface MemberDAO {
 	// 회원 조회
 	public Member findMemberByEmail(String email);
 
+	// 회원 정보 조회
+	public List<Member> findMemberById(Integer memberId);
+	
 	// 회원 진료 조회
 	public List<Member> getMemberCurrentHistory(Integer memberId);
 

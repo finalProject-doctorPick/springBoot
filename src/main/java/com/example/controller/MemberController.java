@@ -20,6 +20,7 @@ import com.example.domain.DashBoard;
 import com.example.domain.Inquiry;
 import com.example.domain.Member;
 import com.example.domain.Reservation;
+import com.example.service.InquiryService;
 import com.example.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 
 	private final MemberService memberService;
+	private final InquiryService inquiryService;
 
     /**
      * 	@author 	: 백두산	 
@@ -103,11 +105,12 @@ public class MemberController {
      *  @created	: 2024-01-27
      *  @param		: Integer memberId
      *  @return		: ResponseEntity
-     * 	@explain	: 일반회원 문의 조회
+     * 	@explain	: 회원) 문의목록 조회
      * */
-    @GetMapping("/getMemberInquiry")
-    public ResponseEntity<?> getMemberInquiry(@RequestParam String userEmail){
-    	List<Inquiry> response = memberService.getMemberInquiryList(userEmail);
+    @GetMapping("/getMemberInquiryList")
+    public ResponseEntity<?> getMemberInquiry(@RequestParam Integer memberId){
+    	List<Inquiry> response = inquiryService.getMemberInquiryList(memberId);
+    	System.out.println("getMemberInquiryList 리턴 전 값 : " + response.toString());
     	return new ResponseEntity<>(response, HttpStatus.OK);
     }
     

@@ -16,7 +16,6 @@ import com.example.domain.Doctor;
 import com.example.domain.Drugstore;
 import com.example.domain.Hospital;
 import com.example.domain.Inquiry;
-import com.example.domain.Member;
 import com.example.service.AdminService;
 
 import lombok.RequiredArgsConstructor;
@@ -142,7 +141,7 @@ public class AdminController {
 	 * */
 	@GetMapping("/getDoctorInquiryList")
 	public ResponseEntity<?> getDoctorInquiryList() {
-		List<Member> list = adminService.getDoctorInquiryList();
+		List<Inquiry> list = adminService.getDoctorInquiryList();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	

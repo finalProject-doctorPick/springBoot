@@ -12,7 +12,6 @@ import com.example.dao.DoctorDAO;
 import com.example.dao.DrugstoreDAO;
 import com.example.dao.HospitalDAO;
 import com.example.dao.InquiryDAO;
-import com.example.dao.MemberDAO;
 import com.example.dao.PaymentDAO;
 import com.example.domain.DashBoard;
 import com.example.domain.Doctor;
@@ -34,7 +33,6 @@ public class AdminServiceImpl implements AdminService{
 	private final DrugstoreDAO drugstoreDAO;
 	private final PaymentDAO paymentDAO;
 	private final DoctorDAO doctorDAO;
-	private final MemberDAO memberDAO;
 	private final InquiryDAO inquiryDAO;
 	
 	/**
@@ -94,8 +92,8 @@ public class AdminServiceImpl implements AdminService{
 	 * 	@explain    : 관리자) 문의 관리 - 의사 문의 목록
 	 * */
 	@Transactional(readOnly = true)
-	public List<Member> getDoctorInquiryList() {
-		return adminDAO.getDoctorInquiryList();
+	public List<Inquiry> getDoctorInquiryList() {
+		return inquiryDAO.getDoctorInquiryList(0);
 	}
 	
 	/**
@@ -143,7 +141,7 @@ public class AdminServiceImpl implements AdminService{
 	 * */
 	@Transactional(readOnly = true)
 	public List<Inquiry> getMemberInquiryList() {
-		return memberDAO.getMemberInquiryList("");
+		return inquiryDAO.getMemberInquiryList(0);
 	}
 
 	/**

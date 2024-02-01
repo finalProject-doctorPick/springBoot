@@ -68,9 +68,27 @@ public class InquiryServiceImpl implements InquiryService{
         return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-01
+     *  @param		: Integer doctorId
+     *  @return		: List<Inquiry> list
+     * 	@explain	: 의사) 문의내역 조회
+     * */
 	@Transactional(readOnly = true)
 	public List<Inquiry> getDoctorInquiryList(Integer doctorId) {
 		return inquiryDAO.getDoctorInquiryList(doctorId);
 	}
 
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-01
+     *  @param		: Integer memberId
+     *  @return		: List<Inquiry> list
+     * 	@explain	: 회원) 문의내역 조회
+     * */
+	@Transactional(readOnly = true)
+	public List<Inquiry> getMemberInquiryList(Integer memberId) {
+		return inquiryDAO.getMemberInquiryList(memberId);
+	}
 }

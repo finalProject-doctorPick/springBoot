@@ -15,10 +15,13 @@ public interface InquiryDAO {
 	// 관리자) 문의 답변
 	int updateInquiryAnswer(Inquiry inquiryData);
 
-	// 약국) 문의 조회
+	// 약국) 문의목록 조회
 	List<Inquiry> getDrugstoreInquiryList(Integer drugstoreId);
 
-	// 의사) 문의 조회
+	// 의사) 문의목록 조회
 	List<Inquiry> getDoctorInquiryList(Integer doctorId);
+
+	// 회원) 문의목록 조회
+	List<Inquiry> getMemberInquiryList(Integer memberId);
 
 }
