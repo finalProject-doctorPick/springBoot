@@ -172,12 +172,12 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 	}
 	
 	/**
-     * 	@author 	: 이성규	 
-     *  @created	: 2024-01-31
-     *  @param		: Integer drugstorHistoryId, String remarks
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-01
+     *  @param		: DrugstoreHistory storeHistory
      *  @return		: ResponseEntity
-     * 	@explain	: 약국 정보 수정
-     * */	
+     * 	@explain	: 약국 수령확인 
+     * */
 	@Transactional
 	public ResponseEntity<?> updateDrugstoreHistory(DrugstoreHistory storeHistory) {
 		ServerResponse response = new ServerResponse();

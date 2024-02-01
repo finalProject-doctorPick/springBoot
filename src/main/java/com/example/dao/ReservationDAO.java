@@ -23,4 +23,7 @@ public interface ReservationDAO {
 
 	// 관리자) 대시보드 - 당일 총 예약 건수 조회
 	public int getReservationCnt();
+
+	// 예약 정보 수정
+	public void updateReservationStatus(Integer reservationNum);
 }
