@@ -73,4 +73,11 @@
 			, 'N'
 		)
 	</insert>
+	
+	<update id="cancelCertification" parameterType="int">
+		UPDATE certificate
+		   SET status 		   = 'UC'
+		 WHERE certificate_Num = ${certificateNum}
+	</update>
+	
 </mapper>

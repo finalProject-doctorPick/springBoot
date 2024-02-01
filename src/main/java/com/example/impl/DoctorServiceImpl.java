@@ -32,6 +32,7 @@ import com.example.service.FilesService;
 import com.example.service.InquiryService;
 import com.example.service.MemberService;
 import com.example.service.ReservationService;
+import com.example.service.SMSService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -49,6 +50,7 @@ public class DoctorServiceImpl implements DoctorService{
 	private final InquiryService inquiryService;
 	private final MemberService memberService;
 	private final CertificateService certificateService;
+	private final SMSService smsService;
 	
 	/**
      * 	@author 	: 백두산	 
@@ -324,6 +326,81 @@ public class DoctorServiceImpl implements DoctorService{
 		response.setSuccess(true);
 		response.setMessage("진료 접수가 완료 되었습니다.");
 		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-01
+     *  @param		: Integer reservationNum
+     *  @return		: List<MemberHistory>
+     * 	@explain	: 환자 입장요청 SMS 전송
+     * */
+	@Transactional(readOnly = true)
+	public ResponseEntity<?> callSMSSendToPatient(Integer memberId) {
+		ServerResponse response = new ServerResponse();
+		
+		// 회원 정보 조회
+		List<Member> memberData = memberService.getMemberInfo(memberId);
+		
+		if(memberData.get(0).getMemberTel() != null && !memberData.get(0).getMemberTel().equals("")) {
+			smsService.sendSMSMessage(memberData.get(0).getMemberTel(), "의사가 비대면진료 입장요청을 하였습니다.");
+		}
+		
+		response.setSuccess(true);
+		response.setMessage("환자에게 SMS 전송이 완료 되었습니다.");
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-01
+     *  @param		: Integer reservationNum
+     *  @return		: List<MemberHistory>
+     * 	@explain	: 환자 예약 취소
+     * */
+	@Transactional
+	public ResponseEntity<?> cancelReservation(Integer reservationNum, Integer memberId) {
+		ServerResponse response = new ServerResponse();
+		
+		reservationService.cancelReservation(reservationNum);
+		
+		// 회원 정보 조회
+		List<Member> memberData = memberService.getMemberInfo(memberId);
+		
+		if(memberData.get(0).getMemberTel() != null && !memberData.get(0).getMemberTel().equals("")) {
+			smsService.sendSMSMessage(memberData.get(0).getMemberTel(), "의사 개인사유로 인해 접수가 취소 되었습니다.");
+		}
+				
+		response.setSuccess(true);
+		response.setMessage("접수취소가 완료 되었습니다.");
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-01
+     *  @param		: Integer certificateNum, Integer memberId
+     *  @return		: ResponseEntity
+     * 	@explain	: 환자 진료 취소
+     * */
+	@Transactional
+	public ResponseEntity<?> cancelCertification(Integer certificateNum, Integer memberId) {
+		ServerResponse response = new ServerResponse();
+		
+		// 진료 취소
+		certificateService.cancelCertification(certificateNum);
+		
+		// 회원 정보 조회
+		List<Member> memberData = memberService.getMemberInfo(memberId);
+		
+		if(memberData.get(0).getMemberTel() != null && !memberData.get(0).getMemberTel().equals("")) {
+			smsService.sendSMSMessage(memberData.get(0).getMemberTel(), "의사 개인사유로 인해 진료가 취소 되었습니다.");
+		}
+		
+		response.setSuccess(true);
+		response.setMessage("진료취소가 완료 되었습니다.");
+		return new ResponseEntity<>(response, HttpStatus.OK);
+		
 	}
 
 }

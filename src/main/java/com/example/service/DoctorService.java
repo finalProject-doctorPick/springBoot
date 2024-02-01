@@ -77,4 +77,13 @@ public interface DoctorService {
 	// 진료 등록
 	ResponseEntity<?> registCertificate(Integer reservationNum);
 
+	// 환자 입장요청 SMS 전송
+	ResponseEntity<?> callSMSSendToPatient(Integer memberId);
+
+	// 환자 예약 취소
+	ResponseEntity<?> cancelReservation(Integer reservationNum, Integer memberId);
+
+	// 환자 진료 취소
+	ResponseEntity<?> cancelCertification(Integer certificateNum, Integer memberId);
+
 }

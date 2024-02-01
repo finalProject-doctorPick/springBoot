@@ -26,4 +26,7 @@ public interface ReservationDAO {
 
 	// 예약 정보 수정
 	public void updateReservationStatus(Integer reservationNum);
+
+	// 예약 정보 취소
+	public void cancelReservation(Integer reservationNum);
 }
