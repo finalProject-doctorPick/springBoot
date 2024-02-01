@@ -48,4 +48,13 @@ public interface AdminService {
 
 	// 관리자) 문의 답변
 	public ResponseEntity<?> updateInquiryAnswer(Inquiry inquiryData);
+
+	// 관리자) 의사정보 수정
+	public Integer updateDoctorsInfo(Doctor entry);
+
+	// 관리자) 병원정보 수정
+	public Integer updateHospitalInfo(Hospital entry);
+
+	// 관리자) 약국정보 수정
+	public Integer updateDrugstoreInfo(Drugstore entry);
 }

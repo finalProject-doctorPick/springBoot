@@ -172,18 +172,41 @@ public class AdminController {
     	return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
-//	/**
-//	 * 	@author     : 정하림
-//	 *  @created    : 2024-01-29
-//	 *  @param      : void
-//	 *  @return     : ResponseEntity
-//	 * 	@explain    : 관리자) 의사 관리 - 의사 정보 수정
-//	 * */
-//	@PostMapping("/updateDoctorsInfo")
-//	public ResponseEntity<?> updateDoctorsInfo(@RequestParam String memberEmail){
-//		
-//	}
+	/**
+	 * 	@author     : 박병태
+	 *  @created    : 2024-02-1
+	 *  @param      : Doctor
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 의사 관리 - 의사 정보 수정
+	 * */
+	@PostMapping("/updateDoctorsInfo")
+	public ResponseEntity<?> updateDoctorsInfo(@RequestBody Doctor entry){
+		return new ResponseEntity<>(adminService.updateDoctorsInfo(entry), HttpStatus.OK);
+	}
 	
+	/**
+	 * 	@author     : 박병태
+	 *  @created    : 2024-02-1
+	 *  @param      : Hospital
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 병원 관리 - 병원 정보 수정
+	 * */
+	@PostMapping("/updateHospitalInfo")
+	public ResponseEntity<?> updateHospitalInfo(@RequestBody Hospital entry){
+		return new ResponseEntity<>(adminService.updateHospitalInfo(entry), HttpStatus.OK);
+	}
 	
-	
+
+	/**
+	 * 	@author     : 박병태
+	 *  @created    : 2024-02-1
+	 *  @param      : Dcotor
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 병원 관리 - 병원 정보 수정
+	 * */
+	@PostMapping("/updateDrugstoreInfo")
+	public ResponseEntity<?> updateDrugstoreInfo(@RequestBody Drugstore entry){
+		System.out.println("drugstore 객체:"+entry.toString());
+		return new ResponseEntity<>(adminService.updateDrugstoreInfo(entry), HttpStatus.OK);
+	}
 }

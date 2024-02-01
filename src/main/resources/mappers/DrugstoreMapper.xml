@@ -88,4 +88,9 @@
   		WHERE drugstore_history_id = #{drugstoreHistoryId}
 	</update>
 	
+	<update id="updateDrugstoreInfo" parameterType="com.example.domain.Drugstore">
+		UPDATE drugstore
+  		SET drugstore_name = #{drugstoreName}, drugstore_Tel = #{drugstoreTel}, drugstore_addr_main = #{drugstoreAddrMain}, drugstore_addr_detail = #{drugstoreAddrDetail}
+  		WHERE drugstore_id = #{drugstoreId}
+	</update>
 </mapper>

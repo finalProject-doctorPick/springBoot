@@ -183,4 +183,38 @@ public class AdminServiceImpl implements AdminService{
 		}
 		
 	}
+
+	/**
+	 * 	@author     : 박병태
+	 *  @created    : 2024-02-1
+	 *  @param      : Doctor
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 의사 관리 - 의사 정보 수정
+	 * */
+	public Integer updateDoctorsInfo(Doctor entry) {
+		return doctorDAO.updateDoctorsInfo(entry);
+	}
+
+	/**
+	 * 	@author     : 박병태
+	 *  @created    : 2024-02-1
+	 *  @param      : Hospital
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 병원 관리 - 병원 정보 수정
+	 * */
+	public Integer updateHospitalInfo(Hospital entry) {
+		return hospitalDAO.updateHospitalInfo(entry);
+	}
+
+	/**
+	 * 	@author     : 박병태
+	 *  @created    : 2024-02-1
+	 *  @param      : Drugstore
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 약국 관리 - 약국 정보 수정
+	 * */
+	public Integer updateDrugstoreInfo(Drugstore entry) {
+		System.out.println("impl dugstore객체:"+entry);
+		return drugstoreDAO.updateDrugstoreInfo(entry);
+	}
 }
