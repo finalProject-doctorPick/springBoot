@@ -9,11 +9,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dao.AdminDAO;
+import com.example.dao.CertificateDAO;
 import com.example.dao.DoctorDAO;
 import com.example.dao.DrugstoreDAO;
 import com.example.dao.HospitalDAO;
 import com.example.dao.InquiryDAO;
+import com.example.dao.MemberDAO;
 import com.example.dao.PaymentDAO;
+import com.example.dao.ReservationDAO;
 import com.example.domain.DashBoard;
 import com.example.domain.Doctor;
 import com.example.domain.Drugstore;
@@ -35,6 +38,9 @@ public class AdminServiceImpl implements AdminService{
 	private final PaymentDAO paymentDAO;
 	private final DoctorDAO doctorDAO;
 	private final InquiryDAO inquiryDAO;
+	private final ReservationDAO reservationDAO;
+	private final CertificateDAO certificateDAO;
+	private final MemberDAO memberDAO;
 	
 	/**
      * 	@author 	: 백두산	 
@@ -102,7 +108,7 @@ public class AdminServiceImpl implements AdminService{
      *  @created	: 2024-01-24
      *  @param		: void
      *  @return		: List<DashBoard>
-     *  @explain	: 관리자) 대시보드 - 월 매출 조회
+     *  @explain	: 관리자) 대시보드 - 3개월 매출 조회
      * */
 	@Transactional(readOnly = true)
 	public List<DashBoard> getMonthlySales() {
@@ -197,6 +203,67 @@ public class AdminServiceImpl implements AdminService{
 	 * */
 	public Integer updateDoctorsInfo(Doctor entry) {
 		return doctorDAO.updateDoctorsInfo(entry);
+	}
+	
+	/**
+	 * 	@author     : 정하림
+	 *  @created    : 2024-02-01
+	 *  @param      : String
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 의사 관리 - 등록 요청 승인
+	 * */
+	@Override
+	public int updateDoctorRegister(String doctorEmail) {
+		int result = doctorDAO.updateDoctorRegister(doctorEmail);
+		return result;
+	}
+
+	/**
+	 * 	@author     : 정하림
+	 *  @created    : 2024-02-01
+	 *  @param      : void
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 대시보드 - 당일 총 예약 건수 조회
+	 * */
+	@Override
+	public int getReservationCnt() {
+		return reservationDAO.getReservationCnt();
+	}
+
+	/**
+	 * 	@author     : 정하림
+	 *  @created    : 2024-02-01
+	 *  @param      : void
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 대시보드 - 당일 총 진료 건수 조회
+	 * */
+	@Override
+	public Integer getCertificateCnt() {
+		return certificateDAO.getCertificateCnt();
+	}
+
+	/**
+	 * 	@author     : 정하림
+	 *  @created    : 2024-02-01
+	 *  @param      : void
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 대시보드 - 당일 신규 회원 수 조회
+	 * */
+	@Override
+	public Integer getNewUserCnt() {
+		return memberDAO.getNewUserCnt();
+	}
+	
+	/**
+	 * 	@author     : 정하림
+	 *  @created    : 2024-02-01
+	 *  @param      : void
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 대시보드 - 올해 신규 회원 수 조회
+	 * */
+	@Override
+	public Integer getNewUserCntByYear() {
+		return memberDAO.getNewUserCntByYear();
 	}
 
 	/**

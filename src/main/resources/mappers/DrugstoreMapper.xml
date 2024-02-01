@@ -93,4 +93,20 @@
   		SET drugstore_name = #{drugstoreName}, drugstore_Tel = #{drugstoreTel}, drugstore_addr_main = #{drugstoreAddrMain}, drugstore_addr_detail = #{drugstoreAddrDetail}
   		WHERE drugstore_id = #{drugstoreId}
 	</update>
+
+	<select id="newOrder" parameterType="int" resultType="int">
+		SELECT COUNT(*) AS count FROM drugstore_history
+		WHERE payment_status = 'N' AND drugstore_id = #{drugstoreId}
+	</select>
+	
+	<select id="receiveWait" parameterType="int" resultType="int">
+		SELECT COUNT(*) AS count FROM drugstore_history
+		WHERE status = 'DN' AND drugstore_id = #{drugstoreId}
+	</select>
+	
+	<select id="received" parameterType="int" resultType="int">
+		SELECT COUNT(*) AS count FROM drugstore_history
+		WHERE status = 'DY' AND drugstore_id = #{drugstoreId}
+	</select>
+	
 </mapper>

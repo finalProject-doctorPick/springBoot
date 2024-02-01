@@ -1,6 +1,8 @@
 package com.example.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -122,4 +124,42 @@ public class DrugstoreController {
 		ResponseEntity<?> response = drugstoreService.updateDrugstoreHistory(storeHistory);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+
+	/**
+	 * @author : 정하림
+	 * @created : 2024-02-01
+	 * @param : void
+	 * @return : ResponseEntity
+	 * @explain : 약국 대시보드 목록 조회
+	 */
+	@GetMapping("/getDrugstoreDashBoardData")
+	public ResponseEntity<?> getDrugstoreDashBoardData(@RequestParam Integer drugstoreId) {
+		Map<String, Integer> data = new HashMap<>();
+
+		/*
+		 * 신규 주문 payment_status N 
+			수령 대기 DN - status
+			수령 완료 DY
+			----------
+			총 주문건 
+			택배 배송D - receive type
+			직접 수령W
+		 * */
+		// 신규 주문
+		Integer newOrder = drugstoreService.newOrder(drugstoreId);
+		// 수령 대기
+		Integer receiveWait = drugstoreService.receiveWait(drugstoreId);
+		// 수령 완료
+		Integer received = drugstoreService.received(drugstoreId);
+		
+		
+		data.put("newOrder", newOrder);
+		data.put("receiveWait", receiveWait);
+		data.put("received", received);
+
+		
+		return new ResponseEntity<>(data, HttpStatus.OK);
+	}
+	
+	
 }

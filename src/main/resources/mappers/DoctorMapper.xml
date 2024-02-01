@@ -329,4 +329,41 @@
 		WHERE doctor_id = #{doctorId}
 	</update>
 
+	<update id="updateDoctorRegister" parameterType="String">
+		UPDATE doctor d SET d.doctor_confirm_yn = 'Y'
+		WHERE d.doctor_confirm_yn = 'N' 
+		AND d.doctor_email = #{doctorEmail}
+	</update>
+	
+	<select id="reservationCntForDoctor" parameterType="int" resultType="int">
+		SELECT COUNT(*) AS count FROM reservation r
+		WHERE r.reservation_status = 'R' OR r.reservation_status = 'W' AND r.doctor_id = #{doctorId}
+	</select>
+	
+	<select id="reservationWaitCntForDoctor" parameterType="int" resultType="int">
+		SELECT COUNT(*) AS count FROM reservation r
+		WHERE r.reservation_status = 'W' AND r.doctor_id = #{doctorId}
+	</select>
+	
+	<select id="unpaidPaymentSum" parameterType="int" resultType="int">
+		SELECT sum(p.amount) AS sum FROM payments p
+		WHERE p.doctor_id = #{doctorId}
+		AND p.payment_status = 'N'
+	</select>
+	
+	<select id="totalSales" parameterType="int" resultType="int">
+		SELECT sum(p.amount) AS sum FROM payments p
+		WHERE p.doctor_id = #{doctorId}
+	</select>
+	
+	<select id="reviewsCnt" parameterType="int" resultType="int">
+		SELECT COUNT(*) AS count FROM reviews r
+		WHERE doctor_id = #{doctorId}
+	</select>
+	
+	<select id="reviewAvg" parameterType="int" resultType="int">
+		SELECT ROUND(AVG(rating)) AS avg FROM reviews r
+		WHERE doctor_id = #{doctorId}
+	</select>
+	
 </mapper>

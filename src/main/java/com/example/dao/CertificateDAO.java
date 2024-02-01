@@ -12,4 +12,6 @@ public interface CertificateDAO {
 	// 환자 진료내역 조회
 	List<Certificate> getMemberCertificateHistory(Integer memberId);
 
+	Integer getCertificateCnt();
+
 }

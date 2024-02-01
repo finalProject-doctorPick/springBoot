@@ -118,8 +118,7 @@
 		SELECT DATE(payment_date) AS payment_date, SUM(amount) AS amount
 		FROM payments p
 		WHERE p.payment_status = 'Y'
-		  AND MONTH(payment_date) = MONTH(CURRENT_DATE())
-		  AND YEAR(payment_date) = YEAR(CURRENT_DATE())
+		AND payment_date >= CURDATE() - INTERVAL 3 MONTH
 		GROUP BY payment_date
 	</select>
 

@@ -199,4 +199,19 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 		
 	}
 
+	@Override
+	public Integer newOrder(Integer drugstoreId) {
+		return drugstoreDAO.newOrder(drugstoreId);
+	}
+
+	@Override
+	public Integer receiveWait(Integer drugstoreId) {
+		return drugstoreDAO.receiveWait(drugstoreId);
+	}
+
+	@Override
+	public Integer received(Integer drugstoreId) {
+		return drugstoreDAO.received(drugstoreId);
+	}
+
 }

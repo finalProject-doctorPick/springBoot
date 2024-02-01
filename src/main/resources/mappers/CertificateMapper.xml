@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dao.CertificateDAO">
-
 	<resultMap id="CertificateResultMap" type="com.example.domain.Certificate">
         <id property="certificateNum" 		column="certificate_num"/>
         <result property="reservationNum" 	column="reservation_num"/>
@@ -52,4 +51,8 @@
 			ON c.file_key 		 = f.file_key 
 	</select>
 
+	<select id="getCertificateCnt" resultType="int">
+		SELECT count(*) AS count FROM certificate c
+		WHERE status = 'UY' AND DATE(c.certificate_date) = CURDATE()
+	</select>
 </mapper>

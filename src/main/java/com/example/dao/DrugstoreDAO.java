@@ -30,6 +30,12 @@ public interface DrugstoreDAO {
 	List<Inquiry> getDrugstoreInquiry(Integer drugstoreId);
 
 	Integer updateDrugstoreInfo(Drugstore entry);
+	
+	Integer newOrder(Integer drugstoreId);
+
+	Integer receiveWait(Integer drugstoreId);
+
+	Integer received(Integer drugstoreId);
 
 }
 

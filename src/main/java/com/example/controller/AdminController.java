@@ -59,23 +59,43 @@ public class AdminController {
 
 	/**
 	 * 	@author     : 정하림
-	 *  @created    : 2024-01-23
+	 *  @created    : 2024-02-01
 	 *  @param      : void
 	 *  @return     : ResponseEntity
-	 * 	@explain    : 관리자) 대시보드 - 의사 등록 요청 수
+	 * 	@explain    : 관리자) 대시보드 전체 데이터 조회
 	 * */
-	@GetMapping("/getDoctorRequestCnt")
-	public ResponseEntity<Integer> getDoctorRequestCnt() {
-		int requestCnt = adminService.getDoctorRequestCnt();
-		return new ResponseEntity<>(requestCnt, HttpStatus.OK);
+	@GetMapping("/getDashBoardData")
+	public ResponseEntity<?> getDashBoardData(){
+		Map<String, Integer> data = new HashMap<>();
+		// 당일 예약 건수
+	    Integer reservationCnt = adminService.getReservationCnt();
+	    // 의사 등록 요청 수
+	    Integer requestCnt = adminService.getDoctorRequestCnt();
+	    // 당일 진료 건수
+	    Integer certificateCnt = adminService.getCertificateCnt();
+	    // 당일 신규 회원 수
+	    Integer newUserCnt = adminService.getNewUserCnt();
+	    // 올해 신규 회원 수
+	    Integer newUserCntByYear = adminService.getNewUserCntByYear();
+	    
+	    data.put("reservationCnt", reservationCnt);
+	    data.put("requestCnt", requestCnt);
+	    data.put("certificateCnt", certificateCnt);
+	    data.put("newUserCnt", newUserCnt);
+	    data.put("newUserCntByYear", newUserCntByYear);
+	    
+	    
+		return new ResponseEntity<>(data, HttpStatus.OK);
 	}
+	
+	
 	
 	/**
 	 * 	@author     : 정하림
 	 *  @created    : 2024-01-24
 	 *  @param      : void
 	 *  @return     : ResponseEntity
-	 * 	@explain    : 관리자) 대시보드 - 월 매출
+	 * 	@explain    : 관리자) 대시보드 - 3개월 매출
 	 * */
 	@GetMapping("/getMonthlySales")
 	public ResponseEntity<?> getMonthlySales() {
@@ -94,6 +114,21 @@ public class AdminController {
 	public ResponseEntity<?> getRegistRequestList() {
 		List<Doctor> list = adminService.getRegistRequestList();
 		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	/**
+	 * 	@author     : 정하림
+	 *  @created    : 2024-02-01
+	 *  @param      : void
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 의사 관리 - 등록 요청 의사 승인
+	 * */
+	@PostMapping("/updateDoctorRegister")
+	public ResponseEntity<?> updateDoctorRegister(@RequestBody Map<String, String> request) {
+	    String doctorEmail = request.get("doctorEmail");
+	    int result = adminService.updateDoctorRegister(doctorEmail);
+
+	    return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
 	/**

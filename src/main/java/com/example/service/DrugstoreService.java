@@ -50,6 +50,12 @@ public interface DrugstoreService {
 	// 약국 회원 정보 조회
 	DrugstoreEntity getDrugstore(String email);
 
+	Integer newOrder(Integer drugstoreId);
+
+	Integer receiveWait(Integer drugstoreId);
+
+	Integer received(Integer drugstoreId);
+
 	
 
 

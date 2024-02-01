@@ -136,7 +136,7 @@ public class DoctorController {
 
 	/**
 	 * @author : 정하림
-	 * @created : 2024-01-30
+	 * @created : 2024-02-01
 	 * @param : void
 	 * @return : ResponseEntity
 	 * @explain : 의사 대시보드 목록 조회
@@ -157,4 +157,32 @@ public class DoctorController {
 		Map<String,List<?>> list = doctorService.getPatientDetail(memberId);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
+
+	@GetMapping("/getDoctorDashBoardData")
+	public ResponseEntity<?> getDoctorDashBoardData(@RequestParam Integer doctorId) {
+		Map<String, Integer> data = new HashMap<>();
+
+		// 예약 접수 건수
+		Integer reservationCntForDoctor = doctorService.reservationCntForDoctor(doctorId);
+		// 예약 대기 건수
+		Integer reservationWaitCntForDoctor = doctorService.reservationWaitCntForDoctor(doctorId);
+		// 예정 매출(미결제건)
+		Integer unpaidPaymentSum = doctorService.unpaidPaymentSum(doctorId);
+		// 총 매출
+		Integer totalSales = doctorService.totalSales(doctorId);
+		// 리뷰 건수
+		Integer reviewCnt = doctorService.reviewsCnt(doctorId);
+		// 리뷰 평균점수
+		Integer reviewAvg = doctorService.reviewAvg(doctorId);
+		
+		data.put("reservationCntForDoctor", reservationCntForDoctor);
+		data.put("reservationWaitCntForDoctor", reservationWaitCntForDoctor);
+		data.put("unpaidPaymentSum", unpaidPaymentSum);
+		data.put("totalSales", totalSales);
+		data.put("reviewCnt", reviewCnt);
+		data.put("reviewAvg", reviewAvg);
+		
+		return new ResponseEntity<>(data, HttpStatus.OK);
+	}
+
 }

@@ -13,6 +13,8 @@
         <result property="fileKey" 				column="fileKey"/>
         <result property="patientComments" 		column="patient_comments"/>
         <result property="reservationStatus"	column="reservation_status"/>
+        <result property="count"				column="count"/>
+        
     </resultMap>
     
     <select id="getDoctorReservationWaitList" parameterType="int" resultMap="ReservationMap">
@@ -107,4 +109,9 @@
             #{patientComments}
         )
 	</insert>
+	
+	<select id="getReservationCnt" resultType='int'>
+		SELECT count(*) as count FROM reservation r 
+		WHERE DATE(r.reservation_date) = CURDATE()
+	</select>
 </mapper>

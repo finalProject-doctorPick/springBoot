@@ -38,4 +38,7 @@ public class Reservation {
 	
 	// 진료상태
 	private String certificateStatus;
+	
+	// 예약 건수
+	private Integer count;
 }
