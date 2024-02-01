@@ -51,4 +51,14 @@ public interface AdminService {
 
 	// 관리자) 날짜 필터링 - 회원 문의 조회
 	public List<Inquiry> getMemberInquiryListByDate(Map<String, String> date);
+
+	// 관리자) 의사정보 수정
+	public Integer updateDoctorsInfo(Doctor entry);
+
+	// 관리자) 병원정보 수정
+	public Integer updateHospitalInfo(Hospital entry);
+
+	// 관리자) 약국정보 수정
+	public Integer updateDrugstoreInfo(Drugstore entry);
+
 }

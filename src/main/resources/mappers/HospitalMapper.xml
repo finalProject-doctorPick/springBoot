@@ -47,4 +47,12 @@
 		GROUP BY region
 	</select>
 
+	<update id="updateHospitalInfo" parameterType="com.example.domain.Hospital">
+	  UPDATE hospital
+	  SET hospital_name = #{hospitalName},
+	      hospital_tel = #{hospitalTel},
+	      hospital_addr_main = #{hospitalAddrMain},
+	      hospital_addr_detail = #{hospitalAddrDetail}
+	  WHERE hospital_id = #{hospitalId}
+	</update>
 </mapper>

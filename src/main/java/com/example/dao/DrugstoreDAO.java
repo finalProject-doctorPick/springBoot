@@ -29,5 +29,7 @@ public interface DrugstoreDAO {
 
 	List<Inquiry> getDrugstoreInquiry(Integer drugstoreId);
 
+	Integer updateDrugstoreInfo(Drugstore entry);
+
 }
 

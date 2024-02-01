@@ -321,6 +321,12 @@
 		 WHERE r.member_id 	= #{memberId}
   		   AND c.status 	= 'UY'
 	  ORDER BY c.certificate_date DESC 
-;
 	</select>
+	
+	<update id="updateDoctorsInfo" parameterType="com.example.dto.DoctorDTO">
+		UPDATE doctor
+		SET doctor_name = #{doctorName}, doctor_subject = #{doctorSubject}, doctor_major=#{doctorMajor}, doctor_subject=#{doctorSubject}, hospital_id = (SELECT hospital_id FROM hospital WHERE hospital_name = #{hospitalName})
+		WHERE doctor_id = #{doctorId}
+	</update>
+
 </mapper>

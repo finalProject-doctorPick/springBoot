@@ -40,6 +40,9 @@ public class Hospital {
 	// 지역별 병원 수
 	private int count;
 	
+	//병원 전화번호
+	private String hospitalTel;
+	
 	private int partnershipNcount;
 	
 	private int partnershipYcount;

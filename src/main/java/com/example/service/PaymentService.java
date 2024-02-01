@@ -3,6 +3,7 @@ package com.example.service;
 import java.util.List;
 
 import com.example.domain.DashBoard;
+import com.example.domain.FinalPayment;
 import com.example.domain.Member;
 import com.example.domain.Payment;
 import com.example.domain.PointHistory;
@@ -42,6 +43,6 @@ public interface PaymentService {
 	public List<DashBoard> getMonthlySales();
 
 	//진료번호에 해당하는 결제 방식 가져오기
-	String getPaymentMethod(Integer certificateNum);
+	FinalPayment getPaymentMethod(Integer certificateNum);
 	
 }

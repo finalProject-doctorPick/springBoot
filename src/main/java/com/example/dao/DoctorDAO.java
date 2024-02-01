@@ -49,6 +49,8 @@ public interface DoctorDAO {
 	// 관리자 - 의사 문의 목록 조회
 	public List<Member> getDoctorInquiryList();
 
+	// 관리자 - 의사 정보 수정
+	Integer updateDoctorsInfo(Doctor entry);
 	
 	/******************** 의사 ********************/
 	
