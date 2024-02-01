@@ -20,4 +20,7 @@ public interface ReservationDAO {
 	
 	// 회원) 진료 접수
 	public void registReservation(Reservation reservation);
+
+	// 관리자) 대시보드 - 당일 총 예약 건수 조회
+	public int getReservationCnt();
 }

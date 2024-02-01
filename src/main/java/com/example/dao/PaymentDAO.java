@@ -41,7 +41,7 @@ public interface PaymentDAO {
 
 	public Integer recordBillingKey(Member entry);
 	
-	// 관리자) 대시보드 - 월 매출 조회
+	// 관리자) 대시보드 - 3개월 매출 조회
 	public List<DashBoard> getMonthlySales();
 
 	// 등록된 카드 삭제

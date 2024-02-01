@@ -238,5 +238,14 @@
 	  		  , i.inquiry_regdate desc
 	</select>
 
+	<select id="getNewUserCnt" resultType="int">
+		SELECT COUNT(*) AS count FROM members m 
+		WHERE DATE(member_join_date) = CURDATE()
+	</select>
+	
+	<select id="getNewUserCntByYear" resultType="int">
+		SELECT COUNT(*) AS count FROM members m 
+		WHERE YEAR(member_join_date) = YEAR(CURDATE())
+	</select>
 
 </mapper>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.CertificateDAO">
+	
+	<select id="getCertificateCnt" resultType="int">
+		SELECT count(*) AS count FROM certificate c
+		WHERE status = 'UY' AND DATE(c.certificate_date) = CURDATE()
+	</select>
+</mapper>

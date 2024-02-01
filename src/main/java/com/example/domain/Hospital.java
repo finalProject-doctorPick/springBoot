@@ -25,6 +25,9 @@ public class Hospital {
 	// 회원탈퇴일
 	private LocalDateTime hospitalLeaveDate;
 	
+	// 병원 전화번호
+	private String hospitalTel;
+	
 	// 병원 위도
 	private float hospitalLati;
 	

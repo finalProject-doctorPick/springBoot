@@ -37,7 +37,7 @@ public interface DoctorDAO {
 	
 	/******************** 관리자 ********************/
 	
-	// 관리자  - 의사 등록 요청 수
+	// 관리자) 의사 등록 요청 수
 	public int getDoctorRequestCnt();
 	
 	// 관리자) 의사 전체 조회
@@ -46,8 +46,11 @@ public interface DoctorDAO {
 	// 관리자) 등록 전 의사 전체 조회
 	public List<Doctor> getRegistRequestList();
 
-	// 관리자 - 의사 문의 목록 조회
+	// 관리자) 의사 문의 목록 조회
 	public List<Member> getDoctorInquiryList();
+	
+	// 관리자) 의사 등록 요청 승인
+	public int updateDoctorRegister(String doctorEmail);
 
 	
 	/******************** 의사 ********************/
@@ -55,5 +58,16 @@ public interface DoctorDAO {
 	// 의사 회원가입 - 진료시간 기본 설정
 	public int saveAvailInfo(Integer doctorId);
 
+	Integer reservationCntForDoctor(Integer doctorId);
+
+	Integer reservationWaitCntForDoctor(Integer doctorId);
+
+	Integer unpaidPaymentSum(Integer doctorId);
+
+	Integer totalSales(Integer doctorId);
+
+	Integer reviewsCnt(Integer doctorId);
+
+	Integer reviewAvg(Integer doctorId);
 
 }

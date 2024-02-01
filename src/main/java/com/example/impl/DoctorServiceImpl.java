@@ -244,4 +244,34 @@ public class DoctorServiceImpl implements DoctorService{
 		return inquiryService.getDoctorInquiryList(doctorId);
 	}
 
+	@Override
+	public Integer reservationCntForDoctor(Integer doctorId) {
+		return doctorDAO.reservationCntForDoctor(doctorId);
+	}
+
+	@Override
+	public Integer reservationWaitCntForDoctor(Integer doctorId) {
+		return doctorDAO.reservationWaitCntForDoctor(doctorId);
+	}
+
+	@Override
+	public Integer unpaidPaymentSum(Integer doctorId) {
+		return doctorDAO.unpaidPaymentSum(doctorId);
+	}
+
+	@Override
+	public Integer totalSales(Integer doctorId) {
+		return doctorDAO.totalSales(doctorId);
+	}
+
+	@Override
+	public Integer reviewsCnt(Integer doctorId) {
+		return doctorDAO.reviewsCnt(doctorId);
+	}
+
+	@Override
+	public Integer reviewAvg(Integer doctorId) {
+		return doctorDAO.reviewAvg(doctorId);
+	}
+
 }

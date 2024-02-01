@@ -9,6 +9,7 @@
         <result property="hospitalAddrDetail" 	column="hospital_addr_detail"/>
         <result property="hospitalJoinDate"		column="hospital_join_date"/>
         <result property="hospitalLeaveDate" 	column="hospital_leave_date"/>
+        <result property="hospitalTel"		 	column="hospital_tel"/>
         <result property="hospitalLati"		 	column="hospital_lati"/>
         <result property="hospitalLong"		 	column="hospital_long"/>
         <result property="partnershipStatus"	column="partnership_status"/>

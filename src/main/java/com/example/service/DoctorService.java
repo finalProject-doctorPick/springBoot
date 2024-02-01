@@ -14,6 +14,18 @@ import com.example.domain.Users;
 import com.example.entity.DoctorEntity;
 
 public interface DoctorService {
+	
+	/**
+	 *	*******************JPA*********************** 
+	 * */
+	// 의사 이메일 체크
+	boolean existsByDoctorEmail(String email);
+
+	// 의사 등록
+	ServerResponse registerDoctor(Users userSignupDTO, List<MultipartFile> fileList);
+
+	// 의사 정보 조회
+	DoctorEntity getDoctor(String email);
 
 	/**
 	 *	****************MyBatis********************* 
@@ -44,17 +56,18 @@ public interface DoctorService {
 	
 	// 의사 문의 조회
 	List<Inquiry> getDoctorInquiryList(Integer doctorId);
-	
-	/**
-	 *	*******************JPA*********************** 
-	 * */
-	// 의사 이메일 체크
-	boolean existsByDoctorEmail(String email);
 
-	// 의사 등록
-	ServerResponse registerDoctor(Users userSignupDTO, List<MultipartFile> fileList);
+	// 의사) 대시보드 - 예약 건수 조회
+	Integer reservationCntForDoctor(Integer doctorId);
 
-	// 의사 정보 조회
-	DoctorEntity getDoctor(String email);
+	Integer reservationWaitCntForDoctor(Integer doctorId);
+
+	Integer unpaidPaymentSum(Integer doctorId);
+
+	Integer totalSales(Integer doctorId);
+
+	Integer reviewsCnt(Integer doctorId);
+
+	Integer reviewAvg(Integer doctorId);
 
 }

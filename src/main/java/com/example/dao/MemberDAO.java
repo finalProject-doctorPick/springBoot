@@ -29,4 +29,10 @@ public interface MemberDAO {
 	// 회원 문의 조회
 	public List<Inquiry> getMemberInquiryList(String userEmail);
 
+	// 관리자) 당일 신규 회원 수 조회
+	public Integer getNewUserCnt();
+
+	// 관리자) 올해 신규 회원 수 조회
+	public Integer getNewUserCntByYear();
+
 }
