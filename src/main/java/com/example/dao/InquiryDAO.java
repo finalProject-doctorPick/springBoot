@@ -1,6 +1,7 @@
 package com.example.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -23,5 +24,8 @@ public interface InquiryDAO {
 
 	// 회원) 문의목록 조회
 	List<Inquiry> getMemberInquiryList(Integer memberId);
+	
+	// 관리자) 회원 문의 조회 - 날짜 필터링
+	List<Inquiry> getMemberInquiryListByDate(Map<String, String> date);
 
 }

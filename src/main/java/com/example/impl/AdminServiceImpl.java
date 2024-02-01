@@ -1,6 +1,7 @@
 package com.example.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -181,4 +182,11 @@ public class AdminServiceImpl implements AdminService{
 		}
 		
 	}
+
+	@Override
+	public List<Inquiry> getMemberInquiryListByDate(Map<String, String> date) {
+		return inquiryDAO.getMemberInquiryListByDate(date);
+	}
+
+
 }

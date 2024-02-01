@@ -30,5 +30,5 @@ public interface MemberDAO {
 
 	// 회원 문의 조회
 	public List<Inquiry> getMemberInquiryList(String userEmail);
-	
+
 }

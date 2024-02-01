@@ -1,6 +1,7 @@
 package com.example.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 
@@ -47,4 +48,7 @@ public interface AdminService {
 
 	// 관리자) 문의 답변
 	public ResponseEntity<?> updateInquiryAnswer(Inquiry inquiryData);
+
+	// 관리자) 날짜 필터링 - 회원 문의 조회
+	public List<Inquiry> getMemberInquiryListByDate(Map<String, String> date);
 }
