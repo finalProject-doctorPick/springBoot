@@ -15,6 +15,7 @@ import com.example.domain.Doctor;
 import com.example.domain.DoctorAvail;
 import com.example.domain.Inquiry;
 import com.example.domain.MemberHistory;
+import com.example.domain.Review;
 import com.example.service.DoctorService;
 
 import lombok.RequiredArgsConstructor;
@@ -133,18 +134,7 @@ public class DoctorController {
 
 		return ResponseEntity.ok(result);
 	}
-
-	/**
-	 * @author : 정하림
-	 * @created : 2024-02-01
-	 * @param : void
-	 * @return : ResponseEntity
-	 * @explain : 의사 대시보드 목록 조회
-	 */
-//	@GetMapping("/getDoctorDashBoard")
-//	public ResponseEntity<?> getDoctorDashBoard(@RequestParam String doctorEmail) {
-//		//대시보드 값들 한번에 가져와서 찍어주기
-//	}
+	
 	/**
      * 	@author 	: 백두산	 
      *  @created	: 2024-01-31
@@ -158,6 +148,13 @@ public class DoctorController {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
+	/**
+	 * @author : 정하림
+	 * @created : 2024-02-01
+	 * @param : Integer doctorId
+	 * @return : ResponseEntity
+	 * @explain : 의사 대시보드 목록 조회
+	 */
 	@GetMapping("/getDoctorDashBoardData")
 	public ResponseEntity<?> getDoctorDashBoardData(@RequestParam Integer doctorId) {
 		Map<String, Integer> data = new HashMap<>();
@@ -184,5 +181,36 @@ public class DoctorController {
 		
 		return new ResponseEntity<>(data, HttpStatus.OK);
 	}
+	
+	/**
+	 * @author : 정하림
+	 * @created : 2024-02-01
+	 * @param : Integer doctorId
+	 * @return : ResponseEntity
+	 * @explain : 의사 대시보드 - 최근 리뷰 목록 조회
+	 */
+	@GetMapping("/getRecentReviewsList")
+	public ResponseEntity<?> getRecentReviewsList(@RequestParam Integer doctorId) {
+		
+		List<Review> list = doctorService.getRecentReviewsList(doctorId);
 
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	
+	/**
+	 * @author : 정하림
+	 * @created : 2024-02-01
+	 * @param : void
+	 * @return : ResponseEntity
+	 * @explain : 의사 대시보드 - 진료과목 종류 통계
+	 */
+	@GetMapping("/getDoctorSubjectCntList")
+	public ResponseEntity<?> getDoctorSubjectCntList() {
+		
+		List<Doctor> list = doctorService.getDoctorSubjectCntList();
+		
+
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
 }

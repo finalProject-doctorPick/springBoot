@@ -18,5 +18,6 @@ public class DrugstoreHistory {
 	private Integer paymentAmount;
 	private String paymentStatus;
 	private String status;
-	
+	private String receiveTypeDescription;
+	private String paymentStatusDescription;
 }

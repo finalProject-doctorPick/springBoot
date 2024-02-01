@@ -9,6 +9,7 @@ import com.example.domain.Doctor;
 import com.example.domain.DoctorAvail;
 import com.example.domain.Inquiry;
 import com.example.domain.MemberHistory;
+import com.example.domain.Review;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
 import com.example.entity.DoctorEntity;
@@ -72,5 +73,9 @@ public interface DoctorService {
 	Integer reviewsCnt(Integer doctorId);
 
 	Integer reviewAvg(Integer doctorId);
+
+	List<Review> getRecentReviewsList(Integer doctorId);
+
+	List<Doctor> getDoctorSubjectCntList();
 
 }

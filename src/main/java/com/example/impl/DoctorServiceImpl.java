@@ -19,6 +19,7 @@ import com.example.domain.Inquiry;
 import com.example.domain.Member;
 import com.example.domain.MemberHistory;
 import com.example.domain.Reservation;
+import com.example.domain.Review;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
 import com.example.entity.DoctorEntity;
@@ -300,6 +301,16 @@ public class DoctorServiceImpl implements DoctorService{
 	@Override
 	public Integer reviewAvg(Integer doctorId) {
 		return doctorDAO.reviewAvg(doctorId);
+	}
+
+	@Override
+	public List<Review> getRecentReviewsList(Integer doctorId) {
+		return doctorDAO.getRecentReviewsList(doctorId);
+	}
+
+	@Override
+	public List<Doctor> getDoctorSubjectCntList() {
+		return doctorDAO.getDoctorSubjectCntList();
 	}
 
 }

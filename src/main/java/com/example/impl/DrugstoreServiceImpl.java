@@ -14,6 +14,7 @@ import com.example.dao.InquiryDAO;
 import com.example.domain.Drugstore;
 import com.example.domain.DrugstoreHistory;
 import com.example.domain.Inquiry;
+import com.example.domain.Review;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
 import com.example.entity.DrugstoreEntity;
@@ -212,6 +213,26 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 	@Override
 	public Integer received(Integer drugstoreId) {
 		return drugstoreDAO.received(drugstoreId);
+	}
+
+	@Override
+	public Integer totalOrderCnt(Integer drugstoreId) {
+		return drugstoreDAO.totalOrderCnt(drugstoreId);
+	}
+
+	@Override
+	public Integer deliveryCnt(Integer drugstoreId) {
+		return drugstoreDAO.deliveryCnt(drugstoreId);
+	}
+
+	@Override
+	public Integer pickupCnt(Integer drugstoreId) {
+		return drugstoreDAO.pickupCnt(drugstoreId);
+	}
+
+	@Override
+	public List<DrugstoreHistory> getRecentWaitingList(Integer drugstoreId) {
+		return drugstoreDAO.getRecentWaitingList(drugstoreId);
 	}
 
 }
