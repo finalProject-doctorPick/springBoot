@@ -111,10 +111,11 @@ public class DrugstoreController {
 		System.out.println("updateDrugstoreInfo 진입 > 데이터 값 : " + storeData.toString());
 		return null;
 	}
+	
 	/**
-     * 	@author 	: 이성규	 
-     *  @created	: 2024-01-31
-     *  @param		: Integer drugstoreHistoryId, String remarks
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-01
+     *  @param		: DrugstoreHistory storeHistory
      *  @return		: ResponseEntity
      * 	@explain	: 약국 수령확인 
      * */

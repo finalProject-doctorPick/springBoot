@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -133,18 +134,7 @@ public class DoctorController {
 
 		return ResponseEntity.ok(result);
 	}
-
-	/**
-	 * @author : 정하림
-	 * @created : 2024-02-01
-	 * @param : void
-	 * @return : ResponseEntity
-	 * @explain : 의사 대시보드 목록 조회
-	 */
-//	@GetMapping("/getDoctorDashBoard")
-//	public ResponseEntity<?> getDoctorDashBoard(@RequestParam String doctorEmail) {
-//		//대시보드 값들 한번에 가져와서 찍어주기
-//	}
+	
 	/**
      * 	@author 	: 백두산	 
      *  @created	: 2024-01-31
@@ -185,4 +175,16 @@ public class DoctorController {
 		return new ResponseEntity<>(data, HttpStatus.OK);
 	}
 
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-01
+     *  @param		: Integer reservationNum
+     *  @return		: List<MemberHistory>
+     * 	@explain	: 진료 등록
+     * */	
+	@GetMapping("/registCertificate")
+	public ResponseEntity<?> registCertificate(@RequestParam Integer reservationNum){
+		ResponseEntity<?> responseEntity = doctorService.registCertificate(reservationNum);
+		return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
+	}
 }

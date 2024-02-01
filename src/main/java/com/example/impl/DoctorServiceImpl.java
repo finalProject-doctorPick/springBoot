@@ -5,13 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dao.DoctorDAO;
-import com.example.dao.ReservationDAO;
 import com.example.domain.Certificate;
 import com.example.domain.Doctor;
 import com.example.domain.DoctorAvail;
@@ -30,6 +31,7 @@ import com.example.service.DoctorService;
 import com.example.service.FilesService;
 import com.example.service.InquiryService;
 import com.example.service.MemberService;
+import com.example.service.ReservationService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -43,7 +45,7 @@ public class DoctorServiceImpl implements DoctorService{
 	private final FilesService filesService;
 	private final PasswordEncoder passwordEncoder;
 	private final ModelMapper modelMapper;
-	private final ReservationDAO reservationDAO;
+	private final ReservationService reservationService;
 	private final InquiryService inquiryService;
 	private final MemberService memberService;
 	private final CertificateService certificateService;
@@ -196,13 +198,13 @@ public class DoctorServiceImpl implements DoctorService{
 		Map<String, List<?>> result = new HashMap<>();
 
 		// 접수대기 목록 조회
-		List<Reservation> reservationWaitList = reservationDAO.getDoctorReservationWaitList(doctorId);
+		List<Reservation> reservationWaitList = reservationService.getDoctorReservationWaitList(doctorId);
 		
 		// 진료대기 목록 조회
-		List<Reservation> reservationConfirmList = reservationDAO.getDoctorReservationConfirmList(doctorId);
+		List<Reservation> reservationConfirmList = reservationService.getDoctorReservationConfirmList(doctorId);
 		
 		// 진료종료 목록 조회
-		List<Reservation> reservationFinishList = reservationDAO.getDoctorReservationFinishList(doctorId);
+		List<Reservation> reservationFinishList = reservationService.getDoctorReservationFinishList(doctorId);
 		
 		result.put("waitList", reservationWaitList);
 		result.put("confirmList", reservationConfirmList);
@@ -300,6 +302,28 @@ public class DoctorServiceImpl implements DoctorService{
 	@Override
 	public Integer reviewAvg(Integer doctorId) {
 		return doctorDAO.reviewAvg(doctorId);
+	}
+
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-01
+     *  @param		: Integer reservationNum
+     *  @return		: List<MemberHistory>
+     * 	@explain	: 진료 등록
+     * */
+	@Transactional
+	public ResponseEntity<?> registCertificate(Integer reservationNum) {
+		ServerResponse response = new ServerResponse();
+		
+		// 예약 정보 수정
+		reservationService.updateReservationStatus(reservationNum);
+		
+		// 진료 등록
+		certificateService.registCertificate(reservationNum);
+		
+		response.setSuccess(true);
+		response.setMessage("진료 접수가 완료 되었습니다.");
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 }

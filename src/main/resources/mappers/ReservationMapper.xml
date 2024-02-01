@@ -114,4 +114,10 @@
 		SELECT count(*) as count FROM reservation r 
 		WHERE DATE(r.reservation_date) = CURDATE()
 	</select>
+	
+	<update id="updateReservationStatus" parameterType="int">
+		UPDATE reservation
+		   SET reservation_num 		= ${reservationNum}
+		 WHERE reservation_status	= 'S'
+	</update>
 </mapper>

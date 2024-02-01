@@ -3,6 +3,7 @@ package com.example.impl;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dao.CertificateDAO;
 import com.example.domain.Certificate;
@@ -25,6 +26,18 @@ public class CertificateServiceImpl implements CertificateService{
      * */	
 	public List<Certificate> getMemberCertificateHistory(Integer memberId) {
 		return certificateDAO.getMemberCertificateHistory(memberId);
+	}
+
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-01
+     *  @param		: Integer reservationNum
+     *  @return		: List<MemberHistory>
+     * 	@explain	: 진료 등록
+     * */
+	@Transactional
+	public void registCertificate(Integer reservationNum) {
+		certificateDAO.registCertificate(reservationNum);
 	}
 
 }
