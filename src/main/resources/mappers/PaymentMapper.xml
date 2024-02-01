@@ -3,15 +3,15 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dao.PaymentDAO">
 	<resultMap id="PaymentResultMap" type="com.example.domain.Payment">
-		<id property="paymentId" column="payment_id" />
-		<result property="doctorId" column="doctor_id" />
-		<result property="memberId" column="member_id" />
-		<result property="paymentDate" column="payment_date" />
-		<result property="paymentRegdate" column="payment_regdate" />
-		<result property="amount" column="amount" />
-		<result property="transactionType" column="transaction_type" />
-		<result property="paymentStatus" column="payment_status" />
-		<result property="certificateNum" column="certificate_num" />
+		<id property="paymentId" 			column="payment_id" />
+		<result property="doctorId" 		column="doctor_id" />
+		<result property="memberId" 		column="member_id" />
+		<result property="paymentDate" 		column="payment_date" />
+		<result property="paymentRegdate" 	column="payment_regdate" />
+		<result property="amount" 			column="amount" />
+		<result property="transactionType" 	column="transaction_type" />
+		<result property="paymentStatus" 	column="payment_status" />
+		<result property="certificateNum" 	column="certificate_num" />
 	</resultMap>
 
     <resultMap id="PaymentMemberResultMap" type="com.example.domain.Member">
@@ -24,6 +24,11 @@
         <result property="issuerCode" 		column="issuer_code"/>
         <result property="customerKey" 		column="customer_key"/>
         <result property="billingKey" 		column="billing_key"/>
+    </resultMap>
+    
+    <resultMap id="FinalPaymentResultMap" type="com.example.domain.FinalPayment">
+   		<id property="paymentId" 				column="payment_id" />
+   		<result property="reservationPayment" 	column="reservation_payment"/>
     </resultMap>
 
 	<select id="getUserPaymentInfo" parameterType="Integer" resultMap="PaymentResultMap">
@@ -144,12 +149,14 @@
 		)
 	</insert>
 	
-	<select id="getPaymentMethod" parameterType="Integer" resultType="String">
-		SELECT r.reservation_payment
+	<select id="getPaymentMethod" parameterType="Integer" resultMap="FinalPaymentResultMap">
+		SELECT r.reservation_payment AS reservation_payment, p.payment_id as payment_id
 		FROM reservation r
 		INNER JOIN certificate c
 		ON r.reservation_num = c.reservation_num
-		WHERE certificate_num = #{certificateNum};
+		INNER JOIN payments p
+		ON p.certificate_num = c.certificate_num
+		WHERE c.certificate_num = #{certificateNum};
 	</select>
 	
 </mapper>

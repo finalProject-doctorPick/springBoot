@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.domain.Doctor;
 import com.example.domain.DoctorAvail;
+import com.example.domain.Inquiry;
 import com.example.domain.MemberHistory;
 import com.example.service.DoctorService;
 
@@ -51,16 +52,16 @@ public class DoctorController {
 		return new ResponseEntity<>(item, HttpStatus.OK);
 	}
 
-	/**
-	 * @author : 박병태
-	 * @created : 2024-01-23
-	 * @param : Integer doctorId(의사 id번호)
-	 * @return : List(Generic)
-	 * @explain : 의사) 문의 목록 조회
-	 */
-	@GetMapping("/getDoctorInquiry")
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-01
+     *  @param		: Integer doctorId
+     *  @return		: List<Inquiry> list
+     * 	@explain	: 의사) 문의내역 조회
+     * */
+	@GetMapping("/getDoctorInquiryList")
 	public ResponseEntity<?> getDoctorInquiry(@RequestParam Integer doctorId) {
-		List<?> list = doctorService.getDoctorInquiryList(doctorId);
+		List<Inquiry> list = doctorService.getDoctorInquiryList(doctorId);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
@@ -153,7 +154,7 @@ public class DoctorController {
      * */	
 	@GetMapping("/getPatientDetail")
 	public ResponseEntity<?> getPatientDetail(@RequestParam Integer memberId){
-		List<MemberHistory> list = doctorService.getPatientDetail(memberId);
+		Map<String,List<?>> list = doctorService.getPatientDetail(memberId);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 }

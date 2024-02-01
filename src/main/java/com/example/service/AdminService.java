@@ -1,6 +1,7 @@
 package com.example.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 
@@ -9,7 +10,6 @@ import com.example.domain.Doctor;
 import com.example.domain.Drugstore;
 import com.example.domain.Hospital;
 import com.example.domain.Inquiry;
-import com.example.domain.Member;
 
 public interface AdminService {
 
@@ -28,9 +28,6 @@ public interface AdminService {
 	// 관리자) 의사 관리 - 등록 요청 의사 목록
 	public List<Doctor> getRegistRequestList();
 	
-	// 관리자) 의사 문의 조회
-	public List<Member> getDoctorInquiryList();
-	
 	// 관리자) 월 매출 조회
 	public List<DashBoard> getMonthlySales();
 
@@ -39,13 +36,29 @@ public interface AdminService {
 
 	// 관리자) 약국 관리 - 약국 목록
 	public List<Drugstore> getDrugstoreList();
+	
+	// 관리자) 의사 문의 조회
+	public List<Inquiry> getDoctorInquiryList();
 
-	// 관리자) 회원 문의 조회 
+	// 관리자) 회원 문의목록 조회 
 	public List<Inquiry> getMemberInquiryList();
 
-	// 관리자) 약국 문의 목록 조회
+	// 관리자) 약국 문의목록 조회
 	public List<Inquiry> getDrugstoreInquiryList();
 
 	// 관리자) 문의 답변
 	public ResponseEntity<?> updateInquiryAnswer(Inquiry inquiryData);
+
+	// 관리자) 날짜 필터링 - 회원 문의 조회
+	public List<Inquiry> getMemberInquiryListByDate(Map<String, String> date);
+
+	// 관리자) 의사정보 수정
+	public Integer updateDoctorsInfo(Doctor entry);
+
+	// 관리자) 병원정보 수정
+	public Integer updateHospitalInfo(Hospital entry);
+
+	// 관리자) 약국정보 수정
+	public Integer updateDrugstoreInfo(Drugstore entry);
+
 }

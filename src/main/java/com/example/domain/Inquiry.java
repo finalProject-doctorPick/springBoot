@@ -15,7 +15,10 @@ public class Inquiry {
 	private String 	inquiryAnswer;
 	private String 	inquiryAnswerRegdate;
 	private String 	status;
-	
+	private String 	originFileName;
+	private String 	fileExtension;
+	private String 	fileName;
+	private String 	filePath;
 	
 	/*********** 의사 *************/
 	// 의사 ID

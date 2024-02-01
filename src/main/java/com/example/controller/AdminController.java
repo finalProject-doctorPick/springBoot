@@ -1,6 +1,8 @@
 package com.example.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.domain.DashBoard;
@@ -16,7 +19,6 @@ import com.example.domain.Doctor;
 import com.example.domain.Drugstore;
 import com.example.domain.Hospital;
 import com.example.domain.Inquiry;
-import com.example.domain.Member;
 import com.example.service.AdminService;
 
 import lombok.RequiredArgsConstructor;
@@ -135,6 +137,29 @@ public class AdminController {
 	
 	/**
 	 * 	@author     : 정하림
+	 *  @created    : 2024-01-31
+	 *  @param      :
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 문의 관리 - 회원 문의 목록(날짜 필터링)
+	 * */
+	@GetMapping("/getMemberInquiryListByDate")
+	public ResponseEntity<?> getMemberInquiryListByDate(
+	    @RequestParam String startDate,
+	    @RequestParam String endDate
+	) {
+		Map<String, String> date = new HashMap<>();
+		date.put("startDate", startDate);
+		date.put("endDate", endDate);
+
+	    List<Inquiry> list = adminService.getMemberInquiryListByDate(date);
+	    System.out.println("받아온 리스트 : "+list);
+	    
+	    return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	
+	/**
+	 * 	@author     : 정하림
 	 *  @created    : 2024-01-24
 	 *  @param      : void
 	 *  @return     : ResponseEntity
@@ -142,7 +167,7 @@ public class AdminController {
 	 * */
 	@GetMapping("/getDoctorInquiryList")
 	public ResponseEntity<?> getDoctorInquiryList() {
-		List<Member> list = adminService.getDoctorInquiryList();
+		List<Inquiry> list = adminService.getDoctorInquiryList();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
@@ -172,18 +197,41 @@ public class AdminController {
     	return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
-//	/**
-//	 * 	@author     : 정하림
-//	 *  @created    : 2024-01-29
-//	 *  @param      : void
-//	 *  @return     : ResponseEntity
-//	 * 	@explain    : 관리자) 의사 관리 - 의사 정보 수정
-//	 * */
-//	@PostMapping("/updateDoctorsInfo")
-//	public ResponseEntity<?> updateDoctorsInfo(@RequestParam String memberEmail){
-//		
-//	}
+	/**
+	 * 	@author     : 박병태
+	 *  @created    : 2024-02-1
+	 *  @param      : Doctor
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 의사 관리 - 의사 정보 수정
+	 * */
+	@PostMapping("/updateDoctorsInfo")
+	public ResponseEntity<?> updateDoctorsInfo(@RequestBody Doctor entry){
+		return new ResponseEntity<>(adminService.updateDoctorsInfo(entry), HttpStatus.OK);
+	}
 	
+	/**
+	 * 	@author     : 박병태
+	 *  @created    : 2024-02-1
+	 *  @param      : Hospital
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 병원 관리 - 병원 정보 수정
+	 * */
+	@PostMapping("/updateHospitalInfo")
+	public ResponseEntity<?> updateHospitalInfo(@RequestBody Hospital entry){
+		return new ResponseEntity<>(adminService.updateHospitalInfo(entry), HttpStatus.OK);
+	}
 	
-	
+
+	/**
+	 * 	@author     : 박병태
+	 *  @created    : 2024-02-1
+	 *  @param      : Dcotor
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 병원 관리 - 병원 정보 수정
+	 * */
+	@PostMapping("/updateDrugstoreInfo")
+	public ResponseEntity<?> updateDrugstoreInfo(@RequestBody Drugstore entry){
+		System.out.println("drugstore 객체:"+entry.toString());
+		return new ResponseEntity<>(adminService.updateDrugstoreInfo(entry), HttpStatus.OK);
+	}
 }

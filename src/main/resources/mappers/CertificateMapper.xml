@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.CertificateDAO">
+
+	<resultMap id="CertificateResultMap" type="com.example.domain.Certificate">
+        <id property="certificateNum" 		column="certificate_num"/>
+        <result property="reservationNum" 	column="reservation_num"/>
+        <result property="certificateDate" 	column="certificate_date"/>
+        <result property="memberId" 		column="member_id"/>
+        <result property="memberName" 		column="member_name"/>
+        <result property="doctorId" 		column="doctor_id"/>
+        <result property="doctorName" 		column="doctor_name"/>
+        <result property="amount" 			column="amount"/>
+        <result property="description" 		column="description"/>
+        <result property="fileKey" 			column="file_key"/>
+        <result property="originFileName" 	column="origin_file_name"/>
+        <result property="fileExtension" 	column="file_extension"/>
+        <result property="fileName" 		column="file_name"/>
+        <result property="filePath" 		column="file_path"/>
+    </resultMap>
+
+	<select id="getMemberCertificateHistory" parameterType="int" resultMap="CertificateResultMap">
+		SELECT c.certificate_num 						 AS certificate_num
+			 , c.reservation_num 						 AS reservation_num
+			 , TO_CHAR(c.certificate_date, 'YYYY-mm-dd') AS certificate_date  
+			 , r.member_id 								 AS member_id 
+			 , (SELECT member_name
+				  FROM members m
+  				 WHERE m.member_id = r.member_id
+  			   ) 										 AS member_name
+			 , r.doctor_id 								 AS doctor_id
+			 , (SELECT d.doctor_name
+ 				  FROM doctor d
+ 				 WHERE r.doctor_id = d.doctor_id
+  			   )										 AS doctor_name
+			 , p.amount									 AS amount
+			 , c.description 							 AS description
+			 , c.file_key 								 AS file_key
+			 , f.origin_file_name						 AS origin_file_name  
+			 , f.file_extension							 AS file_extension  
+			 , f.file_name 								 AS file_name
+			 , f.file_path								 AS file_path 
+		  FROM certificate c
+	INNER JOIN reservation r
+			ON c.reservation_num = r.reservation_num 
+		   AND c.status 		 = 'UY'
+		   AND r.member_id 		 = #{memberId}
+	LEFT OUTER JOIN payments p
+			ON p.certificate_num = c.certificate_num 
+	LEFT OUTER JOIN file f
+			ON c.file_key 		 = f.file_key 
+	</select>
+
+</mapper>

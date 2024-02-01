@@ -12,9 +12,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dao.DoctorDAO;
 import com.example.dao.ReservationDAO;
+import com.example.domain.Certificate;
 import com.example.domain.Doctor;
 import com.example.domain.DoctorAvail;
 import com.example.domain.Inquiry;
+import com.example.domain.Member;
 import com.example.domain.MemberHistory;
 import com.example.domain.Reservation;
 import com.example.domain.ServerResponse;
@@ -23,9 +25,11 @@ import com.example.entity.DoctorEntity;
 import com.example.entity.RoleEntity;
 import com.example.repository.DoctorRepository;
 import com.example.repository.RoleRepository;
+import com.example.service.CertificateService;
 import com.example.service.DoctorService;
 import com.example.service.FilesService;
 import com.example.service.InquiryService;
+import com.example.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -41,6 +45,8 @@ public class DoctorServiceImpl implements DoctorService{
 	private final ModelMapper modelMapper;
 	private final ReservationDAO reservationDAO;
 	private final InquiryService inquiryService;
+	private final MemberService memberService;
+	private final CertificateService certificateService;
 	
 	/**
      * 	@author 	: 백두산	 
@@ -228,16 +234,15 @@ public class DoctorServiceImpl implements DoctorService{
      * */
 	@Override
 	public Doctor getDoctorInfoList(String doctorEmail) {
-		
 		return doctorDAO.getDoctorInfoList(doctorEmail);
 	}
 
-	/**
-     * 	@author 	: 박병태
-     *  @created	: 2024-01-23
-     *  @param		: Integer doctorId(의사 id번호)
-     *  @return		: List(Generic)
-     * 	@explain	: 의사) 문의 목록 조회
+    /**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-01
+     *  @param		: Integer doctorId
+     *  @return		: List<Inquiry> list
+     * 	@explain	: 의사) 문의내역 조회
      * */
 	@Override
 	public List<Inquiry> getDoctorInquiryList(Integer doctorId) {
@@ -248,12 +253,23 @@ public class DoctorServiceImpl implements DoctorService{
      * 	@author 	: 백두산	 
      *  @created	: 2024-01-31
      *  @param		: Integer memberId
-     *  @return		: List<MemberHistory>
+     *  @return		: Map<String, List<?>> result
      * 	@explain	: 환자 진료내역 조회
      * */	
 	@Transactional(readOnly = true)
-	public List<MemberHistory> getPatientDetail(Integer memberId) {
-		return doctorDAO.getPatientDetail(memberId);
+	public Map<String, List<?>> getPatientDetail(Integer memberId) {
+		Map<String, List<?>> result = new HashMap<>();
+		
+		// 회원정보 조회
+		List<Member> memberInfo = memberService.getMemberInfo(memberId);
+		
+		// 특정환자 진료기록 조회
+		List<Certificate> certificateInfo = certificateService.getMemberCertificateHistory(memberId);
+		
+		result.put("memberInfo", memberInfo);
+		result.put("certificateInfo", certificateInfo);
+		
+		return result;
 	}
 
 }

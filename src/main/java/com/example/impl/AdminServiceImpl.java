@@ -1,6 +1,7 @@
 package com.example.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,6 @@ import com.example.dao.DoctorDAO;
 import com.example.dao.DrugstoreDAO;
 import com.example.dao.HospitalDAO;
 import com.example.dao.InquiryDAO;
-import com.example.dao.MemberDAO;
 import com.example.dao.PaymentDAO;
 import com.example.domain.DashBoard;
 import com.example.domain.Doctor;
@@ -34,7 +34,6 @@ public class AdminServiceImpl implements AdminService{
 	private final DrugstoreDAO drugstoreDAO;
 	private final PaymentDAO paymentDAO;
 	private final DoctorDAO doctorDAO;
-	private final MemberDAO memberDAO;
 	private final InquiryDAO inquiryDAO;
 	
 	/**
@@ -94,8 +93,8 @@ public class AdminServiceImpl implements AdminService{
 	 * 	@explain    : 관리자) 문의 관리 - 의사 문의 목록
 	 * */
 	@Transactional(readOnly = true)
-	public List<Member> getDoctorInquiryList() {
-		return adminDAO.getDoctorInquiryList();
+	public List<Inquiry> getDoctorInquiryList() {
+		return inquiryDAO.getDoctorInquiryList(0);
 	}
 	
 	/**
@@ -143,7 +142,7 @@ public class AdminServiceImpl implements AdminService{
 	 * */
 	@Transactional(readOnly = true)
 	public List<Inquiry> getMemberInquiryList() {
-		return memberDAO.getMemberInquiryList("");
+		return inquiryDAO.getMemberInquiryList(0);
 	}
 
 	/**
@@ -182,5 +181,44 @@ public class AdminServiceImpl implements AdminService{
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		}
 		
+	}
+
+	@Override
+	public List<Inquiry> getMemberInquiryListByDate(Map<String, String> date) {
+		return inquiryDAO.getMemberInquiryListByDate(date);
+	}
+
+	/**
+	 * 	@author     : 박병태
+	 *  @created    : 2024-02-1
+	 *  @param      : Doctor
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 의사 관리 - 의사 정보 수정
+	 * */
+	public Integer updateDoctorsInfo(Doctor entry) {
+		return doctorDAO.updateDoctorsInfo(entry);
+	}
+
+	/**
+	 * 	@author     : 박병태
+	 *  @created    : 2024-02-1
+	 *  @param      : Hospital
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 병원 관리 - 병원 정보 수정
+	 * */
+	public Integer updateHospitalInfo(Hospital entry) {
+		return hospitalDAO.updateHospitalInfo(entry);
+	}
+
+	/**
+	 * 	@author     : 박병태
+	 *  @created    : 2024-02-1
+	 *  @param      : Drugstore
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 약국 관리 - 약국 정보 수정
+	 * */
+	public Integer updateDrugstoreInfo(Drugstore entry) {
+		System.out.println("impl dugstore객체:"+entry);
+		return drugstoreDAO.updateDrugstoreInfo(entry);
 	}
 }

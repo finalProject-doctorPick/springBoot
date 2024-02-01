@@ -17,4 +17,6 @@ public interface HospitalDAO {
 	List<Hospital> getCurrentLocationList(Map<String, String> requestData);
 
 	List<Hospital> getHospitalRegionCnt();
+
+	Integer updateHospitalInfo(Hospital entry);
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.domain.DashBoard;
+import com.example.domain.FinalPayment;
 import com.example.domain.Member;
 import com.example.domain.Payment;
 import com.example.domain.PointHistory;
@@ -54,6 +55,6 @@ public interface PaymentDAO {
 	public Integer recordPointEntry(PointHistory entry);
 
 	// 진료비 결제방식 조회
-	public String getPaymentMethod(Integer certificateNum);
+	public FinalPayment getPaymentMethod(Integer certificateNum);
 	
 }

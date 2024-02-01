@@ -15,4 +15,7 @@ public interface InquiryService {
 	// 의사) 문의 목록 조회
 	List<Inquiry> getDoctorInquiryList(Integer doctorId);
 
+	// 회원) 문의 목록 조회
+	List<Inquiry> getMemberInquiryList(Integer memberId);
+
 }

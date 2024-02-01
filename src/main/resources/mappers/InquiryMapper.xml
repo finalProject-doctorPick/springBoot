@@ -14,6 +14,11 @@
         <result property="drugstoreName" 		column="drugstore_name"/>
         <result property="drugstoreName" 		column="drugstore_name"/>
         <result property="fileKey" 				column="file_key"/>
+        <result property="status" 				column="status"/>
+        <result property="originFileName" 		column="origin_file_name"/>
+        <result property="fileExtension" 		column="file_extension"/>
+        <result property="fileName" 			column="file_name"/>
+        <result property="filePath" 			column="file_path"/>
     </resultMap>
     
     <insert id="registInquiry" parameterType="com.example.domain.Inquiry">
@@ -43,7 +48,7 @@
 		 WHERE inquiry_id 			  = #{inquiryId}
 	</update>
 	
-	<select id="getDrugstoreInquiryList" resultMap="InquiryResultMap">
+	<select id="getDrugstoreInquiryList" parameterType="int" resultMap="InquiryResultMap">
 		SELECT i.inquiry_id 									AS inquiry_id
 			 , i.inquiry_type 									AS inquiry_type
 			 , i.inquiry_title 									AS inquiry_title
@@ -55,11 +60,17 @@
 			 , i.file_key  										AS file_key 
 			 , i.status											AS status
 			 , d.drugstore_name 								AS drugstore_name
+			 , f.origin_file_name 								AS origin_file_name
+			 , f.file_extension 								AS file_extension
+			 , f.file_name 										AS file_name
+			 , f.file_path 										AS file_path
 		  FROM inquiry i
 	INNER JOIN drugstore d 
-			ON i.inquiry_writer_email = d.drugstore_email
+			ON i.inquiry_writer_email 	= d.drugstore_email
+	LEFT OUTER JOIN file f
+			ON i.file_key 				= f.file_key 
 		<if test="drugstoreId != 0">
-		 WHERE d.drugstore_id = #{drugstoreId}		
+		 WHERE d.drugstore_id 			= #{drugstoreId}		
 		</if>
 	  ORDER BY CASE WHEN i.status = 'N' 
 					THEN 1 
@@ -68,7 +79,7 @@
   			 , i.inquiry_regdate desc
 	</select>
 	
-	<select id="getDoctorInquiryList" resultMap="InquiryResultMap">
+	<select id="getDoctorInquiryList" parameterType="int" resultMap="InquiryResultMap">
 		SELECT i.inquiry_id 									AS inquiry_id
 			 , i.inquiry_type 									AS inquiry_type
 			 , i.inquiry_title 									AS inquiry_title
@@ -79,17 +90,70 @@
 			 , TO_CHAR(i.inquiry_answer_regdate, 'YYYY-mm-DD') 	AS inquiry_answer_regdate 
 			 , i.file_key  										AS file_key 
 			 , i.status											AS status
+			 , f.origin_file_name 								AS origin_file_name
+			 , f.file_extension 								AS file_extension
+			 , f.file_name 										AS file_name
+			 , f.file_path 										AS file_path
 		  FROM inquiry i
 	INNER JOIN doctor d 
-			ON i.inquiry_writer_email = d.doctor_email
-		<if test="drugstoreId != 0">
-		 WHERE d.doctor_id = #{doctorId}		
+			ON i.inquiry_writer_email 	= d.doctor_email
+	LEFT OUTER JOIN file f
+			ON i.file_key 				= f.file_key 
+		<if test="doctorId != 0">
+		 WHERE d.doctor_id 				= #{doctorId}		
 		</if>
 	  ORDER BY CASE WHEN i.status = 'N' 
 					THEN 1 
 					ELSE 2 
 				END
   			 , i.inquiry_regdate desc
+	</select>
+	
+	<select id="getMemberInquiryList" parameterType="int" resultMap="InquiryResultMap">
+		SELECT i.inquiry_id 									AS inquiry_id
+			 , i.inquiry_type 									AS inquiry_type
+		 	 , i.inquiry_title 									AS inquiry_title
+		 	 , i.inquiry_writer_email 							AS inquiry_writer_email
+		 	 , i.inquiry_comments 								AS inquiry_comments
+		 	 , TO_CHAR(i.inquiry_regdate, 'YYYY-mm-DD') 		AS inquiry_regdate
+		 	 , i.inquiry_answer 								AS inquiry_answer
+		 	 , TO_CHAR(i.inquiry_answer_regdate, 'YYYY-mm-DD') 	AS inquiry_answer_regdate 
+		     , i .file_key  									AS file_key
+		 	 , i.status											AS status
+		 	 , f.origin_file_name 								AS origin_file_name
+			 , f.file_extension 								AS file_extension
+			 , f.file_name 										AS file_name
+			 , f.file_path 										AS file_path
+	  	  FROM inquiry i
+	INNER JOIN members m 
+			ON i.inquiry_writer_email = m.member_email
+	LEFT OUTER JOIN file f
+			ON i.file_key 				= f.file_key 
+		<if test="doctorId != 0">
+	 	 WHERE m.member_id 				= #{doctorId}	
+		</if>
+  	  ORDER BY CASE WHEN i.status = 'N' 
+  					THEN 1 
+  					ELSE 2 
+  				END
+  		  	  , i.inquiry_regdate desc
+	</select>
+
+	<select id="getMemberInquiryListByDate" parameterType="hashmap" resultMap="InquiryResultMap">
+		SELECT i.inquiry_id 									AS inquiry_id
+				 , i.inquiry_type 									AS inquiry_type
+				 , i.inquiry_title 									AS inquiry_title
+				 , i.inquiry_writer_email 							AS inquiry_writer_email
+				 , i.inquiry_comments 								AS inquiry_comments
+				 , TO_CHAR(i.inquiry_regdate, 'YYYY-mm-DD') 		AS inquiry_regdate
+				 , i.inquiry_answer 								AS inquiry_answer
+				 , TO_CHAR(i.inquiry_answer_regdate, 'YYYY-mm-DD') 	AS inquiry_answer_regdate 
+				 , i.file_key  										AS file_key
+				 , i.status											AS status
+			  FROM inquiry i
+		INNER JOIN members m 
+				ON i.inquiry_writer_email = m.member_email
+		WHERE TO_CHAR(i.inquiry_regdate, 'yyyymmdd') BETWEEN #{startDate} AND #{endDate}
 	</select>
 	
 </mapper>

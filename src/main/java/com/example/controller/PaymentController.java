@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.domain.FinalPayment;
 import com.example.domain.Member;
 import com.example.domain.Payment;
 import com.example.domain.PointHistory;
@@ -180,12 +181,12 @@ public class PaymentController {
 	 * 	@author 	: 박병태
 	 *  @created	: 2024-01-28
 	 *  @param		: Integer certificateNum(진료id번호)
-	 *  @return		: String reservationPayment(결제방식)
+	 *  @return		: FinalPaymetn
 	 *  @explain	: 진료비 결제방식 조회
 	 * */
 	@GetMapping("/getPaymentMethod")
 	public ResponseEntity<?> getPamentMethod(@RequestParam Integer certificateNum){
-		String response = paymentService.getPaymentMethod(certificateNum).toUpperCase();
+		FinalPayment response = paymentService.getPaymentMethod(certificateNum);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 }
