@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -58,13 +59,13 @@ public class DoctorController {
 		return new ResponseEntity<>(item, HttpStatus.OK);
 	}
 
-    /**
-     * 	@author 	: 백두산	 
-     *  @created	: 2024-02-01
-     *  @param		: Integer doctorId
-     *  @return		: List<Inquiry> list
-     * 	@explain	: 의사) 문의내역 조회
-     * */
+	/**
+	 * 	@author 	: 백두산	 
+	 *  @created	: 2024-02-01
+	 *  @param		: Integer doctorId
+	 *  @return		: List<Inquiry> list
+	 * 	@explain	: 의사) 문의내역 조회
+	 * */
 	@GetMapping("/getDoctorInquiryList")
 	public ResponseEntity<?> getDoctorInquiry(@RequestParam Integer doctorId) {
 		List<Inquiry> list = doctorService.getDoctorInquiryList(doctorId);
@@ -139,14 +140,14 @@ public class DoctorController {
 
 		return ResponseEntity.ok(result);
 	}
-	
+
 	/**
-     * 	@author 	: 백두산	 
-     *  @created	: 2024-01-31
-     *  @param		: Integer memberId
-     *  @return		: List<MemberHistory>
-     * 	@explain	: 환자 진료내역 조회
-     * */	
+	 * 	@author 	: 백두산	 
+	 *  @created	: 2024-01-31
+	 *  @param		: Integer memberId
+	 *  @return		: List<MemberHistory>
+	 * 	@explain	: 환자 진료내역 조회
+	 * */	
 	@GetMapping("/getPatientDetail")
 	public ResponseEntity<?> getPatientDetail(@RequestParam Integer memberId){
 		Map<String,List<?>> list = doctorService.getPatientDetail(memberId);
@@ -176,17 +177,17 @@ public class DoctorController {
 		Integer reviewCnt = doctorService.reviewsCnt(doctorId);
 		// 리뷰 평균점수
 		Integer reviewAvg = doctorService.reviewAvg(doctorId);
-		
+
 		data.put("reservationCntForDoctor", reservationCntForDoctor);
 		data.put("reservationWaitCntForDoctor", reservationWaitCntForDoctor);
 		data.put("unpaidPaymentSum", unpaidPaymentSum);
 		data.put("totalSales", totalSales);
 		data.put("reviewCnt", reviewCnt);
 		data.put("reviewAvg", reviewAvg);
-		
+
 		return new ResponseEntity<>(data, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * @author : 정하림
 	 * @created : 2024-02-01
@@ -199,59 +200,59 @@ public class DoctorController {
 		List<Review> list = doctorService.getRecentReviewsList(doctorId);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
-	
+
 	/**
-     * 	@author 	: 백두산	 
-     *  @created	: 2024-02-01
-     *  @param		: Integer reservationNum
-     *  @return		: ResponseEntity
-     * 	@explain	: 진료 등록
-     * */	
+	 * 	@author 	: 백두산	 
+	 *  @created	: 2024-02-01
+	 *  @param		: Integer reservationNum
+	 *  @return		: ResponseEntity
+	 * 	@explain	: 진료 등록
+	 * */	
 	@GetMapping("/registCertificate")
 	public ResponseEntity<?> registCertificate(@RequestParam Integer reservationNum){
 		ResponseEntity<?> responseEntity = doctorService.registCertificate(reservationNum);
 		return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
 	}
-	
+
 	/**
-     * 	@author 	: 백두산	 
-     *  @created	: 2024-02-01
-     *  @param		: Integer reservationNum
-     *  @return		: ResponseEntity
-     * 	@explain	: 환자 입장요청 SMS 전송
-     * */
+	 * 	@author 	: 백두산	 
+	 *  @created	: 2024-02-01
+	 *  @param		: Integer reservationNum
+	 *  @return		: ResponseEntity
+	 * 	@explain	: 환자 입장요청 SMS 전송
+	 * */
 	@GetMapping("/callSMSSendToPatient")
 	public ResponseEntity<?> callSMSSendToPatient(@RequestParam Integer memberId){
 		ResponseEntity<?> responseEntity = doctorService.callSMSSendToPatient(memberId);
 		return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
 	}
-	
+
 	/**
-     * 	@author 	: 백두산	 
-     *  @created	: 2024-02-01
-     *  @param		: Integer reservationNum, Integer memberId
-     *  @return		: ResponseEntity
-     * 	@explain	: 환자 예약 취소
-     * */
+	 * 	@author 	: 백두산	 
+	 *  @created	: 2024-02-01
+	 *  @param		: Integer reservationNum, Integer memberId
+	 *  @return		: ResponseEntity
+	 * 	@explain	: 환자 예약 취소
+	 * */
 	@GetMapping("/cancelReservation")
 	public ResponseEntity<?> cancelReservation(@RequestParam Integer reservationNum, @RequestParam Integer memberId){
 		ResponseEntity<?> responseEntity = doctorService.cancelReservation(reservationNum, memberId);
 		return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
 	}
-	
+
 	/**
-     * 	@author 	: 백두산	 
-     *  @created	: 2024-02-01
-     *  @param		: Integer certificateNum, Integer memberId
-     *  @return		: ResponseEntity
-     * 	@explain	: 환자 진료 취소
-     * */
+	 * 	@author 	: 백두산	 
+	 *  @created	: 2024-02-01
+	 *  @param		: Integer certificateNum, Integer memberId
+	 *  @return		: ResponseEntity
+	 * 	@explain	: 환자 진료 취소
+	 * */
 	@GetMapping("/cancelCertification")
 	public ResponseEntity<?> cancelCertification(@RequestParam Integer certificateNum, @RequestParam Integer memberId){
 		ResponseEntity<?> responseEntity = doctorService.cancelCertification(certificateNum, memberId);
 		return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
 	}
-	
+
 	/**
 	 * @author : 정하림
 	 * @created : 2024-02-01
@@ -261,9 +262,9 @@ public class DoctorController {
 	 */
 	@GetMapping("/getDoctorSubjectCntList")
 	public ResponseEntity<?> getDoctorSubjectCntList() {
-		
+
 		List<Doctor> list = doctorService.getDoctorSubjectCntList();
-		
+
 
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
@@ -284,5 +285,23 @@ public class DoctorController {
 		ResponseEntity<?> result = doctorService.finishCertificate(certificateData, certificateFile, prescriptionFile);
 		
 		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+
+	/**
+	 * @author : 박병태
+	 * @created : 2024-02-01
+	 * @param : Doctor
+	 * @return : ResponseEntity
+	 * @explain : 의사 대시보드 - 의사정보 수정
+	 */
+	@PostMapping("/updateDoctorInfo")
+	public ResponseEntity<?> getupdateDoctorInfo(@ModelAttribute Doctor entry, @RequestPart(name = "fileList", required = false) List<MultipartFile> fileList) {
+		Integer response;
+		if(fileList != null) {
+			response = doctorService.updateDoctorInfo(entry, fileList);
+		} else {
+			response = doctorService.updateDoctorInfo(entry);
+		}
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 }

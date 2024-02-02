@@ -35,6 +35,7 @@
         <result property="reviewTitleB" 		column="review_titleB"/>
         <result property="reviewTitleC" 		column="review_titleC"/>
         <result property="count" 				column="count"/>
+        <result property="filePath"			column="file_path"></result>
     </resultMap>
     
    	<resultMap id="DoctorAvailResultMap" type="com.example.domain.DoctorAvail">
@@ -283,10 +284,11 @@
 	</select>
 	
 	<select id="getDoctorInfoList" resultMap="DoctorResultMap">
-		SELECT d.*, h.hospital_name 
-		FROM doctor d LEFT OUTER JOIN hospital h 
-		ON h.hospital_id = d.hospital_id
-		WHERE doctor_email = #{doctorEmail}
+	  SELECT d.*, h.hospital_name, f.file_path
+	  FROM doctor d
+	  LEFT OUTER JOIN hospital h ON h.hospital_id = d.hospital_id
+	  LEFT OUTER JOIN file f ON f.file_key = d.file_key
+	  WHERE doctor_email = #{doctorEmail}
 	</select>
 	
 	<select id="getDoctorAvailList" resultMap="DoctorAvailResultMap">
@@ -333,7 +335,7 @@
 	
 	<update id="updateDoctorsInfo" parameterType="com.example.dto.DoctorDTO">
 		UPDATE doctor
-		SET doctor_name = #{doctorName}, doctor_subject = #{doctorSubject}, doctor_major=#{doctorMajor}, doctor_subject=#{doctorSubject}, hospital_id = (SELECT hospital_id FROM hospital WHERE hospital_name = #{hospitalName})
+		SET doctor_name = #{doctorName}, doctor_subject = #{doctorSubject}, doctor_major=#{doctorMajor}, doctor_subject=#{doctorSubject}, hospital_id = (SELECT hospital_id FROM hospital WHERE hospital_name = #{hospitalName}),  file_key = COALESCE(#{fileKey}, file_key)
 		WHERE doctor_id = #{doctorId}
 	</update>
 
@@ -386,4 +388,9 @@
 		GROUP BY doctor_subject
 	</select>
 	
+	<select id="getDoctorEmail" resultType="String">
+		SELECT doctor_email 
+		FROM doctor
+		WHERE doctor_id = #{doctorId}
+	</select>	
 </mapper>

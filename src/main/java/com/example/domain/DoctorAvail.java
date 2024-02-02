@@ -35,5 +35,7 @@ public class DoctorAvail {
 	// 휴식종료시간
 	private String restEndtime;
 
-
+	// 근무/휴무 여부 (근무일 경우 'Y', 휴무일 경우 'N')
+	private String useStatus;
+	
 }

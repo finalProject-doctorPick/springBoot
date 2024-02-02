@@ -95,5 +95,11 @@ public interface DoctorService {
 	// 진료 종료
 	ResponseEntity<?> finishCertificate(Certificate certificateData, List<MultipartFile> certificateFile,
 			List<MultipartFile> prescriptionFile);
+	
+	//의사 정보 업데이트
+	Integer updateDoctorInfo(Doctor entry);
+
+	//의사 정보 업데이트(파일업로드 있을 시)
+	Integer updateDoctorInfo(Doctor entry, List<MultipartFile> fileList);
 
 }

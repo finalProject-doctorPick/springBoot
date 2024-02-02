@@ -101,6 +101,8 @@ public class Doctor {
 	// 관리자_통계) 의사 등록 요청 수 
 	private Integer doctorRequestCnt;
 	
+	// 의사 이미지
+	private String filePath;
 
 	private Set<Role> roles = new HashSet<>();
 	

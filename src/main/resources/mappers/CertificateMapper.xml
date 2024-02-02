@@ -90,7 +90,7 @@
 	
 	<update id="finishCertificate" parameterType="com.example.domain.Certificate">
 		UPDATE certificate
-		   SET status 	= 'UY'
+		   SET status 	= 'UP'
 		<if test="fileKey != null and fileKey != ''">
 		     , fileKey	= #{fileKey} 
 		</if>

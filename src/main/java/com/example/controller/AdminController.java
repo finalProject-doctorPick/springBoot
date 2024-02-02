@@ -270,7 +270,6 @@ public class AdminController {
 	 * */
 	@PostMapping("/updateDrugstoreInfo")
 	public ResponseEntity<?> updateDrugstoreInfo(@RequestBody Drugstore entry){
-		System.out.println("drugstore 객체:"+entry.toString());
 		return new ResponseEntity<>(adminService.updateDrugstoreInfo(entry), HttpStatus.OK);
 	}
 }
