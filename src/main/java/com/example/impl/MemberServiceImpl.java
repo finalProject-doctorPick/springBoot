@@ -304,4 +304,19 @@ public class MemberServiceImpl implements MemberService{
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
+    /** 
+     * 	@author 	: 이성규	 
+     *  @created	: 2024-02-02
+     *  @param		: Integer certificateNum
+     *  @return		: ResponseEntity
+     * 	@explain	: 회원) 진료실대기실 입장
+     * */    
+
+	@Override
+	public ResponseEntity<?> getCertificateInfo(Integer certificateNum) {
+		ServerResponse response = new ServerResponse();
+		certificateService.getCertificateInfo(certificateNum);
+		return null;
+	}
+	
 }

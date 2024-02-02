@@ -51,6 +51,8 @@ public interface MemberService {
 	// 진료실 입장
 	public ResponseEntity<?> updateCertificateStaus(Integer certificateNum);
 	
+	// 진료대기실 입장
+	public ResponseEntity<?> getCertificateInfo(Integer certificateNum);
 	/**
 	 *	*******************JPA*********************** 
 	 * */
@@ -62,6 +64,7 @@ public interface MemberService {
 	
 	// 일반 회원 조회
 	public MemberEntity getMember(String email);
+
 
 
 }

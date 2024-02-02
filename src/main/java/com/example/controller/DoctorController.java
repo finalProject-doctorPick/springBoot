@@ -273,7 +273,7 @@ public class DoctorController {
      *  @created	: 2024-02-02
      *  @param		: Integer certificateNum, Integer memberId
      *  @return		: ResponseEntity
-     * 	@explain	: 진료 완료
+     * 	@explain	: 진료 종료
      * */
 	@PostMapping("/finishCertificate")
 	public ResponseEntity<?> finishCertificate(
@@ -286,6 +286,9 @@ public class DoctorController {
 		System.out.println("certificateData 값 : " + certificateData.toString());
 		System.out.println("certificateFile 크기 : " + certificateFile.size());
 		System.out.println("prescriptionFile 크기 : " + prescriptionFile.size());
-		return null;
+		
+		ResponseEntity<?> result = doctorService.finishCertificate(certificateData, certificateFile, prescriptionFile);
+		
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 }

@@ -16,6 +16,8 @@ import com.example.dao.DoctorDAO;
 import com.example.domain.Certificate;
 import com.example.domain.Doctor;
 import com.example.domain.DoctorAvail;
+import com.example.domain.Drugstore;
+import com.example.domain.DrugstoreHistory;
 import com.example.domain.Inquiry;
 import com.example.domain.Member;
 import com.example.domain.MemberHistory;
@@ -411,6 +413,35 @@ public class DoctorServiceImpl implements DoctorService{
 	@Override
 	public List<Doctor> getDoctorSubjectCntList() {
 		return doctorDAO.getDoctorSubjectCntList();
+	}
+
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-02
+     *  @param		: Integer certificateNum, Integer memberId
+     *  @return		: ResponseEntity
+     * 	@explain	: 진료 종료
+     * */
+	@Transactional
+	public ResponseEntity<?> finishCertificate(Certificate certificateData, List<MultipartFile> certificateFile,
+			List<MultipartFile> prescriptionFile) {
+		ServerResponse response = new ServerResponse();
+		DrugstoreHistory drugstoreDataHistory = new DrugstoreHistory();
+		
+		// 진단서 파일 업로드
+		if(certificateFile != null) {
+			String fileKey = filesService.fileupload(certificateFile, String.valueOf(certificateData.getCertificateNum()));
+			certificateData.setFileKey(fileKey);
+		}
+		
+		// 진료 완료
+		certificateService.finishCertificate(certificateData);
+		
+		// 처방전 파일 업로드
+	
+		response.setSuccess(true);
+		response.setMessage("진료가 종료 되었습니다.");
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 }
