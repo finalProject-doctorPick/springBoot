@@ -281,12 +281,6 @@ public class DoctorController {
 			@RequestPart(name = "certificateFile", required = false) List<MultipartFile> certificateFile,
 			@RequestPart(name = "prescriptionFile ", required = false) List<MultipartFile> prescriptionFile ){
 		
-		System.out.println("***************************");
-		System.out.println("finishCertificate 진입");
-		System.out.println("certificateData 값 : " + certificateData.toString());
-		System.out.println("certificateFile 크기 : " + certificateFile.size());
-		System.out.println("prescriptionFile 크기 : " + prescriptionFile.size());
-		
 		ResponseEntity<?> result = doctorService.finishCertificate(certificateData, certificateFile, prescriptionFile);
 		
 		return new ResponseEntity<>(result, HttpStatus.OK);
