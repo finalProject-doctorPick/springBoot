@@ -285,7 +285,6 @@ public class AdminServiceImpl implements AdminService{
 	 * 	@explain    : 관리자) 약국 관리 - 약국 정보 수정
 	 * */
 	public Integer updateDrugstoreInfo(Drugstore entry) {
-		System.out.println("impl dugstore객체:"+entry);
 		return drugstoreDAO.updateDrugstoreInfo(entry);
 	}
 }
