@@ -152,4 +152,18 @@ public class MemberController {
     	ResponseEntity<?> response = memberService.updateCertificateStaus(certificateNum);
     	return new ResponseEntity<>(response, HttpStatus.OK);
     }
+    
+    /** 
+     * 	@author 	: 이성규	 
+     *  @created	: 2024-02-02
+     *  @param		: Integer certificateNum
+     *  @return		: ResponseEntity
+     * 	@explain	: 회원) 진료실 대기실 입장
+     * */   
+    @GetMapping("/getCertificateInfo")
+    public ResponseEntity<?> getCertificateInfo(@RequestParam Integer certificateNum){
+    	ResponseEntity<?> response = memberService.getCertificateInfo(certificateNum);
+    	return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+    
 }

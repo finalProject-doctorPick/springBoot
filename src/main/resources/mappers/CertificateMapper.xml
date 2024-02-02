@@ -17,6 +17,8 @@
         <result property="fileExtension" 	column="file_extension"/>
         <result property="fileName" 		column="file_name"/>
         <result property="filePath" 		column="file_path"/>
+        <result property="reservationDate" 	column="reservation_date"/>
+        <result property="patientComments" 	column="patient_comments"/>
     </resultMap>
 
 	<select id="getMemberCertificateHistory" parameterType="int" resultMap="CertificateResultMap">
@@ -85,4 +87,12 @@
 		   SET certificate_status = 'Y'
 		 WHERE certificate_Num = ${certificateNum}
 	</update>
+	
+	<select id="getCertificateInfo"  parameterType="int" resultMap="CertificateResultMap">
+		SELECT r.reservation_date ,m.member_name,r.patient_comments  
+ 	FROM certificate c 
+ 	INNER JOIN reservation r ON c.reservation_num = r.reservation_num
+ 	INNER JOIN members m ON r.member_id = m.member_id 
+ 	WHERE c.certificate_num = ${certificateNum};
+	</select>
 </mapper>

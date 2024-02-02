@@ -17,4 +17,7 @@ public interface CertificateService {
 
 	public void updateCertificateStaus(Integer certificateNum);
 	
+	// 진료 대기실 입장
+	public void getCertificateInfo(Integer certificateNum);
+	
 }
