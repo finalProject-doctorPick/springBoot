@@ -41,4 +41,7 @@ public class Reservation {
 	
 	// 예약 건수
 	private Integer count;
+	
+	// 진료번호
+	private Integer certificateNum;
 }

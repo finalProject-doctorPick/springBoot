@@ -14,4 +14,10 @@ public interface CertificateDAO {
 
 	Integer getCertificateCnt();
 
+	// 진료 등록
+	void registCertificate(Integer reservationNum);
+
+	// 진료 취소
+	void cancelCertification(Integer certificateNum);
+
 }

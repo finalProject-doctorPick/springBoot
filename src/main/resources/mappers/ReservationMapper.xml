@@ -13,6 +13,7 @@
         <result property="fileKey" 				column="fileKey"/>
         <result property="patientComments" 		column="patient_comments"/>
         <result property="reservationStatus"	column="reservation_status"/>
+        <result property="certificateNum"		column="certificate_num"/>
         <result property="count"				column="count"/>
         
     </resultMap>
@@ -31,11 +32,9 @@
 			 , r.file_key  								AS file_key 
 			 , r.patient_comments  						AS patient_comments
 		  FROM reservation r
-	 LEFT JOIN certificate c 
-	 		ON r.reservation_num 		= c.reservation_num
 		 WHERE r.doctor_id 				= #{doctorId}
   		   AND DATE(r.reservation_date) = CURDATE()
-  		   AND c.reservation_num IS NULL
+  		   AND r.reservation_status IN ('W', 'R')
 	  ORDER BY CASE WHEN r.reservation_status = 'R' 
 	  				THEN 1 ELSE 2 
 	  			END
@@ -57,6 +56,7 @@
 			 , r.file_key  								AS file_key 
 			 , r.patient_comments  						AS patient_comments
 			 , c.certificate_status						AS certificate_status
+			 , c.certificate_num						AS certificate_num
 		  FROM reservation r
 	INNER JOIN certificate c
 			ON r.reservation_num 		= c.reservation_num 
@@ -114,4 +114,17 @@
 		SELECT count(*) as count FROM reservation r 
 		WHERE DATE(r.reservation_date) = CURDATE()
 	</select>
+	
+	<update id="updateReservationStatus" parameterType="int">
+		UPDATE reservation
+		   SET reservation_status = 'S'
+		 WHERE reservation_num 	  = ${reservationNum}
+	</update>
+
+	<update id="cancelReservation" parameterType="int">
+		UPDATE reservation
+		   SET reservation_status = 'C'
+		 WHERE reservation_num 	  = ${reservationNum}
+	</update>	
+	
 </mapper>

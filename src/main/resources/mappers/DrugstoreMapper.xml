@@ -67,29 +67,29 @@
 	</select>
 	
 	<select id="getDrugstoreHistoryList" parameterType="int" resultMap="DrugstoreHistoryResultMap">
-		SELECT dh.drugstore_history_id 				AS drugstore_history_id
-			 , m.member_name						AS member_name	 
-			 , m.member_birth		 				AS member_birth
-		     , m.member_tel                         AS member_tel
+		SELECT dh.drugstore_history_id 					AS drugstore_history_id
+			 , m.member_name							AS member_name	 
+			 , TO_CHAR(m.member_birth, 'YYYY-mm-DD')	AS member_birth
+		     , m.member_tel                         	AS member_tel
 			 , CASE WHEN dh.receive_type = 'W' 
 			 		THEN '직접수령' 
 			 		ELSE '택배수령' 
-			 	END 								AS receive_type	
-			 , dh.status							AS status		 
-			 , dh.remarks							AS remarks
+			 	END 									AS receive_type	
+			 , dh.status								AS status		 
+			 , dh.remarks								AS remarks
 		  FROM drugstore_history dh
 	INNER JOIN members m
-			ON dh.member_id = m.member_id 
+			ON dh.member_id 	= m.member_id 
 	INNER JOIN doctor d
-			ON dh.doctor_id = d.doctor_id 
-		 WHERE dh.drugstore_id = #{drugstoreId}
+			ON dh.doctor_id		= d.doctor_id 
+		 WHERE dh.drugstore_id 	= #{drugstoreId}
 	</select>	
 	
 	<update id="updateDrugstoreHistory" parameterType="com.example.domain.DrugstoreHistory">
 		UPDATE drugstore_history
-  		   SET remarks 				= #{remarks},
+  		   SET remarks 				= #{remarks}
   			 , status 				= "DY"
-  		WHERE drugstore_history_id 	= #{drugstoreHistoryId}
+  		WHERE drugstore_history_id 	= ${drugstoreHistoryId}
 	</update>
 	
 	<update id="updateDrugstoreInfo" parameterType="com.example.domain.Drugstore">

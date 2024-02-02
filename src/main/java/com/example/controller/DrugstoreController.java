@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.domain.Drugstore;
 import com.example.domain.DrugstoreHistory;
 import com.example.domain.Inquiry;
-import com.example.domain.Review;
 import com.example.service.DrugstoreService;
 
 import lombok.RequiredArgsConstructor;
@@ -112,10 +111,11 @@ public class DrugstoreController {
 		System.out.println("updateDrugstoreInfo 진입 > 데이터 값 : " + storeData.toString());
 		return null;
 	}
+	
 	/**
-     * 	@author 	: 이성규	 
-     *  @created	: 2024-01-31
-     *  @param		: Integer drugstoreHistoryId, String remarks
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-01
+     *  @param		: DrugstoreHistory storeHistory
      *  @return		: ResponseEntity
      * 	@explain	: 약국 수령확인 
      * */

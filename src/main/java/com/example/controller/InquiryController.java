@@ -31,11 +31,6 @@ public class InquiryController {
      * */
 	@PostMapping("/registInquiry")
 	public ResponseEntity<?> registInquiry(@ModelAttribute Inquiry inquiry, @RequestPart(name = "fileList", required = false) List<MultipartFile> fileList){
-		
-		System.out.println("**********************************");
-		System.out.println("/registInquiry 진입");
-		System.out.println("inquiry 값 : " + inquiry.toString());
-		System.out.println("fileList size : " + fileList.size());
 		ResponseEntity<?> responseEntity = inquiryService.registInquiry(inquiry, fileList);
 		return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
 	}

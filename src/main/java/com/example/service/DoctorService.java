@@ -3,6 +3,7 @@ package com.example.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.domain.Doctor;
@@ -73,6 +74,18 @@ public interface DoctorService {
 	Integer reviewsCnt(Integer doctorId);
 
 	Integer reviewAvg(Integer doctorId);
+
+	// 진료 등록
+	ResponseEntity<?> registCertificate(Integer reservationNum);
+
+	// 환자 입장요청 SMS 전송
+	ResponseEntity<?> callSMSSendToPatient(Integer memberId);
+
+	// 환자 예약 취소
+	ResponseEntity<?> cancelReservation(Integer reservationNum, Integer memberId);
+
+	// 환자 진료 취소
+	ResponseEntity<?> cancelCertification(Integer certificateNum, Integer memberId);
 
 	List<Review> getRecentReviewsList(Integer doctorId);
 

@@ -191,12 +191,61 @@ public class DoctorController {
 	 */
 	@GetMapping("/getRecentReviewsList")
 	public ResponseEntity<?> getRecentReviewsList(@RequestParam Integer doctorId) {
-		
 		List<Review> list = doctorService.getRecentReviewsList(doctorId);
-
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-01
+     *  @param		: Integer reservationNum
+     *  @return		: ResponseEntity
+     * 	@explain	: 진료 등록
+     * */	
+	@GetMapping("/registCertificate")
+	public ResponseEntity<?> registCertificate(@RequestParam Integer reservationNum){
+		ResponseEntity<?> responseEntity = doctorService.registCertificate(reservationNum);
+		return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
+	}
+	
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-01
+     *  @param		: Integer reservationNum
+     *  @return		: ResponseEntity
+     * 	@explain	: 환자 입장요청 SMS 전송
+     * */
+	@GetMapping("/callSMSSendToPatient")
+	public ResponseEntity<?> callSMSSendToPatient(@RequestParam Integer memberId){
+		ResponseEntity<?> responseEntity = doctorService.callSMSSendToPatient(memberId);
+		return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
+	}
+	
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-01
+     *  @param		: Integer reservationNum, Integer memberId
+     *  @return		: ResponseEntity
+     * 	@explain	: 환자 예약 취소
+     * */
+	@GetMapping("/cancelReservation")
+	public ResponseEntity<?> cancelReservation(@RequestParam Integer reservationNum, @RequestParam Integer memberId){
+		ResponseEntity<?> responseEntity = doctorService.cancelReservation(reservationNum, memberId);
+		return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
+	}
+	
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-01
+     *  @param		: Integer certificateNum, Integer memberId
+     *  @return		: ResponseEntity
+     * 	@explain	: 환자 진료 취소
+     * */
+	@GetMapping("/cancelCertification")
+	public ResponseEntity<?> cancelCertification(@RequestParam Integer certificateNum, @RequestParam Integer memberId){
+		ResponseEntity<?> responseEntity = doctorService.cancelCertification(certificateNum, memberId);
+		return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
+	}
 	
 	/**
 	 * @author : 정하림

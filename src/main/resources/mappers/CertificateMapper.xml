@@ -49,10 +49,35 @@
 			ON p.certificate_num = c.certificate_num 
 	LEFT OUTER JOIN file f
 			ON c.file_key 		 = f.file_key 
+	  ORDER BY c.certificate_date DESC
 	</select>
 
 	<select id="getCertificateCnt" resultType="int">
 		SELECT count(*) AS count FROM certificate c
 		WHERE status = 'UY' AND DATE(c.certificate_date) = CURDATE()
 	</select>
+	
+	<insert id="registCertificate" parameterType="int">
+		INSERT INTO certificate		
+		(
+			  certificate_date
+			, reservation_num
+			, status
+			, certificate_status
+		)
+		VALUES
+		(
+			  now()
+			, ${reservation_num}
+			, 'UN'
+			, 'N'
+		)
+	</insert>
+	
+	<update id="cancelCertification" parameterType="int">
+		UPDATE certificate
+		   SET status 		   = 'UC'
+		 WHERE certificate_Num = ${certificateNum}
+	</update>
+	
 </mapper>
