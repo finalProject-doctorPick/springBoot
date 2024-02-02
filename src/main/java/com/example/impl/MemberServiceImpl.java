@@ -175,7 +175,9 @@ public class MemberServiceImpl implements MemberService{
      * */
 	@Transactional(readOnly = true)
 	public Member findMemberByEmail(String memberEmail) {
-		return memberDAO.findMemberByEmail(memberEmail);
+		Member m = memberDAO.findMemberByEmail(memberEmail);
+		m.setMemberTel(m.getMemberTel().replaceAll("-", ""));
+		return m;
 	}
 
     /**
@@ -205,7 +207,7 @@ public class MemberServiceImpl implements MemberService{
             return validationResponse;
         }
 		
-		
+		updateMemberData.setMemberTel(updateMemberData.getMemberTel().replaceAll("-", ""));
 		int updateYn = memberDAO.updateMemberInfo(updateMemberData);
 		if(updateYn == 0) {
 			response.setSuccess(false);
@@ -298,7 +300,10 @@ public class MemberServiceImpl implements MemberService{
 		ServerResponse response = new ServerResponse();
 		
 		certificateService.updateCertificateStaus(certificateNum);
-		return null;
+		response.setSuccess(true);
+		response.setMessage("회원의 진료실 입장이 완료되었습니다.");
+		
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
 }
