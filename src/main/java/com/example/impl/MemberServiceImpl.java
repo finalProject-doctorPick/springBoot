@@ -205,7 +205,7 @@ public class MemberServiceImpl implements MemberService{
             return validationResponse;
         }
 		
-		
+		updateMemberData.setMemberTel(updateMemberData.getMemberTel().replaceAll("-", ""));
 		int updateYn = memberDAO.updateMemberInfo(updateMemberData);
 		if(updateYn == 0) {
 			response.setSuccess(false);
