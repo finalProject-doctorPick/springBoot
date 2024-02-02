@@ -20,4 +20,7 @@ public interface CertificateDAO {
 	// 진료 취소
 	void cancelCertification(Integer certificateNum);
 
+	// 진료실 입장
+	void updateCertificateStaus(Integer certificateNum);
+
 }

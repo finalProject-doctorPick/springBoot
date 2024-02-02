@@ -47,5 +47,18 @@ public class Hospital {
 	
 	private int partnershipYcount;
 	
+	public void setHospitalTel(String hospitalTel) {
+        if (hospitalTel.length() == 8) {
+            this.hospitalTel = hospitalTel.substring(0, 4) + "-" + hospitalTel.substring(4);
+        } else if (hospitalTel.length() == 9) {
+            this.hospitalTel = hospitalTel.substring(0, 2) + "-" + hospitalTel.substring(2, 5) + "-" + hospitalTel.substring(5);
+        } else if (hospitalTel.length() == 10) {
+            this.hospitalTel = hospitalTel.substring(0, 3) + "-" + hospitalTel.substring(3, 6) + "-" + hospitalTel.substring(6);
+        } else if (hospitalTel.length() == 11) {
+            this.hospitalTel = hospitalTel.substring(0, 3) + "-" + hospitalTel.substring(3, 7) + "-" + hospitalTel.substring(7);
+        } else {
+            this.hospitalTel = hospitalTel;
+        }
+    }
 	
 }

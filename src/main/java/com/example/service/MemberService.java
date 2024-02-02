@@ -48,6 +48,9 @@ public interface MemberService {
 	// 일반회원 리뷰 삭제
 	public ResponseEntity<?> deleteReviewId(List<Integer> reviewList);
 
+	// 진료실 입장
+	public ResponseEntity<?> updateCertificateStaus(Integer certificateNum);
+	
 	/**
 	 *	*******************JPA*********************** 
 	 * */
@@ -59,5 +62,6 @@ public interface MemberService {
 	
 	// 일반 회원 조회
 	public MemberEntity getMember(String email);
+
 
 }

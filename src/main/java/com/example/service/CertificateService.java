@@ -14,5 +14,7 @@ public interface CertificateService {
 
 	// 진료 취소
 	public void cancelCertification(Integer certificateNum);
+
+	public void updateCertificateStaus(Integer certificateNum);
 	
 }

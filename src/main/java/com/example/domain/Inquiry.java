@@ -166,6 +166,46 @@ public class Inquiry {
 	private String memberAuth;
 
 
+	public void setDoctorTel(String doctorTel) {
+        if (doctorTel.length() == 8) {
+            this.doctorTel = doctorTel.substring(0, 4) + "-" + doctorTel.substring(4);
+        } else if (doctorTel.length() == 9) {
+            this.doctorTel = doctorTel.substring(0, 2) + "-" + doctorTel.substring(2, 5) + "-" + doctorTel.substring(5);
+        } else if (doctorTel.length() == 10) {
+            this.doctorTel = doctorTel.substring(0, 3) + "-" + doctorTel.substring(3, 6) + "-" + doctorTel.substring(6);
+        } else if (doctorTel.length() == 11) {
+            this.doctorTel = doctorTel.substring(0, 3) + "-" + doctorTel.substring(3, 7) + "-" + doctorTel.substring(7);
+        } else {
+            this.doctorTel = doctorTel;
+        }
+    }
 	
+	public void setMemberTel(String memberTel) {
+		if (memberTel.length() == 8) {
+			this.memberTel = memberTel.substring(0, 4) + "-" + memberTel.substring(4);
+		} else if (memberTel.length() == 9) {
+			this.memberTel = memberTel.substring(0, 2) + "-" + memberTel.substring(2, 5) + "-" + memberTel.substring(5);
+		} else if (memberTel.length() == 10) {
+			this.memberTel = memberTel.substring(0, 3) + "-" + memberTel.substring(3, 6) + "-" + memberTel.substring(6);
+		} else if (memberTel.length() == 11) {
+			this.memberTel = memberTel.substring(0, 3) + "-" + memberTel.substring(3, 7) + "-" + memberTel.substring(7);
+		} else {
+			this.memberTel = memberTel;
+		}
+	}
+	
+	public void setDrugstoreTel(String drugstoreTel) {
+		if (drugstoreTel.length() == 8) {
+			this.drugstoreTel = drugstoreTel.substring(0, 4) + "-" + drugstoreTel.substring(4);
+		} else if (drugstoreTel.length() == 9) {
+			this.drugstoreTel = drugstoreTel.substring(0, 2) + "-" + drugstoreTel.substring(2, 5) + "-" + drugstoreTel.substring(5);
+		} else if (drugstoreTel.length() == 10) {
+			this.drugstoreTel = drugstoreTel.substring(0, 3) + "-" + drugstoreTel.substring(3, 6) + "-" + drugstoreTel.substring(6);
+		} else if (drugstoreTel.length() == 11) {
+			this.drugstoreTel = drugstoreTel.substring(0, 3) + "-" + drugstoreTel.substring(3, 7) + "-" + drugstoreTel.substring(7);
+		} else {
+			this.drugstoreTel = drugstoreTel;
+		}
+	}
 }
 

@@ -100,7 +100,7 @@ public class MemberController {
     	return new ResponseEntity<>(response, HttpStatus.OK);
     }
     
-    /**
+    /** 
      * 	@author 	: 백두산	 
      *  @created	: 2024-01-27
      *  @param		: Integer memberId
@@ -140,4 +140,16 @@ public class MemberController {
     	return new ResponseEntity<>(response, HttpStatus.OK);
     }
     
+    /** 
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-02
+     *  @param		: Integer certificateNum
+     *  @return		: ResponseEntity
+     * 	@explain	: 회원) 진료실 입장
+     * */    
+    @GetMapping("/updateCertificateStaus")
+    public ResponseEntity<?> updateCertificateStaus(@RequestParam Integer certificateNum){
+    	ResponseEntity<?> response = memberService.updateCertificateStaus(certificateNum);
+    	return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }
