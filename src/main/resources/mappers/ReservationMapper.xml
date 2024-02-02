@@ -15,6 +15,7 @@
         <result property="reservationStatus"	column="reservation_status"/>
         <result property="certificateNum"		column="certificate_num"/>
         <result property="count"				column="count"/>
+        <result property="certificateStatus"	column="certificate_status"/>
         
     </resultMap>
     
