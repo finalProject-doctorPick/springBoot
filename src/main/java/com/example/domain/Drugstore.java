@@ -61,12 +61,24 @@ public class Drugstore {
 	
 	private String receiveTypeDescription;
 	
-	// 약국 
-	
 	// 약국 역할
 	private Set<Role> roles = new HashSet<>();
 	
 	public void addRole(Role drugstoreRole) {
 		roles.add(drugstoreRole);
 	}
+	
+	public void setDrugstoreTel(String drugstoreTel) {
+        if (drugstoreTel.length() == 8) {
+            this.drugstoreTel = drugstoreTel.substring(0, 4) + "-" + drugstoreTel.substring(4);
+        } else if (drugstoreTel.length() == 9) {
+            this.drugstoreTel = drugstoreTel.substring(0, 2) + "-" + drugstoreTel.substring(2, 5) + "-" + drugstoreTel.substring(5);
+        } else if (drugstoreTel.length() == 10) {
+            this.drugstoreTel = drugstoreTel.substring(0, 3) + "-" + drugstoreTel.substring(3, 6) + "-" + drugstoreTel.substring(6);
+        } else if (drugstoreTel.length() == 11) {
+            this.drugstoreTel = drugstoreTel.substring(0, 3) + "-" + drugstoreTel.substring(3, 7) + "-" + drugstoreTel.substring(7);
+        } else {
+            this.drugstoreTel = drugstoreTel;
+        }
+    }
 }

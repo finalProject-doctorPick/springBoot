@@ -107,4 +107,33 @@ public class Doctor {
 	public void addRole(Role doctorRole) {
 		roles.add(doctorRole);
 	}
+	
+	public void setHospitalTel(String hospitalTel) {
+        if (hospitalTel.length() == 8) {
+            this.hospitalTel = hospitalTel.substring(0, 4) + "-" + hospitalTel.substring(4);
+        } else if (hospitalTel.length() == 9) {
+            this.hospitalTel = hospitalTel.substring(0, 2) + "-" + hospitalTel.substring(2, 5) + "-" + hospitalTel.substring(5);
+        } else if (hospitalTel.length() == 10) {
+            this.hospitalTel = hospitalTel.substring(0, 3) + "-" + hospitalTel.substring(3, 6) + "-" + hospitalTel.substring(6);
+        } else if (hospitalTel.length() == 11) {
+            this.hospitalTel = hospitalTel.substring(0, 3) + "-" + hospitalTel.substring(3, 7) + "-" + hospitalTel.substring(7);
+        } else {
+            this.hospitalTel = hospitalTel;
+        }
+    }
+	
+	public void setDoctorTel(String doctorTel) {
+        if (doctorTel.length() == 8) {
+            this.doctorTel = doctorTel.substring(0, 4) + "-" + doctorTel.substring(4);
+        } else if (doctorTel.length() == 9) {
+            this.doctorTel = doctorTel.substring(0, 2) + "-" + doctorTel.substring(2, 5) + "-" + doctorTel.substring(5);
+        } else if (doctorTel.length() == 10) {
+            this.doctorTel = doctorTel.substring(0, 3) + "-" + doctorTel.substring(3, 6) + "-" + doctorTel.substring(6);
+        } else if (doctorTel.length() == 11) {
+            this.doctorTel = doctorTel.substring(0, 3) + "-" + doctorTel.substring(3, 7) + "-" + doctorTel.substring(7);
+        } else {
+            this.doctorTel = doctorTel;
+        }
+    }
+	
 }
