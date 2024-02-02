@@ -77,4 +77,7 @@ public interface AdminService {
 
 	// 관리자) 대시보드 - 올해 신규 회원 수 조회
 	public Integer getNewUserCntByYear();
+
+	// 관리자) 대시보드 - 3개월 총 매출 조회
+	public Integer getTotalSales();
 }
