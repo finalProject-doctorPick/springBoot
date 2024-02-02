@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.domain.Doctor;
 import com.example.domain.Drugstore;
 import com.example.domain.DrugstoreHistory;
-import com.example.domain.Hospital;
 import com.example.domain.Inquiry;
 import com.example.service.DrugstoreService;
 

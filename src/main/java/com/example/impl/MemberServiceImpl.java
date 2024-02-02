@@ -24,6 +24,7 @@ import com.example.entity.MemberEntity;
 import com.example.entity.RoleEntity;
 import com.example.repository.MemberRepository;
 import com.example.repository.RoleRepository;
+import com.example.service.CertificateService;
 import com.example.service.FilesService;
 import com.example.service.MemberService;
 import com.example.service.ValidationService;
@@ -43,6 +44,7 @@ public class MemberServiceImpl implements MemberService{
     private final ValidationService validationService;
     private final ReviewDAO reviewDAO;
     private final ReservationDAO reservationDAO;
+    private final CertificateService certificateService;
     
     /**
      * 	@author 	: 백두산	 
@@ -282,6 +284,21 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<Member> getMemberInfo(Integer memberId) {
 		return memberDAO.findMemberById(memberId);
+	}
+
+    /** 
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-02
+     *  @param		: Integer certificateNum
+     *  @return		: ResponseEntity
+     * 	@explain	: 회원) 진료실 입장
+     * */    
+	@Transactional
+	public ResponseEntity<?> updateCertificateStaus(Integer certificateNum) {
+		ServerResponse response = new ServerResponse();
+		
+		certificateService.updateCertificateStaus(certificateNum);
+		return null;
 	}
 	
 }

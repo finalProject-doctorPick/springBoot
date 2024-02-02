@@ -80,4 +80,9 @@
 		 WHERE certificate_Num = ${certificateNum}
 	</update>
 	
+	<update id="updateCertificateStaus">
+		UPDATE certificate
+		   SET certificate_status = 'Y'
+		 WHERE certificate_Num = ${certificateNum}
+	</update>
 </mapper>

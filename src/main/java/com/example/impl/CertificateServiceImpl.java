@@ -52,4 +52,16 @@ public class CertificateServiceImpl implements CertificateService{
 		certificateDAO.cancelCertification(certificateNum);
 	}
 
+    /** 
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-02
+     *  @param		: Integer certificateNum
+     *  @return		: ResponseEntity
+     * 	@explain	: 회원) 진료실 입장
+     * */    
+	@Transactional
+	public void updateCertificateStaus(Integer certificateNum) {
+		certificateDAO.updateCertificateStaus(certificateNum);
+	}
+
 }
