@@ -20,4 +20,7 @@ public interface CertificateService {
 	// 진료 완료
 	public void finishCertificate(Certificate certificateData);
 	
+	// 진료 대기실 입장
+	public void getCertificateInfo(Integer certificateNum);
+	
 }

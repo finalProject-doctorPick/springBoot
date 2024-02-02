@@ -7,6 +7,7 @@ public class Certificate {
 	private Integer certificateNum;
 	private Integer reservationNum;
 	private String certificateDate;
+	private String certificateStatus;
 	private Integer memberId;
 	private String memberName;
 	private Integer doctorId;
@@ -18,4 +19,6 @@ public class Certificate {
 	private String 	fileExtension;
 	private String 	fileName;
 	private String 	filePath;
+	private String reservationDate;
+	private String patientComments;
 }
