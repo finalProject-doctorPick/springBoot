@@ -41,4 +41,9 @@ public class MemberHistory {
 	private String paymentStatus;
 	private String status;
 	private Integer paymentAmount;
+	private String originFileName;
+	private String fileExtension;
+	private String fileName;
+	private String filePath;
 }
+
