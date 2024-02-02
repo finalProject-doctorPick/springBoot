@@ -64,4 +64,16 @@ public class CertificateServiceImpl implements CertificateService{
 		certificateDAO.updateCertificateStaus(certificateNum);
 	}
 
+    /** 
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-02
+     *  @param		: Integer certificateNum
+     *  @return		: ResponseEntity
+     * 	@explain	: 진료 완료
+     * */    
+	@Transactional
+	public void finishCertificate(Certificate certificateData) {
+		certificateDAO.finishCertificate(certificateData);
+	}
+
 }

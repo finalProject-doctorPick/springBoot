@@ -18,6 +18,7 @@ public class DrugstoreHistory {
 	private Integer paymentAmount;
 	private String paymentStatus;
 	private String status;
+	private String fileKey;
 	
 	public void setMemberTel(String memberTel) {
         if (memberTel.length() == 8) {

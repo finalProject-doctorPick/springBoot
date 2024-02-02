@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.domain.Certificate;
 import com.example.domain.Doctor;
 import com.example.domain.DoctorAvail;
 import com.example.domain.Inquiry;
@@ -90,5 +91,9 @@ public interface DoctorService {
 	List<Review> getRecentReviewsList(Integer doctorId);
 
 	List<Doctor> getDoctorSubjectCntList();
+
+	// 진료 종료
+	ResponseEntity<?> finishCertificate(Certificate certificateData, List<MultipartFile> certificateFile,
+			List<MultipartFile> prescriptionFile);
 
 }
