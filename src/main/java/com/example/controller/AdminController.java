@@ -77,12 +77,16 @@ public class AdminController {
 	    Integer newUserCnt = adminService.getNewUserCnt();
 	    // 올해 신규 회원 수
 	    Integer newUserCntByYear = adminService.getNewUserCntByYear();
+	    // 3개월 총 매출
+	    Integer totalSales = adminService.getTotalSales();
+	    
 	    
 	    data.put("reservationCnt", reservationCnt);
 	    data.put("requestCnt", requestCnt);
 	    data.put("certificateCnt", certificateCnt);
 	    data.put("newUserCnt", newUserCnt);
 	    data.put("newUserCntByYear", newUserCntByYear);
+	    data.put("totalSales", totalSales);
 	    
 	    
 		return new ResponseEntity<>(data, HttpStatus.OK);

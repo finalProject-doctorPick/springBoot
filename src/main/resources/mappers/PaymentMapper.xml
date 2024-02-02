@@ -158,4 +158,13 @@
 		WHERE c.certificate_num = #{certificateNum};
 	</select>
 	
+	<select id="getTotalSales" resultType="int">
+		SELECT SUM(amount) AS total_amount 
+		FROM 
+		payments 
+		WHERE 
+		payment_status = 'Y' AND
+		payment_regdate >= CURDATE() - INTERVAL 3 MONTH
+	</select>
+	
 </mapper>

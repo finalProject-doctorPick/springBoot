@@ -56,5 +56,8 @@ public interface PaymentDAO {
 
 	// 진료비 결제방식 조회
 	public FinalPayment getPaymentMethod(Integer certificateNum);
+
+	// 관리자) 3개월 총 매출 조회
+	public Integer getTotalSales();
 	
 }

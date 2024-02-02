@@ -288,4 +288,16 @@ public class AdminServiceImpl implements AdminService{
 		System.out.println("impl dugstore객체:"+entry);
 		return drugstoreDAO.updateDrugstoreInfo(entry);
 	}
+
+	/**
+	 * 	@author     : 정하림
+	 *  @created    : 2024-02-01
+	 *  @param      : void
+	 *  @return     : ResponseEntity
+	 * 	@explain    : 관리자) 대시보드 - 3개월 총 매출
+	 * */
+	@Override
+	public Integer getTotalSales() {
+		return paymentDAO.getTotalSales();
+	}
 }
