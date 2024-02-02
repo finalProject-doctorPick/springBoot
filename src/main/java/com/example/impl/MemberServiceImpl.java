@@ -175,9 +175,7 @@ public class MemberServiceImpl implements MemberService{
      * */
 	@Transactional(readOnly = true)
 	public Member findMemberByEmail(String memberEmail) {
-		Member m = memberDAO.findMemberByEmail(memberEmail);
-		m.setMemberTel(m.getMemberTel().replaceAll("-", ""));
-		return m;
+		return memberDAO.findMemberByEmail(memberEmail);
 	}
 
     /**

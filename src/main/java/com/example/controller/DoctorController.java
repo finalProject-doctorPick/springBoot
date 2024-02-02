@@ -7,10 +7,15 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.domain.Certificate;
 import com.example.domain.Doctor;
 import com.example.domain.DoctorAvail;
 import com.example.domain.Inquiry;
@@ -261,5 +266,26 @@ public class DoctorController {
 		
 
 		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-02
+     *  @param		: Integer certificateNum, Integer memberId
+     *  @return		: ResponseEntity
+     * 	@explain	: 진료 완료
+     * */
+	@PostMapping("/finishCertificate")
+	public ResponseEntity<?> finishCertificate(
+			@ModelAttribute Certificate certificateData,
+			@RequestPart(name = "certificateFile", required = false) List<MultipartFile> certificateFile,
+			@RequestPart(name = "prescriptionFile ", required = false) List<MultipartFile> prescriptionFile ){
+		
+		System.out.println("***************************");
+		System.out.println("finishCertificate 진입");
+		System.out.println("certificateData 값 : " + certificateData.toString());
+		System.out.println("certificateFile 크기 : " + certificateFile.size());
+		System.out.println("prescriptionFile 크기 : " + prescriptionFile.size());
+		return null;
 	}
 }
