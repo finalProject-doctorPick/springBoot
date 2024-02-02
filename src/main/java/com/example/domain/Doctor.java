@@ -69,6 +69,12 @@ public class Doctor {
 	// 의사 확인 여부
 	private String doctorConfirmYn;
 	
+	// 의사 리뷰 아이디
+	private Integer reviewId;
+	
+	// 리뷰 남긴 멤버 아이디
+	private Integer memberId;
+	
 	// 의사 평점 
 	private Integer rating;
 	
@@ -81,7 +87,10 @@ public class Doctor {
 	// 의사 리뷰 총 개수
 	private Integer reviewCnt;
 	
+	private Integer count;
+	
 	// 의사 리뷰 제목
+	private String reviewTitle;
 	private String reviewTitleA;
 	private String reviewTitleB;
 	private String reviewTitleC;

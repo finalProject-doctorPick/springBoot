@@ -6,12 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.domain.Drugstore;
-
 import com.example.domain.DrugstoreHistory;
 import com.example.domain.Inquiry;
+import com.example.domain.ServerResponse;
 import com.example.domain.Users;
 import com.example.entity.DrugstoreEntity;
-import com.example.domain.ServerResponse;
 
 public interface DrugstoreService {
 
@@ -56,8 +55,13 @@ public interface DrugstoreService {
 
 	Integer received(Integer drugstoreId);
 
-	
+	Integer totalOrderCnt(Integer drugstoreId);
 
+	Integer deliveryCnt(Integer drugstoreId);
+
+	Integer pickupCnt(Integer drugstoreId);
+
+	List<DrugstoreHistory> getRecentWaitingList(Integer drugstoreId);
 
 
 }

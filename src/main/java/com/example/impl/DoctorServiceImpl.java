@@ -20,6 +20,7 @@ import com.example.domain.Inquiry;
 import com.example.domain.Member;
 import com.example.domain.MemberHistory;
 import com.example.domain.Reservation;
+import com.example.domain.Review;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
 import com.example.entity.DoctorEntity;
@@ -400,7 +401,16 @@ public class DoctorServiceImpl implements DoctorService{
 		response.setSuccess(true);
 		response.setMessage("진료취소가 완료 되었습니다.");
 		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 		
+	@Override
+	public List<Review> getRecentReviewsList(Integer doctorId) {
+		return doctorDAO.getRecentReviewsList(doctorId);
+	}
+
+	@Override
+	public List<Doctor> getDoctorSubjectCntList() {
+		return doctorDAO.getDoctorSubjectCntList();
 	}
 
 }

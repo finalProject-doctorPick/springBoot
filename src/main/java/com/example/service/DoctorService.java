@@ -10,6 +10,7 @@ import com.example.domain.Doctor;
 import com.example.domain.DoctorAvail;
 import com.example.domain.Inquiry;
 import com.example.domain.MemberHistory;
+import com.example.domain.Review;
 import com.example.domain.ServerResponse;
 import com.example.domain.Users;
 import com.example.entity.DoctorEntity;
@@ -85,5 +86,9 @@ public interface DoctorService {
 
 	// 환자 진료 취소
 	ResponseEntity<?> cancelCertification(Integer certificateNum, Integer memberId);
+
+	List<Review> getRecentReviewsList(Integer doctorId);
+
+	List<Doctor> getDoctorSubjectCntList();
 
 }
