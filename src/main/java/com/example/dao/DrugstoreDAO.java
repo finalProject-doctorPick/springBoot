@@ -1,9 +1,11 @@
 package com.example.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.domain.Doctor;
 import com.example.domain.Drugstore;
 import com.example.domain.DrugstoreHistory;
 import com.example.domain.Inquiry;
@@ -42,6 +44,10 @@ public interface DrugstoreDAO {
 	Integer pickupCnt(Integer drugstoreId);
 
 	List<DrugstoreHistory> getRecentWaitingList(Integer drugstoreId);
+
+	List<Drugstore> getCurrentLocationList(Map<String, String> requestData);
+
+	List<Doctor> getDrugstoreReceiveMethodList(Integer drugstoreId);
 
 }
 

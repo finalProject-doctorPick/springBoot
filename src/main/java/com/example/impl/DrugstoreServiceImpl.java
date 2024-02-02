@@ -1,6 +1,7 @@
 package com.example.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dao.DrugstoreDAO;
 import com.example.dao.InquiryDAO;
+import com.example.domain.Doctor;
 import com.example.domain.Drugstore;
 import com.example.domain.DrugstoreHistory;
 import com.example.domain.Inquiry;
@@ -233,5 +235,17 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 	public List<DrugstoreHistory> getRecentWaitingList(Integer drugstoreId) {
 		return drugstoreDAO.getRecentWaitingList(drugstoreId);
 	}
+
+	@Override
+	public List<Drugstore> getCurrentLocationList(Map<String, String> requestData) {
+		return drugstoreDAO.getCurrentLocationList(requestData);
+	}
+
+	@Override
+	public List<Doctor> getDrugstoreReceiveMethodList(Integer drugstoreId) {
+		return drugstoreDAO.getDrugstoreReceiveMethodList(drugstoreId);
+	}
+
+
 
 }

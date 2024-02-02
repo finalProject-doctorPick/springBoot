@@ -17,6 +17,9 @@
         <result property="drugstoreBirth" 		column="drugstore_birth"/>
         <result property="drugstoreSex"			column="drugstore_sex"/>
         <result property="drugstoreTel" 		column="drugstore_tel"/>
+        <result property="receiveTypeCount" 	column="receive_type_count"/>
+        <result property="receiveTypeDescription" 	column="receive_type_description"/>
+        
     </resultMap>
     
     <resultMap id="DrugstoreHistoryResultMap" type="com.example.domain.DrugstoreHistory">
@@ -149,6 +152,26 @@
 		WHERE dh.status = 'DN' AND dh.drugstore_id = #{drugstoreId}
 		ORDER BY dh.drugstore_history_id DESC
 		LIMIT 3
+	</select>
+	
+	<select id="getCurrentLocationList" parameterType="java.util.Map" resultMap="DrugstoreResultMap">
+		SELECT * FROM drugstore d
+	    WHERE drugstore_addr_main LIKE CONCAT('%', #{addr1}, '%')
+	    AND drugstore_addr_main LIKE CONCAT('%', #{addr2}, '%')
+	</select>
+	
+	<select id="getDrugstoreReceiveMethodList" parameterType="int" resultMap="DrugstoreResultMap">
+		SELECT
+		  CASE 
+		    WHEN dh.receive_type = 'D' THEN '택배 수령'
+		    WHEN dh.receive_type = 'W' THEN '직접 수령'
+		    ELSE '알 수 없음'
+		  END AS receive_type_description,
+		  COUNT(*) AS receive_type_count
+		FROM drugstore_history dh
+		INNER JOIN members m ON m.member_id = dh.member_id
+		WHERE dh.status = 'DN' AND dh.drugstore_id = #{drugstoreId}
+		GROUP BY receive_type_description
 	</select>
 	
 </mapper>

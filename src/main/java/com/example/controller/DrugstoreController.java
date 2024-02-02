@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.domain.Doctor;
 import com.example.domain.Drugstore;
 import com.example.domain.DrugstoreHistory;
+import com.example.domain.Hospital;
 import com.example.domain.Inquiry;
 import com.example.service.DrugstoreService;
 
@@ -175,6 +177,33 @@ public class DrugstoreController {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
+	/**
+     * 	@author 	: 정하림 
+     *  @created	: 2024-02-01
+     *  @param		: Map requestData
+     *  @return		: ResponseEntity
+     * 	@explain	: 현재 위치로 약국 검색
+     * 
+     * */
+	@PostMapping("/getCurrentLocationList")
+	public ResponseEntity<?> getCurrentLocationList(@RequestBody Map<String, String> requestData){
+	    List<Drugstore> list = drugstoreService.getCurrentLocationList(requestData);
+	    return new ResponseEntity<>(list, HttpStatus.OK);
+	}
 	
+	/**
+	 * @author : 정하림
+	 * @created : 2024-02-01
+	 * @param : void
+	 * @return : ResponseEntity
+	 * @explain : 약국 대시보드 - 수령방법 통계
+	 */
+	@GetMapping("/getDrugstoreReceiveMethodList")
+	public ResponseEntity<?> getDrugstoreReceiveMethodList(Integer drugstoreId) {
+		
+		List<Doctor> list = drugstoreService.getDrugstoreReceiveMethodList(drugstoreId);
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
 	
 }
