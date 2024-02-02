@@ -24,7 +24,7 @@ public interface CertificateDAO {
 	void updateCertificateStaus(Integer certificateNum);
 	
 	// 진료대기실 입장
-	void getCertificateInfo(Integer certificateNum);
+	List<Certificate> getCertificateInfo(Integer certificateNum);
 
 	// 진료 완료
 	void finishCertificate(Certificate certificateData);
