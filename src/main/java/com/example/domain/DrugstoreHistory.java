@@ -32,4 +32,7 @@ public class DrugstoreHistory {
             this.memberTel = memberTel;
         }
     }
+	
+	private String receiveTypeDescription;
+	private String paymentStatusDescription;
 }

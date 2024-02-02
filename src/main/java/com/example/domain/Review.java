@@ -26,6 +26,9 @@ public class Review {
 	// 리뷰 내용
 	private String comments;
 	
+	// 리뷰 제목
+	private String reviewTitle;
+	
 	// 리뷰 작성 상태
 	private String status;
 	

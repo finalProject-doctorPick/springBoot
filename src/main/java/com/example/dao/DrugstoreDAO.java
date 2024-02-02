@@ -8,8 +8,6 @@ import com.example.domain.Drugstore;
 import com.example.domain.DrugstoreHistory;
 import com.example.domain.Inquiry;
 
-
-
 @Mapper
 public interface DrugstoreDAO {
 	List<Drugstore> selectDrugstore();
@@ -36,6 +34,14 @@ public interface DrugstoreDAO {
 	Integer receiveWait(Integer drugstoreId);
 
 	Integer received(Integer drugstoreId);
+
+	Integer totalOrderCnt(Integer drugstoreId);
+
+	Integer deliveryCnt(Integer drugstoreId);
+
+	Integer pickupCnt(Integer drugstoreId);
+
+	List<DrugstoreHistory> getRecentWaitingList(Integer drugstoreId);
 
 }
 

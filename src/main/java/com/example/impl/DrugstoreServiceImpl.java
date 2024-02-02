@@ -214,4 +214,24 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 		return drugstoreDAO.received(drugstoreId);
 	}
 
+	@Override
+	public Integer totalOrderCnt(Integer drugstoreId) {
+		return drugstoreDAO.totalOrderCnt(drugstoreId);
+	}
+
+	@Override
+	public Integer deliveryCnt(Integer drugstoreId) {
+		return drugstoreDAO.deliveryCnt(drugstoreId);
+	}
+
+	@Override
+	public Integer pickupCnt(Integer drugstoreId) {
+		return drugstoreDAO.pickupCnt(drugstoreId);
+	}
+
+	@Override
+	public List<DrugstoreHistory> getRecentWaitingList(Integer drugstoreId) {
+		return drugstoreDAO.getRecentWaitingList(drugstoreId);
+	}
+
 }

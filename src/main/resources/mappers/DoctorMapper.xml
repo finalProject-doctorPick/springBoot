@@ -23,14 +23,18 @@
         <result property="doctorLeaveDate" 	column="doctor_leave_date"/>
         <result property="doctorConfirmYn" 	column="doctor_confirm_yn"/>
         <result property="doctorRequestCnt" column="doctorRequestCnt"/>
+        <result property="reviewId"			column="review_id"/>
+        <result property="memberId"			column="member_id"/>
         <result property="rating"			column="rating"/>
         <result property="comments"			column="comments"/>
         <result property="ratingCnt"			column="rating_cnt"/>
         <result property="ratingAvg"			column="rating_avg"/>
         <result property="reviewCnt"			column="review_cnt"/>
+        <result property="reviewTitle" 			column="review_title"/>
         <result property="reviewTitleA" 		column="review_titleA"/>
         <result property="reviewTitleB" 		column="review_titleB"/>
         <result property="reviewTitleC" 		column="review_titleC"/>
+        <result property="count" 				column="count"/>
     </resultMap>
     
    	<resultMap id="DoctorAvailResultMap" type="com.example.domain.DoctorAvail">
@@ -79,6 +83,10 @@
         <result property="paymentStatus" 			column="payment_status"/>
         <result property="paymentAmount" 			column="payment_amount"/>
     </resultMap>
+    
+    
+    
+    
     
     <insert id="registerDoctor" parameterType="com.example.dto.DoctorDTO">
 		INSERT INTO doctor(
@@ -364,6 +372,18 @@
 	<select id="reviewAvg" parameterType="int" resultType="int">
 		SELECT ROUND(AVG(rating)) AS avg FROM reviews r
 		WHERE doctor_id = #{doctorId}
+	</select>
+	
+	<select id="getRecentReviewsList" parameterType="int" resultMap="DoctorResultMap">
+		SELECT * FROM reviews
+		WHERE doctor_id = #{doctorId}
+		ORDER BY review_id DESC
+		LIMIT 3
+	</select>
+	
+	<select id="getDoctorSubjectCntList" resultMap="DoctorResultMap">
+		SELECT COUNT(*) AS count, doctor_subject FROM doctor d
+		GROUP BY doctor_subject
 	</select>
 	
 </mapper>

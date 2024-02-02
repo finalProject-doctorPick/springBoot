@@ -8,6 +8,7 @@ import com.example.domain.Doctor;
 import com.example.domain.DoctorAvail;
 import com.example.domain.Member;
 import com.example.domain.MemberHistory;
+import com.example.domain.Review;
 import com.example.dto.DoctorDTO;
 
 @Mapper
@@ -74,5 +75,9 @@ public interface DoctorDAO {
 	Integer reviewsCnt(Integer doctorId);
 
 	Integer reviewAvg(Integer doctorId);
+
+	List<Review> getRecentReviewsList(Integer doctorId);
+
+	List<Doctor> getDoctorSubjectCntList();
 
 }

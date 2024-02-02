@@ -137,30 +137,44 @@ public class DrugstoreController {
 	public ResponseEntity<?> getDrugstoreDashBoardData(@RequestParam Integer drugstoreId) {
 		Map<String, Integer> data = new HashMap<>();
 
-		/*
-		 * 신규 주문 payment_status N 
-			수령 대기 DN - status
-			수령 완료 DY
-			----------
-			총 주문건 
-			택배 배송D - receive type
-			직접 수령W
-		 * */
 		// 신규 주문
 		Integer newOrder = drugstoreService.newOrder(drugstoreId);
 		// 수령 대기
 		Integer receiveWait = drugstoreService.receiveWait(drugstoreId);
 		// 수령 완료
 		Integer received = drugstoreService.received(drugstoreId);
-		
+		// 총 주문건
+		Integer totalOrderCnt = drugstoreService.totalOrderCnt(drugstoreId);
+		// 택배 배송건
+		Integer deliveryCnt = drugstoreService.deliveryCnt(drugstoreId);
+		// 직접 수령건
+		Integer pickupCnt = drugstoreService.pickupCnt(drugstoreId);
 		
 		data.put("newOrder", newOrder);
 		data.put("receiveWait", receiveWait);
 		data.put("received", received);
+		data.put("totalOrderCnt", totalOrderCnt);
+		data.put("deliveryCnt", deliveryCnt);
+		data.put("pickupCnt", pickupCnt);
 
-		
 		return new ResponseEntity<>(data, HttpStatus.OK);
 	}
+	
+	/**
+	 * @author : 정하림
+	 * @created : 2024-02-01
+	 * @param : Integer drugstoreId
+	 * @return : ResponseEntity
+	 * @explain : 약국 대시보드 - 수령 대기자 목록
+	 */
+	@GetMapping("/getRecentWaitingList")
+	public ResponseEntity<?> getRecentWaitingList(@RequestParam Integer drugstoreId) {
+		
+		List<DrugstoreHistory> list = drugstoreService.getRecentWaitingList(drugstoreId);
+
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+
 	
 	
 }
