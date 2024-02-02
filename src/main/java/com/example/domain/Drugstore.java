@@ -30,6 +30,9 @@ public class Drugstore {
 	// 약국 주소(부)
 	private String drugstoreAddrDetail;
 	
+	// 약국 주소(부상세)
+	private String drugstoreAddrSubdetail;
+	
 	// 약국 위도
 	private String drugstoreLati;
 	

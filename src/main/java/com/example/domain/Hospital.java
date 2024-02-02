@@ -18,6 +18,9 @@ public class Hospital {
 
 	// 병원주소(부)
 	private String hospitalAddrDetail;
+	
+	// 의사 주소(부상세)
+	private String hospitalAddrSubdetail;
 
 	// 회원가입일
 	private LocalDateTime hospitalJoinDate;

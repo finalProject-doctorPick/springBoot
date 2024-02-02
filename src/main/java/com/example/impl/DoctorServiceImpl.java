@@ -443,5 +443,33 @@ public class DoctorServiceImpl implements DoctorService{
 		response.setMessage("진료가 종료 되었습니다.");
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+	
+	/**
+	 * @author : 박병태
+	 * @created : 2024-02-01
+	 * @param : Doctor
+	 * @return : ResponseEntity
+	 * @explain : 의사 대시보드 - 의사정보 수정
+	 */
+	@Override
+	public Integer updateDoctorInfo(Doctor entry) {
+		return doctorDAO.updateDoctorsInfo(entry);
+	}
+	
+	/**
+	 * @author : 박병태
+	 * @created : 2024-02-01
+	 * @param : Doctor
+	 * @return : ResponseEntity
+	 * @explain : 의사 대시보드 - 의사정보 수정 (파일과 함께
+	 */
+	@Override
+	public Integer updateDoctorInfo(Doctor entry, List<MultipartFile> fileList) {
+		
+		String fileKey = filesService.fileupload(fileList, doctorDAO.getDoctorEmail(entry.getDoctorId()));
+		entry.setFileKey(fileKey);
+		System.out.println("doctor 객체:"+entry.getFileKey().toString());
+		return doctorDAO.updateDoctorsInfo(entry);
+	}
 
 }
