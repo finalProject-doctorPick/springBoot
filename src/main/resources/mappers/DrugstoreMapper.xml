@@ -54,6 +54,7 @@
 	<select id="getDrugstoreList" resultMap="DrugstoreResultMap">
 		SELECT *
 		FROM drugstore
+		LIMIT 10000
 	</select>
 
 	<select id="getDrugstoreListByKeyword" resultMap="DrugstoreResultMap">
