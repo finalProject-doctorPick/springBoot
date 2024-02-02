@@ -83,8 +83,8 @@ public class CertificateServiceImpl implements CertificateService{
      * 	@explain	: 회원) 진료실대기실 입장
      * */    
 	@Override
-	public void getCertificateInfo(Integer certificateNum) {
-		certificateDAO.getCertificateInfo(certificateNum);
+	public List<Certificate> getCertificateInfo(Integer certificateNum) {
+	return certificateDAO.getCertificateInfo(certificateNum);
 	}
 
 }

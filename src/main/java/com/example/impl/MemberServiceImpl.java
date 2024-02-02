@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.dao.MemberDAO;
 import com.example.dao.ReservationDAO;
 import com.example.dao.ReviewDAO;
+import com.example.domain.Certificate;
 import com.example.domain.DashBoard;
 import com.example.domain.Inquiry;
 import com.example.domain.Member;
@@ -314,9 +315,9 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public ResponseEntity<?> getCertificateInfo(Integer certificateNum) {
-		ServerResponse response = new ServerResponse();
-		certificateService.getCertificateInfo(certificateNum);
-		return null;
+		
+		List<Certificate>result = certificateService.getCertificateInfo(certificateNum);
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
 }

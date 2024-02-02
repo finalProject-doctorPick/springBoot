@@ -98,7 +98,9 @@
 	</update>
 
 	<select id="getCertificateInfo"  parameterType="int" resultMap="CertificateResultMap">
-		SELECT r.reservation_date ,m.member_name,r.patient_comments  
+		SELECT TO_CHAR(r.reservation_date, 'YYYY-mm-dd') AS reservation_date ,
+						m.member_name					 AS member_name,
+						r.patient_comments 				 AS patient_comments  
  	FROM certificate c 
  	INNER JOIN reservation r ON c.reservation_num = r.reservation_num
  	INNER JOIN members m ON r.member_id = m.member_id 
