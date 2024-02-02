@@ -1,10 +1,12 @@
 package com.example.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.domain.Doctor;
 import com.example.domain.Drugstore;
 import com.example.domain.DrugstoreHistory;
 import com.example.domain.Inquiry;
@@ -62,6 +64,10 @@ public interface DrugstoreService {
 	Integer pickupCnt(Integer drugstoreId);
 
 	List<DrugstoreHistory> getRecentWaitingList(Integer drugstoreId);
+
+	List<Drugstore> getCurrentLocationList(Map<String, String> requestData);
+
+	List<Doctor> getDrugstoreReceiveMethodList(Integer drugstoreId);
 
 
 }

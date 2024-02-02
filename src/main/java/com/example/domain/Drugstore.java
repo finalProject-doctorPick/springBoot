@@ -57,6 +57,10 @@ public class Drugstore {
 	// 약국 연락처
 	private String drugstoreTel;
 	
+	private Integer receiveTypeCount;
+	
+	private String receiveTypeDescription;
+	
 	// 약국 
 	
 	// 약국 역할
