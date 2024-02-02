@@ -100,7 +100,7 @@ public class MemberController {
     	return new ResponseEntity<>(response, HttpStatus.OK);
     }
     
-    /**
+    /** 
      * 	@author 	: 백두산	 
      *  @created	: 2024-01-27
      *  @param		: Integer memberId
