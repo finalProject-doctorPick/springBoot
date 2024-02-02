@@ -3,6 +3,7 @@ package com.example.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.domain.Doctor;
 import com.example.domain.DoctorAvail;
@@ -56,6 +57,8 @@ public interface DoctorDAO {
 	// 관리자 - 의사 정보 수정
 	Integer updateDoctorsInfo(Doctor entry);
 	
+	// 관리자 - 의사 정보 수정
+	Integer updateDoctorsInfo(Doctor entry, List<MultipartFile> fileList);
 	/******************** 의사 ********************/
 	
 	// 의사 회원가입 - 진료시간 기본 설정
@@ -80,4 +83,5 @@ public interface DoctorDAO {
 
 	List<Doctor> getDoctorSubjectCntList();
 
+	String getDoctorEmail(Integer doctorId);
 }

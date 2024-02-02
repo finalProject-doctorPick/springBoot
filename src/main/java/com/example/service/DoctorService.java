@@ -91,4 +91,10 @@ public interface DoctorService {
 
 	List<Doctor> getDoctorSubjectCntList();
 
+	//의사 정보 업데이트
+	Integer updateDoctorInfo(Doctor entry);
+
+	//의사 정보 업데이트(파일업로드 있을 시)
+	Integer updateDoctorInfo(Doctor entry, List<MultipartFile> fileList);
+
 }
