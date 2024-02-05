@@ -186,7 +186,9 @@ public class PaymentController {
 	 * */
 	@GetMapping("/getPaymentMethod")
 	public ResponseEntity<?> getPamentMethod(@RequestParam Integer certificateNum){
-		FinalPayment response = paymentService.getPaymentMethod(certificateNum);
+		System.out.println("넘겨받은 certificateNum:" + certificateNum);
+		Payment response = paymentService.getPaymentMethod(certificateNum);
+		System.out.println("다시 보내는 response :" + response);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 }

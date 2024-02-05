@@ -335,7 +335,7 @@
 	
 	<update id="updateDoctorsInfo" parameterType="com.example.dto.DoctorDTO">
 		UPDATE doctor
-		SET doctor_name = #{doctorName}, doctor_subject = #{doctorSubject}, doctor_major=#{doctorMajor}, doctor_subject=#{doctorSubject}, hospital_id = (SELECT hospital_id FROM hospital WHERE hospital_name = #{hospitalName}),  file_key = COALESCE(#{fileKey}, file_key)
+		SET doctor_name = #{doctorName},doctor_comments = #{doctorComments} ,doctor_subject = #{doctorSubject}, doctor_major=#{doctorMajor}, doctor_subject=#{doctorSubject}, hospital_id = (SELECT hospital_id FROM hospital WHERE hospital_name = #{hospitalName}),  file_key = COALESCE(#{fileKey}, file_key)
 		WHERE doctor_id = #{doctorId}
 	</update>
 
