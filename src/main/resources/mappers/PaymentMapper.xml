@@ -6,12 +6,12 @@
 		<id property="paymentId" 			column="payment_id" />
 		<result property="doctorId" 		column="doctor_id" />
 		<result property="doctorName" 		column="doctor_name" />
-		<result property="HospitalName" 		column="hospital_name" />
+		<result property="hospitalName" 		column="hospital_name" />
 		<result property="memberId" 		column="member_id" />
 		<result property="paymentDate" 		column="payment_date" />
 		<result property="paymentRegdate" 	column="payment_regdate" />
 		<result property="amount" 			column="amount" />
-		<result property="transactionType" 	column="transaction_type" />
+		<result property="reservationPayment" 	column="reservation_payment" />
 		<result property="paymentStatus" 	column="payment_status" />
 		<result property="certificateNum" 	column="certificate_num" />
 	</resultMap>
@@ -62,7 +62,7 @@
 	<update id="completePayment" parameterType="hashmap">
 		UPDATE payments
 		SET
-		transaction_type = #{transactionType},
+		reservation_payment = #{reservationPayment},
 		payment_status = "Y"
 		WHERE
 		payment_id = #{paymentId}
@@ -132,15 +132,15 @@
 		INSERT INTO point_history
 		(
 		member_id
-		, transaction_type
+		, reservation_payment
 		,
 		amount
-		, transaction_date
+		, payment_date
 		)
 		VALUES
 		(
 		#{memberId}
-		, #{transactionType}
+		, #{reservationPayment}
 		,
 		#{amount}
 		, now()

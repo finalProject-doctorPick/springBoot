@@ -164,10 +164,10 @@ public class PaymentServiceImpl implements PaymentService{
 		if(paymentDAO.updatePoint(map) > 0){
 		    PointHistory pointHistory = new PointHistory();
 		    pointHistory.setMemberId(entry.getMemberId());
-		    pointHistory.setTransactionType(entry.getTransactionType());
+		    pointHistory.setTransactionType(entry.getReservationPayment());
 		    pointHistory.setAmount(entry.getAmount());    
 			if(paymentDAO.recordPointEntry(pointHistory)>0) {
-				map.put("transactionType", entry.getTransactionType());
+				map.put("transactionType", entry.getReservationPayment());
 				map.put("paymentId", entry.getPaymentId());
 				return paymentDAO.completePayment(map);
 			}else{
