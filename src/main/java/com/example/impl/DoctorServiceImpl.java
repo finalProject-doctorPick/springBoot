@@ -449,6 +449,7 @@ public class DoctorServiceImpl implements DoctorService{
 			
 			// 진료정보 조회
 			Reservation r = reservationService.getReservationDataForCertificateNum(certificateData.getCertificateNum());
+			
 			p.setDoctorId(r.getDoctorId());
 			p.setMemberId(r.getMemberId());
 			p.setAmount(certificateData.getAmount());

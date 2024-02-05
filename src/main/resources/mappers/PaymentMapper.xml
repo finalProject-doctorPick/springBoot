@@ -47,6 +47,7 @@
 		, member_id
 		, payment_date
 		, amount
+		, certificate_num
 		)
 		VALUES
 		(
@@ -54,6 +55,7 @@
 		, #{memberId}
 		, #{paymentDate}
 		, #{amount}
+		, #{certificateNum}
 		)
 	</insert>
 
