@@ -42,4 +42,16 @@ public class ReservationServiceImpl implements ReservationService{
 		reservationDAO.cancelReservation(reservationNum);
 	}
 
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-05
+     *  @param		: Integer certificateNum
+     *  @return		: Reservation
+     * 	@explain	: 진료정보 조회
+     * */
+	@Transactional
+	public Reservation getReservationDataForCertificateNum(Integer certificateNum) {
+		return reservationDAO.getReservationDataForCertificateNum(certificateNum);
+	}
+
 }

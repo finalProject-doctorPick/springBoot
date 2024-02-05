@@ -127,4 +127,12 @@
 		 WHERE reservation_num 	  = ${reservationNum}
 	</update>	
 	
+	<select id="getReservationDataForCertificateNum" parameterType="int" resultMap="ReservationMap">
+		SELECT r.doctor_id	AS doctor_id
+			 , r.member_id  AS member_id 
+		  FROM reservation r
+	INNER JOIN certificate c
+			ON r.reservation_num = c.reservation_num			
+		 WHERE c.certificate_num = ${certificateNum}
+	</select>
 </mapper>

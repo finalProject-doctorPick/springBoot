@@ -31,7 +31,7 @@ public class Payment {
 	private String paymentStatus;
 	
 	// 처방ID
-	private String certificateNum;
+	private Integer certificateNum;
 	
 	// 결제정보생성일
 	private String paymentRegdate;

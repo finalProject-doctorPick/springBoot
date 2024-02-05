@@ -20,5 +20,8 @@ public interface ReservationService {
 
 	// 예약 취소
 	void cancelReservation(Integer reservationNum);
+
+	// 예약정보 조회
+	Reservation getReservationDataForCertificateNum(Integer certificateNum);
 	
 }

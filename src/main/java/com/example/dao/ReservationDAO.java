@@ -29,4 +29,7 @@ public interface ReservationDAO {
 
 	// 예약 정보 취소
 	public void cancelReservation(Integer reservationNum);
+
+	// 진료정보 조회
+	public Reservation getReservationDataForCertificateNum(Integer certificateNum);
 }

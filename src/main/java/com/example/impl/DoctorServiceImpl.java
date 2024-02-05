@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.cloud.gcp.storage.integration.inbound.GcsInboundFileSynchronizingMessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,11 +17,11 @@ import com.example.dao.DoctorDAO;
 import com.example.domain.Certificate;
 import com.example.domain.Doctor;
 import com.example.domain.DoctorAvail;
-import com.example.domain.Drugstore;
 import com.example.domain.DrugstoreHistory;
 import com.example.domain.Inquiry;
 import com.example.domain.Member;
 import com.example.domain.MemberHistory;
+import com.example.domain.Payment;
 import com.example.domain.Reservation;
 import com.example.domain.Review;
 import com.example.domain.ServerResponse;
@@ -34,6 +35,7 @@ import com.example.service.DoctorService;
 import com.example.service.FilesService;
 import com.example.service.InquiryService;
 import com.example.service.MemberService;
+import com.example.service.PaymentService;
 import com.example.service.ReservationService;
 import com.example.service.SMSService;
 
@@ -54,6 +56,7 @@ public class DoctorServiceImpl implements DoctorService{
 	private final MemberService memberService;
 	private final CertificateService certificateService;
 	private final SMSService smsService;
+	private final PaymentService paymentService;
 	
 	/**
      * 	@author 	: 백두산	 
@@ -430,12 +433,28 @@ public class DoctorServiceImpl implements DoctorService{
 		
 		// 진단서 파일 업로드
 		if(certificateFile != null) {
+			System.out.println("*****************************************");
+			System.out.println("진단서 파일 존재");
+			System.out.println(certificateFile.size());
 			String fileKey = filesService.fileupload(certificateFile, String.valueOf(certificateData.getCertificateNum()));
 			certificateData.setFileKey(fileKey);
 		}
 		
 		// 진료 완료
 		certificateService.finishCertificate(certificateData);
+		
+		// 진료비 존재 시 결제정보 저장
+		if(certificateData.getAmount() > 0 && certificateData.getAmount() != null) {
+			Payment p = new Payment();
+			
+			// 진료정보 조회
+			Reservation r = reservationService.getReservationDataForCertificateNum(certificateData.getCertificateNum());
+			p.setDoctorId(r.getDoctorId());
+			p.setMemberId(r.getMemberId());
+			p.setAmount(certificateData.getAmount());
+			p.setCertificateNum(certificateData.getCertificateNum());
+			paymentService.recordTransaction(p);
+		}
 		
 		// 처방전 파일 업로드
 	
