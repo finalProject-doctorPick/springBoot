@@ -5,6 +5,8 @@
 	<resultMap id="PaymentResultMap" type="com.example.domain.Payment">
 		<id property="paymentId" 			column="payment_id" />
 		<result property="doctorId" 		column="doctor_id" />
+		<result property="doctorName" 		column="doctor_name" />
+		<result property="HospitalName" 		column="hospital_name" />
 		<result property="memberId" 		column="member_id" />
 		<result property="paymentDate" 		column="payment_date" />
 		<result property="paymentRegdate" 	column="payment_regdate" />
@@ -148,13 +150,18 @@
 		)
 	</insert>
 	
-	<select id="getPaymentMethod" parameterType="Integer" resultMap="FinalPaymentResultMap">
-		SELECT r.reservation_payment AS reservation_payment, p.payment_id as payment_id
+	<select id="getPaymentMethod" parameterType="Integer" resultMap="PaymentResultMap">
+		SELECT r.reservation_payment AS reservation_payment, p.payment_id AS payment_id,p.amount AS amount,
+		d.doctor_name AS doctor_name, h.hospital_name AS hospital_name
 		FROM reservation r
 		INNER JOIN certificate c
 		ON r.reservation_num = c.reservation_num
 		INNER JOIN payments p
 		ON p.certificate_num = c.certificate_num
+		INNER JOIN doctor d 
+		ON r.doctor_id = d.doctor_id 
+		INNER JOIN hospital h 
+		ON d.hospital_id = h.hospital_id 
 		WHERE c.certificate_num = #{certificateNum};
 	</select>
 	

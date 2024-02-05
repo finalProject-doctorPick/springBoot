@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dao.PaymentDAO;
 import com.example.domain.DashBoard;
-import com.example.domain.FinalPayment;
 import com.example.domain.Member;
 import com.example.domain.Payment;
 import com.example.domain.PointHistory;
@@ -189,7 +188,7 @@ public class PaymentServiceImpl implements PaymentService{
 	 *  @explain	: 진료비 결제방식 조회
 	 * */
 	@Override
-	public FinalPayment getPaymentMethod(Integer certificateNum) {
+	public Payment getPaymentMethod(Integer certificateNum) {
 		return paymentDAO.getPaymentMethod(certificateNum);
 	}
 	

@@ -43,6 +43,6 @@ public interface PaymentService {
 	public List<DashBoard> getMonthlySales();
 
 	//진료번호에 해당하는 결제 방식 가져오기
-	FinalPayment getPaymentMethod(Integer certificateNum);
+	public Payment getPaymentMethod(Integer certificateNum);
 	
 }

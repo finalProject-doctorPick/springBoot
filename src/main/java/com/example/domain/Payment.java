@@ -15,6 +15,12 @@ public class Payment {
 	// 의사ID
 	private Integer doctorId;
 	
+	// 의사 이름
+	private String doctorName;
+	
+	// 병원 이름
+	private String hospitalName;
+	
 	// 회원ID번호
 	private Integer memberId;
 	
