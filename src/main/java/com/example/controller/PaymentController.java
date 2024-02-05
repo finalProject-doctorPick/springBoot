@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.domain.FinalPayment;
 import com.example.domain.Member;
 import com.example.domain.Payment;
 import com.example.domain.PointHistory;

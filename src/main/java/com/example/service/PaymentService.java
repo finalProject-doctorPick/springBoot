@@ -3,7 +3,6 @@ package com.example.service;
 import java.util.List;
 
 import com.example.domain.DashBoard;
-import com.example.domain.FinalPayment;
 import com.example.domain.Member;
 import com.example.domain.Payment;
 import com.example.domain.PointHistory;

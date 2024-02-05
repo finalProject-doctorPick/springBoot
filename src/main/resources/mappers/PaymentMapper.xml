@@ -27,11 +27,6 @@
         <result property="customerKey" 		column="customer_key"/>
         <result property="billingKey" 		column="billing_key"/>
     </resultMap>
-    
-    <resultMap id="FinalPaymentResultMap" type="com.example.domain.FinalPayment">
-   		<id property="paymentId" 				column="payment_id" />
-   		<result property="reservationPayment" 	column="reservation_payment"/>
-    </resultMap>
 
 	<select id="getUserPaymentInfo" parameterType="Integer" resultMap="PaymentResultMap">
 		SELECT *
