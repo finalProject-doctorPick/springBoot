@@ -69,9 +69,9 @@ public class PaymentServiceImpl implements PaymentService{
 	 * */
 	@Override
 	@Transactional
-	public Integer completePayment(Integer paymentId, String transactionType) {
+	public Integer completePayment(Integer paymentId, String reservationPayment) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("transactionType", transactionType);
+		map.put("reservationPayment", reservationPayment);
 		map.put("paymentId", paymentId);
 		return paymentDAO.completePayment(map);
 	}
