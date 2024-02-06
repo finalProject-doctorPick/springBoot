@@ -95,6 +95,12 @@ public class PaymentController {
 	@PutMapping("/completePayment")
 	public ResponseEntity<?> completePayment(@RequestParam Integer paymentId, @RequestParam Integer certificateNum, @RequestParam String reservationPayment){
 		Payment p = new Payment();
+		
+		System.out.println("***********************");
+		System.out.println("completePayment 파라미터 값 > ");
+		System.out.println("paymentId 값 : " + paymentId);
+		System.out.println("certificateNum 값 : " + certificateNum);
+		System.out.println("reservationPayment 값 : " + reservationPayment);
 		p.setPaymentId(paymentId);
 		p.setCertificateNum(certificateNum);
 		p.setReservationPayment(reservationPayment);

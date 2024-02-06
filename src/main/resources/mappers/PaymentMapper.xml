@@ -64,7 +64,7 @@
 	<update id="completePayment" parameterType="com.example.domain.Payment">
 		UPDATE payments
 		   SET reservation_payment 	= #{reservationPayment}
-		   	 , payment_status 		= "Y"
+		   	 , payment_status 		= 'Y'
 		 WHERE payment_id 			= #{paymentId}
 	</update>
 
