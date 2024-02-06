@@ -246,6 +246,11 @@ public class DrugstoreServiceImpl implements DrugstoreService {
 		return drugstoreDAO.getDrugstoreReceiveMethodList(drugstoreId);
 	}
 
+	@Override
+	public Drugstore getDrugstoreEntireInfoList(String drugstoreEmail) {
+		return drugstoreDAO.getDrugstoreEntireInfoList(drugstoreEmail);
+	}
+
 
 
 }

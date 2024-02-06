@@ -69,5 +69,7 @@ public interface DrugstoreService {
 
 	List<Doctor> getDrugstoreReceiveMethodList(Integer drugstoreId);
 
+	Drugstore getDrugstoreEntireInfoList(String drugstoreEmail);
+
 
 }
