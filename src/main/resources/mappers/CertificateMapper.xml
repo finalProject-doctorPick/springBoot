@@ -19,6 +19,7 @@
         <result property="filePath" 		column="file_path"/>
         <result property="reservationDate" 	column="reservation_date"/>
         <result property="patientComments" 	column="patient_comments"/>
+        <result property="cfileKey" 		column="cfileKey"/>
     </resultMap>
 
 	<select id="getMemberCertificateHistory" parameterType="int" resultMap="CertificateResultMap">
@@ -90,11 +91,14 @@
 	
 	<update id="finishCertificate" parameterType="com.example.domain.Certificate">
 		UPDATE certificate
-		   SET status 	= 'UP'
+		   SET status 		= 'UP'
 		<if test="fileKey != null and fileKey != ''">
-		     , fileKey	= #{fileKey} 
+		     , file_key		= #{fileKey} 
 		</if>
-		 WHERE certificate_Num = ${certificateNum}
+		<if test="cfileKey != null and cfileKey != ''">
+		     , cfile_key	= #{cfileKey} 
+		</if>
+		 WHERE certificate_Num = #{certificateNum}
 	</update>
 
 	<select id="getCertificateInfo"  parameterType="int" resultMap="CertificateResultMap">

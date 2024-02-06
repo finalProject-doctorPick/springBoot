@@ -16,7 +16,6 @@ import com.example.dao.DoctorDAO;
 import com.example.domain.Certificate;
 import com.example.domain.Doctor;
 import com.example.domain.DoctorAvail;
-import com.example.domain.DrugstoreHistory;
 import com.example.domain.Inquiry;
 import com.example.domain.Member;
 import com.example.domain.MemberHistory;
@@ -428,7 +427,6 @@ public class DoctorServiceImpl implements DoctorService{
 	public ResponseEntity<?> finishCertificate(Certificate certificateData, List<MultipartFile> certificateFile,
 			List<MultipartFile> prescriptionFile) {
 		ServerResponse response = new ServerResponse();
-		DrugstoreHistory drugstoreDataHistory = new DrugstoreHistory();
 		
 		// 진단서 파일 업로드
 		if(certificateFile != null) {
@@ -437,6 +435,15 @@ public class DoctorServiceImpl implements DoctorService{
 			System.out.println(certificateFile.size());
 			String fileKey = filesService.fileupload(certificateFile, String.valueOf(certificateData.getCertificateNum()));
 			certificateData.setFileKey(fileKey);
+		}
+		
+		// 처방전 파일 업로드
+		if(prescriptionFile != null) {
+			System.out.println("*****************************************");
+			System.out.println("처방전 파일 존재");
+			System.out.println(prescriptionFile.size());
+			String cfileKey = filesService.fileupload(certificateFile, String.valueOf(certificateData.getCertificateNum()));
+			certificateData.setCfileKey(cfileKey);
 		}
 		
 		// 진료 완료

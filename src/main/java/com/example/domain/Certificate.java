@@ -21,4 +21,5 @@ public class Certificate {
 	private String 	filePath;
 	private String reservationDate;
 	private String patientComments;
+	private String cfileKey;
 }
