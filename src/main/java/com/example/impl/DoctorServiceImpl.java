@@ -460,10 +460,6 @@ public class DoctorServiceImpl implements DoctorService{
 			p.setMemberId(r.getMemberId());
 			p.setAmount(certificateData.getAmount());
 			p.setCertificateNum(certificateData.getCertificateNum());
-			p.setReservationPayment(r.getReservationPayment());
-			
-			System.out.println("**************");
-			System.out.println("recordTransaction 전 p 값 : " + p.toString());
 			paymentService.recordTransaction(p);
 		}
 		

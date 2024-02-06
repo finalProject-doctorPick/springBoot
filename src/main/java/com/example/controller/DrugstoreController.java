@@ -84,6 +84,37 @@ public class DrugstoreController {
 	
 	/**
      * 	@author 	: 백두산	 
+     *  @created	: 2024-01-26
+     *  @param		: Integer drugstoreId
+     *  @return		: ResponseEntity
+     * 	@explain	: 약국 및 약국 운영시간 정보 단건 조회
+     * */
+	@GetMapping("/searchDrugstoreAndAvail")
+	public ResponseEntity<?> searchDrugstoreAndAvail(@RequestParam Integer drugstoreId){
+		System.out.println("*************************************");
+		System.out.println("searchDrugstoreAndAvail 진입 > 약국ID 값 > " + drugstoreId);
+		
+		return null;
+	}
+	
+	/**
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-01-26
+     *  @param		: Drugstore drugstoreData
+     *  @return		: ResponseEntity
+     * 	@explain	: 약국 정보 수정
+     * */
+	@PostMapping("/updateDrugstoreInfo")
+	public ResponseEntity<?> updateDrugstoreInfo(@RequestBody Drugstore storeData){
+//		ResponseEntity<?> responseEntity = drugstoreService.updateDrugstoreInfo(storeData);
+//    	return new ResponseEntity<>(responseEntity, responseEntity.getHeaders(), responseEntity.getStatusCode());
+		System.out.println("**********************************");
+		System.out.println("updateDrugstoreInfo 진입 > 데이터 값 : " + storeData.toString());
+		return null;
+	}
+	
+	/**
+     * 	@author 	: 백두산	 
      *  @created	: 2024-02-01
      *  @param		: DrugstoreHistory storeHistory
      *  @return		: ResponseEntity
@@ -91,6 +122,7 @@ public class DrugstoreController {
      * */
 	@PostMapping("/updateDrugstoreHistory")
 	public ResponseEntity<?> updateDrugstoreHistory(@RequestBody DrugstoreHistory storeHistory){
+		System.out.println("drugstore컨트롤러 진입" + storeHistory);
 		ResponseEntity<?> response = drugstoreService.updateDrugstoreHistory(storeHistory);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}

@@ -35,6 +35,7 @@ public class PaymentController {
 	 * */
 	@GetMapping("/getUserPaymentMethodAmount")
 	public ResponseEntity<?> getUserPaymentMethodAmount(@RequestParam Integer memberId){
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>getUserPaymentMethodAmount 진입 ");
 		Member item = paymentService.getUserPaymentMethodAmount(memberId);
 		return new ResponseEntity<>(item, HttpStatus.OK);
 	}
@@ -94,6 +95,7 @@ public class PaymentController {
 	 * */
 	@PutMapping("/completePayment")
 	public ResponseEntity<?> completePayment(@RequestParam Integer paymentId, @RequestParam Integer certificateNum, @RequestParam String reservationPayment){
+		
 		Payment p = new Payment();
 		
 		System.out.println("***********************");
@@ -160,6 +162,7 @@ public class PaymentController {
 	@PostMapping("/chargePoint")
 	public ResponseEntity<?> chargePoint(@RequestBody PointHistory entry ){
 		String response;
+		System.out.println("controller: "+ entry);
 		if(paymentService.chargePoint(entry) > 0) {
 			response = "포인트 내역 등록 성공";
 		} else {
@@ -196,7 +199,9 @@ public class PaymentController {
 	 * */
 	@GetMapping("/getPaymentMethod")
 	public ResponseEntity<?> getPamentMethod(@RequestParam Integer certificateNum){
+		System.out.println("넘겨받은 certificateNum:" + certificateNum);
 		Payment response = paymentService.getPaymentMethod(certificateNum);
+		System.out.println("다시 보내는 response :" + response);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 }
