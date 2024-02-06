@@ -110,6 +110,7 @@ public class MemberController {
     @GetMapping("/getMemberInquiryList")
     public ResponseEntity<?> getMemberInquiry(@RequestParam Integer memberId){
     	List<Inquiry> response = inquiryService.getMemberInquiryList(memberId);
+    	System.out.println("getMemberInquiryList 리턴 전 값 : " + response.toString());
     	return new ResponseEntity<>(response, HttpStatus.OK);
     }
     
