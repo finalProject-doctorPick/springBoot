@@ -149,6 +149,7 @@ public class PaymentController {
 	@PostMapping("/chargePoint")
 	public ResponseEntity<?> chargePoint(@RequestBody PointHistory entry ){
 		String response;
+		System.out.println("controller: "+ entry);
 		if(paymentService.chargePoint(entry) > 0) {
 			response = "포인트 내역 등록 성공";
 		} else {

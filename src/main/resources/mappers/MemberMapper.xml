@@ -124,7 +124,7 @@
 		     , h.partnership_status 	 					AS partnership_status
 		     , p.payment_id 			 					AS payment_id
 		     , p.payment_date 		 						AS payment_date
-		     , p.transaction_type 	 						AS transaction_type
+		     , p.reservation_payment 	 					AS reservation_payment
 		     , p.payment_status 		 					AS payment_status
 		     , f.origin_file_name 	 						AS origin_file_name 
 		     , f.file_extension 		 					AS file_extension
@@ -133,7 +133,7 @@
 		  FROM certificate c
 	INNER JOIN reservation r 
 		    ON c.reservation_num = r.reservation_num
-		   AND r.member_id = ${memberId}
+		   AND r.member_id = #{memberId}
 	INNER JOIN doctor d 
 			ON r.doctor_id 			= d.doctor_id  
 	LEFT OUTER  JOIN hospital h 

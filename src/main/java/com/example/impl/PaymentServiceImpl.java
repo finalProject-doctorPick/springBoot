@@ -56,8 +56,8 @@ public class PaymentServiceImpl implements PaymentService{
 	 *  @explain	: 결제 건 정보 DB에 저장 (결재전 요청)
 	 * */
 	@Override
-	public Integer recordTransaction(Payment paymentCompleteData) {
-		return paymentDAO.recordTransaction(paymentCompleteData); 
+	public Integer recordTransaction(Payment transactionRequestData) {
+		return paymentDAO.recordTransaction(transactionRequestData); 
 	}
 
 	/**
@@ -164,7 +164,7 @@ public class PaymentServiceImpl implements PaymentService{
 		if(paymentDAO.updatePoint(map) > 0){
 		    PointHistory pointHistory = new PointHistory();
 		    pointHistory.setMemberId(entry.getMemberId());
-		    pointHistory.setTransactionType(entry.getReservationPayment());
+		    pointHistory.setReservationPayment(entry.getReservationPayment());
 		    pointHistory.setAmount(entry.getAmount());    
 			if(paymentDAO.recordPointEntry(pointHistory)>0) {
 				map.put("transactionType", entry.getReservationPayment());

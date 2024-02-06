@@ -132,20 +132,15 @@
 		INSERT INTO point_history
 		(
 		member_id
-		, transaction_type
 		, amount
-		, transaction_date
 		, reservation_payment
-		, amount
-		, payment_date
+		, transaction_date
 		)
 		VALUES
 		(
 		#{memberId}
-		, #{transactionType}
 		, #{amount}
 		, #{reservationPayment}
-		, #{amount}
 		, now()
 		)
 	</insert>

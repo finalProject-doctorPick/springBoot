@@ -19,7 +19,7 @@ public interface PaymentService {
 	public Payment getUserPaymentInfoById(Integer paymentId);
 
 	//결제 건 정보 DB에 저장 (결재전 요청)
-	public Integer recordTransaction(Payment paymentCompleteData);
+	public Integer recordTransaction(Payment transactionRequestData);
 
 	//결제완료 DB에 등록
 	public Integer completePayment(Integer paymentId, String transactionType);

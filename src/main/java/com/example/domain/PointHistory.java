@@ -16,7 +16,7 @@ public class PointHistory {
 	private Integer memberId;
 	
 	//결재 타입(카드/현금)
-	private String transactionType;
+	private String reservationPayment;
 	
 	//금액
 	private Integer amount;
