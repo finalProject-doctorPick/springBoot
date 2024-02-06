@@ -133,16 +133,14 @@
 		(
 		member_id
 		, transaction_type
-		,
-		amount
+		, amount
 		, transaction_date
 		)
 		VALUES
 		(
 		#{memberId}
 		, #{transactionType}
-		,
-		#{amount}
+		, #{amount}
 		, now()
 		)
 	</insert>
