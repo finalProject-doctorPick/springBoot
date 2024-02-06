@@ -35,6 +35,7 @@ public class PaymentController {
 	 * */
 	@GetMapping("/getUserPaymentMethodAmount")
 	public ResponseEntity<?> getUserPaymentMethodAmount(@RequestParam Integer memberId){
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>getUserPaymentMethodAmount 진입 ");
 		Member item = paymentService.getUserPaymentMethodAmount(memberId);
 		return new ResponseEntity<>(item, HttpStatus.OK);
 	}
@@ -94,6 +95,7 @@ public class PaymentController {
 	 * */
 	@PutMapping("/completePayment")
 	public ResponseEntity<?> completePayment(@RequestParam Integer paymentId, @RequestParam Integer certificateNum, @RequestParam String reservationPayment){
+		
 		Payment p = new Payment();
 		p.setPaymentId(paymentId);
 		p.setCertificateNum(certificateNum);

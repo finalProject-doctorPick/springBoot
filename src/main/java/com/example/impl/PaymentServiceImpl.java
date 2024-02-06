@@ -92,6 +92,7 @@ public class PaymentServiceImpl implements PaymentService{
 	 * */
 	@Override
 	public Member getUserPaymentMethodAmount(Integer memberId) {
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>서비스IMPL getUserPaymentMethodAmount 진입 ");
 		Member item = paymentDAO.getUserPaymentMethodAmount(memberId);
 		return item;
 	}
