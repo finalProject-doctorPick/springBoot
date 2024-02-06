@@ -60,6 +60,9 @@ public class Drugstore {
 	// 약국 연락처
 	private String drugstoreTel;
 	
+	// 약국 코멘트
+	private String drugstoreComments;
+	
 	private Integer receiveTypeCount;
 	
 	private String receiveTypeDescription;

@@ -49,5 +49,7 @@ public interface DrugstoreDAO {
 
 	List<Doctor> getDrugstoreReceiveMethodList(Integer drugstoreId);
 
+	Drugstore getDrugstoreEntireInfoList(String drugstoreEmail);
+
 }
 

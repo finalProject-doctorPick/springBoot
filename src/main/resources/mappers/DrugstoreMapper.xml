@@ -18,6 +18,7 @@
         <result property="drugstoreBirth" 		column="drugstore_birth"/>
         <result property="drugstoreSex"			column="drugstore_sex"/>
         <result property="drugstoreTel" 		column="drugstore_tel"/>
+        <result property="drugstoreComments" 	column="drugstore_comments"/>
         <result property="receiveTypeCount" 	column="receive_type_count"/>
         <result property="receiveTypeDescription" 	column="receive_type_description"/>
         
@@ -87,7 +88,8 @@
 	INNER JOIN doctor d
 			ON dh.doctor_id		= d.doctor_id 
 		 WHERE dh.drugstore_id 	= #{drugstoreId}
-	</select>	
+		 ORDER BY remarks IS NULL DESC
+	</select>
 	
 	<update id="updateDrugstoreHistory" parameterType="com.example.domain.DrugstoreHistory">
 		UPDATE drugstore_history
@@ -171,8 +173,13 @@
 		  COUNT(*) AS receive_type_count
 		FROM drugstore_history dh
 		INNER JOIN members m ON m.member_id = dh.member_id
-		WHERE dh.status = 'DN' AND dh.drugstore_id = #{drugstoreId}
+		WHERE dh.drugstore_id = #{drugstoreId}
 		GROUP BY receive_type_description
+	</select>
+	
+	<select id="getDrugstoreEntireInfoList" parameterType="String" resultMap="DrugstoreResultMap">
+		SELECT * FROM drugstore
+		WHERE drugstore_email = #{drugstoreEmail}
 	</select>
 	
 </mapper>

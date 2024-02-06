@@ -205,4 +205,16 @@ public class DrugstoreController {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
+	@GetMapping("/getDrugstoreEntireInfoList")
+	public Drugstore getDrugstoreEntireInfoList(@RequestParam String drugstoreEmail){
+		
+		Drugstore ds = drugstoreService.getDrugstoreEntireInfoList(drugstoreEmail);
+		
+		System.out.println("이메일 : "+drugstoreEmail);
+		System.out.println("약국 : "+ds);
+		
+		
+		return ds;
+	}
+	
 }
