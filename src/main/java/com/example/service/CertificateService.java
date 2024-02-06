@@ -22,5 +22,8 @@ public interface CertificateService {
 	
 	// 진료 대기실 입장
 	public List<Certificate> getCertificateInfo(Integer certificateNum);
+
+	// 결제완료 처리
+	public void finishPayments(Integer certificateNum);
 	
 }

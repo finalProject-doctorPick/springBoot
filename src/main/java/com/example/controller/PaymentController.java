@@ -93,9 +93,9 @@ public class PaymentController {
 	 *  @explain	: 결제정보 DB에 저장 (결재전 요청)
 	 * */
 	@PutMapping("/completePayment")
-	public ResponseEntity<?> completePayment(@RequestParam Integer paymentId, @RequestParam String reservationPayment){
+	public ResponseEntity<?> completePayment(@RequestParam Payment paymentData){
 		String response;
-		if(paymentService.completePayment(paymentId, reservationPayment) > 0) {
+		if(paymentService.completePayment(paymentData) > 0) {
 			response = "결제 성공";
 		} else {
 			response = "결제 실패";

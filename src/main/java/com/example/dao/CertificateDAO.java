@@ -29,4 +29,7 @@ public interface CertificateDAO {
 	// 진료 완료
 	void finishCertificate(Certificate certificateData);
 
+	// 결제완료 처리
+	void finishPayments(Integer certificateNum);
+
 }

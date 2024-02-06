@@ -111,4 +111,9 @@
  	WHERE c.certificate_num = ${certificateNum};
 	</select>
 	
+	<update id="finishPayments" parameterType="int">
+		UPDATE certificate
+		   SET status 			= 'UY'
+		 WHERE certificate_Num 	= #{certificateNum}
+	</update>
 </mapper>

@@ -87,4 +87,16 @@ public class CertificateServiceImpl implements CertificateService{
 	return certificateDAO.getCertificateInfo(certificateNum);
 	}
 
+	/** 
+     * 	@author 	: 백두산	 
+     *  @created	: 2024-02-06
+     *  @param		: Integer certificateNum
+     *  @return		: void
+     * 	@explain	: 결제완료 처리
+     * */
+	@Transactional
+	public void finishPayments(Integer certificateNum) {
+		certificateDAO.finishPayments(certificateNum);
+	}
+
 }

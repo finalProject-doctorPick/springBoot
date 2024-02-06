@@ -62,6 +62,7 @@
         <result property="fileExtension" 			column="file_extension"/>
         <result property="fileName" 				column="file_name"/>
         <result property="filePath" 				column="file_path"/>
+        <result property="reservationPayment" 		column="reservation_payment"/>
     </resultMap>
     
     <resultMap id="MemberReviewResultMap" type="com.example.domain.Review">
@@ -136,10 +137,10 @@
 		   AND r.member_id = #{memberId}
 	INNER JOIN doctor d 
 			ON r.doctor_id 			= d.doctor_id  
-	LEFT OUTER  JOIN hospital h 
+	LEFT OUTER JOIN payments p
+			ON c.certificate_num	= p.certificate_num
+	LEFT OUTER JOIN hospital h 
 			ON d.hospital_id 		= h.hospital_id
-	 LEFT OUTER JOIN payments p 
-			ON c.certificate_num 	= p.certificate_num
 	LEFT OUTER JOIN file f 
 			ON c.file_key 			= f.file_key 
 	  ORDER BY c.certificate_date desc

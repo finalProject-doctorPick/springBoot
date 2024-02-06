@@ -59,13 +59,11 @@
 		)
 	</insert>
 
-	<update id="completePayment" parameterType="hashmap">
+	<update id="completePayment" parameterType="com.example.domain.Payment">
 		UPDATE payments
-		SET
-		reservation_payment = #{reservationPayment},
-		payment_status = "Y"
-		WHERE
-		payment_id = #{paymentId}
+		   SET reservation_payment 	= #{reservationPayment}
+		   	 , payment_status 		= "Y"
+		 WHERE payment_id 			= #{paymentId}
 	</update>
 
 	<select id="getMemberId" parameterType="Integer" resultType="Integer">

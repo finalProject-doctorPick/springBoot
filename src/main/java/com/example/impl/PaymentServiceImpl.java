@@ -11,6 +11,7 @@ import com.example.domain.DashBoard;
 import com.example.domain.Member;
 import com.example.domain.Payment;
 import com.example.domain.PointHistory;
+import com.example.service.CertificateService;
 import com.example.service.PaymentService;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class PaymentServiceImpl implements PaymentService{
 
 	private final PaymentDAO paymentDAO;
+	private final CertificateService certificateService;
 
 	/**
      * 	@author 	: 박병태
@@ -67,13 +69,18 @@ public class PaymentServiceImpl implements PaymentService{
 	 *  @return		: String (결과)
 	 *  @explain	: 결제정보 DB에 저장 (결재전 요청)
 	 * */
-	@Override
 	@Transactional
-	public Integer completePayment(Integer paymentId, String reservationPayment) {
+	public Integer completePayment(Payment paymentData) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("reservationPayment", reservationPayment);
-		map.put("paymentId", paymentId);
-		return paymentDAO.completePayment(map);
+		map.put("reservationPayment", paymentData.getReservationPayment());
+		map.put("paymentId", paymentData.getPaymentId());
+		int result = paymentDAO.completePayment(paymentData);
+		if(result != 0) {
+			certificateService.finishPayments(paymentData.getCertificateNum());
+			return result;
+		}else {
+			return -1;  
+		}
 	}
 
 	/**
@@ -155,7 +162,6 @@ public class PaymentServiceImpl implements PaymentService{
 	 *  @return		: Integer(결과)
 	 *  @explain	: 카드 결제
 	 * */
-	@Override
 	@Transactional
 	public Integer payPoints(Payment entry) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -169,7 +175,12 @@ public class PaymentServiceImpl implements PaymentService{
 			if(paymentDAO.recordPointEntry(pointHistory)>0) {
 				map.put("reservationPayment", entry.getReservationPayment());
 				map.put("paymentId", entry.getPaymentId());
-				return paymentDAO.completePayment(map);
+				int result = paymentDAO.completePayment(entry);
+				
+				// 결제 완료 후 상태값 변경
+				certificateService.finishPayments(entry.getCertificateNum());
+				
+				return result;
 			}else{
 				return -1;
 			}

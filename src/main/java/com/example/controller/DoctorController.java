@@ -279,7 +279,7 @@ public class DoctorController {
 	public ResponseEntity<?> finishCertificate(
 			@ModelAttribute Certificate certificateData,
 			@RequestPart(name = "certificateFile", required = false) List<MultipartFile> certificateFile,
-			@RequestPart(name = "prescriptionFile ", required = false) List<MultipartFile> prescriptionFile ){
+			@RequestPart(name = "prescriptionFile", required = false) List<MultipartFile> prescriptionFile ){
 		ResponseEntity<?> result = doctorService.finishCertificate(certificateData, certificateFile, prescriptionFile);
 		
 		return new ResponseEntity<>(result, HttpStatus.OK);

@@ -45,6 +45,7 @@ public class MemberHistory {
 	private String fileExtension;
 	private String fileName;
 	private String filePath;
+	private String reservationPayment;
 	
 	public void setDoctorTel(String doctorTel) {
         if (doctorTel.length() == 8) {

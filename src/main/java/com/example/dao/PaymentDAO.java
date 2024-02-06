@@ -22,7 +22,7 @@ public interface PaymentDAO {
 	public Integer recordTransaction(Payment paymentCompleteData);
 
 	//결제완료 DB에 등록
-	public Integer completePayment(HashMap<String, Object> map);
+	public Integer completePayment(Payment paymentData);
 
 	// 포인트 결재시 포인트 변경
 	public Integer deductPoint(HashMap<String, Object> map);
