@@ -191,7 +191,6 @@ public class AdminController {
 		date.put("endDate", endDate);
 
 	    List<Inquiry> list = adminService.getMemberInquiryListByDate(date);
-	    System.out.println("받아온 리스트 : "+list);
 	    
 	    return new ResponseEntity<>(list, HttpStatus.OK);
 	}

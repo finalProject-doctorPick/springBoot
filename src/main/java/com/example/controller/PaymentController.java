@@ -154,7 +154,6 @@ public class PaymentController {
 	@PostMapping("/chargePoint")
 	public ResponseEntity<?> chargePoint(@RequestBody PointHistory entry ){
 		String response;
-		System.out.println("controller: "+ entry);
 		if(paymentService.chargePoint(entry) > 0) {
 			response = "포인트 내역 등록 성공";
 		} else {
@@ -191,9 +190,7 @@ public class PaymentController {
 	 * */
 	@GetMapping("/getPaymentMethod")
 	public ResponseEntity<?> getPamentMethod(@RequestParam Integer certificateNum){
-		System.out.println("넘겨받은 certificateNum:" + certificateNum);
 		Payment response = paymentService.getPaymentMethod(certificateNum);
-		System.out.println("다시 보내는 response :" + response);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 }

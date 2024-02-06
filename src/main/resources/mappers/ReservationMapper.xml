@@ -128,11 +128,12 @@
 	</update>	
 	
 	<select id="getReservationDataForCertificateNum" parameterType="int" resultMap="ReservationMap">
-		SELECT r.doctor_id	AS doctor_id
-			 , r.member_id  AS member_id 
+		SELECT r.doctor_id				AS doctor_id
+			 , r.member_id  			AS member_id 
+			 , r.reservation_payment	AS reservation_payment
 		  FROM reservation r
 	INNER JOIN certificate c
 			ON r.reservation_num = c.reservation_num			
-		 WHERE c.certificate_num = ${certificateNum}
+		 WHERE c.certificate_num = #{certificateNum}
 	</select>
 </mapper>
