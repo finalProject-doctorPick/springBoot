@@ -35,7 +35,6 @@ public class PaymentController {
 	 * */
 	@GetMapping("/getUserPaymentMethodAmount")
 	public ResponseEntity<?> getUserPaymentMethodAmount(@RequestParam Integer memberId){
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>getUserPaymentMethodAmount 진입 ");
 		Member item = paymentService.getUserPaymentMethodAmount(memberId);
 		return new ResponseEntity<>(item, HttpStatus.OK);
 	}
@@ -98,11 +97,6 @@ public class PaymentController {
 		
 		Payment p = new Payment();
 		
-		System.out.println("***********************");
-		System.out.println("completePayment 파라미터 값 > ");
-		System.out.println("paymentId 값 : " + paymentId);
-		System.out.println("certificateNum 값 : " + certificateNum);
-		System.out.println("reservationPayment 값 : " + reservationPayment);
 		p.setPaymentId(paymentId);
 		p.setCertificateNum(certificateNum);
 		p.setReservationPayment(reservationPayment);
@@ -199,9 +193,7 @@ public class PaymentController {
 	 * */
 	@GetMapping("/getPaymentMethod")
 	public ResponseEntity<?> getPamentMethod(@RequestParam Integer certificateNum){
-		System.out.println("넘겨받은 certificateNum:" + certificateNum);
 		Payment response = paymentService.getPaymentMethod(certificateNum);
-		System.out.println("다시 보내는 response :" + response);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 }
