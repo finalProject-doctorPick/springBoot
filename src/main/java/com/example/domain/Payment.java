@@ -31,7 +31,7 @@ public class Payment {
 	private Integer amount;
 	
 	// 결제방식
-	private String transactionType;
+	private String reservationPayment;
 	
 	// 결제상태(Y:결제완료/N:결제안함)
 	private String paymentStatus;
